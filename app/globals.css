@@ -1,26 +1,140 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Spacing: 1px base, so p-24 means 24px, gap-140 means 140px */
+  --spacing: 1px;
+
+  /* Font */
+  --font-sans: var(--font-switzer), system-ui, sans-serif;
+
+  /* Colors: clear Tailwind defaults, use only the design system */
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-primary: #1b2b69;
+  --color-secondary: #d5ac5d;
+  --color-tertiary: #7a83cc;
+
+  --color-surface-1: #eaedf8;
+  --color-surface-2: #f8f8f8;
+
+  --color-neutral-1: #0a0d1b;
+  --color-neutral-2: #232532;
+  --color-neutral-3: #3b3d49;
+  --color-neutral-4: #54565f;
+  --color-neutral-5: #6c6e76;
+  --color-neutral-6: #84868d;
+  --color-neutral-7: #9d9ea4;
+  --color-neutral-8: #b6b6bb;
+  --color-neutral-9: #cecfd1;
+  --color-neutral-10: #e7e7e8;
+  --color-neutral-11: #f3f3f4;
+
+  /* Placeholders, not from Figma yet. Confirm these with the design. */
+  --color-error: #b3261e;
+  --color-success: #1b6b45;
+  --color-warning: #8a5a00;
+
+  /* Radius */
+  --radius-*: initial;
+  --radius-4: 4px;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-20: 20px;
+  --radius-24: 24px;
+  --radius-32: 32px;
+  --radius-full: 9999px;
+
+  /* Type scale: mobile values first, desktop overridden below */
+  --text-*: initial;
+
+  --text-h1: 36px;
+  --text-h1--line-height: 44px;
+  --text-h1--letter-spacing: -1.2px;
+  --text-h2: 32px;
+  --text-h2--line-height: 40px;
+  --text-h2--letter-spacing: -1px;
+  --text-h3: 28px;
+  --text-h3--line-height: 36px;
+  --text-h3--letter-spacing: -0.8px;
+  --text-h4: 24px;
+  --text-h4--line-height: 32px;
+  --text-h4--letter-spacing: -0.5px;
+  --text-h5: 20px;
+  --text-h5--line-height: 28px;
+  --text-h5--letter-spacing: -0.2px;
+  --text-h6: 18px;
+  --text-h6--line-height: 26px;
+  --text-h6--letter-spacing: 0px;
+
+  --text-p1: 20px;
+  --text-p1--line-height: 32px;
+  --text-p1--letter-spacing: -0.2px;
+  --text-p2: 18px;
+  --text-p2--line-height: 28px;
+  --text-p2--letter-spacing: 0px;
+  --text-p3: 16px;
+  --text-p3--line-height: 24px;
+  --text-p3--letter-spacing: 0px;
+  --text-p4: 14px;
+  --text-p4--line-height: 20px;
+  --text-p4--letter-spacing: 0px;
+
+  --text-btn-lg: 20px;
+  --text-btn-lg--line-height: 24px;
+  --text-btn-lg--letter-spacing: -1px;
+  --text-btn-sm: 18px;
+  --text-btn-sm--line-height: 24px;
+  --text-btn-sm--letter-spacing: 0px;
+  --text-badge: 16px;
+  --text-badge--line-height: 24px;
+  --text-badge--letter-spacing: 0px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+/* Desktop type scale. text-h1 stays one class, the values swap here. */
+@media (width >= 48rem) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --text-h1: 64px;
+    --text-h1--line-height: 72px;
+    --text-h1--letter-spacing: -3px;
+    --text-h2: 48px;
+    --text-h2--line-height: 56px;
+    --text-h2--letter-spacing: -1.2px;
+    --text-h3: 40px;
+    --text-h3--line-height: 48px;
+    --text-h3--letter-spacing: -1px;
+    --text-h4: 32px;
+    --text-h4--line-height: 40px;
+    --text-h4--letter-spacing: -1px;
+    --text-h5: 24px;
+    --text-h5--line-height: 32px;
+    --text-h5--letter-spacing: -0.5px;
+    --text-h6: 20px;
+    --text-h6--line-height: 28px;
+    --text-h6--letter-spacing: -0.2px;
+
+    --text-p1: 24px;
+    --text-p1--line-height: 36px;
+    --text-p1--letter-spacing: -0
+    .5px;
+    --text-p2: 20px;
+    --text-p2--line-height: 32px;
+    --text-p2--letter-spacing: 0px;
+    --text-p3: 18px;
+    --text-p3--line-height: 28px;
+    --text-p3--letter-spacing: 0px;
+    --text-p4: 16px;
+    --text-p4--line-height: 24px;
+    --text-p4--letter-spacing: 0px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  body {
+    @apply bg-white text-neutral-1 font-sans antialiased;
+  }
 }
