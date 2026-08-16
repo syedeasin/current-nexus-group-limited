@@ -1,0 +1,17 @@
+{
+  "_note": "TODO: replace with real Chinese copy approved by the client. English is a placeholder so the build does not break.",
+  "nav": {
+    "contact": "Contact us",
+    "search": "Search",
+    "changeLanguage": "Change language",
+    "openMenu": "Open menu",
+    "main": "Main"
+  },
+  "footer": {
+    "contactInfo": "Contact info",
+    "newsletterLabel": "Sign up for our newsletter",
+    "emailPlaceholder": "Enter your email...",
+    "subscribe": "Subscribe",
+    "rights": "All rights reserved."
+  }
+}

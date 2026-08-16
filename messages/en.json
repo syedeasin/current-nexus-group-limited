@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "contact": "Contact us",
+    "search": "Search",
+    "changeLanguage": "Change language",
+    "openMenu": "Open menu",
+    "main": "Main"
+  },
+  "footer": {
+    "contactInfo": "Contact info",
+    "newsletterLabel": "Sign up for our newsletter",
+    "emailPlaceholder": "Enter your email...",
+    "subscribe": "Subscribe",
+    "rights": "All rights reserved."
+  }
+}

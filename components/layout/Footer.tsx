@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { MapPin, Mail, Phone, Share2 } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import Container from "@/components/layout/Container";
 import { siteConfig, footerNav, socialLinks } from "@/site.config";
 
