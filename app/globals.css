@@ -95,8 +95,45 @@
   --text-badge--letter-spacing: 0px;
 }
 
-/* Desktop type scale. text-h1 stays one class, the values swap here. */
+/* Tablet type scale: intermediate step, plus h5/h6/p2/p3/p4 desktop values (small enough to not need a further step). */
 @media (width >= 48rem) {
+  :root {
+    --text-h1: 48px;
+    --text-h1--line-height: 56px;
+    --text-h1--letter-spacing: -2px;
+    --text-h2: 40px;
+    --text-h2--line-height: 48px;
+    --text-h2--letter-spacing: -1.2px;
+    --text-h3: 32px;
+    --text-h3--line-height: 40px;
+    --text-h3--letter-spacing: -1px;
+    --text-h4: 28px;
+    --text-h4--line-height: 36px;
+    --text-h4--letter-spacing: -0.8px;
+    --text-h5: 24px;
+    --text-h5--line-height: 32px;
+    --text-h5--letter-spacing: -0.5px;
+    --text-h6: 20px;
+    --text-h6--line-height: 28px;
+    --text-h6--letter-spacing: -0.2px;
+
+    --text-p1: 22px;
+    --text-p1--line-height: 34px;
+    --text-p1--letter-spacing: -0.4px;
+    --text-p2: 20px;
+    --text-p2--line-height: 32px;
+    --text-p2--letter-spacing: 0px;
+    --text-p3: 18px;
+    --text-p3--line-height: 28px;
+    --text-p3--letter-spacing: 0px;
+    --text-p4: 16px;
+    --text-p4--line-height: 24px;
+    --text-p4--letter-spacing: 0px;
+  }
+}
+
+/* Desktop type scale. text-h1 stays one class, the values swap here. */
+@media (width >= 80rem) {
   :root {
     --text-h1: 64px;
     --text-h1--line-height: 72px;
@@ -110,31 +147,113 @@
     --text-h4: 32px;
     --text-h4--line-height: 40px;
     --text-h4--letter-spacing: -1px;
-    --text-h5: 24px;
-    --text-h5--line-height: 32px;
-    --text-h5--letter-spacing: -0.5px;
-    --text-h6: 20px;
-    --text-h6--line-height: 28px;
-    --text-h6--letter-spacing: -0.2px;
 
     --text-p1: 24px;
     --text-p1--line-height: 36px;
-    --text-p1--letter-spacing: -0
-    .5px;
-    --text-p2: 20px;
-    --text-p2--line-height: 32px;
-    --text-p2--letter-spacing: 0px;
-    --text-p3: 18px;
-    --text-p3--line-height: 28px;
-    --text-p3--letter-spacing: 0px;
-    --text-p4: 16px;
-    --text-p4--line-height: 24px;
-    --text-p4--letter-spacing: 0px;
+    --text-p1--letter-spacing: -0.5px;
   }
 }
 
 @layer base {
   body {
     @apply bg-white text-neutral-1 font-sans antialiased;
+  }
+}
+
+/* Trusted Logos ticker: geometry driven by CSS vars so JS never touches layout. */
+.trusted-logos-section {
+  --ticker-gap: 48px;
+  --logo-h: 32px;
+  --ticker-fade: 266px;
+  padding-top: 60px;
+  padding-bottom: 80px;
+}
+
+@media (width < 64rem) {
+  .trusted-logos-section {
+    --ticker-gap: 40px;
+    --ticker-fade: 200px;
+  }
+}
+
+@media (width < 48rem) {
+  .trusted-logos-section {
+    --ticker-gap: 32px;
+    --logo-h: 28px;
+    --ticker-fade: 160px;
+    padding-top: 48px;
+    padding-bottom: 64px;
+  }
+}
+
+@media (width < 30rem) {
+  .trusted-logos-section {
+    --ticker-gap: 24px;
+    --logo-h: 24px;
+    --ticker-fade: 100px;
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+}
+
+@media (width < 23.5rem) {
+  .trusted-logos-section {
+    --ticker-gap: 20px;
+    --ticker-fade: 64px;
+  }
+}
+
+.ticker-viewport {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black var(--ticker-fade),
+    black calc(100% - var(--ticker-fade)),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black var(--ticker-fade),
+    black calc(100% - var(--ticker-fade)),
+    transparent 100%
+  );
+}
+
+.ticker-track {
+  animation-name: ticker-scroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.ticker-viewport:hover .ticker-track,
+.ticker-viewport:focus-within .ticker-track {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-viewport {
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .ticker-track {
+    animation: none;
+    width: max-content;
+  }
+
+  .ticker-track > * {
+    scroll-snap-align: start;
   }
 }

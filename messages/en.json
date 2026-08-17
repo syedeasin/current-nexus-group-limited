@@ -1,4 +1,31 @@
 {
+  "home": {
+    "hero": {
+      "ariaLabel": "Featured products carousel",
+      "previousSlide": "Previous slide",
+      "nextSlide": "Next slide",
+      "slides": {
+        "solar750w": {
+          "heading": "Reduce your LCOE, boost your ROI",
+          "body": "Using 750W+ high Bifaciality HJT solar modules reduces BOS and boosts power generation yield, enhancing project returns.",
+          "cta": "Inquiry 750W+"
+        },
+        "bess488": {
+          "heading": "488Kwh BESS system-Reduce your kwh cost on C&I BESS",
+          "body": "More energy. Less space. Lower cost per kWh. The 488kWh BESS, powered by next-generation 587Ah LFP cells.",
+          "cta": "Inquiry 488kwh BESS"
+        },
+        "smartPv": {
+          "heading": "Smart PV System From Generation to Optimization",
+          "body": "A hardware-software platform with real-time monitoring and AI analytics to maximize energy yield and minimize downtime.",
+          "cta": "Explore Smart Solutions"
+        }
+      }
+    },
+    "trustedLogos": {
+      "title": "Trusted by Industry Leaders"
+    }
+  },
   "nav": {
     "contact": "Contact us",
     "search": "Search",
@@ -9,8 +36,10 @@
   "footer": {
     "contactInfo": "Contact info",
     "newsletterLabel": "Sign up for our newsletter",
+    "emailLabel": "Email address",
     "emailPlaceholder": "Enter your email...",
     "subscribe": "Subscribe",
+    "copyright": "Copyright © {year} {name}.",
     "rights": "All rights reserved."
   }
 }
