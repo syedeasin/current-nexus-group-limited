@@ -1,17 +1,18 @@
-import { MapPin, Mail, Phone, Share2 } from "lucide-react";
+import { MapPin, Mail, Phone } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Container from "@/components/layout/Container";
+import { Facebook, Instagram, LinkedIn } from "@/components/icons/SocialIcons";
 import { siteConfig, footerNav, socialLinks } from "@/site.config";
 
-// lucide-react v1 dropped brand glyphs (Facebook/Instagram/Linkedin);
-// Share2 stands in for all three until a brand icon source is picked.
 const socialIcons = {
-  facebook: Share2,
-  instagram: Share2,
-  linkedin: Share2,
+  facebook: Facebook,
+  instagram: Instagram,
+  linkedin: LinkedIn,
 } as const;
 
-export default function Footer() {
+export default async function Footer() {
+  const t = await getTranslations("footer");
   const year = new Date().getFullYear();
 
   return (
@@ -58,7 +59,7 @@ export default function Footer() {
             <div className="flex w-375 flex-col gap-40">
               <div className="flex flex-col gap-24">
                 <span className="text-p3 font-normal text-neutral-6">
-                  Contact info
+                  {t("contactInfo")}
                 </span>
                 <ul className="flex flex-col gap-12">
                   <li className="flex items-center gap-8">
@@ -90,21 +91,21 @@ export default function Footer() {
 
               <div className="flex flex-col gap-16">
                 <span className="text-p3 font-normal text-neutral-6">
-                  Sign up for our newsletter
+                  {t("newsletterLabel")}
                 </span>
                 <form className="flex w-full items-center gap-24 rounded-full bg-neutral-2 py-6 pl-32 pr-6">
                   <input
                     type="email"
                     required
-                    aria-label="Email address"
-                    placeholder="Enter your email..."
+                    aria-label={t("emailLabel")}
+                    placeholder={t("emailPlaceholder")}
                     className="flex-1 bg-transparent text-p4 text-white placeholder:text-neutral-7 focus:outline-none"
                   />
                   <button
                     type="submit"
                     className="rounded-full bg-secondary px-24 py-12 text-btn-sm font-semibold text-neutral-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
                   >
-                    Subscribe
+                    {t("subscribe")}
                   </button>
                 </form>
               </div>
@@ -113,7 +114,7 @@ export default function Footer() {
 
           <div className="flex w-full flex-col items-start gap-16 md:flex-row md:items-center md:justify-between">
             <span className="text-p4 text-neutral-7">
-              Copyright © {year} {siteConfig.name}. All rights reserved.
+              {t("copyright", { year, name: siteConfig.name })} {t("rights")}
             </span>
             <div className="flex items-center gap-16">
               {socialLinks.map((social, index) => {

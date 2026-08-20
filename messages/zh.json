@@ -1,5 +1,249 @@
 {
   "_note": "TODO: replace with real Chinese copy approved by the client. English is a placeholder so the build does not break.",
+  "home": {
+    "hero": {
+      "ariaLabel": "Featured products carousel",
+      "previousSlide": "Previous slide",
+      "nextSlide": "Next slide",
+      "slides": {
+        "solar750w": {
+          "heading": "Reduce your LCOE, boost your ROI",
+          "body": "Using 750W+ high Bifaciality HJT solar modules reduces BOS and boosts power generation yield, enhancing project returns.",
+          "cta": "Inquiry 750W+"
+        },
+        "bess488": {
+          "heading": "488Kwh BESS system-Reduce your kwh cost on C&I BESS",
+          "body": "More energy. Less space. Lower cost per kWh. The 488kWh BESS, powered by next-generation 587Ah LFP cells.",
+          "cta": "Inquiry 488kwh BESS"
+        },
+        "smartPv": {
+          "heading": "Smart PV System From Generation to Optimization",
+          "body": "A hardware-software platform with real-time monitoring and AI analytics to maximize energy yield and minimize downtime.",
+          "cta": "Explore Smart Solutions"
+        }
+      }
+    },
+    "trustedLogos": {
+      "title": "Trusted by Industry Leaders"
+    },
+    "about": {
+      "eyebrow": "ABOUT CNX ENERGY",
+      "heading": "About CNX energy",
+      "paragraph1": "CurrentNexus Group Limited, a Hong Kong-registered new-energy company, develops, manufactures, and globally sells photovoltaic modules and C&I energy storage products.",
+      "paragraph2": "With a smart manufacturing base in Wuxi, Jiangsu, the company integrates R&D, manufacturing and trade, and leverages its Hong Kong platform to connect global suppliers with end customers — delivering efficient, reliable solar-plus-storage solutions to C&I and overseas markets.",
+      "cta": "Learn More",
+      "trustCard": "Trusted by <strong>10K+</strong> clients (<strong>4.9/5</strong>)",
+      "stats": {
+        "yearsExperience": "Years experience",
+        "ownFactories": "Own factories",
+        "countriesExported": "countries exported",
+        "satisfiedCustomers": "satisfied Customers"
+      }
+    },
+    "ecosystem": {
+      "eyebrow": "OUR MANUFACTURING PRODUCTS",
+      "heading": "One complete energy ecosystem. Three powerful solutions.",
+      "tabsAriaLabel": "Product categories",
+      "learnMore": "Learn More",
+      "tabs": {
+        "solarPanels": "Solar Panels",
+        "bess": "BESS"
+      },
+      "products": {
+        "backContactSolarPanel": "Back contact solar panel",
+        "hjtsSolarPanel": "HJTS solar panel",
+        "topconSolarPanel": "Topcon solar panel",
+        "odmVerticalSolarModules": "ODM-Vertical solar modules",
+        "residentialBess": "Residential BESS",
+        "bess112kwh": "112 KWH BESS",
+        "bess261kwh": "261 KWH BESS",
+        "bess488kwh": "488 KWH BESS"
+      }
+    },
+    "premiumSolutions": {
+      "eyebrow": "TIER 1 PV & BESS BRAND PRODUCTS",
+      "heading": "Premium Energy Solutions from Global Manufacturers",
+      "railAriaLabel": "Brand categories",
+      "viewAll": "View All",
+      "brands": {
+        "jaSolar": "JA Solar",
+        "tongwei": "Tongwei",
+        "hithium": "Hithium",
+        "growatt": "Growatt",
+        "deye": "DEYE",
+        "solis": "Solis",
+        "goodwe": "Goodwe"
+      },
+      "titles": {
+        "jaSolar": "JA Solar",
+        "tongwei": "Tongwei Solar",
+        "hithium": "Hithium Solar",
+        "growatt": "Growatt Solar",
+        "deye": "DEYE Solar",
+        "solis": "Solis Solar",
+        "goodwe": "Goodwe Solar"
+      },
+      "products": {
+        "pvEssIntegratedMachine": "PV and ESS Integrated Machine 125kW/261kWh",
+        "essCabinet": "ESS Cabinet 125kW/261kWh",
+        "infinityBlock": "∞Block 418 kWh",
+        "placeholder1": "Product 1",
+        "placeholder2": "Product 2",
+        "placeholder3": "Product 3"
+      }
+    },
+    "applicationScenes": {
+      "eyebrow": "SCENE OF APPLICATIONS",
+      "heading": "Built for reliable performance and economic efficiency.",
+      "previous": "Previous",
+      "next": "Next",
+      "cards": {
+        "residentialSolar": {
+          "title": "Residential solar",
+          "description": "Reduce energy costs while improving efficiency across modern commercial facilities."
+        },
+        "commercialBuildings": {
+          "title": "Commercial buildings",
+          "description": "Lower operating costs and enhance business efficiency with reliable energy solutions."
+        },
+        "utilityScaleSolar": {
+          "title": "Utility-Scale solar",
+          "description": "Built for high-performance, large-scale modern renewable energy projects worldwide."
+        },
+        "virtualPowerPlant": {
+          "title": "Virtual power Plant Solutions",
+          "description": "Manage distributed energy assets through one platform for greater efficiency and energy value."
+        }
+      }
+    },
+    "testimonials": {
+      "eyebrow": "CLIENT SUCCESS STORY",
+      "heading": "Trusted by industrial clients",
+      "cta": "View Case Study",
+      "stories": {
+        "luxEnecore": {
+          "clientName": "Client name: xyz",
+          "location": "Location: abc city, usa",
+          "quote": "\"A 5MW solar farm in Italy, commissioned in 2025, uses high-bifaciality HJT solar panels from China with a locally made tracking system. Lux & Enecore was highly satisfied with our products, which delivered much higher performance than standard N-type products.\""
+        }
+      }
+    },
+    "whyChoose": {
+      "eyebrow": "WHY CHOOSE US",
+      "heading": "Reasons to choose CNX Energy confidently",
+      "paragraph": "Your trusted China partner for private-label PV & BESS manufacturing, Tier 1 products, and after-sales support.",
+      "items": {
+        "verticalManufacturing": {
+          "title": "Vertical Manufacturing & Quality Control",
+          "body": ""
+        },
+        "bankableTier1": {
+          "title": "Bankable Tier-1 Brand Portfolio",
+          "body": ""
+        },
+        "epcfCreditFinancing": {
+          "title": "EPC+F Credit Financing Support",
+          "body": "Exclusive 2-year long-term credit financing for qualified ODM partners. Ease your project cash flow pressure and scale your pipeline without tying up working capital."
+        },
+        "hybridProcurement": {
+          "title": "Hybrid Procurement Synergy",
+          "body": ""
+        },
+        "technicalAfterSales": {
+          "title": "Technical & After sales Engineering",
+          "body": ""
+        },
+        "globalLogistics": {
+          "title": "Global Logistics & Tariff Compliance",
+          "body": ""
+        }
+      }
+    },
+    "awards": {
+      "eyebrow": "INDUSTRY RECOGNITION",
+      "heading": "Recognized for excellence in manufacturing & innovation",
+      "items": {
+        "award1": {
+          "caption": "Leading Renewable Energy Manufacturer Award"
+        },
+        "award2": {
+          "caption": "Leading Renewable Energy Manufacturer Award"
+        },
+        "award3": {
+          "caption": "Leading Renewable Energy Manufacturer Award"
+        },
+        "award4": {
+          "caption": "Leading Renewable Energy Manufacturer Award"
+        },
+        "award5": {
+          "caption": "Leading Renewable Energy Manufacturer Award"
+        }
+      }
+    },
+    "latestNews": {
+      "eyebrow": "NEWS ROOM",
+      "heading": "Latest blog & news",
+      "posts": {
+        "high-efficiency-solar-modules": {
+          "title": "Why high-efficiency solar modules are transforming utility-scale projects"
+        },
+        "hjt-solar-technology-yield": {
+          "title": "How HJT solar technology delivers higher energy yield in real-world settings"
+        },
+        "choosing-commercial-solar-module": {
+          "title": "How to choose the right solar module for commercial energy projet"
+        }
+      }
+    },
+    "faq": {
+      "eyebrow": "FREQUENTLY ASKED QUESTION",
+      "heading": "Do you have any\nquestions for me?",
+      "needHelp": "Need to ask something else?",
+      "contact": {
+        "name": "Emma Collins",
+        "role": "Customer care",
+        "message": "Hi, I'm Emma from the CNX team.\nHave a question? I'm here to help anytime.",
+        "cta": "Let's talk"
+      },
+      "items": {
+        "productsProvided": {
+          "question": "Q. What products does CNX Energy provide?",
+          "answer": ""
+        },
+        "odmOemManufacturing": {
+          "question": "Q. Do you offer private-label (ODM/OEM) manufacturing?",
+          "answer": "Yes. CNX Energy provides OEM and ODM manufacturing services for solar modules and energy storage products, helping partners build their own brands with reliable production and strict quality control."
+        },
+        "purchaseInclusions": {
+          "question": "Q. What do I receive with my purchase?",
+          "answer": ""
+        },
+        "tier1Brands": {
+          "question": "Q. Which Tier 1 brands do you work with?",
+          "answer": ""
+        },
+        "largeProjectSupport": {
+          "question": "Q. Can CNX support large commercial and utility-scale projects?",
+          "answer": ""
+        },
+        "afterSalesSupport": {
+          "question": "Q. Do you provide technical and after-sales support?",
+          "answer": ""
+        }
+      }
+    },
+    "cta": {
+      "heading": "Your next energy project starts with the right manufacturing partner",
+      "primaryCta": {
+        "label": "Request a quote",
+        "href": "/contact"
+      },
+      "secondaryCta": {
+        "label": "Explore our solutions",
+        "href": "/solutions"
+      }
+    }
+  },
   "nav": {
     "contact": "Contact us",
     "search": "Search",
@@ -10,8 +254,10 @@
   "footer": {
     "contactInfo": "Contact info",
     "newsletterLabel": "Sign up for our newsletter",
+    "emailLabel": "Email address",
     "emailPlaceholder": "Enter your email...",
     "subscribe": "Subscribe",
+    "copyright": "Copyright © {year} {name}.",
     "rights": "All rights reserved."
   }
 }

@@ -95,8 +95,45 @@
   --text-badge--letter-spacing: 0px;
 }
 
-/* Desktop type scale. text-h1 stays one class, the values swap here. */
+/* Tablet type scale: intermediate step, plus h5/h6/p2/p3/p4 desktop values (small enough to not need a further step). */
 @media (width >= 48rem) {
+  :root {
+    --text-h1: 48px;
+    --text-h1--line-height: 56px;
+    --text-h1--letter-spacing: -2px;
+    --text-h2: 40px;
+    --text-h2--line-height: 48px;
+    --text-h2--letter-spacing: -1.2px;
+    --text-h3: 32px;
+    --text-h3--line-height: 40px;
+    --text-h3--letter-spacing: -1px;
+    --text-h4: 28px;
+    --text-h4--line-height: 36px;
+    --text-h4--letter-spacing: -0.8px;
+    --text-h5: 24px;
+    --text-h5--line-height: 32px;
+    --text-h5--letter-spacing: -0.5px;
+    --text-h6: 20px;
+    --text-h6--line-height: 28px;
+    --text-h6--letter-spacing: -0.2px;
+
+    --text-p1: 22px;
+    --text-p1--line-height: 34px;
+    --text-p1--letter-spacing: -0.4px;
+    --text-p2: 20px;
+    --text-p2--line-height: 32px;
+    --text-p2--letter-spacing: 0px;
+    --text-p3: 18px;
+    --text-p3--line-height: 28px;
+    --text-p3--letter-spacing: 0px;
+    --text-p4: 16px;
+    --text-p4--line-height: 24px;
+    --text-p4--letter-spacing: 0px;
+  }
+}
+
+/* Desktop type scale. text-h1 stays one class, the values swap here. */
+@media (width >= 80rem) {
   :root {
     --text-h1: 64px;
     --text-h1--line-height: 72px;
@@ -110,31 +147,263 @@
     --text-h4: 32px;
     --text-h4--line-height: 40px;
     --text-h4--letter-spacing: -1px;
-    --text-h5: 24px;
-    --text-h5--line-height: 32px;
-    --text-h5--letter-spacing: -0.5px;
-    --text-h6: 20px;
-    --text-h6--line-height: 28px;
-    --text-h6--letter-spacing: -0.2px;
 
     --text-p1: 24px;
     --text-p1--line-height: 36px;
-    --text-p1--letter-spacing: -0
-    .5px;
-    --text-p2: 20px;
-    --text-p2--line-height: 32px;
-    --text-p2--letter-spacing: 0px;
-    --text-p3: 18px;
-    --text-p3--line-height: 28px;
-    --text-p3--letter-spacing: 0px;
-    --text-p4: 16px;
-    --text-p4--line-height: 24px;
-    --text-p4--letter-spacing: 0px;
+    --text-p1--letter-spacing: -0.5px;
   }
 }
 
 @layer base {
   body {
     @apply bg-white text-neutral-1 font-sans antialiased;
+  }
+}
+
+/* Trusted Logos ticker: geometry driven by CSS vars so JS never touches layout. */
+.trusted-logos-section {
+  --ticker-gap: 48px;
+  --logo-h: 32px;
+  --ticker-fade: 266px;
+  padding-top: 60px;
+  padding-bottom: 80px;
+}
+
+@media (width < 64rem) {
+  .trusted-logos-section {
+    --ticker-gap: 40px;
+    --ticker-fade: 200px;
+  }
+}
+
+@media (width < 48rem) {
+  .trusted-logos-section {
+    --ticker-gap: 32px;
+    --logo-h: 28px;
+    --ticker-fade: 160px;
+    padding-top: 48px;
+    padding-bottom: 64px;
+  }
+}
+
+@media (width < 30rem) {
+  .trusted-logos-section {
+    --ticker-gap: 24px;
+    --logo-h: 24px;
+    --ticker-fade: 100px;
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+}
+
+@media (width < 23.5rem) {
+  .trusted-logos-section {
+    --ticker-gap: 20px;
+    --ticker-fade: 64px;
+  }
+}
+
+.ticker-viewport {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black var(--ticker-fade),
+    black calc(100% - var(--ticker-fade)),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black var(--ticker-fade),
+    black calc(100% - var(--ticker-fade)),
+    transparent 100%
+  );
+}
+
+.ticker-track {
+  animation-name: ticker-scroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.ticker-viewport:hover .ticker-track,
+.ticker-viewport:focus-within .ticker-track {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* About CNX: scrim behind the trust card, exact stops from Figma (node 1:634). */
+.about-cnx-scrim {
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 13, 27, 0) 59.669%,
+    rgba(10, 13, 27, 0.84) 83.912%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-viewport {
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .ticker-track {
+    animation: none;
+    width: max-content;
+  }
+
+  .ticker-track > * {
+    scroll-snap-align: start;
+  }
+}
+
+/* SectionEyebrow: radar-ping ring. Keyframes hold at invisible after the pulse so it reads as a slow ping, not a strobe. */
+.section-eyebrow-ring {
+  background-color: var(--color-tertiary);
+  opacity: 0.5;
+  animation: section-eyebrow-ping 2.4s ease-out infinite;
+}
+
+@keyframes section-eyebrow-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  55% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-eyebrow-ring {
+    animation: none;
+    transform: scale(1);
+    opacity: 0.5;
+  }
+}
+
+/* Premium Solutions: brand rail collapses to a horizontally scrollable pill row below md, no visible scrollbar. */
+.brand-rail-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.brand-rail-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Application Scenes: card track scrolls natively, no visible scrollbar. */
+.scene-carousel-track {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scene-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* Client Testimonials: radial scrim over the story photo, exact gradient from Figma (node 2283:8635). */
+.testimonial-scrim {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1320 600' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Crect x='0' y='0' width='100%25' height='100%25' fill='url(%23grad)'/%3E%3Cdefs%3E%3CradialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-59.7 70.65 -174.66 -147.59 1062 22.5)'%3E%3Cstop stop-color='rgba(10,13,27,0)' offset='0'/%3E%3Cstop stop-color='rgba(10,13,27,0.93)' offset='1'/%3E%3C/radialGradient%3E%3C/defs%3E%3C/svg%3E");
+  background-size: 100% 100%;
+}
+
+/* Why Choose CNX: grid-template-areas reorders the accordion above the photo on
+   mobile (spec explicitly wants this — the accordion is the section's value and
+   must not sit under a tall image on a phone) without duplicating any markup.
+   Desktop split matches Figma exactly: two 600px columns, 120px gap (node 2283:8649). */
+.why-choose-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: "textblock" "accordion" "photo";
+  row-gap: 32px;
+}
+
+@media (width >= 64rem) {
+  .why-choose-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    column-gap: 120px;
+    row-gap: 0;
+    grid-template-areas: "textblock accordion" "photo accordion";
+    align-items: start;
+  }
+}
+
+.why-choose-textblock {
+  grid-area: textblock;
+}
+.why-choose-accordion {
+  grid-area: accordion;
+}
+.why-choose-photo {
+  grid-area: photo;
+  align-self: end;
+}
+
+/* Energy Ecosystem: gradient over the full-bleed photo, exact stops from Figma (node 2283:8390). */
+.energy-ecosystem-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(248, 248, 248, 1) 3.7494%,
+    rgba(248, 248, 248, 0.6) 21.055%,
+    rgba(10, 13, 27, 0.6) 75.481%,
+    rgba(10, 13, 27, 1) 96.284%
+  );
+}
+
+/* FAQ: same grid-template-areas reorder technique as .why-choose-grid. Mobile
+   order (header, accordion, contact) matches the spec exactly and reads
+   sensibly at every width, so it's the base case rather than a mobile-only
+   override. Desktop split matches Figma: 460fr/760fr columns, 100px gap
+   (node 2283:8784). The 1024 tier keeps two columns but skips the bottom
+   pin on the contact card (spec explicitly allows this); the 1280 tier adds
+   it back via self-end once the accordion is tall enough to create the gap. */
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: "header" "accordion" "contact";
+  row-gap: 48px;
+}
+
+@media (width >= 64rem) {
+  .faq-grid {
+    grid-template-columns: 460fr 760fr;
+    grid-template-rows: auto 1fr;
+    column-gap: 100px;
+    row-gap: 0;
+    grid-template-areas: "header accordion" "contact accordion";
+    align-items: start;
+  }
+}
+
+.faq-header {
+  grid-area: header;
+}
+.faq-accordion-area {
+  grid-area: accordion;
+}
+.faq-contact-area {
+  grid-area: contact;
+}
+
+@media (width >= 80rem) {
+  .faq-contact-area {
+    align-self: end;
   }
 }

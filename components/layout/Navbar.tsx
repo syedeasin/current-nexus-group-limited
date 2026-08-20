@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ChevronDown, Search, PhoneCall, Globe } from "lucide-react";
 import Container from "@/components/layout/Container";
@@ -9,6 +10,8 @@ import { cn } from "@/lib/utils";
 import { siteConfig, mainNav } from "@/site.config";
 
 export default function Navbar() {
+  const t = useTranslations("nav");
+  const locale = useLocale();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -42,7 +45,7 @@ export default function Navbar() {
           </Link>
 
           <nav
-            aria-label="Main"
+            aria-label={t("main")}
             className="hidden items-center gap-24 md:flex"
           >
             {mainNav.map((item) => (
@@ -60,7 +63,7 @@ export default function Navbar() {
           <div className="hidden items-center md:flex">
             <button
               type="button"
-              aria-label="Search"
+              aria-label={t("search")}
               className="rounded-full p-14 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
             >
               <Search size={20} />
@@ -71,23 +74,23 @@ export default function Navbar() {
               className="flex h-48 items-center gap-8 rounded-full bg-secondary px-28 text-btn-sm font-semibold text-neutral-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
             >
               <PhoneCall size={18} />
-              Contact us
+              {t("contact")}
             </Link>
 
             <button
               type="button"
-              aria-label="Change language"
+              aria-label={t("changeLanguage")}
               className="flex items-center gap-4 py-12 pl-14 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
             >
               <Globe size={20} className="text-white" />
-              <span className="text-p4 text-white">EN</span>
+              <span className="text-p4 text-white">{locale.toUpperCase()}</span>
               <ChevronDown size={16} className="text-white" />
             </button>
           </div>
 
           <button
             type="button"
-            aria-label="Open menu"
+            aria-label={t("openMenu")}
             className="p-14 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary md:hidden"
           >
             <span className="block h-2 w-24 bg-white" />
