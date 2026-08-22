@@ -208,7 +208,7 @@
       "items": {
         "productsProvided": {
           "question": "Q. What products does CNX Energy provide?",
-          "answer": ""
+          "answer": "CNX Energy supplies solar modules, energy storage systems, and balance-of-system components for residential, commercial, and utility-scale projects."
         },
         "odmOemManufacturing": {
           "question": "Q. Do you offer private-label (ODM/OEM) manufacturing?",
@@ -216,19 +216,19 @@
         },
         "purchaseInclusions": {
           "question": "Q. What do I receive with my purchase?",
-          "answer": ""
+          "answer": "Every order includes the product, standard warranty coverage, and full technical documentation, with installation and logistics support available on request."
         },
         "tier1Brands": {
           "question": "Q. Which Tier 1 brands do you work with?",
-          "answer": ""
+          "answer": "We work with a portfolio of Tier 1-certified brands across solar modules and energy storage, selected for proven bankability and long-term reliability."
         },
         "largeProjectSupport": {
           "question": "Q. Can CNX support large commercial and utility-scale projects?",
-          "answer": ""
+          "answer": "Yes. Our manufacturing capacity and project team support large commercial and utility-scale deployments, from initial planning through delivery."
         },
         "afterSalesSupport": {
           "question": "Q. Do you provide technical and after-sales support?",
-          "answer": ""
+          "answer": "Yes. Our team provides technical support and after-sales service throughout the product lifecycle, including troubleshooting and maintenance guidance."
         }
       }
     },

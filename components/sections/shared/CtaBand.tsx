@@ -67,7 +67,7 @@ export default async function CtaBand({
             "linear-gradient(180deg, rgba(10,13,27,0) 15.444%, rgba(10,13,27,0.86) 72.236%, #0a0d1b 100%)",
         }}
       />
-      <Container size="section" className="relative flex flex-col items-center gap-32">
+      <Container className="relative flex flex-col items-center gap-32">
         <Reveal as="div">
           <Heading level={2} size="h2" className="max-w-750 text-balance text-center text-white">
             {resolvedHeading}

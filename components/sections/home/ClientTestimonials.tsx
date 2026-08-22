@@ -18,10 +18,7 @@ export default async function ClientTestimonials() {
 
   return (
     <section aria-label={t("heading")} className="w-full bg-surface-2">
-      <Container
-        size="section"
-        className="flex flex-col gap-48 py-48 md:py-64 xl:py-100"
-      >
+      <Container className="flex flex-col gap-48 py-48 md:py-64 xl:py-100">
         <div className="flex w-full flex-col items-center gap-12">
           <Reveal as="div" delay={0}>
             <SectionEyebrow label={t("eyebrow")} />

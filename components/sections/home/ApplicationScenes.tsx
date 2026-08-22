@@ -22,7 +22,7 @@ export default async function ApplicationScenes() {
       aria-label={t("heading")}
       className="w-full bg-surface-2 pt-48 pb-40 md:pt-64 md:pb-56 xl:pt-100 xl:pb-80"
     >
-      <Container size="section">
+      <Container>
         <div className="flex w-full flex-col items-center gap-12">
           <Reveal as="div" delay={0}>
             <SectionEyebrow label={t("eyebrow")} />
@@ -35,14 +35,14 @@ export default async function ApplicationScenes() {
         </div>
       </Container>
 
-      <div className="mt-48 w-full">
+      <Container className="mt-48">
         <SceneCarousel
           cards={cards}
           ariaLabel={t("heading")}
           previousLabel={t("previous")}
           nextLabel={t("next")}
         />
-      </div>
+      </Container>
     </section>
   );
 }

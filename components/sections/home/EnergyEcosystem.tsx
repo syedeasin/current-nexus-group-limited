@@ -34,10 +34,7 @@ export default async function EnergyEcosystem() {
         <div className="energy-ecosystem-overlay absolute inset-0" />
       </div>
 
-      <Container
-        size="section"
-        className="relative flex flex-col items-center py-48 md:py-64 xl:py-80"
-      >
+      <Container className="relative flex flex-col items-center py-48 md:py-64 xl:py-80">
         <div className="flex w-full max-w-790 flex-col items-center gap-12">
           <Reveal as="div" delay={0}>
             <SectionEyebrow label={t("eyebrow")} tone="light" />

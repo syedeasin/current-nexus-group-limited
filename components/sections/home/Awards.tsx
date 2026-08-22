@@ -25,7 +25,7 @@ export default async function Awards() {
           className="object-cover object-top"
         />
       </div>
-      <Container size="section" className="relative py-48 md:py-64 xl:py-100">
+      <Container className="relative py-48 md:py-64 xl:py-100">
         <div className="flex flex-col items-center gap-32 md:gap-40 xl:gap-48">
           <div className="flex max-w-690 flex-col items-center gap-12 text-center">
             <Reveal as="div">

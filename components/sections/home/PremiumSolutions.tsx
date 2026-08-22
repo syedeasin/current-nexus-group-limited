@@ -23,10 +23,7 @@ export default async function PremiumSolutions() {
 
   return (
     <section aria-label={t("heading")} className="w-full bg-neutral-1">
-      <Container
-        size="section"
-        className="flex flex-col items-center pt-48 pb-68 md:pt-64 md:pb-84 xl:pt-80 xl:pb-100"
-      >
+      <Container className="flex flex-col items-center pt-48 pb-68 md:pt-64 md:pb-84 xl:pt-80 xl:pb-100">
         <div className="flex w-full max-w-754 flex-col items-center gap-12">
           <Reveal as="div" delay={0}>
             <SectionEyebrow label={t("eyebrow")} tone="dark" />

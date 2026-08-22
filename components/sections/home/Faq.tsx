@@ -45,7 +45,7 @@ export default async function Faq() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <Container size="section">
+      <Container>
         <div className="faq-grid w-full">
           <div className="faq-header flex flex-col gap-12">
             <Reveal as="div" delay={0}>

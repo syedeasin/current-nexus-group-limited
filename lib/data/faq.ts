@@ -6,9 +6,8 @@ export interface FaqItem {
 /**
  * TODO(Easin): Figma only supplies a real answer for "odmOemManufacturing"
  * (see messages/en.json home.faq.items.*.answer). The other five ship with
- * an empty answer string until real copy exists — do not invent it. An
- * empty answer renders the trigger as present but not expandable and is
- * excluded from the FAQPage JSON-LD.
+ * placeholder answer copy so every row is clickable/expandable — swap in
+ * real content-team copy when it lands.
  */
 export const faqItems: FaqItem[] = [
   { id: "productsProvided" },

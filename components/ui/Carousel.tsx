@@ -105,10 +105,9 @@ export default function Carousel({
         tabIndex={0}
         onScroll={handleScroll}
         className={cn(
-          "scene-carousel-track mx-auto w-full max-w-1600 overflow-x-auto pl-20 outline-none",
+          "scene-carousel-track w-full overflow-x-auto outline-none",
           "[scroll-snap-type:x_mandatory] [scroll-behavior:smooth] motion-reduce:[scroll-behavior:auto]",
-          "focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-inset",
-          "md:pl-40 xl:pl-140"
+          "focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-inset"
         )}
       >
         <div
@@ -126,7 +125,7 @@ export default function Carousel({
         as="div"
         delay={progressDelay}
         variant="fade"
-        className={cn("mx-auto w-full max-w-1600 px-20 md:px-40 xl:px-140", !hasOverflow && "hidden")}
+        className={cn("w-full", !hasOverflow && "hidden")}
       >
         <div
           className={cn(

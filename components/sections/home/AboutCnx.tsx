@@ -22,10 +22,7 @@ export default async function AboutCnx() {
 
   return (
     <section aria-label={t("heading")} className="w-full bg-surface-2">
-      <Container
-        size="section"
-        className="flex flex-col gap-40 py-48 md:py-64 lg:gap-60 xl:py-80"
-      >
+      <Container className="flex flex-col gap-40 py-48 md:py-64 lg:gap-60 xl:py-80">
         <div className="flex flex-col gap-40 lg:grid lg:grid-cols-[610fr_630fr] lg:items-start lg:gap-48 xl:gap-80">
           {/* Left column */}
           <div className="flex w-full min-w-0 flex-col gap-40">

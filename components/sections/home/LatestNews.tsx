@@ -19,7 +19,7 @@ export default async function LatestNews() {
       aria-label={t("heading")}
       className="w-full bg-white pt-48 pb-40 md:pt-64 md:pb-56 xl:pt-100 xl:pb-80"
     >
-      <Container size="section">
+      <Container>
         <div className="flex w-full flex-col items-center gap-12">
           <Reveal as="div" delay={0}>
             <SectionEyebrow label={t("eyebrow")} />
@@ -32,7 +32,7 @@ export default async function LatestNews() {
         </div>
       </Container>
 
-      <div className="mt-48 w-full">
+      <Container className="mt-48">
         <Carousel ariaLabel={t("heading")} progressDelay={CARD_REVEAL_BASE_DELAY_MS + latestNews.length * CARD_REVEAL_STEP_MS}>
           {latestNews.map((post, index) => (
             <Reveal
@@ -52,7 +52,7 @@ export default async function LatestNews() {
             </Reveal>
           ))}
         </Carousel>
-      </div>
+      </Container>
     </section>
   );
 }

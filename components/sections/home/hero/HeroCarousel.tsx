@@ -188,7 +188,7 @@ export default function HeroCarousel({
       </Container>
 
       <div className="pointer-events-none absolute inset-x-0 top-1/2 z-10 hidden -translate-y-1/2 md:flex">
-        <div className="mx-auto flex w-full max-w-1600 items-center justify-between px-140">
+        <div className="mx-auto flex w-full max-w-2000 items-center justify-between px-64 xl:px-200">
           <div className="pointer-events-auto">
             <ArrowButton
               direction="prev"
