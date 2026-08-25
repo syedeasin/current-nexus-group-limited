@@ -248,7 +248,277 @@
     "search": "Search",
     "changeLanguage": "Change language",
     "openMenu": "Open menu",
-    "main": "Main"
+    "closeMenu": "Close menu",
+    "main": "Main",
+    "aboutUs": "About Us",
+    "technology": "Technology",
+    "whyChooseCnx": "Why Choose CNX",
+    "pvBessBrands": "PV & BESS Brands",
+    "manufacturing": "Manufacturing",
+    "solarPanels": "Solar Panels",
+    "bess": "BESS",
+    "bc": "BC",
+    "hjt": "HJT",
+    "topcon": "TOPCon",
+    "odmVerticalSolarModules": "ODM / Vertical Solar Modules",
+    "residentialBess": "Residential BESS",
+    "bess112": "112kWh",
+    "bess261": "261kWh",
+    "bess488": "488kWh",
+    "tier1Brands": "Tier 1 Brands",
+    "jaSolar": "JA Solar",
+    "tongwei": "TONGWEI",
+    "hithium": "Hithium",
+    "growatt": "Growatt",
+    "deye": "DEYE",
+    "solis": "Solis",
+    "goodwe": "Goodwe",
+    "solutionsProjects": "Solutions & Projects",
+    "solutions": "Solutions",
+    "residential": "Residential",
+    "commercialIndustrial": "C&I",
+    "utilities": "Utilities",
+    "virtualPowerPlant": "Virtual Power Plant Solutions",
+    "supplyChainFinancing": "Supply Chain Financing for PV and BESS",
+    "renewableProjects": "Renewable Projects",
+    "gridTie": "Grid-tie Projects",
+    "offgrid": "Offgrid Projects",
+    "projectFinancing": "Project Financing",
+    "newsRoom": "News Room",
+    "news": "News",
+    "reAnalysis": "RE Analysis",
+    "knowledgeDatabase": "Knowledge Database",
+    "events": "Events",
+    "service": "Service",
+    "downloads": "Downloads",
+    "globalDistributor": "Global Distributor",
+    "warranty": "Warranty",
+    "stockProducts": "Stock Products with Discount Price"
+  },
+  "manufacturing": {
+    "solarPanels": {
+      "meta": {
+        "title": "Solar Panels | CNX Energy Manufacturing",
+        "description": "High-performance BC, HJT, TOPCon, and ODM solar panels manufactured by CNX Energy for every project scale."
+      },
+      "banner": {
+        "eyebrow": "SOLAR PANELS",
+        "heading": "High-Performance solar panels for your every project"
+      },
+      "products": {
+        "learnMoreLabel": "Learn more",
+        "bc": {
+          "title": "BC Solar Panels",
+          "description": "Maximum efficiency with sleek, busbar-free BC technology for premium performance."
+        },
+        "hjt": {
+          "title": "HJT Solar Panels",
+          "description": "Advanced HJT technology reduces degradation and maximizes lifetime energy output."
+        },
+        "topcon": {
+          "title": "TOPCon Solar Panels",
+          "description": "TOPCon technology combines efficiency, reliability, and value for commercial and utility-scale applications."
+        },
+        "odm": {
+          "title": "ODM / Private Label Solar Modules",
+          "description": "Launch premium solar products faster with customized OEM and ODM manufacturing."
+        }
+      },
+      "whyChoose": {
+        "eyebrow": "WHY CHOOSE CNX ENERGY",
+        "heading": "Your manufacturing partner for long-term success",
+        "features": {
+          "advancedTechnology": {
+            "title": "Advanced HJT technology",
+            "description": "Higher efficiency and greater energy generation through solar innovation."
+          },
+          "lowerLcoe": {
+            "title": "Lower LCOE. Higher ROI.",
+            "description": "Reduce lifetime energy costs while maximizing long-term project returns."
+          },
+          "globalSupply": {
+            "title": "Global supply capability",
+            "description": "Reliable manufacturing and worldwide delivery for projects of every scale."
+          }
+        }
+      }
+    },
+    "bess": {
+      "meta": {
+        "title": "BESS | CNX Energy Manufacturing",
+        "description": "Residential, commercial, and utility-scale battery energy storage systems manufactured by CNX Energy."
+      },
+      "banner": {
+        "eyebrow": "BESS",
+        "heading": "Intelligent battery energy storage for every project"
+      },
+      "products": {
+        "learnMoreLabel": "Learn more",
+        "residential": {
+          "title": "Residential BESS",
+          "description": "Compact home battery systems maximizing solar self-consumption, backup power, and energy costs."
+        },
+        "kwh112": {
+          "title": "112kWh Commercial BESS",
+          "description": "Efficient energy storage reducing peak demand, optimizing usage, and improving resilience."
+        },
+        "kwh261": {
+          "title": "261kWh Commercial BESS",
+          "description": "Deliver greater energy flexibility with a scalable battery solution for commercial applications."
+        },
+        "kwh488": {
+          "title": "488kWh Utility BESS",
+          "description": "High-capacity battery systems for renewable integration, grid stability, and large-scale storage."
+        }
+      },
+      "whyChoose": {
+        "eyebrow": "WHY CHOOSE CNX ENERGY",
+        "heading": "Your manufacturing partner for long-term success",
+        "features": {
+          "advancedTechnology": {
+            "title": "Advanced HJT technology",
+            "description": "Higher efficiency and greater energy generation through solar innovation."
+          },
+          "lowerLcoe": {
+            "title": "Lower LCOE. Higher ROI.",
+            "description": "Reduce lifetime energy costs while maximizing long-term project returns."
+          },
+          "globalSupply": {
+            "title": "Global supply capability",
+            "description": "Reliable manufacturing and worldwide delivery for projects of every scale."
+          }
+        }
+      }
+    }
+  },
+  "about": {
+    "technology": {
+      "meta": {
+        "title": "Technology",
+        "description": "Explore the technology behind CNX Energy's solar and BESS products."
+      }
+    },
+    "pvBessBrands": {
+      "meta": {
+        "title": "PV & BESS Brands",
+        "description": "Discover the Tier 1 PV and BESS brands CNX Energy manufactures and distributes."
+      }
+    },
+    "whyChooseCnx": {
+      "meta": {
+        "title": "Why Choose CNX",
+        "description": "Learn why CNX Energy is a trusted partner for solar and BESS manufacturing."
+      },
+      "hero": {
+        "eyebrow": "WHY CHOOSE CNX",
+        "heading": "Your trusted partner for smarter energy solutions",
+        "subtext": "CNX delivers innovative solar, energy storage, and trusted global renewable solutions.",
+        "cta": "Explore Products"
+      },
+      "competitiveAdvantage": {
+        "eyebrow": "OUR COMPETITIVE ADVANTAGE",
+        "heading": "Everything you need from one reliable partner",
+        "items": {
+          "advancedTechnologies": {
+            "title": "Advanced Technologies",
+            "body": "Industry-leading HJT, TOPCon, and Back Contact innovations for higher efficiency and long-term performance."
+          },
+          "integratedManufacturing": {
+            "title": "Integrated Manufacturing",
+            "body": "End-to-end production of cells, modules, and BESS with strict quality control and dependable supply."
+          },
+          "oemOdmSolutions": {
+            "title": "OEM & ODM Solutions",
+            "body": "Custom products and flexible private-label manufacturing designed specifically for your unique business needs."
+          },
+          "provenQuality": {
+            "title": "Proven Quality",
+            "body": "We provide complete traceability, rigorous testing, and international certifications for every product we offer."
+          },
+          "globalSupplyNetwork": {
+            "title": "Global Supply Network",
+            "body": "Reliable logistics and consistent manufacturing support projects worldwide with efficiency and effectiveness."
+          },
+          "technicalPartnership": {
+            "title": "Technical Partnership",
+            "body": "We provide reliable engineering support, prompt communication, and excellent after-sales service throughout your project."
+          }
+        }
+      },
+      "beyondProducts": {
+        "eyebrow": "BEYOND PRODUCTS",
+        "heading": "More than a manufacturer, a long-term business partner",
+        "steps": {
+          "consultationPlanning": {
+            "title": "01. Consultation & Planning",
+            "body": "Understand your project goals and recommend the right solution."
+          },
+          "productSelection": {
+            "title": "02. Product Selection & Customization",
+            "body": "Select the ideal products with flexible OEM & ODM customization."
+          },
+          "precisionManufacturing": {
+            "title": "03. Precision Manufacturing",
+            "body": "Manufacture high-quality solar and storage solutions."
+          },
+          "qualityGlobalDelivery": {
+            "title": "04. Quality & Global Delivery",
+            "body": "Rigorous testing and reliable logistics ensure every product performs."
+          },
+          "longTermSupport": {
+            "title": "05. Long-Term Support",
+            "body": "Responsive technical assistance and dependable after-sales support."
+          }
+        }
+      },
+      "globalConfidence": {
+        "eyebrow": "GLOBAL CONFIDENCE",
+        "heading": "Instead of long marketing paragraphs, use measurable proof",
+        "certifiedTitle": "Certified to International Standards",
+        "certifiedBody": "CNX products are made to meet global quality, safety, and performance standards, ensuring reliability for residential, commercial, and utility applications.",
+        "stats": {
+          "smartManufacturing": { "value": "06", "label": "Smart Manufacturing Facilities" },
+          "annualProduction": { "value": "GW+", "label": "Annual Production Capacity" },
+          "countriesServed": { "value": "20+", "label": "Countries Served" },
+          "productionTraceability": { "value": "100%", "label": "Production Traceability" },
+          "performanceWarranty": { "value": "25-YR", "label": "Performance Warranty" },
+          "internationalCertifications": { "value": "ISO+", "label": "International Certifications" }
+        }
+      },
+      "caseStudy": {
+        "eyebrow": "CLIENT SUCCESS STORY",
+        "heading": "Real world HJT project success stories",
+        "title": "5MW HJT tracker project designed for higher yield",
+        "body": "A European ground-mounted solar project used high-bifaciality HJT modules with local tracker systems to improve power generation and efficiency compared with previous standard N-type module layouts. CNX supported module selection, export coordination, technical documents, and after-sales communication.",
+        "specs": {
+          "modules": "324 Vertex N NEG19RC.20 modules",
+          "systemSize": "1.3MW System size",
+          "mountType": "Q4 2025 Rooftop carport mount"
+        }
+      },
+      "cta": {
+        "heading": "Power your next project with CNX",
+        "subtext": "From sourcing top solar modules to launching private-label products, CNX offers the technology and expertise your business needs.",
+        "primaryCta": { "label": "Contact Sales", "href": "/contact" },
+        "secondaryCta": { "label": "Explore Products", "href": "/products" }
+      }
+    }
+  },
+  "news": {
+    "bannerEyebrow": "News room",
+    "bannerHeading": "Discover the latest news & industry insights",
+    "highlightsHeading": "Highlights news",
+    "previousHighlight": "Previous highlight",
+    "nextHighlight": "Next highlight",
+    "allNewsHeading": "All News",
+    "minRead": "{count} min read",
+    "paginationLabel": "Pagination",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "shareLabel": "Share on social:",
+    "shareAriaLabel": "Share on {network}",
+    "previousPost": "Previous Post",
+    "nextPost": "Next Post"
   },
   "footer": {
     "contactInfo": "Contact info",

@@ -1,8 +1,10 @@
 import Image from "next/image";
+import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
 import Heading from "@/components/ui/Heading";
+import Text from "@/components/ui/Text";
 import Button from "@/components/ui/Button";
 import { ChevronRight } from "@/components/icons/ChevronRight";
 
@@ -13,9 +15,13 @@ interface CtaLink {
 
 interface CtaBandProps {
   heading?: string;
+  /** Optional — sections that only want the heading can omit this. */
+  subtext?: string;
   primaryCta?: CtaLink;
-  /** Optional — a page that only wants one button can omit this. */
-  secondaryCta?: CtaLink;
+  /** Omit for the default secondary button; pass `null` explicitly for a single-button CTA. */
+  secondaryCta?: CtaLink | null;
+  /** Replaces the default trailing chevron with a leading icon (e.g. a download icon for a datasheet CTA). */
+  primaryIcon?: ReactNode;
   image?: {
     src: string;
     /** Decorative full-bleed background — leave empty unless the photo carries real information. */
@@ -27,8 +33,10 @@ const BUTTON_DELAY_MS = 80;
 
 export default async function CtaBand({
   heading,
+  subtext,
   primaryCta,
   secondaryCta,
+  primaryIcon,
   image,
 }: CtaBandProps) {
   const t = await getTranslations("home.cta");
@@ -68,10 +76,15 @@ export default async function CtaBand({
         }}
       />
       <Container className="relative flex flex-col items-center gap-32">
-        <Reveal as="div">
+        <Reveal as="div" className="flex flex-col items-center gap-20">
           <Heading level={2} size="h2" className="max-w-750 text-balance text-center text-white">
             {resolvedHeading}
           </Heading>
+          {subtext ? (
+            <Text size="p1" className="max-w-736 text-balance text-center text-white">
+              {subtext}
+            </Text>
+          ) : null}
         </Reveal>
         <Reveal as="div" delay={BUTTON_DELAY_MS} className="flex w-full flex-col items-center gap-12 min-[481px]:w-auto min-[481px]:flex-row min-[481px]:gap-16">
           <Button
@@ -79,8 +92,9 @@ export default async function CtaBand({
             size="xl"
             className="w-full min-[481px]:w-auto"
           >
+            {primaryIcon ?? null}
             {resolvedPrimary.label}
-            <ChevronRight size={24} />
+            {primaryIcon ? null : <ChevronRight size={24} />}
           </Button>
           {resolvedSecondary ? (
             <Button

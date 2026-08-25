@@ -38,6 +38,12 @@
   --color-success: #1b6b45;
   --color-warning: #8a5a00;
 
+  /* Chart-only series colors (product detail comparison charts). Not part of the core token set. */
+  --color-chart-perc: #a5b3be;
+  --color-chart-topcon: #5387bb;
+  --color-chart-hjt: #00aab8;
+  --color-chart-bc: #1c3c55;
+
   /* Radius */
   --radius-*: initial;
   --radius-4: 4px;
@@ -314,6 +320,16 @@
 }
 
 .scene-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* News Highlights: card track scrolls natively, no visible scrollbar. */
+.news-carousel-track {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.news-carousel-track::-webkit-scrollbar {
   display: none;
 }
 

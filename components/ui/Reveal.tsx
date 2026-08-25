@@ -1,7 +1,8 @@
 "use client";
 
-import { createElement, useEffect, useRef, useState } from "react";
-import type { ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { ElementType, ReactNode } from "react";
+import { usePrefersReducedMotion } from "@/lib/hooks/useMediaQuery";
 import { cn } from "@/lib/utils";
 
 type RevealTag = "div" | "section" | "span" | "article" | "li" | "figure";
@@ -35,17 +36,13 @@ export default function Reveal({
   className,
 }: RevealProps) {
   const ref = useRef<HTMLElement | null>(null);
+  const reducedMotion = usePrefersReducedMotion();
   const [armed, setArmed] = useState(false);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const node = ref.current;
-    if (!node) return;
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setVisible(true);
-      return;
-    }
+    if (!node || reducedMotion) return;
 
     setArmed(true);
 
@@ -61,21 +58,22 @@ export default function Reveal({
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, []);
+  }, [reducedMotion]);
 
   const hidden = armed && !visible;
+  const Tag = as as ElementType;
 
-  return createElement(
-    as,
-    {
-      ref,
-      className: cn(
+  return (
+    <Tag
+      ref={ref}
+      className={cn(
         "transition-[opacity,transform] duration-700 ease-out",
         hidden ? hiddenStyles[variant] : visibleStyles[variant],
         className
-      ),
-      style: { transitionDelay: armed ? `${delay}ms` : undefined },
-    },
-    children
+      )}
+      style={{ transitionDelay: armed ? `${delay}ms` : undefined }}
+    >
+      {children}
+    </Tag>
   );
 }

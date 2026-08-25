@@ -5,7 +5,7 @@ import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import FaqAccordion from "@/components/sections/home/faq/FaqAccordion";
-import ContactCard from "@/components/sections/home/faq/ContactCard";
+import ContactCard from "@/components/sections/shared/ContactCard";
 import { faqItems, DEFAULT_OPEN_ID } from "@/lib/data/faq";
 
 const HEADING_DELAY_MS = 80;
@@ -16,6 +16,7 @@ const ACCORDION_STAGGER_CAP_MS = 400;
 
 export default async function Faq() {
   const t = await getTranslations("home.faq");
+  const contact = await getTranslations("home.faq.contact");
 
   const questions = faqItems.map((item) => ({
     id: item.id,
@@ -75,7 +76,14 @@ export default async function Faq() {
               </Text>
             </Reveal>
             <Reveal as="div" delay={CONTACT_DELAY_MS} className="w-full">
-              <ContactCard />
+              <ContactCard
+                avatarSrc="/images/home/emmaDP.png"
+                name={contact("name")}
+                role={contact("role")}
+                message={contact("message")}
+                ctaLabel={contact("cta")}
+                ctaHref="/contact"
+              />
             </Reveal>
           </div>
         </div>

@@ -3,7 +3,6 @@
 import {
   useEffect,
   useId,
-  useLayoutEffect,
   useRef,
   useState,
   type KeyboardEvent,
@@ -14,6 +13,7 @@ import Reveal from "@/components/ui/Reveal";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight } from "@/components/icons/ArrowRight";
 import { ChevronRight } from "@/components/icons/ChevronRight";
+import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
 import { cn } from "@/lib/utils";
 
 interface BrandTabProduct {
@@ -60,18 +60,10 @@ export default function BrandTabs({
   const [activeIndex, setActiveIndex] = useState(0);
   const [displayIndex, setDisplayIndex] = useState(0);
   const [panelState, setPanelState] = useState<PanelState>("visible");
-  const [isDesktop, setIsDesktop] = useState(true);
+  const isDesktop = useMediaQuery(DESKTOP_QUERY, true);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const switchTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const baseId = useId();
-
-  useEffect(() => {
-    const query = window.matchMedia(DESKTOP_QUERY);
-    setIsDesktop(query.matches);
-    const onChange = (event: MediaQueryListEvent) => setIsDesktop(event.matches);
-    query.addEventListener("change", onChange);
-    return () => query.removeEventListener("change", onChange);
-  }, []);
 
   useEffect(() => () => window.clearTimeout(switchTimeoutRef.current), []);
 

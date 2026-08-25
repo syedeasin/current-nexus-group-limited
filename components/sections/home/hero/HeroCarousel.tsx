@@ -10,6 +10,7 @@ import Text from "@/components/ui/Text";
 import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
 import { ChevronRight } from "@/components/icons/ChevronRight";
+import { usePrefersReducedMotion } from "@/lib/hooks/useMediaQuery";
 import { cn } from "@/lib/utils";
 
 interface HeroCarouselSlide {
@@ -71,15 +72,7 @@ export default function HeroCarousel({
   const [index, setIndex] = useState(0);
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(query.matches);
-    const onChange = () => setReducedMotion(query.matches);
-    query.addEventListener("change", onChange);
-    return () => query.removeEventListener("change", onChange);
-  }, []);
+  const reducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     if (reducedMotion || hovered || focused) return;
