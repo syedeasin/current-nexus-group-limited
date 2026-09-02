@@ -1,19 +1,21 @@
 "use client";
 
-import { useEffect, useRef, type KeyboardEvent } from "react";
+import { useEffect, useRef, type FocusEvent, type KeyboardEvent } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { mainNav } from "@/site.config";
+import { NAV_ITEMS } from "@/config/nav.config";
 import MenuPanel from "@/components/layout/nav/MenuPanel";
 import { useMenuState } from "@/components/layout/nav/useMenuState";
+import type { HeaderState } from "@/components/layout/nav/Navbar";
 
 interface DesktopNavProps {
+  state: HeaderState;
   onOpenChange: (isOpen: boolean) => void;
 }
 
-export default function DesktopNav({ onOpenChange }: DesktopNavProps) {
+export default function DesktopNav({ state, onOpenChange }: DesktopNavProps) {
   const t = useTranslations("nav");
   const pathname = usePathname();
   const containerRef = useRef<HTMLElement | null>(null);
@@ -43,7 +45,7 @@ export default function DesktopNav({ onOpenChange }: DesktopNavProps) {
 
     if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
       const target = event.target as HTMLElement;
-      const keys = mainNav.map((item) => item.labelKey);
+      const keys = NAV_ITEMS.map((item) => item.labelKey);
       const currentIndex = keys.findIndex((key) => triggerRefs.current[key] === target);
       if (currentIndex === -1) return;
       event.preventDefault();
@@ -53,27 +55,36 @@ export default function DesktopNav({ onOpenChange }: DesktopNavProps) {
     }
   }
 
+  // Tabbing out of the nav entirely (not into the open panel) closes it.
+  function handleNavBlur(event: FocusEvent<HTMLElement>) {
+    if (!containerRef.current?.contains(event.relatedTarget as Node | null)) close();
+  }
+
+  const textColorClass = state === "light" ? "text-neutral-1" : "text-white";
+
   return (
     <nav
       ref={containerRef}
-      aria-label={t("main")}
+      aria-label="Primary"
       onKeyDown={handleNavKeyDown}
+      onBlur={handleNavBlur}
       className="hidden items-center gap-24 lg:flex"
     >
-      {mainNav.map((item) => {
+      {NAV_ITEMS.map((item) => {
         const isOpen = openKey === item.labelKey;
-        const panelId = `nav-panel-${item.labelKey}`;
-        const active = isSectionActive(item.href);
+        const panelId = `mega-${item.labelKey}`;
+        const hasMenu = Boolean(item.columns?.length);
+        const active = isOpen || isSectionActive(item.href);
 
         return (
           <div
             key={item.labelKey}
             className="relative"
             onMouseEnter={() => {
-              if (item.menu) scheduleOpen(item.labelKey);
+              if (hasMenu) scheduleOpen(item.labelKey);
             }}
             onMouseLeave={() => {
-              if (item.menu) scheduleClose();
+              if (hasMenu) scheduleClose();
             }}
           >
             <Link
@@ -81,37 +92,41 @@ export default function DesktopNav({ onOpenChange }: DesktopNavProps) {
               ref={(node) => {
                 triggerRefs.current[item.labelKey] = node;
               }}
-              aria-haspopup={item.menu ? "true" : undefined}
-              aria-expanded={item.menu ? isOpen : undefined}
-              aria-controls={item.menu ? panelId : undefined}
+              aria-haspopup={hasMenu ? "true" : undefined}
+              aria-expanded={hasMenu ? isOpen : undefined}
+              aria-controls={hasMenu ? panelId : undefined}
+              onFocus={() => {
+                if (hasMenu) open(item.labelKey);
+              }}
               onClick={(event) => {
-                if (!item.menu) return;
+                if (!hasMenu) return;
                 event.preventDefault();
                 toggle(item.labelKey);
               }}
               onKeyDown={(event) => {
-                if (item.menu && event.key === "ArrowDown") {
+                if (hasMenu && event.key === "ArrowDown") {
                   event.preventDefault();
                   open(item.labelKey);
                   focusFirstPanelLink(panelId);
                 }
               }}
               className={cn(
-                "flex items-center gap-4 py-8 text-p4 text-white outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+                "flex items-center gap-4 whitespace-nowrap text-p3 outline-none transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-secondary",
+                active ? "font-medium text-secondary" : cn(textColorClass, "hover:text-secondary")
               )}
             >
-              <span className={cn("pb-2", active && "border-b-2 border-secondary text-secondary")}>
-                {t(item.labelKey)}
-              </span>
-              {item.menu ? (
-                <ChevronDown
-                  size={16}
-                  className={cn("transition-transform duration-150 motion-reduce:transition-none", isOpen && "rotate-180")}
-                />
+              {t(item.labelKey)}
+              {hasMenu ? (
+                <span className="pt-5 pb-3">
+                  <ChevronDown
+                    size={16}
+                    className={cn("transition-transform duration-150 motion-reduce:transition-none", isOpen && "rotate-180")}
+                  />
+                </span>
               ) : null}
             </Link>
 
-            {item.menu ? (
+            {hasMenu ? (
               <div onMouseEnter={() => open(item.labelKey)} onMouseLeave={() => scheduleClose()}>
                 <MenuPanel item={item} panelId={panelId} isOpen={isOpen} pathname={pathname} t={t} />
               </div>

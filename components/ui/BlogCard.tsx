@@ -6,12 +6,16 @@ import { cn } from "@/lib/utils";
 
 interface BlogCardProps {
   href: string;
-  image: string;
+  /** Cover image path, or null to render a plain placeholder block. */
+  image: string | null;
+  /** Alt text. When non-empty the image is exposed to assistive tech; empty = decorative. */
+  imageAlt?: string;
   imageSizes: string;
   title: string;
   /** ISO date (UTC) — rendered through the fixed-locale formatter. */
   date: string;
-  readTime: string;
+  /** "X min read" label. Omit (or pass falsy) to hide the chip entirely — never render "0 min read". */
+  readTime?: string;
   /** Semantic heading level for the title. Defaults to h3 (post title within an h2 section). */
   headingLevel?: 2 | 3 | 4;
   className?: string;
@@ -20,6 +24,7 @@ interface BlogCardProps {
 export default function BlogCard({
   href,
   image,
+  imageAlt = "",
   imageSizes,
   title,
   date,
@@ -38,20 +43,26 @@ export default function BlogCard({
       )}
     >
       <div className="relative aspect-[424/300] w-full overflow-hidden rounded-16 bg-neutral-2">
-        <Image
-          src={image}
-          alt=""
-          aria-hidden="true"
-          fill
-          sizes={imageSizes}
-          className="object-cover transition-transform duration-[250ms] ease-out group-hover:scale-[1.03] group-focus-visible:scale-[1.03] motion-reduce:transition-none"
-        />
+        {image && (
+          <Image
+            src={image}
+            alt={imageAlt}
+            aria-hidden={imageAlt ? undefined : true}
+            fill
+            sizes={imageSizes}
+            className="object-cover transition-transform duration-[250ms] ease-out group-hover:scale-[1.03] group-focus-visible:scale-[1.03] motion-reduce:transition-none"
+          />
+        )}
       </div>
       <div className="flex w-full flex-col gap-12">
         <div className="flex items-center gap-12 text-p3 text-neutral-4">
           <span>{formatDate(date)}</span>
-          <span aria-hidden="true" className="h-14 w-px bg-neutral-9" />
-          <span>{readTime}</span>
+          {readTime && (
+            <>
+              <span aria-hidden="true" className="h-14 w-px bg-neutral-9" />
+              <span>{readTime}</span>
+            </>
+          )}
         </div>
         <Heading
           level={headingLevel}

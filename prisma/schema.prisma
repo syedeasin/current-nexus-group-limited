@@ -1,0 +1,162 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+  AUTHOR
+  VIEWER
+}
+
+enum PostStatus {
+  DRAFT
+  PENDING_REVIEW
+  PUBLISHED
+  ARCHIVED
+}
+
+enum Locale {
+  EN
+  FR
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  passwordHash String
+  role         Role      @default(AUTHOR)
+  avatarUrl    String?
+  bio          String?
+  isActive     Boolean   @default(true)
+  tokenVersion Int       @default(0)
+  lastLoginAt  DateTime?
+
+  posts Post[]
+  media Media[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Category {
+  id          String  @id @default(cuid())
+  name        String
+  slug        String
+  locale      Locale  @default(EN)
+  description String?
+
+  metaTitle       String?
+  metaDescription String?
+
+  parentId String?
+  parent   Category?  @relation("CategoryTree", fields: [parentId], references: [id], onDelete: SetNull)
+  children Category[] @relation("CategoryTree")
+
+  posts Post[]
+
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([slug, locale])
+  @@index([parentId])
+  @@map("categories")
+}
+
+model Tag {
+  id     String @id @default(cuid())
+  name   String
+  slug   String
+  locale Locale @default(EN)
+
+  posts PostTag[]
+
+  createdAt DateTime @default(now())
+
+  @@unique([slug, locale])
+  @@map("tags")
+}
+
+model Post {
+  id      String  @id @default(cuid())
+  title   String
+  slug    String
+  locale  Locale  @default(EN)
+  excerpt String?
+  content String  @default("")
+
+  status      PostStatus @default(DRAFT)
+  publishedAt DateTime?
+
+  featuredImage    String? @db.VarChar(500)
+  featuredImageAlt String?
+
+  metaTitle       String?
+  metaDescription String?
+  focusKeyword    String?
+  canonicalUrl    String? @db.VarChar(500)
+  ogImage         String? @db.VarChar(500)
+  noIndex         Boolean @default(false)
+
+  readingTime Int @default(0)
+  viewCount   Int @default(0)
+
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id])
+
+  tags PostTag[]
+
+  translationKey String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([slug, locale])
+  @@index([status, publishedAt])
+  @@index([categoryId])
+  @@index([authorId])
+  @@index([translationKey])
+  @@map("posts")
+}
+
+model PostTag {
+  postId String
+  tagId  String
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([postId, tagId])
+  @@map("post_tags")
+}
+
+model Media {
+  id       String  @id @default(cuid())
+  url      String  @db.VarChar(500)
+  alt      String?
+  fileName String
+  mimeType String
+  size     Int
+  width    Int?
+  height   Int?
+
+  uploadedById String?
+  uploadedBy   User?   @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@map("media")
+}

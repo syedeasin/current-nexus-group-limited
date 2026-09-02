@@ -423,3 +423,157 @@
     align-self: end;
   }
 }
+
+/* Rich text editor surface (Phase D2-B). The design system's --color-*: initial
+   reset strips Tailwind's own prose defaults, so Tiptap's raw output needs its
+   own scoped rules here. Token values only, no new colours. */
+.prose-editor {
+  min-height: 400px;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--color-neutral-10);
+  background-color: var(--color-white);
+  color: var(--color-neutral-1);
+  font-size: var(--text-p3);
+  line-height: var(--text-p3--line-height);
+  letter-spacing: var(--text-p3--letter-spacing);
+}
+
+.prose-editor p {
+  margin: 0 0 16px;
+}
+
+.prose-editor h2 {
+  margin: 32px 0 16px;
+  font-size: var(--text-h5);
+  line-height: var(--text-h5--line-height);
+  letter-spacing: var(--text-h5--letter-spacing);
+  font-weight: 600;
+}
+
+.prose-editor h2:first-child {
+  margin-top: 0;
+}
+
+.prose-editor h3 {
+  margin: 24px 0 12px;
+  font-size: var(--text-h6);
+  line-height: var(--text-h6--line-height);
+  letter-spacing: var(--text-h6--letter-spacing);
+  font-weight: 600;
+}
+
+.prose-editor ul,
+.prose-editor ol {
+  margin: 0 0 16px;
+  padding-left: 24px;
+}
+
+.prose-editor ul {
+  list-style: disc;
+}
+
+.prose-editor ol {
+  list-style: decimal;
+}
+
+.prose-editor li + li {
+  margin-top: 4px;
+}
+
+.prose-editor blockquote {
+  margin: 0 0 16px;
+  padding-left: 16px;
+  border-left: 2px solid var(--color-neutral-10);
+  color: var(--color-neutral-5);
+}
+
+.prose-editor a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.prose-editor img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.prose-editor p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  color: var(--color-neutral-6);
+}
+
+/* Same typography as .prose-editor, minus the editor's own chrome (min-height,
+   border, background, placeholder pseudo) — for rendering saved post content
+   read-only on the public site so an article matches how it looked while
+   being written. Not wired into a route yet; see docs/news-audit.md. */
+.prose-content {
+  color: var(--color-neutral-1);
+  font-size: var(--text-p3);
+  line-height: var(--text-p3--line-height);
+  letter-spacing: var(--text-p3--letter-spacing);
+}
+
+.prose-content p {
+  margin: 0 0 16px;
+}
+
+.prose-content h2 {
+  margin: 32px 0 16px;
+  font-size: var(--text-h5);
+  line-height: var(--text-h5--line-height);
+  letter-spacing: var(--text-h5--letter-spacing);
+  font-weight: 600;
+}
+
+.prose-content h2:first-child {
+  margin-top: 0;
+}
+
+.prose-content h3 {
+  margin: 24px 0 12px;
+  font-size: var(--text-h6);
+  line-height: var(--text-h6--line-height);
+  letter-spacing: var(--text-h6--letter-spacing);
+  font-weight: 600;
+}
+
+.prose-content ul,
+.prose-content ol {
+  margin: 0 0 16px;
+  padding-left: 24px;
+}
+
+.prose-content ul {
+  list-style: disc;
+}
+
+.prose-content ol {
+  list-style: decimal;
+}
+
+.prose-content li + li {
+  margin-top: 4px;
+}
+
+.prose-content blockquote {
+  margin: 0 0 16px;
+  padding-left: 16px;
+  border-left: 2px solid var(--color-neutral-10);
+  color: var(--color-neutral-5);
+}
+
+.prose-content a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.prose-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}

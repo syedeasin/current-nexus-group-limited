@@ -1,7 +1,8 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
 import Heading from "@/components/ui/Heading";
+import Text from "@/components/ui/Text";
 import BlogCard from "@/components/ui/BlogCard";
 import Pagination from "@/components/sections/news/Pagination";
 import { getPosts } from "@/lib/data/news";
@@ -17,8 +18,8 @@ interface AllNewsProps {
 }
 
 export default async function AllNews({ page }: AllNewsProps) {
-  const t = await getTranslations("news");
-  const { posts, totalPages } = await getPosts(page, PER_PAGE);
+  const [t, locale] = await Promise.all([getTranslations("news"), getLocale()]);
+  const { posts, totalPages } = await getPosts(locale, page, PER_PAGE);
   const currentPage = Math.min(Math.max(1, page), totalPages);
 
   return (
@@ -30,23 +31,36 @@ export default async function AllNews({ page }: AllNewsProps) {
           </Heading>
         </Reveal>
 
-        <div className="grid w-full grid-cols-1 gap-x-24 gap-y-40 sm:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post, index) => {
-            const delay = CARD_BASE_DELAY_MS + Math.min(index * CARD_STEP_MS, CARD_STAGGER_CAP_MS);
-            return (
-              <Reveal key={post.slug} as="div" delay={delay}>
-                <BlogCard
-                  href={`/news/${post.slug}`}
-                  image={post.coverImage}
-                  title={post.title}
-                  date={post.publishedAt}
-                  readTime={t("minRead", { count: post.readingMinutes })}
-                  imageSizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                />
-              </Reveal>
-            );
-          })}
-        </div>
+        {posts.length === 0 ? (
+          <Reveal as="div" className="w-full">
+            <Text size="p2" className="text-neutral-4">
+              {t("noArticles")}
+            </Text>
+          </Reveal>
+        ) : (
+          <div className="grid w-full grid-cols-1 gap-x-24 gap-y-40 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post, index) => {
+              const delay = CARD_BASE_DELAY_MS + Math.min(index * CARD_STEP_MS, CARD_STAGGER_CAP_MS);
+              return (
+                <Reveal key={post.slug} as="div" delay={delay}>
+                  <BlogCard
+                    href={`/news/${post.slug}`}
+                    image={post.coverImage}
+                    imageAlt={post.coverImageAlt}
+                    title={post.title}
+                    date={post.publishedAt}
+                    readTime={
+                      post.readingMinutes > 0
+                        ? t("minRead", { count: post.readingMinutes })
+                        : undefined
+                    }
+                    imageSizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  />
+                </Reveal>
+              );
+            })}
+          </div>
+        )}
 
         <Pagination
           currentPage={currentPage}

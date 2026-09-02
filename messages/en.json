@@ -258,9 +258,11 @@
     "solarPanels": "Solar Panels",
     "bess": "BESS",
     "bc": "BC",
+    "backContact": "Back Contact",
     "hjt": "HJT",
     "topcon": "TOPCon",
     "odmVerticalSolarModules": "ODM / Vertical Solar Modules",
+    "odmVertical": "ODM-Vertical Solar",
     "residentialBess": "Residential BESS",
     "bess112": "112kWh",
     "bess261": "261kWh",
@@ -277,6 +279,7 @@
     "solutions": "Solutions",
     "residential": "Residential",
     "commercialIndustrial": "C&I",
+    "ci": "Commercial & Industrial",
     "utilities": "Utilities",
     "virtualPowerPlant": "Virtual Power Plant Solutions",
     "supplyChainFinancing": "Supply Chain Financing for PV and BESS",
@@ -284,6 +287,8 @@
     "gridTie": "Grid-tie Projects",
     "offgrid": "Offgrid Projects",
     "projectFinancing": "Project Financing",
+    "uranusPro": "G12-0BB Uranus Pro Module 730-765W",
+    "venusPro": "G12-0BB Venus Pro Module 530-565W",
     "newsRoom": "News Room",
     "news": "News",
     "reAnalysis": "RE Analysis",
@@ -293,7 +298,8 @@
     "downloads": "Downloads",
     "globalDistributor": "Global Distributor",
     "warranty": "Warranty",
-    "stockProducts": "Stock Products with Discount Price"
+    "stockProducts": "Stock Products with Discount Price",
+    "language": "Language"
   },
   "manufacturing": {
     "solarPanels": {
@@ -518,7 +524,8 @@
     "shareLabel": "Share on social:",
     "shareAriaLabel": "Share on {network}",
     "previousPost": "Previous Post",
-    "nextPost": "Next Post"
+    "nextPost": "Next Post",
+    "noArticles": "No articles yet."
   },
   "footer": {
     "contactInfo": "Contact info",

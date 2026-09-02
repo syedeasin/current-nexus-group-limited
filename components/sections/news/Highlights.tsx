@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import Reveal from "@/components/ui/Reveal";
 import NewsCarousel from "@/components/sections/news/NewsCarousel";
 import HighlightCard from "@/components/sections/news/HighlightCard";
@@ -9,8 +9,10 @@ const CARD_STEP_MS = 80;
 const CARD_STAGGER_CAP_MS = 400;
 
 export default async function Highlights() {
-  const t = await getTranslations("news");
-  const posts = await getHighlightPosts();
+  const [t, locale] = await Promise.all([getTranslations("news"), getLocale()]);
+  const posts = await getHighlightPosts(locale);
+
+  if (posts.length === 0) return null;
 
   return (
     <section aria-label={t("highlightsHeading")} className="w-full bg-white py-48 md:py-64 xl:py-100">

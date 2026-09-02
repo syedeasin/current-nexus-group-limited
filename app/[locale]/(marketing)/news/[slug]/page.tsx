@@ -3,15 +3,32 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
 import DetailsHero from "@/components/sections/news/DetailsHero";
-import ArticleBody from "@/components/sections/news/ArticleBody";
 import PostNav from "@/components/sections/news/PostNav";
-import { getPathname } from "@/i18n/navigation";
 import { getAdjacentPosts, getAllSlugs, getPostBySlug } from "@/lib/data/news";
+import { postPublicUrl } from "@/lib/routes";
+import { sanitizePostHtml } from "@/lib/sanitize-html";
 import { siteConfig } from "@/site.config";
 
+/** Render posts published after build on demand instead of 404ing. */
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
-  const slugs = await getAllSlugs();
-  return slugs.map((slug) => ({ slug }));
+  return getAllSlugs();
+}
+
+/** Strip tags/whitespace so an HTML body can seed a meta description. */
+function plainText(html: string): string {
+  return html
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/** Resolve a stored image path (or absolute URL) to an absolute URL for OG tags. */
+function toAbsolute(pathOrUrl: string): string {
+  if (/^https?:\/\//i.test(pathOrUrl)) return pathOrUrl;
+  const base = process.env.NEXT_PUBLIC_SITE_URL ?? siteConfig.url;
+  return `${base}${pathOrUrl.startsWith("/") ? "" : "/"}${pathOrUrl}`;
 }
 
 export async function generateMetadata({
@@ -20,33 +37,41 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const post = await getPostBySlug(slug);
+  const post = await getPostBySlug(slug, locale);
 
   if (!post) {
     return { title: "Post not found" };
   }
 
-  const path = getPathname({ href: `/news/${slug}`, locale });
-  const url = `${siteConfig.url}${path}`;
-  const coverUrl = `${siteConfig.url}${post.coverImage}`;
+  const title = post.metaTitle || post.title;
+  const description =
+    post.metaDescription || post.excerpt || plainText(post.content).slice(0, 155);
+  const canonical = post.canonicalUrl || postPublicUrl(locale, slug);
+  const url = postPublicUrl(locale, slug);
+
+  const imagePath = post.ogImage || post.coverImage;
+  const images = imagePath
+    ? [{ url: toAbsolute(imagePath), alt: post.coverImageAlt || post.title }]
+    : undefined;
 
   return {
-    title: post.title,
-    description: post.excerpt,
-    alternates: { canonical: url },
+    title,
+    description,
+    alternates: { canonical },
+    robots: post.noIndex ? { index: false, follow: false } : undefined,
     openGraph: {
       type: "article",
-      title: post.title,
-      description: post.excerpt,
+      title,
+      description,
       url,
-      images: [{ url: coverUrl }],
       publishedTime: post.publishedAt,
+      images,
     },
     twitter: {
       card: "summary_large_image",
-      title: post.title,
-      description: post.excerpt,
-      images: [coverUrl],
+      title,
+      description,
+      images: images?.map((image) => image.url),
     },
   };
 }
@@ -57,30 +82,29 @@ export default async function NewsDetailsPage({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
-  const post = await getPostBySlug(slug);
+  const post = await getPostBySlug(slug, locale);
   if (!post) notFound();
 
   const [{ prev, next }, t] = await Promise.all([
-    getAdjacentPosts(slug),
+    getAdjacentPosts(slug, locale),
     getTranslations("news"),
   ]);
 
-  const path = getPathname({ href: `/news/${slug}`, locale });
-  const postUrl = `${siteConfig.url}${path}`;
+  const postUrl = postPublicUrl(locale, slug);
 
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
-    image: [`${siteConfig.url}${post.coverImage}`],
+    ...(post.coverImage ? { image: [toAbsolute(post.coverImage)] } : {}),
     datePublished: post.publishedAt,
-    dateModified: post.publishedAt,
-    author: [{ "@type": "Organization", name: siteConfig.name }],
+    dateModified: post.updatedAt,
+    author: [{ "@type": "Person", name: post.authorName }],
   };
 
   return (
     <main>
-      {/* Static, local data — safe per project convention, avoids React's default text-node HTML-escaping corrupting the JSON. */}
+      {/* Serialised from DB fields, JSON.stringify only — avoids React's text-node escaping corrupting the JSON. */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
@@ -89,7 +113,11 @@ export default async function NewsDetailsPage({
 
       <section className="w-full bg-white pt-48 pb-64 md:pt-64 md:pb-80 xl:pt-80 xl:pb-100">
         <Container>
-          <ArticleBody blocks={post.content} />
+          {/* Content was sanitised on save (D2B-3); sanitised again on output as defence in depth. */}
+          <div
+            className="prose-content mx-auto w-full max-w-820"
+            dangerouslySetInnerHTML={{ __html: sanitizePostHtml(post.content) }}
+          />
           <div className="mx-auto mt-32 w-full max-w-820">
             <PostNav prev={prev} next={next} previousLabel={t("previousPost")} nextLabel={t("nextPost")} />
           </div>

@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: cnx-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: cnx
+      POSTGRES_PASSWORD: cnxlocal2026
+      POSTGRES_DB: cnx_website
+    ports:
+      - "6543:5432"
+    volumes:
+      - cnx-pgdata:/var/lib/postgresql/data
+
+volumes:
+  cnx-pgdata:

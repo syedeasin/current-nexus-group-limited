@@ -17,15 +17,17 @@ export default async function DetailsHero({ post, postUrl }: DetailsHeroProps) {
 
   return (
     <section className="relative flex min-h-[420px] w-full flex-col justify-end overflow-hidden bg-neutral-1 xl:h-572">
-      <Image
-        src={post.coverImage}
-        alt=""
-        aria-hidden="true"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-      />
+      {post.coverImage && (
+        <Image
+          src={post.coverImage}
+          alt={post.coverImageAlt}
+          aria-hidden={post.coverImageAlt ? undefined : true}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+      )}
       <div
         aria-hidden="true"
         className="absolute inset-0 backdrop-blur-[11px]"
@@ -38,8 +40,12 @@ export default async function DetailsHero({ post, postUrl }: DetailsHeroProps) {
         <div className="flex max-w-900 flex-col gap-8">
           <Reveal as="div" delay={0}>
             <div className="flex items-center gap-12 text-p1 font-medium text-neutral-9">
-              <span>{post.category}</span>
-              <span aria-hidden="true" className="h-12 w-px bg-white/40" />
+              {post.category && (
+                <>
+                  <span>{post.category}</span>
+                  <span aria-hidden="true" className="h-12 w-px bg-white/40" />
+                </>
+              )}
               <span>{formatDate(post.publishedAt)}</span>
             </div>
           </Reveal>
