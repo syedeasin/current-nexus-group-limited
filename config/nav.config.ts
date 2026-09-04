@@ -14,15 +14,19 @@
  * `/products/*` detail routes exist yet.
  */
 
+import type messages from "@/messages/en.json";
+
+export type NavLabelKey = keyof typeof messages.nav;
+
 export type NavColumnKind = "links" | "products";
 
 export type NavLink = {
-  labelKey: string;
+  labelKey: NavLabelKey;
   href: string;
 };
 
 export type NavProduct = {
-  labelKey: string;
+  labelKey: NavLabelKey;
   href: string;
   image: string;
 };
@@ -32,9 +36,9 @@ export type NavColumn =
   | { kind: "products"; items: NavProduct[] };
 
 export type NavItem = {
-  labelKey: string;
+  labelKey: NavLabelKey;
   href: string;
-  columns?: NavColumn[];
+  columns: NavColumn[];
 };
 
 export const NAV_ITEMS: NavItem[] = [

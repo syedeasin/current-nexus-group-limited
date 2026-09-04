@@ -106,6 +106,8 @@ export default function HeroCarousel({
 
   return (
     <section
+      id="hero-section"
+      data-hero-sentinel
       aria-roledescription="carousel"
       aria-label={ariaLabel}
       onMouseEnter={() => setHovered(true)}
@@ -113,90 +115,107 @@ export default function HeroCarousel({
       onFocus={() => setFocused(true)}
       onBlur={handleBlur}
       onKeyDown={handleKeyDown}
-      className="relative w-full overflow-hidden"
+      className="relative -mt-56 w-full overflow-hidden lg:-mt-88"
     >
-      {slides.map((slide, slideIndex) => (
-        <div
-          key={slide.id}
-          aria-hidden={slideIndex !== index}
-          className="absolute inset-0 transition-opacity ease-out"
-          style={{
-            opacity: slideIndex === index ? 1 : 0,
-            transitionDuration: `${CROSSFADE_MS}ms`,
-          }}
-        >
+      {/* মোবাইল হিরো — Figma exact লেআউট (< lg) */}
+      <div className="lg:hidden">
+        <div className="relative h-336 w-full">
           <Image
-            src={slide.image}
+            src={active.image}
             alt=""
             fill
-            priority={slideIndex === 0}
+            priority
             sizes="100vw"
-            style={{ objectFit: "cover", objectPosition: slide.imagePosition }}
+            style={{ objectFit: "cover", objectPosition: active.imagePosition }}
+          />
+          <div
+            className="absolute inset-0 bg-gradient-to-b from-transparent via-neutral-1/60 to-neutral-1"
+            aria-hidden="true"
           />
         </div>
-      ))}
 
-      <div
-        className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(10,13,27,0.2)_0%,rgba(10,13,27,0.69)_69.2515%,rgba(10,13,27,0.9)_100%)]"
-        aria-hidden="true"
-      />
-
-      <Container className="relative z-10 flex min-h-560 flex-col items-center justify-end gap-40 pt-108 pb-32 md:min-h-720 md:pb-48 xl:min-h-960 xl:pb-110">
-        <div aria-live="polite" className="flex w-full flex-col items-center gap-40">
-          <div className="flex w-full flex-col items-center gap-19 text-center">
-            <Reveal as="div" className="w-full xl:max-w-888">
-              <Heading level={1} size="h1" className="text-white text-balance">
-                {active.heading}
-              </Heading>
-            </Reveal>
-            <Reveal as="div" delay={80} className="w-full xl:max-w-788">
-              <Text size="p1" className="text-neutral-9">
-                {active.body}
-              </Text>
-            </Reveal>
-          </div>
-
-          <Reveal as="div" delay={160}>
-            <Button href={active.ctaHref} size="xl" className="w-full sm:w-auto">
-              {active.cta}
-              <ChevronRight size={12} />
-            </Button>
-          </Reveal>
+        <div className="flex flex-col items-center bg-neutral-1 px-20 pb-40">
+          <Heading level={1} size="h1" className="text-center text-white text-balance">
+            {active.heading}
+          </Heading>
+          <p className="mt-12 text-center text-h4 font-medium text-neutral-9">{active.body}</p>
+          <Button href={active.ctaHref} size="lg" className="mt-27">
+            {active.cta}
+            <ChevronRight size={12} />
+          </Button>
         </div>
+      </div>
 
-        <div className="flex items-center justify-center gap-24 md:hidden">
-          <ArrowButton
-            direction="prev"
-            label={previousSlideLabel}
-            onClick={() => goTo(index - 1)}
-            size="row"
-          />
-          <ArrowButton
-            direction="next"
-            label={nextSlideLabel}
-            onClick={() => goTo(index + 1)}
-            size="row"
-          />
-        </div>
-      </Container>
-
-      <div className="pointer-events-none absolute inset-x-0 top-1/2 z-10 hidden -translate-y-1/2 md:flex">
-        <div className="mx-auto flex w-full max-w-2000 items-center justify-between px-64 xl:px-200">
-          <div className="pointer-events-auto">
-            <ArrowButton
-              direction="prev"
-              label={previousSlideLabel}
-              onClick={() => goTo(index - 1)}
-              size="edge"
+      {/* ডেস্কটপ হিরো — বিদ্যমান ক্যারোসেল (>= lg) */}
+      <div className="hidden lg:block">
+        {slides.map((slide, slideIndex) => (
+          <div
+            key={slide.id}
+            aria-hidden={slideIndex !== index}
+            className="absolute inset-0 transition-opacity ease-out"
+            style={{
+              opacity: slideIndex === index ? 1 : 0,
+              transitionDuration: `${CROSSFADE_MS}ms`,
+            }}
+          >
+            <Image
+              src={slide.image}
+              alt=""
+              fill
+              priority={slideIndex === 0}
+              sizes="100vw"
+              style={{ objectFit: "cover", objectPosition: slide.imagePosition }}
             />
           </div>
-          <div className="pointer-events-auto">
-            <ArrowButton
-              direction="next"
-              label={nextSlideLabel}
-              onClick={() => goTo(index + 1)}
-              size="edge"
-            />
+        ))}
+
+        <div
+          className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(10,13,27,0.2)_0%,rgba(10,13,27,0.69)_69.2515%,rgba(10,13,27,0.9)_100%)]"
+          aria-hidden="true"
+        />
+
+        <Container className="relative z-10 flex min-h-720 flex-col items-center justify-end gap-40 pt-108 pb-48 xl:min-h-960 xl:pb-110">
+          <div aria-live="polite" className="flex w-full flex-col items-center gap-40">
+            <div className="flex w-full flex-col items-center gap-19 text-center">
+              <Reveal as="div" className="w-full xl:max-w-888">
+                <Heading level={1} size="h1" className="text-white text-balance">
+                  {active.heading}
+                </Heading>
+              </Reveal>
+              <Reveal as="div" delay={80} className="w-full xl:max-w-788">
+                <Text size="p1" className="text-neutral-9">
+                  {active.body}
+                </Text>
+              </Reveal>
+            </div>
+
+            <Reveal as="div" delay={160}>
+              <Button href={active.ctaHref} size="xl" className="w-full sm:w-auto">
+                {active.cta}
+                <ChevronRight size={12} />
+              </Button>
+            </Reveal>
+          </div>
+        </Container>
+
+        <div className="pointer-events-none absolute inset-x-0 top-1/2 z-10 flex -translate-y-1/2">
+          <div className="mx-auto flex w-full max-w-2000 items-center justify-between px-64 xl:px-200">
+            <div className="pointer-events-auto">
+              <ArrowButton
+                direction="prev"
+                label={previousSlideLabel}
+                onClick={() => goTo(index - 1)}
+                size="edge"
+              />
+            </div>
+            <div className="pointer-events-auto">
+              <ArrowButton
+                direction="next"
+                label={nextSlideLabel}
+                onClick={() => goTo(index + 1)}
+                size="edge"
+              />
+            </div>
           </div>
         </div>
       </div>

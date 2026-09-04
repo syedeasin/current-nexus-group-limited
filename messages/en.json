@@ -246,6 +246,8 @@
   "nav": {
     "contact": "Contact us",
     "search": "Search",
+    "searchPlaceholder": "Search products, solutions, news...",
+    "closeSearch": "Close search",
     "changeLanguage": "Change language",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",

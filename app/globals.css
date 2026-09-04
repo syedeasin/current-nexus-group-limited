@@ -166,6 +166,20 @@
   }
 }
 
+/* Global reduced-motion guard: kill transitions/animations for users who ask
+   for it. Component-level motion-reduce: variants cover Tailwind utilities, but
+   inline transition styles (e.g. the header shell) need this blanket rule. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* Trusted Logos ticker: geometry driven by CSS vars so JS never touches layout. */
 .trusted-logos-section {
   --ticker-gap: 48px;
