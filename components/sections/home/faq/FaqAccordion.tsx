@@ -93,7 +93,7 @@ export default function FaqAccordion({
                       }`}
                   >
                     <div className="overflow-hidden">
-                      <p className="pt-12 pr-48 text-[18px] leading-[28px] tracking-[-0.09px] text-neutral-3">
+                      <p className="pt-12 pr-48 text-p3 text-neutral-3">
                         {answer}
                       </p>
                     </div>

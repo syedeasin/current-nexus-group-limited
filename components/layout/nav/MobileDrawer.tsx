@@ -91,7 +91,7 @@ export default function MobileDrawer({ isOpen, onClose, triggerRef }: MobileDraw
   }
 
   return (
-      <div className={cn("fixed inset-0 z-50 lg:hidden", !isOpen && "pointer-events-none")} aria-hidden={!isOpen}>
+      <div className={cn("fixed inset-0 z-50 xl:hidden", !isOpen && "pointer-events-none")} aria-hidden={!isOpen}>
         {/* স্ক্রিম */}
         <button
             type="button"

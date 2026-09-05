@@ -5,6 +5,7 @@ import Heading from "@/components/ui/Heading";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import SceneCarousel from "@/components/sections/home/application-scenes/SceneCarousel";
 import { applicationScenes } from "@/lib/data/applicationScenes";
+import { cascade } from "@/lib/motion/timing";
 
 export default async function ApplicationScenes() {
   const t = await getTranslations("home.applicationScenes");
@@ -24,10 +25,10 @@ export default async function ApplicationScenes() {
     >
       <Container>
         <div className="flex w-full flex-col items-center gap-12">
-          <Reveal as="div" delay={0}>
+          <Reveal as="div" delay={cascade(0)}>
             <SectionEyebrow label={t("eyebrow")} />
           </Reveal>
-          <Reveal as="div" delay={80}>
+          <Reveal as="div" delay={cascade(1)}>
             <Heading level={2} size="h2" className="max-w-650 text-balance text-center">
               {t("heading")}
             </Heading>

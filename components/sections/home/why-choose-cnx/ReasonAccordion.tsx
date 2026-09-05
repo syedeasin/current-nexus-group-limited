@@ -61,7 +61,7 @@ export default function ReasonAccordion({
                   key={reason.key}
                   as="div"
                   delay={baseDelay + index * stepDelay}
-                  className="w-full border-b border-white/10 py-32 first:pt-0"
+                  className="w-full border-b-[1.5px] border-white/10 py-32 first:pt-0"
               >
                 <h3 className="m-0">
                   <button
@@ -91,7 +91,7 @@ export default function ReasonAccordion({
                     }`}
                 >
                   <div className="overflow-hidden">
-                    <p className="pt-12 text-[18px] leading-[28px] tracking-[-0.09px] text-neutral-9">
+                    <p className="pt-12 text-p3 text-neutral-9">
                       {body}
                     </p>
                   </div>

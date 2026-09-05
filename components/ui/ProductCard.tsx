@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { ChevronRight } from "@/components/icons/ChevronRight";
+import { CARD_IMAGE_ZOOM, CARD_LIFT, LINK_CHEVRON } from "@/lib/motion/interactions";
 import { usePrefersReducedMotion } from "@/lib/hooks/useMediaQuery";
 
 interface ProductCardProps {
@@ -21,6 +22,8 @@ interface ProductCardProps {
   imageSizes?: string;
   /** Reserves two lines of title height so a row of 1-line and 2-line titles still bottoms out level (Premium Solutions). */
   reserveTwoLineTitle?: boolean;
+  /** Premium Solutions' tighter caption block: no side padding, 4px gap (Figma node 29:2703). */
+  compactInfo?: boolean;
   className?: string;
 }
 
@@ -34,10 +37,10 @@ export default function ProductCard({
   imageBorderClassName = "border-[1.5px] border-neutral-10",
   imageSizes = "(min-width: 1280px) 318px, (min-width: 1024px) 32vw, (min-width: 480px) 45vw, 100vw",
   reserveTwoLineTitle = false,
+  compactInfo = false,
   className,
 }: ProductCardProps) {
   const reducedMotion = usePrefersReducedMotion();
-  const motion = !reducedMotion;
   const imgRef = useRef<HTMLImageElement>(null);
   const [mounted, setMounted] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -57,10 +60,9 @@ export default function ProductCard({
       href={href}
       aria-label={title}
       className={cn(
-        "group flex w-full flex-col rounded-12 outline-none focus-visible:ring-2 focus-visible:ring-secondary",
-        // Card hover: transform only (GPU) — never border-width / shadow / blur (layout jank).
-        motion &&
-          "transition-transform duration-300 ease-out hover:-translate-y-4 focus-visible:-translate-y-4",
+        "group flex w-full flex-col rounded-12 outline-none",
+        "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary",
+        CARD_LIFT,
         className
       )}
     >
@@ -89,14 +91,10 @@ export default function ProductCard({
           onLoad={() => setImageLoaded(true)}
           className={cn(
             "rounded-12 object-cover",
-            motion &&
-              "origin-center transform-gpu will-change-transform group-hover:scale-[1.04] group-focus-visible:scale-[1.04]",
-            // Hover animates transform only. The opacity fade is a one-time
-            // entrance and is dropped from the transition once the image loads.
-            motion &&
-              (imageLoaded
-                ? "transition-transform duration-500 ease-out"
-                : "transition-[opacity,transform] duration-500 ease-out"),
+            CARD_IMAGE_ZOOM,
+            // The entrance fade is one-off; once the photo is in, only transform
+            // is animated so hover never re-runs an opacity transition.
+            !imageLoaded && "transition-[opacity,transform]",
             imageShown ? "opacity-100" : "opacity-0"
           )}
         />
@@ -107,7 +105,12 @@ export default function ProductCard({
           className={cn("pointer-events-none absolute inset-0 rounded-12", imageBorderClassName)}
         />
       </div>
-      <div className="flex w-full flex-col items-center gap-8 px-20 pt-20">
+      <div
+        className={cn(
+          "flex w-full flex-col items-center pt-20",
+          compactInfo ? "gap-4" : "gap-8 px-20"
+        )}
+      >
         <span
           className={cn(
             "flex w-full items-center justify-center text-center text-h6 font-semibold text-white",
@@ -117,19 +120,11 @@ export default function ProductCard({
           {title}
         </span>
         {learnMoreLabel ? (
-          <span className="inline-flex items-center justify-center gap-[6px] text-btn-sm font-semibold tracking-[-0.5px] text-neutral-9 transition-[color,gap] duration-200 ease-out group-hover:gap-[8px] group-hover:text-secondary group-focus-visible:gap-[8px] group-focus-visible:text-secondary">
+          <span className="inline-flex items-center justify-center gap-4 text-btn-sm font-semibold text-neutral-9 transition-colors duration-[var(--dur-base)] ease-[var(--ease-out)] group-hover:text-secondary group-focus-visible:text-secondary motion-reduce:transition-none">
             <span className="underline-offset-2 group-hover:underline group-focus-visible:underline">
               {learnMoreLabel}
             </span>
-            <ChevronRight
-              size={14}
-              strokeWidth={1.5}
-              className={cn(
-                "shrink-0 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100",
-                motion &&
-                  "-translate-x-[4px] transition-[opacity,transform] duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0 group-focus-visible:translate-x-0"
-              )}
-            />
+            <ChevronRight size={16} strokeWidth={1.5} className={LINK_CHEVRON} />
           </span>
         ) : null}
       </div>

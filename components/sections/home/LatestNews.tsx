@@ -6,10 +6,7 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import BlogCard from "@/components/ui/BlogCard";
 import Carousel from "@/components/ui/Carousel";
 import { latestNews } from "@/lib/data/latestNews";
-
-/** Header cascade is eyebrow(0), heading(80) — cards pick up 80ms after that, on first entry only. */
-const CARD_REVEAL_BASE_DELAY_MS = 160;
-const CARD_REVEAL_STEP_MS = 80;
+import { cascade, stagger, CONTENT_BASE_DELAY_MS } from "@/lib/motion/timing";
 
 export default async function LatestNews() {
   const t = await getTranslations("home.latestNews");
@@ -21,10 +18,10 @@ export default async function LatestNews() {
     >
       <Container>
         <div className="flex w-full flex-col items-center gap-12">
-          <Reveal as="div" delay={0}>
+          <Reveal as="div" delay={cascade(0)}>
             <SectionEyebrow label={t("eyebrow")} />
           </Reveal>
-          <Reveal as="div" delay={80}>
+          <Reveal as="div" delay={cascade(1)}>
             <Heading level={2} size="h2" className="text-center">
               {t("heading")}
             </Heading>
@@ -33,12 +30,17 @@ export default async function LatestNews() {
       </Container>
 
       <Container className="mt-48">
-        <Carousel ariaLabel={t("heading")} progressDelay={CARD_REVEAL_BASE_DELAY_MS + latestNews.length * CARD_REVEAL_STEP_MS}>
+        <Carousel
+          ariaLabel={t("heading")}
+          progressDelay={stagger(latestNews.length, CONTENT_BASE_DELAY_MS)}
+          progressVariant="segments"
+          segmentCount={latestNews.length}
+        >
           {latestNews.map((post, index) => (
             <Reveal
               key={post.slug}
               as="div"
-              delay={CARD_REVEAL_BASE_DELAY_MS + index * CARD_REVEAL_STEP_MS}
+              delay={stagger(index, CONTENT_BASE_DELAY_MS)}
               className="w-[85vw] shrink-0 [scroll-snap-align:start] min-[481px]:w-[64%] lg:w-[36%] xl:w-[32.1%]"
             >
               <BlogCard

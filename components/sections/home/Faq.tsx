@@ -7,11 +7,12 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import FaqAccordion from "@/components/sections/home/faq/FaqAccordion";
 import ContactCard from "@/components/sections/shared/ContactCard";
 import { faqItems, DEFAULT_OPEN_ID } from "@/lib/data/faq";
+import { cascade, REVEAL_STEP_MS } from "@/lib/motion/timing";
 
-const HEADING_DELAY_MS = 80;
-const CONTACT_DELAY_MS = 160;
-const ACCORDION_BASE_DELAY_MS = 160;
-const ACCORDION_STEP_MS = 80;
+const HEADING_DELAY_MS = cascade(1);
+const CONTACT_DELAY_MS = cascade(2);
+const ACCORDION_BASE_DELAY_MS = cascade(2);
+const ACCORDION_STEP_MS = REVEAL_STEP_MS;
 const ACCORDION_STAGGER_CAP_MS = 400;
 
 export default async function Faq() {
@@ -49,7 +50,7 @@ export default async function Faq() {
       <Container>
         <div className="faq-grid w-full">
           <div className="faq-header flex flex-col gap-12">
-            <Reveal as="div" delay={0}>
+            <Reveal as="div" delay={cascade(0)}>
               <SectionEyebrow label={t("eyebrow")} />
             </Reveal>
             <Reveal as="div" delay={HEADING_DELAY_MS}>

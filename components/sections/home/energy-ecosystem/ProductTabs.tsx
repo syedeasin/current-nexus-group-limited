@@ -4,6 +4,7 @@ import { useEffect, useId, useLayoutEffect, useRef, useState, type KeyboardEvent
 import ProductCard from "@/components/ui/ProductCard";
 import Reveal from "@/components/ui/Reveal";
 import { usePrefersReducedMotion } from "@/lib/hooks/useMediaQuery";
+import { cascade, stagger } from "@/lib/motion/timing";
 import { cn } from "@/lib/utils";
 
 interface ProductTabProduct {
@@ -25,9 +26,8 @@ interface ProductTabsProps {
   ariaLabel: string;
 }
 
-/** Header cascade is eyebrow(0), heading(80), toggle(160) — cards pick up 80ms after that, on first entry only. */
-const CARD_REVEAL_BASE_DELAY_MS = 240;
-const CARD_REVEAL_STEP_MS = 80;
+/** Header cascade is eyebrow(0), heading(1), toggle(2) — cards pick up from (3). */
+const CARD_REVEAL_BASE_DELAY_MS = cascade(3);
 
 export default function ProductTabs({ tabs, learnMoreLabel, ariaLabel }: ProductTabsProps) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -90,7 +90,7 @@ export default function ProductTabs({ tabs, learnMoreLabel, ariaLabel }: Product
 
   return (
     <div className="flex w-full flex-col items-center gap-24">
-      <Reveal as="div" delay={160}>
+      <Reveal as="div" delay={cascade(2)}>
         <div
           ref={tablistRef}
           role="tablist"
@@ -173,7 +173,7 @@ export default function ProductTabs({ tabs, learnMoreLabel, ariaLabel }: Product
                       <Reveal
                         key={product.key}
                         as="div"
-                        delay={CARD_REVEAL_BASE_DELAY_MS + index * CARD_REVEAL_STEP_MS}
+                        delay={stagger(index, CARD_REVEAL_BASE_DELAY_MS)}
                       >
                         {card}
                       </Reveal>

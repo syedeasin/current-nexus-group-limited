@@ -15,14 +15,21 @@ type RevealVariant = "up" | "scale" | "fade";
 
 interface RevealProps {
   children: ReactNode;
+  /** Stagger offset in ms. Use the helpers in `lib/motion/timing.ts` rather than ad-hoc numbers. */
   delay?: number;
   as?: RevealTag;
   variant?: RevealVariant;
   className?: string;
 }
 
+/**
+ * Timing, easing and travel distance all come from the motion tokens in
+ * globals.css — never from literals here — so one edit there retunes every
+ * reveal on the site. `--reveal-distance` already drops 24px -> 16px under
+ * 768px, which is why the offset needs no JS breakpoint check.
+ */
 const hiddenStyles: Record<RevealVariant, string> = {
-  up: "translate-y-[40px] opacity-0",
+  up: "translate-y-[var(--reveal-distance)] opacity-0",
   scale: "scale-[1.04] opacity-0",
   fade: "opacity-0",
 };
@@ -58,7 +65,9 @@ export default function Reveal({
           observer.unobserve(node);
         }
       },
-      { threshold: 0.15 }
+      // Fires slightly before the element is fully in view so the motion has
+      // already started by the time the reader's eye reaches it.
+      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
     );
 
     observer.observe(node);
@@ -72,7 +81,7 @@ export default function Reveal({
     <Tag
       ref={ref}
       className={cn(
-        "transition-[opacity,transform] duration-[750ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
+        "transition-[opacity,transform] duration-[var(--dur-reveal)] ease-[var(--ease-out)] motion-reduce:transition-none",
         hidden ? hiddenStyles[variant] : visibleStyles[variant],
         className
       )}

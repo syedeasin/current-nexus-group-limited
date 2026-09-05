@@ -7,10 +7,11 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import Container from "@/components/layout/Container";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
-import Button from "@/components/ui/Button";
+import Button, { BUTTON_ICON_SIZE } from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
 import { ChevronRight } from "@/components/icons/ChevronRight";
 import { usePrefersReducedMotion } from "@/lib/hooks/useMediaQuery";
+import { BODY_DELAY_MS, EYEBROW_DELAY_MS, HEADING_DELAY_MS } from "@/lib/motion/timing";
 import { cn } from "@/lib/utils";
 
 interface HeroCarouselSlide {
@@ -132,7 +133,7 @@ export default function HeroCarousel({
       onFocus={() => setFocused(true)}
       onBlur={handleBlur}
       onKeyDown={handleKeyDown}
-      className="relative -mt-56 w-full overflow-hidden lg:-mt-88"
+      className="relative -mt-56 w-full overflow-hidden xl:-mt-88"
     >
       {/* মোবাইল হিরো — Figma exact লেআউট (< lg) */}
       <div className="lg:hidden">
@@ -152,13 +153,13 @@ export default function HeroCarousel({
         </div>
 
         <div className="flex flex-col items-center bg-neutral-1 px-20 pb-40">
-          <Heading level={1} size="h1" className="text-center text-white text-balance">
+          <Heading level={1} size="h1" className="text-center font-bold text-white text-balance">
             {active.heading}
           </Heading>
           <p className="mt-12 text-center text-h4 font-medium text-neutral-9">{active.body}</p>
           <Button href={active.ctaHref} size="lg" className="mt-27">
             {active.cta}
-            <ChevronRight size={12} />
+            <ChevronRight size={BUTTON_ICON_SIZE} />
           </Button>
         </div>
       </div>
@@ -212,29 +213,29 @@ export default function HeroCarousel({
         <Container className="relative z-10 flex min-h-720 flex-col items-center justify-end gap-40 pt-108 pb-48 xl:min-h-960 xl:pb-110">
           <div aria-live="polite" className="flex w-full flex-col items-center gap-40">
             <div className="flex w-full flex-col items-center gap-19 text-center">
-              <Reveal as="div" className="w-full xl:max-w-888">
-                <Heading level={1} size="h1" className="text-white text-balance">
+              <Reveal as="div" delay={EYEBROW_DELAY_MS} className="w-full xl:max-w-888">
+                <Heading level={1} size="h1" className="font-bold text-white text-balance">
                   {active.heading}
                 </Heading>
               </Reveal>
-              <Reveal as="div" delay={80} className="w-full xl:max-w-788">
+              <Reveal as="div" delay={HEADING_DELAY_MS} className="w-full xl:max-w-747">
                 <Text size="p1" className="text-neutral-9">
                   {active.body}
                 </Text>
               </Reveal>
             </div>
 
-            <Reveal as="div" delay={160}>
+            <Reveal as="div" delay={BODY_DELAY_MS}>
               <Button href={active.ctaHref} size="xl" className="w-full sm:w-auto">
                 {active.cta}
-                <ChevronRight size={12} />
+                <ChevronRight size={BUTTON_ICON_SIZE} />
               </Button>
             </Reveal>
           </div>
         </Container>
 
         <div className="pointer-events-none absolute inset-x-0 top-1/2 z-10 flex -translate-y-1/2">
-          <div className="mx-auto flex w-full max-w-2000 items-center justify-between px-64 xl:px-200">
+          <div className="mx-auto flex w-full max-w-1600 items-center justify-between px-64 xl:px-140">
             <div className="pointer-events-auto">
               <ArrowButton
                 direction="prev"

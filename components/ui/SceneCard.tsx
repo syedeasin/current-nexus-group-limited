@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { ArrowUpRight } from "@/components/icons/ArrowUpRight";
+import { CARD_IMAGE_ZOOM, CARD_LIFT } from "@/lib/motion/interactions";
 import { cn } from "@/lib/utils";
 
 interface SceneCardProps {
@@ -25,8 +26,9 @@ export default function SceneCard({
       href={href}
       aria-label={title}
       className={cn(
-        "group flex w-full flex-col gap-24 rounded-12 outline-none transition-transform duration-[250ms] ease-out motion-reduce:transition-none",
-        "hover:-translate-y-4 focus-visible:-translate-y-4 focus-visible:ring-2 focus-visible:ring-secondary",
+        "group flex w-full flex-col gap-24 rounded-12 outline-none",
+        "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary",
+        CARD_LIFT,
         className
       )}
     >
@@ -37,11 +39,11 @@ export default function SceneCard({
           aria-hidden="true"
           fill
           sizes={imageSizes}
-          className="object-cover transition-transform duration-[250ms] ease-out group-hover:scale-[1.03] group-focus-visible:scale-[1.03] motion-reduce:transition-none"
+          className={cn("object-cover", CARD_IMAGE_ZOOM)}
         />
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 flex scale-90 items-center justify-center opacity-0 transition-[opacity,transform] duration-200 ease-out group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+          className="pointer-events-none absolute inset-0 flex scale-90 items-center justify-center opacity-0 transition-[opacity,transform] duration-[var(--dur-base)] ease-[var(--ease-out)] group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
         >
           <span className="flex size-48 items-center justify-center rounded-full bg-white text-neutral-1">
             <ArrowUpRight size={24} />

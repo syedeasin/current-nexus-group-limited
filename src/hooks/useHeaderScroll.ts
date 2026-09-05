@@ -17,12 +17,13 @@ interface UseHeaderScrollOptions {
 
 const DESKTOP_HEADER_HEIGHT_PX = 88;
 const MOBILE_HEADER_HEIGHT_PX = 56;
-const LG_BREAKPOINT_QUERY = "(min-width: 1024px)";
+/** The header swaps from the 56px compact bar to the 88px desktop bar at xl. */
+const DESKTOP_HEADER_QUERY = "(min-width: 1280px)";
 const HIDE_THRESHOLD_PX = 8;
 
 function getHeaderHeight() {
   if (typeof window === "undefined") return DESKTOP_HEADER_HEIGHT_PX;
-  return window.matchMedia(LG_BREAKPOINT_QUERY).matches ? DESKTOP_HEADER_HEIGHT_PX : MOBILE_HEADER_HEIGHT_PX;
+  return window.matchMedia(DESKTOP_HEADER_QUERY).matches ? DESKTOP_HEADER_HEIGHT_PX : MOBILE_HEADER_HEIGHT_PX;
 }
 
 /**
@@ -37,7 +38,7 @@ function getHeaderHeight() {
  * stays intersecting for as long as any part of the hero is still below the
  * header's bottom edge, which is what "still over the hero" actually means.
  *
- * The header is 56px on mobile and 88px on desktop, so the rootMargin/hide
+ * The header is 56px below xl and 88px at xl and up, so the rootMargin/hide
  * threshold are recomputed from the current viewport rather than a constant.
  */
 export function useHeaderScroll({ forceOpen = false }: UseHeaderScrollOptions = {}): HeaderScrollState {
@@ -49,7 +50,7 @@ export function useHeaderScroll({ forceOpen = false }: UseHeaderScrollOptions = 
     const sentinel = document.querySelector("[data-hero-sentinel]");
     if (!sentinel) return;
 
-    const mql = window.matchMedia(LG_BREAKPOINT_QUERY);
+    const mql = window.matchMedia(DESKTOP_HEADER_QUERY);
     let observer: IntersectionObserver | null = null;
 
     function observe() {

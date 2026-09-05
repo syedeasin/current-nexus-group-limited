@@ -3,6 +3,7 @@ import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
 import Heading from "@/components/ui/Heading";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
+import { cascade, stagger } from "@/lib/motion/timing";
 import { cn } from "@/lib/utils";
 
 export interface AwardsCard {
@@ -25,10 +26,8 @@ interface AwardsSectionProps {
   captionClassName?: string;
 }
 
-const HEADING_DELAY_MS = 80;
-const CARD_BASE_DELAY_MS = 160;
-const CARD_STEP_MS = 80;
-const CARD_STAGGER_CAP_MS = 400;
+const HEADING_DELAY_MS = cascade(1);
+const CARD_BASE_DELAY_MS = cascade(2);
 
 /**
  * Generic "industry recognition" section — extracted from the homepage
@@ -52,7 +51,7 @@ export default function AwardsSection({
         <Image src={backgroundImage} alt="" fill sizes="100vw" className="object-cover object-top" />
         {veilGradient ? <div className="absolute inset-0" style={{ background: veilGradient }} /> : null}
       </div>
-      <Container className="relative py-48 md:py-64 xl:py-100">
+      <Container className="relative pt-48 pb-56 md:pt-64 md:pb-72 xl:pt-80 xl:pb-100">
         <div className="flex flex-col items-center gap-32 md:gap-40 xl:gap-48">
           <div className="flex max-w-690 flex-col items-center gap-12 text-center">
             <Reveal as="div">
@@ -67,7 +66,7 @@ export default function AwardsSection({
 
           <div className={rowClassName}>
             {cards.map((card, index) => {
-              const delay = CARD_BASE_DELAY_MS + Math.min(index * CARD_STEP_MS, CARD_STAGGER_CAP_MS);
+              const delay = stagger(index, CARD_BASE_DELAY_MS);
               return (
                 <Reveal key={card.caption + index} as="div" delay={delay} className={cardClassName}>
                   <div className={logoSizeClassName}>

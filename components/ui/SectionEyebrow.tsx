@@ -25,10 +25,7 @@ export default function SectionEyebrow({ label, tone = "light", className }: Sec
         <span className="relative size-8 rounded-full bg-tertiary" />
       </span>
       <span
-        className={cn(
-          "text-badge font-medium uppercase tracking-[-0.08px]",
-          toneStyles[tone]
-        )}
+        className={cn("text-badge font-medium uppercase", toneStyles[tone])}
       >
         {label}
       </span>

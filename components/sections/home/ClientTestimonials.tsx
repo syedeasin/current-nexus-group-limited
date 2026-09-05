@@ -3,12 +3,14 @@ import { getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
 import Heading from "@/components/ui/Heading";
-import Button from "@/components/ui/Button";
+import Button, { BUTTON_ICON_SIZE } from "@/components/ui/Button";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import { ChevronRight } from "@/components/icons/ChevronRight";
 import { testimonials } from "@/lib/data/testimonials";
+import { cascade } from "@/lib/motion/timing";
 
-const CARD_DELAY_MS = 160;
+const CARD_DELAY_MS = cascade(2);
+/** The photo scales in first; its copy follows once that move has settled. */
 const CONTENT_BASE_DELAY_MS = CARD_DELAY_MS + 200;
 const CONTENT_STEP_MS = 80;
 
@@ -20,10 +22,10 @@ export default async function ClientTestimonials() {
     <section aria-label={t("heading")} className="w-full bg-surface-2">
       <Container className="flex flex-col gap-48 py-48 md:py-64 xl:py-100">
         <div className="flex w-full flex-col items-center gap-12">
-          <Reveal as="div" delay={0}>
+          <Reveal as="div" delay={cascade(0)}>
             <SectionEyebrow label={t("eyebrow")} />
           </Reveal>
-          <Reveal as="div" delay={80}>
+          <Reveal as="div" delay={cascade(1)}>
             <Heading level={2} size="h2" className="text-center">
               {t("heading")}
             </Heading>
@@ -96,7 +98,7 @@ export default async function ClientTestimonials() {
               >
                 <Button href={story.href} size="lg" className="w-full min-[481px]:w-fit">
                   {t("cta")}
-                  <ChevronRight size={16} />
+                  <ChevronRight size={BUTTON_ICON_SIZE} />
                 </Button>
               </Reveal>
             </div>

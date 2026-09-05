@@ -18,8 +18,8 @@ export default function DesktopNav({ isTransparent, pathname, openKey, onHover, 
   const t = useTranslations("nav");
 
   return (
-    <nav aria-label="Primary" className="hidden lg:flex">
-      <ul className="flex flex-nowrap items-center gap-24">
+    <nav aria-label="Primary" className="hidden xl:flex">
+      <ul className="flex flex-nowrap items-center gap-16 min-[1400px]:gap-24">
         {NAV_ITEMS.map((item) => {
           const isOpen = openKey === item.labelKey;
           const isRouteActive =
@@ -36,7 +36,7 @@ export default function DesktopNav({ isTransparent, pathname, openKey, onHover, 
                 onClick={() => onToggle(item.labelKey)}
                 onMouseEnter={() => onHover(item.labelKey)}
                 className={cn(
-                  "flex items-center gap-4 whitespace-nowrap text-p3 transition-colors",
+                  "flex items-center gap-4 whitespace-nowrap text-p4 transition-colors",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2",
                   isTransparent ? "text-white hover:text-secondary" : "text-neutral-1 hover:text-secondary",
                   active && "font-medium text-secondary"

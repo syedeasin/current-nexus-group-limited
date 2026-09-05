@@ -60,45 +60,45 @@
 
   --text-h1: 36px;
   --text-h1--line-height: 44px;
-  --text-h1--letter-spacing: -1.2px;
+  --text-h1--letter-spacing: -0.36px;
   --text-h2: 32px;
   --text-h2--line-height: 40px;
-  --text-h2--letter-spacing: -1px;
+  --text-h2--letter-spacing: -0.48px;
   --text-h3: 28px;
   --text-h3--line-height: 36px;
-  --text-h3--letter-spacing: -0.8px;
+  --text-h3--letter-spacing: -0.28px;
   --text-h4: 24px;
   --text-h4--line-height: 32px;
-  --text-h4--letter-spacing: -0.5px;
+  --text-h4--letter-spacing: -0.24px;
   --text-h5: 20px;
   --text-h5--line-height: 28px;
   --text-h5--letter-spacing: -0.2px;
   --text-h6: 18px;
   --text-h6--line-height: 26px;
-  --text-h6--letter-spacing: 0px;
+  --text-h6--letter-spacing: -0.09px;
 
   --text-p1: 20px;
   --text-p1--line-height: 32px;
-  --text-p1--letter-spacing: -0.2px;
+  --text-p1--letter-spacing: -0.1px;
   --text-p2: 18px;
   --text-p2--line-height: 28px;
-  --text-p2--letter-spacing: 0px;
+  --text-p2--letter-spacing: -0.09px;
   --text-p3: 16px;
   --text-p3--line-height: 24px;
-  --text-p3--letter-spacing: 0px;
+  --text-p3--letter-spacing: -0.08px;
   --text-p4: 14px;
   --text-p4--line-height: 20px;
   --text-p4--letter-spacing: 0px;
 
   --text-btn-lg: 20px;
   --text-btn-lg--line-height: 24px;
-  --text-btn-lg--letter-spacing: -1px;
+  --text-btn-lg--letter-spacing: -0.2px;
   --text-btn-sm: 18px;
   --text-btn-sm--line-height: 24px;
-  --text-btn-sm--letter-spacing: 0px;
+  --text-btn-sm--letter-spacing: -0.09px;
   --text-badge: 16px;
   --text-badge--line-height: 24px;
-  --text-badge--letter-spacing: 0px;
+  --text-badge--letter-spacing: -0.08px;
 }
 
 /* Tablet type scale: intermediate step, plus h5/h6/p2/p3/p4 desktop values (small enough to not need a further step). */
@@ -106,32 +106,32 @@
   :root {
     --text-h1: 48px;
     --text-h1--line-height: 56px;
-    --text-h1--letter-spacing: -2px;
+    --text-h1--letter-spacing: -0.48px;
     --text-h2: 40px;
     --text-h2--line-height: 48px;
-    --text-h2--letter-spacing: -1.2px;
+    --text-h2--letter-spacing: -0.6px;
     --text-h3: 32px;
     --text-h3--line-height: 40px;
-    --text-h3--letter-spacing: -1px;
+    --text-h3--letter-spacing: -0.32px;
     --text-h4: 28px;
     --text-h4--line-height: 36px;
-    --text-h4--letter-spacing: -0.8px;
+    --text-h4--letter-spacing: -0.28px;
     --text-h5: 24px;
     --text-h5--line-height: 32px;
-    --text-h5--letter-spacing: -0.5px;
+    --text-h5--letter-spacing: -0.24px;
     --text-h6: 20px;
     --text-h6--line-height: 28px;
-    --text-h6--letter-spacing: -0.2px;
+    --text-h6--letter-spacing: -0.1px;
 
     --text-p1: 22px;
     --text-p1--line-height: 34px;
-    --text-p1--letter-spacing: -0.4px;
+    --text-p1--letter-spacing: -0.11px;
     --text-p2: 20px;
     --text-p2--line-height: 32px;
-    --text-p2--letter-spacing: 0px;
+    --text-p2--letter-spacing: -0.1px;
     --text-p3: 18px;
     --text-p3--line-height: 28px;
-    --text-p3--letter-spacing: 0px;
+    --text-p3--letter-spacing: -0.09px;
     --text-p4: 16px;
     --text-p4--line-height: 24px;
     --text-p4--letter-spacing: 0px;
@@ -143,20 +143,20 @@
   :root {
     --text-h1: 64px;
     --text-h1--line-height: 72px;
-    --text-h1--letter-spacing: -3px;
+    --text-h1--letter-spacing: -0.64px;
     --text-h2: 48px;
     --text-h2--line-height: 56px;
-    --text-h2--letter-spacing: -1.2px;
+    --text-h2--letter-spacing: -0.72px;
     --text-h3: 40px;
     --text-h3--line-height: 48px;
-    --text-h3--letter-spacing: -1px;
+    --text-h3--letter-spacing: -0.4px;
     --text-h4: 32px;
     --text-h4--line-height: 40px;
-    --text-h4--letter-spacing: -1px;
+    --text-h4--letter-spacing: -0.32px;
 
     --text-p1: 24px;
     --text-p1--line-height: 36px;
-    --text-p1--letter-spacing: -0.5px;
+    --text-p1--letter-spacing: -0.12px;
   }
 }
 
@@ -177,6 +177,8 @@
   --dur-fast: 150ms; /* button press */
   --dur-base: 250ms; /* hover states, card borders */
   --dur-header: 300ms; /* header show/hide, color transitions */
+  --dur-slow: 400ms; /* chevron slide-ins, tab indicator travel */
+  --dur-image: 500ms; /* card photo push-in on hover */
   --dur-reveal: 650ms; /* fade-up / scale-in reveals */
   --dur-counter: 1600ms; /* stat number count-up */
   --reveal-distance: 24px; /* fade-up translateY (desktop) */

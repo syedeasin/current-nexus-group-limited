@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Button from "@/components/ui/Button";
+import Button, { BUTTON_ICON_SIZE } from "@/components/ui/Button";
 import { PhoneCall } from "@/components/icons/PhoneCall";
 
 interface ContactCardProps {
@@ -31,8 +31,8 @@ export default function ContactCard({ avatarSrc, name, role, message, ctaLabel, 
           </div>
           <p className="whitespace-pre-line text-p3 text-neutral-3">{message}</p>
         </div>
-        <Button href={ctaHref} size="lg" className="pl-20 pr-24">
-          <PhoneCall size={18} />
+        <Button href={ctaHref} size="lg">
+          <PhoneCall size={BUTTON_ICON_SIZE} />
           {ctaLabel}
         </Button>
       </div>

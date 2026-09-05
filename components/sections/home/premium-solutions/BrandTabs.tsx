@@ -14,6 +14,7 @@ import { Link } from "@/i18n/navigation";
 import { ArrowRight } from "@/components/icons/ArrowRight";
 import { ChevronRight } from "@/components/icons/ChevronRight";
 import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
+import { cascade } from "@/lib/motion/timing";
 import { cn } from "@/lib/utils";
 
 interface BrandTabProduct {
@@ -93,10 +94,10 @@ export default function BrandTabs({
   };
 
   return (
-    <div className="flex w-full flex-col items-start gap-24 lg:flex-row lg:items-start">
+    <div className="flex w-full flex-col items-start gap-24 lg:flex-row lg:items-start lg:gap-80">
       <Reveal
         as="div"
-        delay={160}
+        delay={cascade(2)}
         className="w-full shrink-0 lg:w-272"
       >
         <div
@@ -122,10 +123,10 @@ export default function BrandTabs({
                 onClick={() => selectTab(index)}
                 onKeyDown={handleKeyDown}
                 className={cn(
-                  "relative flex w-fit min-h-44 shrink-0 snap-start items-center justify-center rounded-8 px-20 py-14 text-p2 transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary lg:w-full",
+                  "relative flex w-fit min-h-44 shrink-0 snap-start items-center justify-center rounded-8 border-[1.5px] px-20 py-14 text-p2 transition-colors duration-[var(--dur-base)] ease-[var(--ease-out)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary motion-reduce:transition-none lg:w-full",
                   active
-                    ? "bg-secondary font-medium text-neutral-1"
-                    : "bg-white/5 font-normal text-neutral-9 hover:bg-white/10 hover:text-white"
+                    ? "border-secondary bg-secondary font-medium text-neutral-1"
+                    : "border-transparent bg-white/5 font-normal text-neutral-9 hover:bg-white/10 hover:text-white"
                 )}
               >
                 {brand.label}
@@ -142,7 +143,7 @@ export default function BrandTabs({
         </div>
       </Reveal>
 
-      <Reveal as="div" delay={160} className="w-full min-w-0 flex-1">
+      <Reveal as="div" delay={cascade(2)} className="w-full min-w-0 flex-1">
         <div className="flex w-full flex-col rounded-16 bg-white/5 p-24 min-[480px]:p-32 lg:p-40">
           {/* Stacked panels: every brand shares one grid cell (col/row start 1), so
               the container always sizes to the tallest panel and the height never
@@ -193,8 +194,9 @@ export default function BrandTabs({
                         imageAspectClassName="aspect-[280/332]"
                         imageBgClassName="bg-neutral-2"
                         imageBorderClassName="border-[1.5px] border-neutral-3"
-                        imageSizes="(min-width: 1024px) 30vw, (min-width: 580px) 45vw, 100vw"
+                        imageSizes="(min-width: 1024px) 280px, (min-width: 580px) 45vw, 100vw"
                         reserveTwoLineTitle
+                        compactInfo
                       />
                     ))}
                   </div>

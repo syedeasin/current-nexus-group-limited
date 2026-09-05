@@ -51,7 +51,7 @@ export default function MenuPanel({ item, panelId, isOpen, pathname, onClose }: 
       aria-hidden={!isOpen}
       onKeyDown={handlePanelKeyDown}
       className={cn(
-        "absolute left-0 right-0 top-88 z-40 hidden lg:block",
+        "absolute left-0 right-0 top-88 z-40 hidden xl:block",
         "border-t border-neutral-10 bg-white shadow-lg",
         "transition-[opacity,transform] duration-200 ease-out motion-reduce:transition-none",
         isOpen ? "visible translate-y-0 opacity-100" : "invisible pointer-events-none -translate-y-8 opacity-0"

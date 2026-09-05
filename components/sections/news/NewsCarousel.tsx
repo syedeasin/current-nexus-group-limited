@@ -6,6 +6,7 @@ import Reveal from "@/components/ui/Reveal";
 import Heading from "@/components/ui/Heading";
 import { ArrowLeft } from "@/components/icons/ArrowLeft";
 import { ArrowRight } from "@/components/icons/ArrowRight";
+import { useCarouselScroll } from "@/lib/motion/use-carousel-scroll";
 import { cn } from "@/lib/utils";
 
 interface NewsCarouselProps {
@@ -18,19 +19,13 @@ interface NewsCarouselProps {
 
 const SCROLL_END_EPSILON_PX = 1;
 
-function prefersReducedMotion() {
-  return (
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
-}
-
 export default function NewsCarousel({ heading, previousLabel, nextLabel, children }: NewsCarouselProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const rowRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | undefined>(undefined);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
+  const { scrollByCard, cancelTween } = useCarouselScroll(trackRef, rowRef);
 
   const updateScrollState = useCallback(() => {
     const el = trackRef.current;
@@ -65,18 +60,6 @@ export default function NewsCarousel({ heading, previousLabel, nextLabel, childr
     });
   };
 
-  const scrollByCard = (direction: 1 | -1) => {
-    const el = trackRef.current;
-    const row = rowRef.current;
-    if (!el || !row) return;
-    const first = row.children[0] as HTMLElement | undefined;
-    const second = row.children[1] as HTMLElement | undefined;
-    const step = first && second ? second.offsetLeft - first.offsetLeft : el.clientWidth;
-    el.scrollBy({
-      left: step * direction,
-      behavior: prefersReducedMotion() ? "auto" : "smooth",
-    });
-  };
 
   return (
     <>
@@ -120,7 +103,9 @@ export default function NewsCarousel({ heading, previousLabel, nextLabel, childr
         aria-label={heading}
         tabIndex={0}
         onScroll={handleScroll}
-        className="news-carousel-track mx-auto mt-48 w-full max-w-2000 overflow-x-auto pl-20 outline-none [scroll-snap-type:x_mandatory] [scroll-behavior:smooth] motion-reduce:[scroll-behavior:auto] focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-inset md:pl-64 xl:pl-200"
+        onWheel={cancelTween}
+        onTouchStart={cancelTween}
+        className="news-carousel-track mx-auto mt-48 w-full max-w-1600 overflow-x-auto pl-20 outline-none [scroll-snap-type:x_mandatory] [overscroll-behavior-x:contain] focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-inset md:pl-64 xl:pl-140"
       >
         <div ref={rowRef} className="flex gap-24 pb-4">
           {children}

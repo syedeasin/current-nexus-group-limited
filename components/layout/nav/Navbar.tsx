@@ -75,7 +75,7 @@ export default function Navbar() {
                 : "cubic-bezier(0.16, 1, 0.3, 1), ease-out, ease-out, ease-out, cubic-bezier(0.16, 1, 0.3, 1), ease-out",
             }}
             className={cn(
-                "inset-x-0 top-0 z-50 h-56 lg:h-88 transform-gpu will-change-transform motion-reduce:transition-none",
+                "inset-x-0 top-0 z-50 h-56 xl:h-88 transform-gpu will-change-transform motion-reduce:transition-none",
                 // Over the hero: absolute, so it scrolls away with the section (not sticky).
                 // Past the hero: fixed, with the hide-on-down / show-on-up behavior.
                 isTransparent ? "absolute" : "fixed",
@@ -86,7 +86,7 @@ export default function Navbar() {
             )}
         >
           {/* ডেস্কটপ রো */}
-          <div className="mx-auto hidden h-full max-w-1600 items-center justify-between px-80 py-20 lg:flex">
+          <div className="mx-auto hidden h-full max-w-1600 items-center justify-between px-40 py-20 min-[1400px]:px-80 xl:flex">
             <Link href="/" className="shrink-0">
               <Logo isTransparent={isTransparent} width={129} height={32} className="h-32 w-129" />
             </Link>
@@ -114,9 +114,9 @@ export default function Navbar() {
 
               <Link
                   href="/contact"
-                  className="flex h-48 items-center gap-8 rounded-full bg-secondary px-28 text-p2 font-semibold text-neutral-1 transition-colors hover:brightness-95"
+                  className="flex h-48 shrink-0 items-center gap-8 rounded-full bg-secondary pl-20 pr-24 text-btn-sm font-semibold text-neutral-1 transition-colors duration-[var(--dur-base)] ease-[var(--ease-out)] hover:brightness-95"
               >
-                <Phone size={18} />
+                <Phone size={20} />
                 <span className="whitespace-nowrap">{t("contact")}</span>
               </Link>
 
@@ -152,7 +152,7 @@ export default function Navbar() {
         <MobileDrawer isOpen={isMobileOpen} onClose={() => setIsMobileOpen(false)} triggerRef={mobileTriggerRef} />
 
         {/* স্পেসার - হেডারের উচ্চতা অনুযায়ী (হিরো পেজে HeroCarousel এর negative margin এটা ক্যান্সেল করে) */}
-        <div className="h-56 lg:h-88" />
+        <div className="h-56 xl:h-88" />
       </>
   );
 }

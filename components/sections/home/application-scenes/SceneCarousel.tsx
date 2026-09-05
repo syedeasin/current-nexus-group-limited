@@ -1,6 +1,7 @@
 import Reveal from "@/components/ui/Reveal";
 import SceneCard from "@/components/ui/SceneCard";
 import Carousel from "@/components/ui/Carousel";
+import { stagger, CONTENT_BASE_DELAY_MS } from "@/lib/motion/timing";
 
 interface SceneCarouselCard {
   key: string;
@@ -17,10 +18,6 @@ interface SceneCarouselProps {
   nextLabel: string;
 }
 
-/** Header cascade is eyebrow(0), heading(80) — cards pick up 80ms after that, on first entry only. */
-const CARD_REVEAL_BASE_DELAY_MS = 160;
-const CARD_REVEAL_STEP_MS = 80;
-
 export default function SceneCarousel({
   cards,
   ariaLabel,
@@ -30,14 +27,14 @@ export default function SceneCarousel({
   return (
     <Carousel
       ariaLabel={ariaLabel}
-      progressDelay={CARD_REVEAL_BASE_DELAY_MS + cards.length * CARD_REVEAL_STEP_MS}
+      progressDelay={stagger(cards.length, CONTENT_BASE_DELAY_MS)}
       controls={{ previousLabel, nextLabel }}
     >
       {cards.map((card, index) => (
         <Reveal
           key={card.key}
           as="div"
-          delay={CARD_REVEAL_BASE_DELAY_MS + index * CARD_REVEAL_STEP_MS}
+          delay={stagger(index, CONTENT_BASE_DELAY_MS)}
           className="w-[85vw] shrink-0 [scroll-snap-align:start] min-[481px]:w-[64%] lg:w-[36%] xl:w-[32.1%]"
         >
           <SceneCard

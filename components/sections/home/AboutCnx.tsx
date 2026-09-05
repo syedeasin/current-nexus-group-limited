@@ -5,10 +5,11 @@ import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
-import Button from "@/components/ui/Button";
+import Button, { BUTTON_ICON_SIZE } from "@/components/ui/Button";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import { ChevronRight } from "@/components/icons/ChevronRight";
 import StatsRow from "@/components/sections/home/about-cnx/StatsRow";
+import { cascade } from "@/lib/motion/timing";
 
 const avatars = [
   "/images/aboutCNX/person01.webp",
@@ -28,32 +29,32 @@ export default async function AboutCnx() {
           <div className="flex w-full min-w-0 flex-col gap-40">
             <div className="flex flex-col gap-16">
               <div className="flex flex-col gap-12">
-                <Reveal as="div" delay={0}>
+                <Reveal as="div" delay={cascade(0)}>
                   <SectionEyebrow label={t("eyebrow")} />
                 </Reveal>
-                <Reveal as="div" delay={80}>
+                <Reveal as="div" delay={cascade(1)}>
                   <Heading level={2} size="h2">
                     {t("heading")}
                   </Heading>
                 </Reveal>
               </div>
               <div className="flex flex-col gap-12">
-                <Reveal as="div" delay={160}>
+                <Reveal as="div" delay={cascade(2)}>
                   <Text size="p2" className="text-neutral-3">
                     {t("paragraph1")}
                   </Text>
                 </Reveal>
-                <Reveal as="div" delay={240}>
+                <Reveal as="div" delay={cascade(3)}>
                   <Text size="p2" className="text-neutral-3">
                     {t("paragraph2")}
                   </Text>
                 </Reveal>
               </div>
             </div>
-            <Reveal as="div" delay={320}>
+            <Reveal as="div" delay={cascade(4)}>
               <Button href="/about" size="xl" className="w-full min-[481px]:w-fit">
                 {t("cta")}
-                <ChevronRight size={16} />
+                <ChevronRight size={BUTTON_ICON_SIZE} />
               </Button>
             </Reveal>
           </div>

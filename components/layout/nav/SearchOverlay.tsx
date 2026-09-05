@@ -41,18 +41,18 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
       role="search"
       aria-hidden={!isOpen}
       className={cn(
-        "absolute left-0 right-0 top-56 z-40 lg:top-88",
+        "absolute left-0 right-0 top-56 z-40 xl:top-88",
         "border-b border-neutral-10 bg-white",
         "transition-[opacity,transform] duration-200 ease-out motion-reduce:transition-none",
         isOpen ? "visible translate-y-0 opacity-100" : "invisible pointer-events-none -translate-y-8 opacity-0"
       )}
     >
-      <div className="flex items-center gap-12 px-20 py-16 lg:gap-16 lg:px-80">
+      <div className="flex items-center gap-12 px-20 py-16 xl:gap-16 xl:px-80">
         <button
           type="button"
           aria-label={t("closeSearch")}
           onClick={onClose}
-          className="order-first shrink-0 rounded-full p-8 text-neutral-1 transition-colors duration-150 hover:text-secondary lg:hidden"
+          className="order-first shrink-0 rounded-full p-8 text-neutral-1 transition-colors duration-150 hover:text-secondary xl:hidden"
         >
           <ArrowLeft size={24} />
         </button>
@@ -61,7 +61,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
           type="button"
           aria-label={t("closeSearch")}
           onClick={onClose}
-          className="hidden shrink-0 rounded-full p-8 text-neutral-1 transition-colors duration-150 hover:text-secondary lg:block"
+          className="hidden shrink-0 rounded-full p-8 text-neutral-1 transition-colors duration-150 hover:text-secondary xl:block"
         >
           <X size={20} />
         </button>

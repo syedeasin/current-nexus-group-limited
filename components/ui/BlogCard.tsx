@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import Heading from "@/components/ui/Heading";
+import { CARD_IMAGE_ZOOM, CARD_LIFT, CARD_TITLE_TINT } from "@/lib/motion/interactions";
 import { formatDate } from "@/lib/formatDate";
 import { cn } from "@/lib/utils";
 
@@ -37,12 +38,13 @@ export default function BlogCard({
       href={href}
       aria-label={title}
       className={cn(
-        "group flex w-full flex-col gap-24 rounded-16 outline-none transition-transform duration-[250ms] ease-out motion-reduce:transition-none",
-        "hover:-translate-y-4 focus-visible:-translate-y-4 focus-visible:ring-2 focus-visible:ring-secondary",
+        "group flex w-full flex-col gap-24 rounded-12 outline-none",
+        "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary",
+        CARD_LIFT,
         className
       )}
     >
-      <div className="relative aspect-[424/300] w-full overflow-hidden rounded-16 bg-neutral-2">
+      <div className="relative aspect-[424/300] w-full overflow-hidden rounded-12 bg-neutral-2">
         {image && (
           <Image
             src={image}
@@ -50,12 +52,12 @@ export default function BlogCard({
             aria-hidden={imageAlt ? undefined : true}
             fill
             sizes={imageSizes}
-            className="object-cover transition-transform duration-[250ms] ease-out group-hover:scale-[1.03] group-focus-visible:scale-[1.03] motion-reduce:transition-none"
+            className={cn("object-cover", CARD_IMAGE_ZOOM)}
           />
         )}
       </div>
       <div className="flex w-full flex-col gap-12">
-        <div className="flex items-center gap-12 text-p3 text-neutral-4">
+        <div className="flex items-center gap-12 text-p3 font-medium text-neutral-4">
           <span>{formatDate(date)}</span>
           {readTime && (
             <>
@@ -67,7 +69,7 @@ export default function BlogCard({
         <Heading
           level={headingLevel}
           size="h6"
-          className="line-clamp-2 min-h-52 pr-32 text-neutral-1 transition-colors duration-[250ms] ease-out group-hover:text-secondary group-focus-visible:text-secondary motion-reduce:transition-none md:min-h-56"
+          className={cn("line-clamp-2 min-h-52 pr-32 text-neutral-1 md:min-h-56", CARD_TITLE_TINT)}
         >
           {title}
         </Heading>

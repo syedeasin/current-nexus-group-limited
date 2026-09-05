@@ -6,6 +6,7 @@ import Heading from "@/components/ui/Heading";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import ProductTabs from "@/components/sections/home/energy-ecosystem/ProductTabs";
 import { energyEcosystemTabs } from "@/lib/data/energyEcosystem";
+import { cascade } from "@/lib/motion/timing";
 
 export default async function EnergyEcosystem() {
   const t = await getTranslations("home.ecosystem");
@@ -36,10 +37,10 @@ export default async function EnergyEcosystem() {
 
       <Container className="relative flex flex-col items-center py-48 md:py-64 xl:py-80">
         <div className="flex w-full max-w-790 flex-col items-center gap-12">
-          <Reveal as="div" delay={0}>
+          <Reveal as="div" delay={cascade(0)}>
             <SectionEyebrow label={t("eyebrow")} tone="light" />
           </Reveal>
-          <Reveal as="div" delay={80}>
+          <Reveal as="div" delay={cascade(1)}>
             <Heading level={2} size="h2" className="text-balance text-center">
               {t("heading")}
             </Heading>

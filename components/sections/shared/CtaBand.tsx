@@ -5,7 +5,7 @@ import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
-import Button from "@/components/ui/Button";
+import Button, { BUTTON_ICON_SIZE } from "@/components/ui/Button";
 import { ChevronRight } from "@/components/icons/ChevronRight";
 
 interface CtaLink {
@@ -52,7 +52,7 @@ export default async function CtaBand({
   return (
     <section
       aria-label={resolvedHeading}
-      className="relative flex w-full min-h-[420px] flex-col items-center justify-end overflow-hidden bg-neutral-1 py-40 md:min-h-[560px] md:py-48 xl:min-h-[740px] xl:py-60"
+      className="relative flex w-full min-h-[420px] flex-col items-center justify-end overflow-hidden bg-neutral-1 pt-40 pb-60 md:min-h-[560px] md:pt-48 md:pb-80 xl:min-h-[740px] xl:pt-60 xl:pb-120"
     >
       <Reveal variant="scale" as="div" className="absolute inset-0">
         <Image
@@ -77,7 +77,7 @@ export default async function CtaBand({
       />
       <Container className="relative flex flex-col items-center gap-32">
         <Reveal as="div" className="flex flex-col items-center gap-20">
-          <Heading level={2} size="h2" className="max-w-750 text-balance text-center text-white">
+          <Heading level={2} size="h2" className="max-w-846 text-balance text-center text-white">
             {resolvedHeading}
           </Heading>
           {subtext ? (
@@ -94,17 +94,16 @@ export default async function CtaBand({
           >
             {primaryIcon ?? null}
             {resolvedPrimary.label}
-            {primaryIcon ? null : <ChevronRight size={24} />}
+            {primaryIcon ? null : <ChevronRight size={BUTTON_ICON_SIZE} />}
           </Button>
           {resolvedSecondary ? (
             <Button
               href={resolvedSecondary.href}
               size="xl"
-              variant="ghost"
-              className="w-full border border-white/10 bg-white/5 text-white hover:bg-white/10 hover:text-white min-[481px]:w-auto"
+              variant="secondary"
+              className="w-full min-[481px]:w-auto"
             >
               {resolvedSecondary.label}
-              <ChevronRight size={24} />
             </Button>
           ) : null}
         </Reveal>
