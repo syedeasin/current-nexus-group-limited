@@ -28,7 +28,7 @@ export default async function ApplicationScenes() {
             <SectionEyebrow label={t("eyebrow")} />
           </Reveal>
           <Reveal as="div" delay={80}>
-            <Heading level={2} size="h2" className="max-w-682 text-balance text-center">
+            <Heading level={2} size="h2" className="max-w-650 text-balance text-center">
               {t("heading")}
             </Heading>
           </Reveal>

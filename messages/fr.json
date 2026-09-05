@@ -113,6 +113,10 @@
         "virtualPowerPlant": {
           "title": "Virtual power Plant Solutions",
           "description": "Manage distributed energy assets through one platform for greater efficiency and energy value."
+        },
+        "supplyChainFinancing": {
+          "title": "Supply chain financing for PV & BESS",
+          "description": "Flexible financing for PV and BESS projects to reduce upfront costs & accelerate deployment."
         }
       }
     },

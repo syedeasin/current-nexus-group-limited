@@ -36,7 +36,11 @@ export default function CountUp({ value, suffix = "", duration = 1600, className
         };
         requestAnimationFrame(step);
       },
-      { threshold: 0.4 }
+      // threshold 0 (any overlap) — a higher threshold needs the element to still be
+      // ≥N% visible on the exact frame the browser samples, which fast mobile
+      // momentum-scroll flings routinely skip past between frames, so the counter
+      // never crosses it and is left stuck at 0.
+      { threshold: 0 }
     );
 
     observer.observe(node);

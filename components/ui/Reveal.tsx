@@ -1,9 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { ElementType, ReactNode } from "react";
 import { usePrefersReducedMotion } from "@/lib/hooks/useMediaQuery";
 import { cn } from "@/lib/utils";
+
+// Arm before the first browser paint so the hidden state (opacity 0 + offset)
+// is committed before anything shows — no flash of fully-visible content.
+// Falls back to useEffect during SSR where useLayoutEffect is a no-op.
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 type RevealTag = "div" | "section" | "span" | "article" | "li" | "figure";
 type RevealVariant = "up" | "scale" | "fade";
@@ -17,7 +22,7 @@ interface RevealProps {
 }
 
 const hiddenStyles: Record<RevealVariant, string> = {
-  up: "translate-y-16 opacity-0",
+  up: "translate-y-[40px] opacity-0",
   scale: "scale-[1.04] opacity-0",
   fade: "opacity-0",
 };
@@ -40,7 +45,7 @@ export default function Reveal({
   const [armed, setArmed] = useState(false);
   const [visible, setVisible] = useState(false);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const node = ref.current;
     if (!node || reducedMotion) return;
 
@@ -67,7 +72,7 @@ export default function Reveal({
     <Tag
       ref={ref}
       className={cn(
-        "transition-[opacity,transform] duration-700 ease-out",
+        "transition-[opacity,transform] duration-[750ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
         hidden ? hiddenStyles[variant] : visibleStyles[variant],
         className
       )}

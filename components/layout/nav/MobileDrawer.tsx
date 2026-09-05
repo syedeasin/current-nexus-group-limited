@@ -123,11 +123,13 @@ export default function MobileDrawer({ isOpen, onClose, triggerRef }: MobileDraw
             <Link href="/" className="shrink-0">
               <Image src="/logos/cnx-logo-dark.svg" alt="CNX Energy" width={98} height={24} className="h-24 w-98" />
             </Link>
+            {/* p-10 -m-10: see MobileNav.tsx — pads the hit area to ~44px without
+                shifting the icon's visual position or the header row's layout. */}
             <button
                 type="button"
                 aria-label={t("closeMenu")}
                 onClick={close}
-                className="flex size-24 items-center justify-center text-neutral-1 transition-colors duration-150 hover:text-secondary"
+                className="-m-10 flex items-center justify-center p-10 text-neutral-1 transition-colors duration-150 hover:text-secondary"
             >
               <X size={24} />
             </button>

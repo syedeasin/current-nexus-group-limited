@@ -25,12 +25,12 @@ export default function SceneCard({
       href={href}
       aria-label={title}
       className={cn(
-        "group flex w-full flex-col gap-24 rounded-16 outline-none transition-transform duration-[250ms] ease-out motion-reduce:transition-none",
+        "group flex w-full flex-col gap-24 rounded-12 outline-none transition-transform duration-[250ms] ease-out motion-reduce:transition-none",
         "hover:-translate-y-4 focus-visible:-translate-y-4 focus-visible:ring-2 focus-visible:ring-secondary",
         className
       )}
     >
-      <div className="relative aspect-[424/300] w-full overflow-hidden rounded-16 bg-neutral-2">
+      <div className="relative aspect-[424/300] w-full overflow-hidden rounded-12 bg-neutral-2">
         <Image
           src={image}
           alt=""

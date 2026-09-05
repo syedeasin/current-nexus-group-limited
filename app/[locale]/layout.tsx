@@ -5,6 +5,7 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { switzer } from "@/app/fonts";
 import { routing } from "@/i18n/routing";
 import { siteConfig } from "@/site.config";
+import SmoothScrollProvider from "@/lib/motion/smooth-scroll-provider";
 import "@/app/globals.css";
 
 export const metadata: Metadata = {
@@ -36,7 +37,9 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={`${switzer.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

@@ -31,7 +31,8 @@ interface HeroCarouselProps {
 }
 
 const AUTOPLAY_MS = 6000;
-const CROSSFADE_MS = 400;
+const CROSSFADE_MS = 1200;
+const CROSSFADE_EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 
 function ArrowButton({
   direction,
@@ -73,6 +74,22 @@ export default function HeroCarousel({
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const reducedMotion = usePrefersReducedMotion();
+
+  // Per-activation key for the desktop Ken Burns zoom. Only the slide that just
+  // became active gets a fresh key (monotonic, unique), which remounts its
+  // image layer and restarts the @keyframes zoom from scale(1) — including when
+  // the carousel loops back to slide 0. Slides that are leaving keep their key,
+  // so their transform holds (animation-fill-mode) and the crossfade-out stays
+  // smooth instead of snapping back to 1.
+  const [zoomKeys, setZoomKeys] = useState<number[]>(() => slides.map(() => 0));
+
+  useEffect(() => {
+    setZoomKeys((prev) => {
+      const next = [...prev];
+      next[index] = Math.max(...prev) + 1;
+      return next;
+    });
+  }, [index]);
 
   useEffect(() => {
     if (reducedMotion || hovered || focused) return;
@@ -152,20 +169,38 @@ export default function HeroCarousel({
           <div
             key={slide.id}
             aria-hidden={slideIndex !== index}
-            className="absolute inset-0 transition-opacity ease-out"
+            className="absolute inset-0 transition-opacity"
             style={{
               opacity: slideIndex === index ? 1 : 0,
               transitionDuration: `${CROSSFADE_MS}ms`,
+              transitionTimingFunction: CROSSFADE_EASE,
             }}
           >
-            <Image
-              src={slide.image}
-              alt=""
-              fill
-              priority={slideIndex === 0}
-              sizes="100vw"
-              style={{ objectFit: "cover", objectPosition: slide.imagePosition }}
-            />
+            {reducedMotion ? (
+              <Image
+                src={slide.image}
+                alt=""
+                fill
+                priority={slideIndex === 0}
+                sizes="100vw"
+                style={{ objectFit: "cover", objectPosition: slide.imagePosition }}
+              />
+            ) : (
+              <div
+                key={zoomKeys[slideIndex]}
+                className="hero-slide-kenburns absolute inset-0"
+                style={{ animationDuration: `${AUTOPLAY_MS}ms` }}
+              >
+                <Image
+                  src={slide.image}
+                  alt=""
+                  fill
+                  priority={slideIndex === 0}
+                  sizes="100vw"
+                  style={{ objectFit: "cover", objectPosition: slide.imagePosition }}
+                />
+              </div>
+            )}
           </div>
         ))}
 

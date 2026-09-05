@@ -8,7 +8,7 @@ interface LogoTickerProps {
 }
 
 /** Pixels of horizontal travel per second. Kept constant regardless of logo count. */
-const SPEED_PX_PER_SEC = 50;
+const SPEED_PX_PER_SEC = 20;
 
 export default function LogoTicker({ logos }: LogoTickerProps) {
   const trackRef = useRef<HTMLDivElement | null>(null);
@@ -44,7 +44,7 @@ export default function LogoTicker({ logos }: LogoTickerProps) {
         {doubled.map((logo, index) => {
           const isDuplicate = index >= logos.length;
           return (
-            <div key={`${logo.name}-${index}`} className="flex shrink-0 items-center gap-[var(--ticker-gap)]">
+            <div key={`${logo.name}-${index}`} className="group flex shrink-0 items-center gap-[var(--ticker-gap)]">
               {index > 0 && <span className="h-[20px] w-px shrink-0 bg-neutral-10" aria-hidden="true" />}
               <img
                 src={logo.image}
@@ -53,6 +53,7 @@ export default function LogoTicker({ logos }: LogoTickerProps) {
                 style={{ height: "var(--logo-h)", width: "auto" }}
                 loading="lazy"
                 decoding="async"
+                className="opacity-65 transition-opacity duration-200 ease-out group-hover:opacity-100 group-focus-within:opacity-100 motion-reduce:transition-none"
               />
             </div>
           );

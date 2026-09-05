@@ -26,4 +26,9 @@ export const applicationScenes: ApplicationScene[] = [
     image: "/images/home/virtualPowerPlantSolutions.webp",
     href: "/solutions",
   },
+  {
+    key: "supplyChainFinancing",
+    image: "/images/home/supplyChainFinancing.webp",
+    href: "/solutions",
+  },
 ];

@@ -166,6 +166,55 @@
   }
 }
 
+/* ------------------------------------------------------------------------- */
+/* Motion tokens — single source for the site-wide scroll/animation system   */
+/* (docs/ANIMATION-SYSTEM.md §8). JS variants in lib/motion/ mirror these;    */
+/* keep the two in sync. Additive only — does not touch color/spacing/type.   */
+/* ------------------------------------------------------------------------- */
+:root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1); /* scroll-reveals, header show/hide, card hover borders */
+  --ease-standard: ease; /* simple color/background hover transitions */
+  --dur-fast: 150ms; /* button press */
+  --dur-base: 250ms; /* hover states, card borders */
+  --dur-header: 300ms; /* header show/hide, color transitions */
+  --dur-reveal: 650ms; /* fade-up / scale-in reveals */
+  --dur-counter: 1600ms; /* stat number count-up */
+  --reveal-distance: 24px; /* fade-up translateY (desktop) */
+  --reveal-threshold: 0.15; /* IntersectionObserver threshold */
+}
+
+/* Mobile: smaller viewport reads better with less travel (§5). Gated on
+   max-width: 768px to match the matchMedia gate used in lib/motion/. */
+@media (max-width: 768px) {
+  :root {
+    --reveal-distance: 16px;
+  }
+}
+
+/* Lenis smooth-scroll base styles (§1). Only applied while Lenis is active —
+   the classes are added to <html> by the Lenis instance, so native scroll and
+   reduced-motion users are unaffected. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
 /* Global reduced-motion guard: kill transitions/animations for users who ask
    for it. Component-level motion-reduce: variants cover Tailwind utilities, but
    inline transition styles (e.g. the header shell) need this blanket rule. */
@@ -590,4 +639,33 @@
   max-width: 100%;
   height: auto;
   border-radius: 8px;
+}
+
+/* Hero carousel (desktop): slow continuous "Ken Burns" zoom on the active
+   slide. Scales 1 → 1.07 over the full autoplay duration (set inline from
+   AUTOPLAY_MS in HeroCarousel.tsx). Runs once per activation; re-triggered by
+   a key change on each activation. animation-fill-mode: both holds the final
+   scale so a slide leaving mid-zoom doesn't snap back during its crossfade. */
+.hero-slide-kenburns {
+  animation-name: hero-slide-kenburns;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+  will-change: transform;
+}
+
+@keyframes hero-slide-kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.07);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide-kenburns {
+    animation: none;
+    transform: none;
+  }
 }

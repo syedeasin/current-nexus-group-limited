@@ -37,12 +37,8 @@ interface BrandTabsProps {
   viewAllHref: string;
 }
 
-const SWITCH_DURATION_MS = 250;
-const CARD_STAGGER_STEP_MS = 60;
 /** Matches the lg breakpoint: the rail stays a vertical column through 1024, per spec, and only collapses to a horizontal pill row below it. */
 const DESKTOP_QUERY = "(min-width: 1024px)";
-
-type PanelState = "visible" | "leaving" | "entering";
 
 function prefersReducedMotion() {
   return (
@@ -58,14 +54,9 @@ export default function BrandTabs({
   viewAllHref,
 }: BrandTabsProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [displayIndex, setDisplayIndex] = useState(0);
-  const [panelState, setPanelState] = useState<PanelState>("visible");
   const isDesktop = useMediaQuery(DESKTOP_QUERY, true);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const switchTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const baseId = useId();
-
-  useEffect(() => () => window.clearTimeout(switchTimeoutRef.current), []);
 
   useEffect(() => {
     if (isDesktop) return;
@@ -77,25 +68,11 @@ export default function BrandTabs({
     });
   }, [activeIndex, isDesktop]);
 
+  // Every brand panel stays mounted (see the stacked grid below), so switching
+  // is a pure crossfade — no unmount, no image reload, no blank gap.
   const selectTab = (index: number) => {
     if (index === activeIndex) return;
     setActiveIndex(index);
-
-    if (prefersReducedMotion()) {
-      setDisplayIndex(index);
-      setPanelState("visible");
-      return;
-    }
-
-    window.clearTimeout(switchTimeoutRef.current);
-    setPanelState("leaving");
-    switchTimeoutRef.current = setTimeout(() => {
-      setDisplayIndex(index);
-      setPanelState("entering");
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => setPanelState("visible"));
-      });
-    }, SWITCH_DURATION_MS / 2);
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
@@ -115,8 +92,6 @@ export default function BrandTabs({
     tabRefs.current[next]?.focus();
   };
 
-  const displayBrand = brands[displayIndex];
-
   return (
     <div className="flex w-full flex-col items-start gap-24 lg:flex-row lg:items-start">
       <Reveal
@@ -128,7 +103,7 @@ export default function BrandTabs({
           role="tablist"
           aria-label={railAriaLabel}
           aria-orientation={isDesktop ? "vertical" : "horizontal"}
-          className="brand-rail-scroll flex snap-x snap-mandatory gap-8 overflow-x-auto lg:w-272 lg:flex-col lg:overflow-visible lg:snap-none"
+          className="brand-rail-scroll flex snap-x snap-mandatory gap-8 overflow-x-auto pr-20 lg:w-272 lg:flex-col lg:overflow-visible lg:snap-none lg:pr-0"
         >
           {brands.map((brand, index) => {
             const active = index === activeIndex;
@@ -147,7 +122,7 @@ export default function BrandTabs({
                 onClick={() => selectTab(index)}
                 onKeyDown={handleKeyDown}
                 className={cn(
-                  "relative flex w-fit shrink-0 snap-start items-center justify-center rounded-8 px-20 py-14 text-p2 transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary lg:w-full",
+                  "relative flex w-fit min-h-44 shrink-0 snap-start items-center justify-center rounded-8 px-20 py-14 text-p2 transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary lg:w-full",
                   active
                     ? "bg-secondary font-medium text-neutral-1"
                     : "bg-white/5 font-normal text-neutral-9 hover:bg-white/10 hover:text-white"
@@ -157,7 +132,7 @@ export default function BrandTabs({
                 <ArrowRight
                   size={20}
                   className={cn(
-                    "absolute right-20 top-1/2 -translate-y-1/2 transition-all duration-200 ease-out",
+                    "absolute right-20 top-1/2 hidden -translate-y-1/2 transition-all duration-200 ease-out lg:block",
                     active ? "translate-x-0 opacity-100" : "pointer-events-none translate-x-4 opacity-0"
                   )}
                 />
@@ -168,60 +143,64 @@ export default function BrandTabs({
       </Reveal>
 
       <Reveal as="div" delay={160} className="w-full min-w-0 flex-1">
-        <div className="flex w-full flex-col gap-24 rounded-16 bg-white/5 p-24 min-[480px]:p-32 lg:p-40">
-          <div className="flex flex-col items-start justify-between gap-8 min-[400px]:flex-row min-[400px]:items-end">
-            <Heading level={3} size="h4" className="text-white">
-              {displayBrand.title}
-            </Heading>
-            <Link
-              href={viewAllHref}
-              className="group flex shrink-0 items-center gap-4 text-p3 font-semibold text-secondary outline-none focus-visible:ring-2 focus-visible:ring-secondary"
-            >
-              <span className="underline underline-offset-2">{viewAllLabel}</span>
-              <ChevronRight
-                size={14}
-                className="transition-transform duration-200 ease-out group-hover:translate-x-4 group-focus-visible:translate-x-4"
-              />
-            </Link>
-          </div>
+        <div className="flex w-full flex-col rounded-16 bg-white/5 p-24 min-[480px]:p-32 lg:p-40">
+          {/* Stacked panels: every brand shares one grid cell (col/row start 1), so
+              the container always sizes to the tallest panel and the height never
+              jumps. Only opacity + transform animate — never height or border. */}
+          <div className="grid w-full">
+            {brands.map((brand, index) => {
+              const isActive = index === activeIndex;
 
-          <div
-            role="tabpanel"
-            id={`${baseId}-panel-${displayBrand.id}`}
-            aria-labelledby={`${baseId}-tab-${displayBrand.id}`}
-            tabIndex={0}
-            className="w-full"
-          >
-            <div
-              className={cn(
-                "grid grid-cols-1 gap-16 transition-[opacity,transform] duration-150 ease-out motion-reduce:transition-none min-[480px]:grid-cols-2 lg:grid-cols-3",
-                panelState === "leaving" && "opacity-0",
-                panelState === "entering" && "translate-y-8 opacity-0",
-                panelState === "visible" && "translate-y-0 opacity-100"
-              )}
-            >
-              {displayBrand.products.map((product, index) => (
+              return (
                 <div
-                  key={product.key}
-                  className="transition-[opacity,transform] duration-150 ease-out motion-reduce:transition-none motion-reduce:delay-0"
-                  style={{
-                    transitionDelay:
-                      panelState === "entering" ? `${index * CARD_STAGGER_STEP_MS}ms` : "0ms",
-                  }}
+                  key={brand.id}
+                  role="tabpanel"
+                  id={`${baseId}-panel-${brand.id}`}
+                  aria-labelledby={`${baseId}-tab-${brand.id}`}
+                  aria-hidden={!isActive}
+                  tabIndex={isActive ? 0 : -1}
+                  inert={!isActive}
+                  className={cn(
+                    "col-start-1 row-start-1 flex w-full flex-col gap-24 transition-[opacity,transform] ease-out motion-reduce:translate-y-0 motion-reduce:transition-none",
+                    isActive
+                      ? "z-10 translate-y-0 opacity-100 duration-[250ms]"
+                      : "z-0 translate-y-[6px] opacity-0 duration-[200ms] pointer-events-none"
+                  )}
                 >
-                  <ProductCard
-                    href={product.href}
-                    image={product.image}
-                    title={product.title}
-                    imageAspectClassName="aspect-[280/332]"
-                    imageBgClassName="bg-neutral-2"
-                    imageBorderClassName="border-[1.5px] border-neutral-3"
-                    imageSizes="(min-width: 1024px) 30vw, (min-width: 480px) 45vw, 100vw"
-                    reserveTwoLineTitle
-                  />
+                  <div className="flex flex-col items-start justify-between gap-8 min-[400px]:flex-row min-[400px]:items-end">
+                    <Heading level={3} size="h4" className="text-white">
+                      {brand.title}
+                    </Heading>
+                    <Link
+                      href={viewAllHref}
+                      className="group inline-flex shrink-0 items-center gap-4 text-btn-sm font-semibold tracking-[-0.5px] text-neutral-8 outline-none transition-colors duration-200 ease-out hover:text-secondary focus-visible:text-secondary focus-visible:ring-2 focus-visible:ring-secondary"
+                    >
+                      <span>{viewAllLabel}</span>
+                      <ChevronRight
+                        size={14}
+                        className="shrink-0 -translate-x-[4px] opacity-0 transition-[opacity,transform] duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100 motion-reduce:translate-x-0 motion-reduce:transition-none"
+                      />
+                    </Link>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-32 min-[480px]:grid-cols-2 min-[480px]:gap-24 lg:grid-cols-3 lg:gap-24">
+                    {brand.products.map((product) => (
+                      <ProductCard
+                        key={product.key}
+                        href={product.href}
+                        image={product.image}
+                        title={product.title}
+                        imageAspectClassName="aspect-[280/332]"
+                        imageBgClassName="bg-neutral-2"
+                        imageBorderClassName="border-[1.5px] border-neutral-3"
+                        imageSizes="(min-width: 1024px) 30vw, (min-width: 580px) 45vw, 100vw"
+                        reserveTwoLineTitle
+                      />
+                    ))}
+                  </div>
                 </div>
-              ))}
-            </div>
+              );
+            })}
           </div>
         </div>
       </Reveal>

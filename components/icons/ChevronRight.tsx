@@ -1,9 +1,11 @@
 interface ChevronRightProps {
   size?: number;
+  /** Stroke weight in viewBox units (viewBox is 7×12). Defaults to 2. */
+  strokeWidth?: number;
   className?: string;
 }
 
-export function ChevronRight({ size = 12, className }: ChevronRightProps) {
+export function ChevronRight({ size = 12, strokeWidth = 2, className }: ChevronRightProps) {
   const width = (size * 7) / 12;
   return (
     <svg
@@ -18,7 +20,7 @@ export function ChevronRight({ size = 12, className }: ChevronRightProps) {
       <path
         d="M1 11L6 6L1 1"
         stroke="currentColor"
-        strokeWidth="2"
+        strokeWidth={strokeWidth}
         strokeLinecap="round"
         strokeLinejoin="round"
       />

@@ -3,6 +3,7 @@
 import { useEffect, useId, useLayoutEffect, useRef, useState, type KeyboardEvent } from "react";
 import ProductCard from "@/components/ui/ProductCard";
 import Reveal from "@/components/ui/Reveal";
+import { usePrefersReducedMotion } from "@/lib/hooks/useMediaQuery";
 import { cn } from "@/lib/utils";
 
 interface ProductTabProduct {
@@ -24,29 +25,18 @@ interface ProductTabsProps {
   ariaLabel: string;
 }
 
-const SWITCH_DURATION_MS = 250;
 /** Header cascade is eyebrow(0), heading(80), toggle(160) — cards pick up 80ms after that, on first entry only. */
 const CARD_REVEAL_BASE_DELAY_MS = 240;
 const CARD_REVEAL_STEP_MS = 80;
 
-type PanelState = "visible" | "leaving" | "entering";
-
-function prefersReducedMotion() {
-  return (
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
-}
-
 export default function ProductTabs({ tabs, learnMoreLabel, ariaLabel }: ProductTabsProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [displayIndex, setDisplayIndex] = useState(0);
-  const [panelState, setPanelState] = useState<PanelState>("visible");
   const [hasInteracted, setHasInteracted] = useState(false);
   const [indicator, setIndicator] = useState<{ left: number; width: number } | null>(null);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const switchTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const tablistRef = useRef<HTMLDivElement>(null);
   const baseId = useId();
+  const reducedMotion = usePrefersReducedMotion();
 
   const measureIndicator = (index: number) => {
     const node = tabRefs.current[index];
@@ -63,28 +53,30 @@ export default function ProductTabs({ tabs, learnMoreLabel, ariaLabel }: Product
     return () => window.removeEventListener("resize", onResize);
   }, [activeIndex]);
 
-  useEffect(() => () => window.clearTimeout(switchTimeoutRef.current), []);
+  // Switzer loads after the first measure, shifting label widths — re-measure
+  // once web fonts are actually ready so the indicator doesn't sit under stale
+  // (pre-font) tab metrics.
+  useEffect(() => {
+    if (typeof document === "undefined" || !document.fonts) return;
+    document.fonts.ready.then(() => measureIndicator(activeIndex));
+  }, [activeIndex]);
 
+  // Any tablist size change (orientation, container reflow, zoom) can shift
+  // tab metrics without firing a window resize — keep the indicator in sync.
+  useEffect(() => {
+    const node = tablistRef.current;
+    if (!node || typeof ResizeObserver === "undefined") return;
+    const observer = new ResizeObserver(() => measureIndicator(activeIndex));
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [activeIndex]);
+
+  // Every panel stays mounted (see the stacked grid below), so switching is a
+  // pure crossfade — no unmount, no image reload, no blank gap.
   const selectTab = (index: number) => {
     if (index === activeIndex) return;
     setActiveIndex(index);
     setHasInteracted(true);
-
-    if (prefersReducedMotion()) {
-      setDisplayIndex(index);
-      setPanelState("visible");
-      return;
-    }
-
-    window.clearTimeout(switchTimeoutRef.current);
-    setPanelState("leaving");
-    switchTimeoutRef.current = setTimeout(() => {
-      setDisplayIndex(index);
-      setPanelState("entering");
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => setPanelState("visible"));
-      });
-    }, SWITCH_DURATION_MS / 2);
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
@@ -96,20 +88,19 @@ export default function ProductTabs({ tabs, learnMoreLabel, ariaLabel }: Product
     tabRefs.current[next]?.focus();
   };
 
-  const displayTab = tabs[displayIndex];
-
   return (
     <div className="flex w-full flex-col items-center gap-24">
       <Reveal as="div" delay={160}>
         <div
+          ref={tablistRef}
           role="tablist"
           aria-label={ariaLabel}
-          className="relative flex h-52 items-center rounded-full border border-neutral-10 bg-white p-4"
+          className="relative flex h-52 max-w-full shrink-0 flex-nowrap items-center rounded-full border border-neutral-10 bg-white p-4"
         >
           {indicator ? (
             <span
               aria-hidden="true"
-              className="absolute top-4 bottom-4 left-0 rounded-full bg-neutral-1 transition-transform duration-300 ease-out motion-reduce:transition-none"
+              className="absolute top-4 bottom-4 left-0 rounded-full bg-neutral-1 transition-transform duration-[250ms] ease-out motion-reduce:transition-none"
               style={{
                 width: indicator.width,
                 transform: `translateX(${indicator.left}px)`,
@@ -141,46 +132,60 @@ export default function ProductTabs({ tabs, learnMoreLabel, ariaLabel }: Product
         </div>
       </Reveal>
 
-      <div
-        role="tabpanel"
-        id={`${baseId}-panel-${displayTab.id}`}
-        aria-labelledby={`${baseId}-tab-${displayTab.id}`}
-        tabIndex={0}
-        className="w-full"
-      >
-        <div
-          className={cn(
-            "grid grid-cols-1 gap-16 transition-[opacity,transform] duration-150 ease-out motion-reduce:transition-none min-[480px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
-            panelState === "leaving" && "opacity-0",
-            panelState === "entering" && "translate-y-8 opacity-0",
-            panelState === "visible" && "translate-y-0 opacity-100"
-          )}
-        >
-          {displayTab.products.map((product, index) => {
-            const card = (
-              <ProductCard
-                href={product.href}
-                image={product.image}
-                title={product.title}
-                learnMoreLabel={learnMoreLabel}
-              />
-            );
+      {/* Stacked panels: all tabs share one grid cell (col/row start 1), so the
+          wrapper always sizes to the tallest panel and the height never jumps.
+          Only opacity + transform animate — never height or border. */}
+      <div className="grid w-full">
+        {tabs.map((tab, tabIndex) => {
+          const isActive = tabIndex === activeIndex;
 
-            if (hasInteracted) {
-              return <div key={product.key}>{card}</div>;
-            }
+          return (
+            <div
+              key={tab.id}
+              role="tabpanel"
+              id={`${baseId}-panel-${tab.id}`}
+              aria-labelledby={`${baseId}-tab-${tab.id}`}
+              aria-hidden={!isActive}
+              tabIndex={isActive ? 0 : -1}
+              inert={!isActive}
+              className={cn(
+                "col-start-1 row-start-1 w-full transition-[opacity,transform] ease-out motion-reduce:transition-none",
+                isActive
+                  ? "z-10 opacity-100 duration-[250ms]"
+                  : "z-0 pointer-events-none opacity-0 duration-[200ms]",
+                !reducedMotion && !isActive && "translate-y-[6px]"
+              )}
+            >
+              <div className="grid grid-cols-1 gap-32 min-[480px]:grid-cols-2 min-[480px]:gap-16 lg:grid-cols-3 xl:grid-cols-4">
+                {tab.products.map((product, index) => {
+                  const card = (
+                    <ProductCard
+                      href={product.href}
+                      image={product.image}
+                      title={product.title}
+                      learnMoreLabel={learnMoreLabel}
+                    />
+                  );
 
-            return (
-              <Reveal
-                key={product.key}
-                as="div"
-                delay={CARD_REVEAL_BASE_DELAY_MS + index * CARD_REVEAL_STEP_MS}
-              >
-                {card}
-              </Reveal>
-            );
-          })}
-        </div>
+                  // First load only: stagger-reveal the active panel's cards.
+                  if (!hasInteracted && isActive) {
+                    return (
+                      <Reveal
+                        key={product.key}
+                        as="div"
+                        delay={CARD_REVEAL_BASE_DELAY_MS + index * CARD_REVEAL_STEP_MS}
+                      >
+                        {card}
+                      </Reveal>
+                    );
+                  }
+
+                  return <div key={product.key}>{card}</div>;
+                })}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

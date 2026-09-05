@@ -30,11 +30,19 @@ export default function MobileNav({ isTransparent, isOpen, onOpenChange, onOpenS
         </Link>
 
         <div className="flex items-center gap-16">
+          {/* p-8 -m-8: pads the hit area out to 40px (real-device tap target
+              minimum) while the matching negative margin cancels the padding out
+              of the row's layout, so the icon's visual position and the gap-16
+              spacing are unchanged. Capped at 8px (not 10px) because the two
+              buttons sit gap-16 apart — 2x10px padding would expand each button's
+              hit box 20px toward its neighbor, overlapping into a 4px dead zone
+              where a tap could resolve to the wrong button; 2x8px exactly meets
+              the middle of the gap with zero overlap. */}
           <button
               type="button"
               aria-label={t("search")}
               onClick={onOpenSearch}
-              className={cn("flex size-24 items-center justify-center", iconColor)}
+              className={cn("-m-8 flex items-center justify-center p-8", iconColor)}
           >
             <Search size={24} />
           </button>
@@ -46,7 +54,7 @@ export default function MobileNav({ isTransparent, isOpen, onOpenChange, onOpenS
               aria-expanded={isOpen}
               onClick={() => onOpenChange(!isOpen)}
               className={cn(
-                  "flex size-24 items-center justify-center",
+                  "-m-8 flex items-center justify-center p-8",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary",
                   iconColor
               )}
