@@ -7,10 +7,8 @@ import Text from "@/components/ui/Text";
 import Button from "@/components/ui/Button";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import { ChevronRight } from "@/components/icons/ChevronRight";
-
-const HEADING_DELAY_MS = 80;
-const SUBTEXT_DELAY_MS = 160;
-const BUTTON_DELAY_MS = 240;
+import { BUTTON_ICON_SIZE } from "@/components/ui/Button";
+import { cascade } from "@/lib/motion/timing";
 
 export default async function WhyChooseCnxHero() {
   const t = await getTranslations("about.whyChooseCnx.hero");
@@ -49,25 +47,25 @@ export default async function WhyChooseCnxHero() {
         <div className="flex w-full max-w-[771px] flex-col items-start gap-40">
           <div className="flex flex-col gap-16">
             <div className="flex flex-col gap-12">
-              <Reveal as="div" delay={0}>
+              <Reveal as="div" delay={cascade(0)}>
                 <SectionEyebrow label={t("eyebrow")} />
               </Reveal>
-              <Reveal as="div" delay={HEADING_DELAY_MS}>
+              <Reveal as="div" delay={cascade(1)}>
                 <Heading level={1} size="h1" className="text-balance text-white">
                   {t("heading")}
                 </Heading>
               </Reveal>
             </div>
-            <Reveal as="div" delay={SUBTEXT_DELAY_MS}>
+            <Reveal as="div" delay={cascade(2)}>
               <Text size="p1" className="text-neutral-9">
                 {t("subtext")}
               </Text>
             </Reveal>
           </div>
-          <Reveal as="div" delay={BUTTON_DELAY_MS} className="w-full min-[481px]:w-fit">
+          <Reveal as="div" delay={cascade(3)} className="w-full min-[481px]:w-fit">
             <Button href="/products" size="xl" className="w-full min-[481px]:w-fit">
               {t("cta")}
-              <ChevronRight size={16} />
+              <ChevronRight size={BUTTON_ICON_SIZE} />
             </Button>
           </Reveal>
         </div>

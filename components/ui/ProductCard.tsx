@@ -60,7 +60,7 @@ export default function ProductCard({
       href={href}
       aria-label={title}
       className={cn(
-        "group flex w-full flex-col rounded-12 outline-none",
+        "group flex w-full flex-col rounded-12",
         "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary",
         CARD_LIFT,
         className

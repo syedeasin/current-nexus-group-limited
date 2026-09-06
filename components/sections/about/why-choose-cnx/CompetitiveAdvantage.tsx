@@ -20,7 +20,7 @@ export default async function CompetitiveAdvantage() {
       eyebrowLabel={t("eyebrow")}
       heading={t("heading")}
       items={ITEMS.map(({ key, Icon }) => ({
-        icon: <Icon size={40} className="text-secondary" aria-hidden="true" />,
+        icon: <Icon size={32} strokeWidth={1.5} className="text-neutral-1" aria-hidden="true" />,
         title: t(`items.${key}.title`),
         body: t(`items.${key}.body`),
       }))}
