@@ -17,8 +17,8 @@ export default async function WhyChooseCnx() {
   const reasons = whyChooseReasons.map((reason) => ({
     key: reason.key,
     icon: reason.icon,
-    title: t(`items.${reason.key}.title`),
-    body: t(`items.${reason.key}.body`),
+    title: t(`items.${reason.key}.title` as never),
+    body: t(`items.${reason.key}.body` as never),
   }));
 
   return (

@@ -8,7 +8,7 @@ const CARD_STEP_MS = 80;
 const CARD_STAGGER_CAP_MS = 400;
 
 export default async function ProductGrid({ category }: { category: ProductCategory }) {
-  const t = await getTranslations(category.namespace);
+  const t = await getTranslations(category.namespace as never);
 
   return (
     <section className="w-full bg-white pt-80 pb-100">
@@ -21,9 +21,9 @@ export default async function ProductGrid({ category }: { category: ProductCateg
                 <ManufacturingProductCard
                   href={`/manufacturing/${category.slug}/${product.slug}`}
                   image={product.image}
-                  title={t(product.titleKey)}
-                  description={t(product.descriptionKey)}
-                  learnMoreLabel={t("products.learnMoreLabel")}
+                  title={t(product.titleKey as never)}
+                  description={t(product.descriptionKey as never)}
+                  learnMoreLabel={t("products.learnMoreLabel" as never)}
                   featured={product.featured}
                 />
               </Reveal>

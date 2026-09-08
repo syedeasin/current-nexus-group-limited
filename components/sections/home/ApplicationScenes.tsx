@@ -12,8 +12,8 @@ export default async function ApplicationScenes() {
 
   const cards = applicationScenes.map((scene) => ({
     key: scene.key,
-    title: t(`cards.${scene.key}.title`),
-    description: t(`cards.${scene.key}.description`),
+    title: t(`cards.${scene.key}.title` as never),
+    description: t(`cards.${scene.key}.description` as never),
     image: scene.image,
     href: scene.href,
   }));

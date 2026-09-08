@@ -21,8 +21,8 @@ export default async function Faq() {
 
   const questions = faqItems.map((item) => ({
     id: item.id,
-    question: t(`items.${item.id}.question`),
-    answer: t(`items.${item.id}.answer`),
+    question: t(`items.${item.id}.question` as never),
+    answer: t(`items.${item.id}.answer` as never),
   }));
 
   const faqJsonLd = {

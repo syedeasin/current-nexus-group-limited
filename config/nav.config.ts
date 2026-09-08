@@ -7,11 +7,11 @@
  * that no existing key carries (product-card labels, expanded labels).
  * See messages/en.json → "nav" for the new keys.
  *
- * TODO: every product `image` below points at /nav/placeholder.png (plain
- * gray, 140x160). Swap in real Figma-exported product thumbnails when
- * available — see the TODO on ProductCard in MenuPanel.tsx. The
- * uranusPro/venusPro product hrefs are also placeholders — no
- * `/products/*` detail routes exist yet.
+ * Product `image`s reuse the manufacturing product photos in
+ * /public/images/manufacturing (726x836, matching the 140x160 nav card box).
+ * uranusPro/venusPro reuse the closest module shots as stand-ins — no
+ * dedicated Uranus/Venus render exists, and no `/products/*` detail routes
+ * exist yet, so those two hrefs remain placeholders.
  */
 
 import type messages from "@/messages/en.json";
@@ -71,13 +71,13 @@ export const NAV_ITEMS: NavItem[] = [
       {
         kind: "products",
         items: [
-          { labelKey: "backContact", href: "/manufacturing/solar-panels/bc", image: "/nav/placeholder.png" },
-          { labelKey: "hjt", href: "/manufacturing/solar-panels/hjt", image: "/nav/placeholder.png" },
-          { labelKey: "topcon", href: "/manufacturing/solar-panels/topcon", image: "/nav/placeholder.png" },
+          { labelKey: "backContact", href: "/manufacturing/solar-panels/bc", image: "/images/manufacturing/product-bc.jpg" },
+          { labelKey: "hjt", href: "/manufacturing/solar-panels/hjt", image: "/images/manufacturing/product-hjt.jpg" },
+          { labelKey: "topcon", href: "/manufacturing/solar-panels/topcon", image: "/images/manufacturing/product-topcon.jpg" },
           {
             labelKey: "odmVertical",
             href: "/manufacturing/solar-panels/odm-vertical-solar-modules",
-            image: "/nav/placeholder.png",
+            image: "/images/manufacturing/product-odm.jpg",
           },
         ],
       },
@@ -127,8 +127,8 @@ export const NAV_ITEMS: NavItem[] = [
       {
         kind: "products",
         items: [
-          { labelKey: "uranusPro", href: "/products/uranus-pro", image: "/nav/placeholder.png" },
-          { labelKey: "venusPro", href: "/products/venus-pro", image: "/nav/placeholder.png" },
+          { labelKey: "uranusPro", href: "/products/uranus-pro", image: "/images/manufacturing/product-bc.jpg" },
+          { labelKey: "venusPro", href: "/products/venus-pro", image: "/images/manufacturing/product-hjt.jpg" },
         ],
       },
     ],

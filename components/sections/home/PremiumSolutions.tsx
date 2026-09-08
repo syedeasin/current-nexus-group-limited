@@ -12,11 +12,11 @@ export default async function PremiumSolutions() {
 
   const brands = premiumSolutionsBrands.map((brand) => ({
     id: brand.id,
-    label: t(`brands.${brand.brandKey}`),
-    title: t(`titles.${brand.titleKey}`),
+    label: t(`brands.${brand.brandKey}` as never),
+    title: t(`titles.${brand.titleKey}` as never),
     products: brand.products.map((product) => ({
       key: product.key,
-      title: t(`products.${product.key}`),
+      title: t(`products.${product.key}` as never),
       image: product.image,
       href: product.href,
     })),

@@ -46,7 +46,7 @@ export default async function LatestNews() {
               <BlogCard
                 href="/news"
                 image={post.image}
-                title={t(`posts.${post.slug}.title`)}
+                title={t(`posts.${post.slug}.title` as never)}
                 date={post.date}
                 readTime={post.readTime}
                 imageSizes="(min-width: 1280px) 32vw, (min-width: 1024px) 36vw, (min-width: 481px) 64vw, 85vw"

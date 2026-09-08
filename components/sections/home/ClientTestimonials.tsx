@@ -71,8 +71,8 @@ export default async function ClientTestimonials() {
                 </span>
               </div>
               <div className="flex flex-col gap-8">
-                <p className="text-p1 font-medium text-white">{t(`stories.${story.key}.clientName`)}</p>
-                <p className="text-p1 font-medium text-white">{t(`stories.${story.key}.location`)}</p>
+                <p className="text-p1 font-medium text-white">{t(`stories.${story.key}.clientName` as never)}</p>
+                <p className="text-p1 font-medium text-white">{t(`stories.${story.key}.location` as never)}</p>
               </div>
             </Reveal>
 
@@ -85,7 +85,7 @@ export default async function ClientTestimonials() {
               >
                 <blockquote className="m-0">
                   <p className="text-p1 font-medium text-white lg:min-h-136 xl:min-h-144">
-                    {t(`stories.${story.key}.quote`)}
+                    {t(`stories.${story.key}.quote` as never)}
                   </p>
                   <cite className="sr-only not-italic">{story.clientWordmark}</cite>
                 </blockquote>

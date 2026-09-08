@@ -100,8 +100,7 @@ export default function MenuPanel({ item, panelId, isOpen, pathname, onClose }: 
                     >
                       <div className="flex flex-col items-center gap-20">
                         <div className="relative h-160 w-140">
-                          {/* TODO: replace with real product images */}
-                          <Image src={productItem.image} alt="" fill className="object-contain" />
+                          <Image src={productItem.image} alt="" fill sizes="140px" className="object-contain" />
                         </div>
                         <span className="text-center text-p3 font-semibold text-neutral-1">
                           {t(productItem.labelKey)}

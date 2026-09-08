@@ -13,10 +13,10 @@ export default async function EnergyEcosystem() {
 
   const tabs = energyEcosystemTabs.map((tab) => ({
     id: tab.id,
-    label: t(`tabs.${tab.tabKey}`),
+    label: t(`tabs.${tab.tabKey}` as never),
     products: tab.products.map((product) => ({
       key: product.key,
-      title: t(`products.${product.key}`),
+      title: t(`products.${product.key}` as never),
       image: product.image,
       href: product.href,
     })),

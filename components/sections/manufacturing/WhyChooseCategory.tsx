@@ -22,18 +22,18 @@ const FEATURE_STEP_MS = 80;
 const FEATURE_STAGGER_CAP_MS = 400;
 
 export default async function WhyChooseCategory({ category }: { category: ProductCategory }) {
-  const t = await getTranslations(category.namespace);
+  const t = await getTranslations(category.namespace as never);
 
   return (
     <section className="w-full bg-surface-2 py-100">
       <Container className="flex flex-col gap-48">
         <div className="mx-auto flex max-w-702 flex-col items-center gap-12 text-center">
           <Reveal as="div" delay={0}>
-            <SectionEyebrow label={t("whyChoose.eyebrow")} />
+            <SectionEyebrow label={t("whyChoose.eyebrow" as never)} />
           </Reveal>
           <Reveal as="div" delay={HEADING_DELAY_MS}>
             <Heading level={2} size="h2" className="text-balance">
-              {t("whyChoose.heading")}
+              {t("whyChoose.heading" as never)}
             </Heading>
           </Reveal>
         </div>
@@ -71,10 +71,10 @@ export default async function WhyChooseCategory({ category }: { category: Produc
                   <Icon size={24} className="shrink-0 pt-2 text-secondary" aria-hidden="true" />
                   <div className="flex flex-col gap-8">
                     <Heading level={3} size="h6">
-                      {t(feature.titleKey)}
+                      {t(feature.titleKey as never)}
                     </Heading>
                     <Text size="p2" className="text-neutral-3">
-                      {t(feature.descriptionKey)}
+                      {t(feature.descriptionKey as never)}
                     </Text>
                   </div>
                 </Reveal>

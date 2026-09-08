@@ -13,7 +13,7 @@ export default async function Awards() {
       cards={awards.map((award) => ({
         image: award.image,
         alt: award.alt,
-        caption: t(`items.${award.key}.caption`),
+        caption: t(`items.${award.key}.caption` as never),
       }))}
     />
   );
