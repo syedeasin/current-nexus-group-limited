@@ -228,9 +228,19 @@ export async function getAdjacentPosts(
  * route segment.
  */
 export async function getAllSlugs(): Promise<{ locale: string; slug: string }[]> {
-  const rows = await prisma.post.findMany({
-    where: { status: PostStatus.PUBLISHED },
-    select: { slug: true, locale: true },
-  });
-  return rows.map((row) => ({ locale: row.locale.toLowerCase(), slug: row.slug }));
+  try {
+    const rows = await prisma.post.findMany({
+      where: { status: PostStatus.PUBLISHED },
+      select: { slug: true, locale: true },
+    });
+    return rows.map((row) => ({ locale: row.locale.toLowerCase(), slug: row.slug }));
+  } catch (error) {
+    // Only used for generateStaticParams at build time — a DB outage here
+    // shouldn't fail the entire `next build`. Falling back to no pre-rendered
+    // slugs just means every /news/[slug] request renders on-demand instead
+    // of being statically generated; the runtime queries in this file are
+    // NOT wrapped this way and still throw/404 normally.
+    console.error("getAllSlugs: DB unreachable, skipping static params for /news/[slug]", error);
+    return [];
+  }
 }

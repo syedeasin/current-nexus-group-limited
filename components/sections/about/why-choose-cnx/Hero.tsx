@@ -9,6 +9,8 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import { ChevronRight } from "@/components/icons/ChevronRight";
 import { BUTTON_ICON_SIZE } from "@/components/ui/Button";
 import { cascade } from "@/lib/motion/timing";
+import { HERO_HEADER_OFFSET } from "@/src/layout/headerOffset";
+import { cn } from "@/lib/utils";
 
 export default async function WhyChooseCnxHero() {
   const t = await getTranslations("about.whyChooseCnx.hero");
@@ -16,7 +18,8 @@ export default async function WhyChooseCnxHero() {
   return (
     <section
       aria-label={t("heading")}
-      className="relative w-full overflow-hidden bg-neutral-1"
+      data-hero-sentinel
+      className={cn("relative w-full overflow-hidden bg-neutral-1", HERO_HEADER_OFFSET)}
     >
       <Image
         src="/images/home/residentialSolar.webp"

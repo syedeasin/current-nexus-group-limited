@@ -11,6 +11,7 @@ import Button, { BUTTON_ICON_SIZE } from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
 import { ChevronRight } from "@/components/icons/ChevronRight";
 import { usePrefersReducedMotion } from "@/lib/hooks/useMediaQuery";
+import { HERO_HEADER_OFFSET } from "@/src/layout/headerOffset";
 import { BODY_DELAY_MS, EYEBROW_DELAY_MS, HEADING_DELAY_MS } from "@/lib/motion/timing";
 import { cn } from "@/lib/utils";
 
@@ -84,13 +85,18 @@ export default function HeroCarousel({
   // smooth instead of snapping back to 1.
   const [zoomKeys, setZoomKeys] = useState<number[]>(() => slides.map(() => 0));
 
-  useEffect(() => {
+  // Bump the active slide's key during render (React's "adjust state on prop
+  // change" pattern) rather than in an effect, so the remount happens before
+  // paint and there's no setState-in-effect for the lint rule to flag.
+  const [prevIndex, setPrevIndex] = useState(index);
+  if (prevIndex !== index) {
+    setPrevIndex(index);
     setZoomKeys((prev) => {
       const next = [...prev];
       next[index] = Math.max(...prev) + 1;
       return next;
     });
-  }, [index]);
+  }
 
   useEffect(() => {
     if (reducedMotion || hovered || focused) return;
@@ -133,7 +139,7 @@ export default function HeroCarousel({
       onFocus={() => setFocused(true)}
       onBlur={handleBlur}
       onKeyDown={handleKeyDown}
-      className="relative -mt-56 w-full overflow-hidden xl:-mt-88"
+      className={cn("relative w-full overflow-hidden", HERO_HEADER_OFFSET)}
     >
       {/* মোবাইল হিরো — Figma exact লেআউট (< lg) */}
       <div className="lg:hidden">

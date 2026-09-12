@@ -37,19 +37,24 @@ export default function ManufacturingProductCard({
       </div>
       <div className="mt-auto flex flex-col items-center gap-20 pt-24 text-center">
         <div className="flex flex-col gap-8">
-          <span className="text-h5 font-semibold tracking-[-0.24px] text-neutral-1">{title}</span>
-          <p className="max-w-456 text-p2 text-neutral-3">{description}</p>
+          {/* Figma H5 spec (node 2247:8043) is 24/32/-0.5px; the shared --text-h5 token
+              tracks -0.24px for other surfaces, so the letter-spacing is overridden here
+              rather than touched globally. */}
+          <span className="text-h5 font-semibold tracking-[-0.5px] text-neutral-1">{title}</span>
+          {/* Figma card description (node 2247:8044) is Paragraph/Regular/P3 (18/28), not P2. */}
+          <p className="max-w-456 text-p3 text-neutral-3">{description}</p>
         </div>
         <span
           className={cn(
-            "inline-flex items-center gap-8 rounded-full px-24 py-12 text-btn-sm font-semibold transition-colors duration-200 ease-out",
+            "inline-flex items-center gap-8 rounded-full px-24 py-12 text-btn-sm font-semibold tracking-[0px] transition-colors duration-200 ease-out",
             featured
               ? "bg-secondary text-neutral-1 group-hover:bg-secondary/90"
-              : "border border-neutral-10 bg-white text-neutral-1 group-hover:bg-neutral-11"
+              : "border-[1.5px] border-neutral-10 bg-white text-neutral-1 group-hover:bg-neutral-11"
           )}
         >
           {learnMoreLabel}
-          <ChevronRight size={20} />
+          {/* Figma: card button icon (node 2247:8045/8055) is size-[18px], not the shared Button's 20px. */}
+          <ChevronRight size={18} />
         </span>
       </div>
     </Link>

@@ -64,22 +64,28 @@ export default function Navbar() {
             ref={headerRef}
             onMouseLeave={scheduleClose}
             style={{
-              transitionProperty: "transform, opacity, background-color, border-color, box-shadow, color",
-              // Slide DOWN into view: long, heavily decelerated (ease-out-expo) — reads as settling.
-              // Slide UP out of view: shorter, accelerated (ease-in) — gets out of the way fast.
+              // No opacity here: the white bar must stay fully opaque as it moves,
+              // otherwise the page scrolls through it while it slides. Only the
+              // transform animates the show/hide; colour props cover the
+              // transparent <-> white swap over the hero.
+              transitionProperty: "transform, background-color, border-color, box-shadow, color",
+              // Slide DOWN into view: long and gently decelerated (ease-out-cubic) — a
+              // slow, smooth settle rather than a snap. Slide UP out of view: short
+              // and accelerated (ease-in) — gets out of the way fast.
+              // Order: transform, background-color, border-color, box-shadow, color.
               transitionDuration: hidden
-                ? "280ms, 220ms, 400ms, 300ms, 250ms, 250ms"
-                : "560ms, 360ms, 400ms, 300ms, 450ms, 250ms",
+                ? "280ms, 400ms, 300ms, 250ms, 250ms"
+                : "820ms, 400ms, 300ms, 450ms, 250ms",
               transitionTimingFunction: hidden
-                ? "cubic-bezier(0.4, 0, 1, 1), linear, ease-out, ease-out, ease-out, ease-out"
-                : "cubic-bezier(0.16, 1, 0.3, 1), ease-out, ease-out, ease-out, cubic-bezier(0.16, 1, 0.3, 1), ease-out",
+                ? "cubic-bezier(0.4, 0, 1, 1), ease-out, ease-out, ease-out, ease-out"
+                : "cubic-bezier(0.33, 1, 0.68, 1), ease-out, ease-out, ease-out, ease-out",
             }}
             className={cn(
                 "inset-x-0 top-0 z-50 h-56 xl:h-88 transform-gpu will-change-transform motion-reduce:transition-none",
                 // Over the hero: absolute, so it scrolls away with the section (not sticky).
                 // Past the hero: fixed, with the hide-on-down / show-on-up behavior.
                 isTransparent ? "absolute" : "fixed",
-                hidden ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100",
+                hidden ? "-translate-y-full" : "translate-y-0",
                 isTransparent
                     ? "bg-transparent text-white"
                     : "bg-white text-neutral-1 border-b border-neutral-10 shadow-sm"

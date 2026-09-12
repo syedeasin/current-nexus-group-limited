@@ -1,13 +1,5 @@
-import {
-  Building2,
-  CloudSunRain,
-  Download,
-  Grid2x2,
-  Layers,
-  Snowflake,
-  TrendingUp,
-  Zap,
-} from "lucide-react";
+import { Building2, Download, Layers, Zap } from "lucide-react";
+import Image from "next/image";
 import Hero from "@/components/sections/product/Hero";
 import ProductIntroduction from "@/components/sections/product/ProductIntroduction";
 import FeatureGrid from "@/components/sections/shared/FeatureGrid";
@@ -28,13 +20,16 @@ import CtaBand from "@/components/sections/shared/CtaBand";
 import FloatingActionBar, { HeroEndSentinel } from "@/components/sections/product/FloatingActionBar";
 import type { ProductDetail } from "@/lib/data/products/types";
 
-const FEATURE_ICONS: Record<string, typeof Layers> = {
-  layer: Layers,
-  "cloud-sun-rain": CloudSunRain,
-  "chart-increase": TrendingUp,
-  apartment: Building2,
-  "menu-square": Grid2x2,
-  snow: Snowflake,
+// Figma node 2254:8872 ("Why choose BC") ships these as bespoke line-art SVGs (stroke
+// #0A0D1B), not stock icon-set glyphs — the closest Lucide equivalents didn't match, so
+// the exported assets are rendered directly instead.
+const FEATURE_ICON_SRC: Record<string, string> = {
+  layer: "/images/manufacturing/bc-solar/bifacial-double-glass-icon.svg",
+  "cloud-sun-rain": "/images/manufacturing/bc-solar/low-light-performance-icon.svg",
+  "chart-increase": "/images/manufacturing/bc-solar/high-bifaciality-icon.svg",
+  apartment: "/images/manufacturing/bc-solar/wide-installation-scenarios-icon.svg",
+  "menu-square": "/images/manufacturing/bc-solar/multi-cut-technology-icon.svg",
+  snow: "/images/manufacturing/bc-solar/low-temperature-coefficient-icon.svg",
 };
 
 const CASE_STUDY_ICONS: Record<string, typeof Layers> = {
@@ -57,9 +52,13 @@ export default function ProductDetailPage({ product }: { product: ProductDetail 
           eyebrowLabel={product.competitiveAdvantage.eyebrow}
           heading={product.competitiveAdvantage.heading}
           items={product.competitiveAdvantage.items.map((item) => {
-            const Icon = FEATURE_ICONS[item.icon] ?? Layers;
+            const iconSrc = FEATURE_ICON_SRC[item.icon];
             return {
-              icon: <Icon size={40} className="text-secondary" aria-hidden="true" />,
+              icon: iconSrc ? (
+                <Image src={iconSrc} alt="" aria-hidden="true" width={40} height={40} />
+              ) : (
+                <Layers size={40} className="text-neutral-1" aria-hidden="true" />
+              ),
               title: item.title,
               body: item.body,
             };

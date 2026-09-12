@@ -5,6 +5,8 @@ import Reveal from "@/components/ui/Reveal";
 import Heading from "@/components/ui/Heading";
 import ShareLinks from "@/components/sections/news/ShareLinks";
 import { formatDate } from "@/lib/formatDate";
+import { HERO_HEADER_OFFSET } from "@/src/layout/headerOffset";
+import { cn } from "@/lib/utils";
 import type { NewsPost } from "@/lib/data/news";
 
 interface DetailsHeroProps {
@@ -16,7 +18,13 @@ export default async function DetailsHero({ post, postUrl }: DetailsHeroProps) {
   const t = await getTranslations("news");
 
   return (
-    <section className="relative flex min-h-[420px] w-full flex-col justify-end overflow-hidden bg-neutral-1 xl:h-572">
+    <section
+      data-hero-sentinel
+      className={cn(
+        "relative flex min-h-[420px] w-full flex-col justify-end overflow-hidden bg-neutral-1 xl:h-572",
+        HERO_HEADER_OFFSET
+      )}
+    >
       {post.coverImage && (
         <Image
           src={post.coverImage}

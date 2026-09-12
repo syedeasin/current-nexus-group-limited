@@ -6,7 +6,7 @@ import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { ChevronRight } from "@/components/icons/ChevronRight";
 import { CARD_IMAGE_ZOOM, CARD_LIFT, LINK_CHEVRON } from "@/lib/motion/interactions";
-import { usePrefersReducedMotion } from "@/lib/hooks/useMediaQuery";
+import { usePrefersReducedMotion, useHydrated } from "@/lib/hooks/useMediaQuery";
 
 interface ProductCardProps {
   href: string;
@@ -41,19 +41,18 @@ export default function ProductCard({
   className,
 }: ProductCardProps) {
   const reducedMotion = usePrefersReducedMotion();
+  const hydrated = useHydrated();
   const imgRef = useRef<HTMLImageElement>(null);
-  const [mounted, setMounted] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     // Cached images can finish loading before onLoad is wired up.
     if (imgRef.current?.complete) setImageLoaded(true);
   }, []);
 
   // SSR / no-JS / reduced-motion: render the image opaque. Otherwise fade it in
   // once it has actually loaded so it doesn't pop in mid-reveal.
-  const imageShown = !mounted || reducedMotion || imageLoaded;
+  const imageShown = !hydrated || reducedMotion || imageLoaded;
 
   return (
     <Link

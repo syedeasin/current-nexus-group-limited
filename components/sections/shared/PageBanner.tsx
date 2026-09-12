@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Container from "@/components/layout/Container";
+import { HERO_HEADER_OFFSET } from "@/src/layout/headerOffset";
 import { cn } from "@/lib/utils";
 import Reveal from "@/components/ui/Reveal";
 import Heading from "@/components/ui/Heading";
@@ -25,7 +26,11 @@ export default function PageBanner({
   textMaxWidthClassName = "max-w-855",
 }: PageBannerProps) {
   return (
-    <section aria-label={heading} className="relative w-full overflow-hidden bg-neutral-1">
+    <section
+      aria-label={heading}
+      data-hero-sentinel
+      className={cn("relative w-full overflow-hidden bg-neutral-1", HERO_HEADER_OFFSET)}
+    >
       <Image
         src={image.src}
         alt={image.alt ?? ""}

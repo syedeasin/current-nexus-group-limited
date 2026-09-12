@@ -68,7 +68,9 @@ export default async function WhyChooseCategory({ category }: { category: Produc
                     index > 0 && "border-t border-neutral-10 pt-24 sm:border-t-0 sm:pt-0 lg:border-l lg:pl-48"
                   )}
                 >
-                  <Icon size={24} className="shrink-0 pt-2 text-secondary" aria-hidden="true" />
+                  {/* Figma icons (solar-panel-02, Frame, global — node 1792:3294/3306/3319)
+                      stroke #0A0D1B (neutral-1), not the secondary gold. */}
+                  <Icon size={24} className="shrink-0 pt-2 text-neutral-1" aria-hidden="true" />
                   <div className="flex flex-col gap-8">
                     <Heading level={3} size="h6">
                       {t(feature.titleKey as never)}

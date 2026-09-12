@@ -26,3 +26,18 @@ export function useMediaQuery(query: string, serverSnapshot = false): boolean {
 export function usePrefersReducedMotion(): boolean {
   return useMediaQuery("(prefers-reduced-motion: reduce)");
 }
+
+const noopSubscribe = () => () => {};
+
+/**
+ * Returns false during SSR and the first client render, true from the second
+ * render on. Uses useSyncExternalStore so hydration matches the server and
+ * there's no setState-in-effect for React Compiler's lint rule to flag.
+ */
+export function useHydrated(): boolean {
+  return useSyncExternalStore(
+    noopSubscribe,
+    () => true,
+    () => false
+  );
+}

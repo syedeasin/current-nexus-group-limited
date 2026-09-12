@@ -26,19 +26,26 @@ export default function ProductIntroduction({ data }: { data: ProductIntroductio
             />
           </Reveal>
 
+          {/* Figma node 2254:8877/8878: eyebrow→heading is a nested 12px gap, and that
+              whole block sits 24px above the body paragraphs — not one flat gap. */}
           <div className="flex w-full flex-col gap-24 p-24 md:p-32 lg:w-752 lg:p-64">
-            <Reveal as="div" delay={0}>
-              <SectionEyebrow label={data.eyebrow} />
-            </Reveal>
-            <Reveal as="div" delay={80}>
-              <Heading level={2} size="h2" className="text-balance">
-                {data.heading}
-              </Heading>
-            </Reveal>
+            <div className="flex flex-col gap-12">
+              <Reveal as="div" delay={0}>
+                <SectionEyebrow label={data.eyebrow} />
+              </Reveal>
+              <Reveal as="div" delay={80}>
+                {/* Figma's local H2 override here tracks -1.2px, not the shared
+                    --text-h2 token's -0.72px — matched exactly rather than site-wide. */}
+                <Heading level={2} size="h2" className="text-balance tracking-[-1.2px]">
+                  {data.heading}
+                </Heading>
+              </Reveal>
+            </div>
             <div className="flex flex-col gap-16">
               {data.paragraphs.map((paragraph, index) => (
                 <Reveal key={paragraph} as="div" delay={160 + index * 80}>
-                  <Text size="p1" className="text-neutral-3">
+                  {/* Figma: Paragraph/Regular P2 (20/32 desktop), not P1. */}
+                  <Text size="p2" className="text-neutral-3">
                     {paragraph}
                   </Text>
                 </Reveal>

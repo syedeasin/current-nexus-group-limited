@@ -32,9 +32,9 @@ export const BUTTON_ICON_SIZE = 20;
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary: "bg-secondary text-neutral-1 hover:bg-secondary/90",
-  /** Glass button for dark sections (Figma: white 5% fill, white 17% border, 10.45px blur). */
+  /** Glass button for dark sections (Figma node 4031:5043/4013:9986: white 5% fill, white 10% border, 10.45px blur). */
   secondary:
-    "border border-white/17 bg-white/5 text-white backdrop-blur-[10.45px] hover:bg-white/10",
+    "border border-white/10 bg-white/5 text-white backdrop-blur-[10.45px] hover:bg-white/10",
   outline:
     "border border-secondary bg-transparent text-secondary hover:bg-secondary hover:text-neutral-1",
   ghost: "bg-transparent text-neutral-1 hover:text-secondary",

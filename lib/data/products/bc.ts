@@ -47,8 +47,8 @@ export const bcProductDetail: ProductDetail = {
       { value: "15 year", label: "Process Warranty" },
       { value: "30 year", label: "Power Linearity Warranty" },
     ],
-    backgroundImage: "/images/products/bc/hero-plant.jpg",
-    productImage: "/images/products/bc/hero-product-shot.jpg",
+    backgroundImage: "/images/manufacturing/bc-solar/bc-solar-hero-bg.webp",
+    productImage: "/images/manufacturing/bc-solar/product-image.webp",
   },
   introduction: {
     eyebrow: "Product Introduction",
@@ -57,7 +57,7 @@ export const bcProductDetail: ProductDetail = {
       "CNX HJT solar modules combine crystalline silicon with advanced amorphous silicon passivation to reduce recombination loss and maximize real-world energy yield. Designed for ODM partners, they deliver high power density, strong bifacial performance, low temperature loss, and reliable factory-controlled quality.",
       "Ideal for utility-scale, C&I rooftops, trackers, carports, and high-reflectance sites, CNX HJT modules improve project performance while simplifying procurement with one-stop manufacturing, certification support, packaging customization, and global shipping.",
     ],
-    image: "/images/products/bc/product-intro-factory.jpg",
+    image: "/images/manufacturing/bc-solar/bc-solar-product-introduction.webp",
   },
   competitiveAdvantage: {
     eyebrow: "Our Competitive Advantage",
@@ -176,18 +176,20 @@ export const bcProductDetail: ProductDetail = {
     backgroundImage: "/images/products/bc/awards-background.jpg",
     cards: [
       {
-        image: "/images/products/bc/award-iec.png",
+        image: "/images/manufacturing/bc-solar/iec-logo.webp",
         alt: "IEC certification badge",
         caption: "Leading Renewable Energy Manufacturer Award",
       },
       {
-        image: "/images/products/bc/award-tuv.png",
+        image: "/images/manufacturing/bc-solar/tuv-logo.webp",
         alt: "TÜV Rheinland Certified badge",
         caption: "Leading Renewable Energy Manufacturer Award",
       },
       {
-        image: "/images/products/bc/award-cqc.png",
-        alt: "CQC certification badge",
+        // Note: the provided asset is a Golden Sun (GC Solar) certification badge, not CQC —
+        // swapped in as the third award logo since it's the only third mark supplied.
+        image: "/images/manufacturing/bc-solar/y-logo.webp",
+        alt: "Golden Sun (GC Solar) certification badge",
         caption: "Leading Renewable Energy Manufacturer Award",
       },
     ],
@@ -373,7 +375,7 @@ export const bcProductDetail: ProductDetail = {
           { label: "Core selling point", value: "Ultra-high power, dual-sided gain, ultra-low attenuation" },
           { label: "Visual keywords", value: "Scale, desert/snowy terrain, tracking stand" },
         ],
-        image: "/images/products/bc/variant-uranus.jpg",
+        image: "/images/manufacturing/bc-solar/g12-0bb-uranus-pro.webp",
         buttonLabel: "Download data-sheets",
         buttonHref: "#quotation",
       },
@@ -386,7 +388,7 @@ export const bcProductDetail: ProductDetail = {
           { label: "Core selling point", value: "Total-black aesthetics, lightweight, low-light response" },
           { label: "Visual keywords", value: "Architecture integration, city skyline, rooftops" },
         ],
-        image: "/images/products/bc/variant-venus.jpg",
+        image: "/images/manufacturing/bc-solar/g12-0bb-venus-pro.webp",
         buttonLabel: "Download data-sheets",
         buttonHref: "#quotation",
       },
@@ -424,7 +426,7 @@ export const bcProductDetail: ProductDetail = {
         body: "MOQ by model and packaging; sample order before batch production",
       },
     ],
-    image: "/images/products/bc/odm-service.jpg",
+    image: "/images/manufacturing/bc-solar/odm-customization-service-img.webp",
     serviceFlowHeading: "Service flow",
     serviceFlowSteps: [
       "Demand communication",
@@ -444,7 +446,7 @@ export const bcProductDetail: ProductDetail = {
   caseStudy: {
     eyebrow: "Client success story",
     heading: "Real world HJT project success stories",
-    backgroundImage: "/images/products/bc/case-study.jpg",
+    backgroundImage: "/images/manufacturing/bc-solar/success-story-bg.webp",
     title: "5MW HJT tracker project designed for higher yield",
     body: "A European utility developer selected CNX HJT modules for a ground-mounted tracker installation, targeting higher bifacial gain and lower temperature-related losses across a full commissioning season.",
     specs: [
@@ -460,20 +462,23 @@ export const bcProductDetail: ProductDetail = {
       {
         title: "CNX TOPCon Solar Modules",
         body: "High-efficiency N-Type TOPCon modules delivering reliable performance for utility-scale and commercial solar projects.",
-        image: "/images/manufacturing/product-topcon.jpg",
+        // Old /images/manufacturing/product-topcon.jpg was deleted in the manufacturing-page image swap; pointing at its replacement.
+        image: "/images/manufacturing/solar-panels/topcon-solar-panels.webp",
         href: "/manufacturing/solar-panels/topcon",
         featured: true,
       },
       {
         title: "CNX BC Solar Modules",
         body: "Premium back-contact solar modules combining exceptional efficiency with a sleek all-black design for modern installations.",
-        image: "/images/manufacturing/product-bc.jpg",
+        // Old /images/manufacturing/product-bc.jpg was deleted in the manufacturing-page image swap; pointing at its replacement.
+        image: "/images/manufacturing/solar-panels/bc-solar-panels.webp",
         href: "/manufacturing/solar-panels/bc",
       },
       {
         title: "CNX 488kWh C&I BESS",
         body: "Commercial and industrial battery energy storage designed to optimize energy usage, reduce peak demand, and provide reliable backup power.",
-        image: "/images/manufacturing/product-488kwh-bess.jpg",
+        // Old /images/manufacturing/product-488kwh-bess.jpg was deleted in the manufacturing-page image swap; pointing at its replacement.
+        image: "/images/manufacturing/bess/488kwh-utility-bess.webp",
         href: "/manufacturing/bess/488kwh",
       },
       {
@@ -586,6 +591,6 @@ export const bcProductDetail: ProductDetail = {
     heading: "Technical Documents & Product Resources",
     buttonLabel: "Download Datasheet",
     buttonHref: "#quotation",
-    backgroundImage: "/images/products/bc/documents-cta.jpg",
+    backgroundImage: "/images/home/ctabg2.webp",
   },
 };

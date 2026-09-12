@@ -58,7 +58,8 @@ export default function FeatureGrid({ eyebrowLabel, heading, items, className }:
                   <Heading level={3} size="h6">
                     {item.title}
                   </Heading>
-                  <Text size="p2" className="text-neutral-3">
+                  {/* Figma node 2254:8908 etc: Paragraph/Regular P3 (18/28 desktop), not P2. */}
+                  <Text size="p3" className="text-neutral-3">
                     {item.body}
                   </Text>
                 </div>

@@ -9,9 +9,9 @@
  *
  * Product `image`s reuse the manufacturing product photos in
  * /public/images/manufacturing (726x836, matching the 140x160 nav card box).
- * uranusPro/venusPro reuse the closest module shots as stand-ins — no
- * dedicated Uranus/Venus render exists, and no `/products/*` detail routes
- * exist yet, so those two hrefs remain placeholders.
+ * uranusPro/venusPro now use their real G12-0BB Uranus/Venus Pro shots
+ * (added alongside the BC product detail page) — no `/products/*` detail
+ * routes exist yet though, so those two hrefs remain placeholders.
  */
 
 import type messages from "@/messages/en.json";
@@ -71,13 +71,13 @@ export const NAV_ITEMS: NavItem[] = [
       {
         kind: "products",
         items: [
-          { labelKey: "backContact", href: "/manufacturing/solar-panels/bc", image: "/images/manufacturing/product-bc.jpg" },
-          { labelKey: "hjt", href: "/manufacturing/solar-panels/hjt", image: "/images/manufacturing/product-hjt.jpg" },
-          { labelKey: "topcon", href: "/manufacturing/solar-panels/topcon", image: "/images/manufacturing/product-topcon.jpg" },
+          { labelKey: "backContact", href: "/manufacturing/solar-panels/bc", image: "/images/manufacturing/solar-panels/bc-solar-panels.webp" },
+          { labelKey: "hjt", href: "/manufacturing/solar-panels/hjt", image: "/images/manufacturing/solar-panels/hjt-solar-panels.webp" },
+          { labelKey: "topcon", href: "/manufacturing/solar-panels/topcon", image: "/images/manufacturing/solar-panels/topcon-solar-panels.webp" },
           {
             labelKey: "odmVertical",
             href: "/manufacturing/solar-panels/odm-vertical-solar-modules",
-            image: "/images/manufacturing/product-odm.jpg",
+            image: "/images/manufacturing/solar-panels/private-label-solar-modules.webp",
           },
         ],
       },
@@ -127,8 +127,8 @@ export const NAV_ITEMS: NavItem[] = [
       {
         kind: "products",
         items: [
-          { labelKey: "uranusPro", href: "/products/uranus-pro", image: "/images/manufacturing/product-bc.jpg" },
-          { labelKey: "venusPro", href: "/products/venus-pro", image: "/images/manufacturing/product-hjt.jpg" },
+          { labelKey: "uranusPro", href: "/products/uranus-pro", image: "/images/manufacturing/bc-solar/g12-0bb-uranus-pro.webp" },
+          { labelKey: "venusPro", href: "/products/venus-pro", image: "/images/manufacturing/bc-solar/g12-0bb-venus-pro.webp" },
         ],
       },
     ],
