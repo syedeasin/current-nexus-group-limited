@@ -4,11 +4,20 @@ import { HERO_HEADER_OFFSET } from "@/src/layout/headerOffset";
 import { cn } from "@/lib/utils";
 import Reveal from "@/components/ui/Reveal";
 import Heading from "@/components/ui/Heading";
+import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
+
+const DESCRIPTION_DELAY_MS = 160;
 
 interface PageBannerProps {
   eyebrowLabel: string;
   heading: string;
+  /**
+   * Supporting paragraph under the heading. The manufacturing and news banners
+   * are heading-only; the Solutions banners (Figma node 4028:10446) add one,
+   * which is also what re-centres the text block inside the banner.
+   */
+  description?: string;
   image: {
     src: string;
     /** Decorative full-bleed background — leave empty unless the photo carries real information. */
@@ -17,13 +26,21 @@ interface PageBannerProps {
   };
   /** Tailwind max-width class for the text block. Defaults to the manufacturing category spec (855px). */
   textMaxWidthClassName?: string;
+  /**
+   * Banner height and vertical placement. Defaults to the manufacturing
+   * category spec (548px tall at xl, text pinned to the bottom). Solutions
+   * pages are taller and centre their text instead, so they pass their own.
+   */
+  containerClassName?: string;
 }
 
 export default function PageBanner({
   eyebrowLabel,
   heading,
+  description,
   image,
   textMaxWidthClassName = "max-w-855",
+  containerClassName = "h-400 justify-end py-64 md:h-460 xl:h-548 xl:pt-140 xl:pb-120",
 }: PageBannerProps) {
   return (
     <section
@@ -57,16 +74,27 @@ export default function PageBanner({
         }}
       />
 
-      <Container className="relative z-10 flex h-400 flex-col justify-end py-64 md:h-460 xl:h-548 xl:pt-140 xl:pb-120">
+      <Container className={cn("relative z-10 flex flex-col", containerClassName)}>
         <div className={cn("flex flex-col gap-12", textMaxWidthClassName)}>
           <Reveal as="div" delay={0}>
             <SectionEyebrow label={eyebrowLabel} />
           </Reveal>
-          <Reveal as="div" delay={80}>
-            <Heading level={1} size="h1" className="text-balance text-white">
-              {heading}
-            </Heading>
-          </Reveal>
+          {/* Figma node 4028:10446 keeps the heading and its paragraph 16px apart
+              inside the 12px eyebrow gap, so they group as one block. */}
+          <div className="flex flex-col gap-16">
+            <Reveal as="div" delay={80}>
+              <Heading level={1} size="h1" className="text-balance text-white">
+                {heading}
+              </Heading>
+            </Reveal>
+            {description ? (
+              <Reveal as="div" delay={DESCRIPTION_DELAY_MS}>
+                <Text size="p2" className="text-neutral-9">
+                  {description}
+                </Text>
+              </Reveal>
+            ) : null}
+          </div>
         </div>
       </Container>
     </section>

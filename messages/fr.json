@@ -404,6 +404,159 @@
       }
     }
   },
+  "solutions": {
+    "residential": {
+      "meta": {
+        "title": "Solutions solaires résidentielles | CNX Energy",
+        "description": "CurrentNexus Group Limited fournit des systèmes de stockage d’énergie résidentiels qui maximisent l’autoconsommation solaire, assurent une alimentation de secours fiable et réduisent les coûts énergétiques des ménages."
+      },
+      "banner": {
+        "eyebrow": "SOLUTIONS & PROJETS",
+        "heading": "Résidentiel",
+        "description": "CurrentNexus Group Limited fournit des systèmes de stockage d’énergie résidentiels qui maximisent l’autoconsommation solaire, assurent une alimentation de secours fiable et réduisent les coûts énergétiques des ménages."
+      },
+      "stats": {
+        "modulePerformance": "Performance du module",
+        "efficiency": "Rendement",
+        "annualReduction": "Baisse de performance annuelle",
+        "warranty": "Garantie de linéarité de puissance"
+      },
+      "whyChoose": {
+        "eyebrow": "POURQUOI CHOISIR",
+        "heading": "Pourquoi choisir le solaire pour votre résidence ?",
+        "description": "Le solaire résidentiel est un investissement judicieux : il réduit les coûts énergétiques, renforce l’indépendance énergétique et fournit une énergie propre et fiable pour les années à venir.",
+        "features": {
+          "independence": {
+            "title": "Une plus grande indépendance énergétique",
+            "description": "Réduisez votre dépendance au réseau et alimentez votre maison avec une énergie solaire durable."
+          },
+          "costs": {
+            "title": "Des coûts énergétiques réduits",
+            "description": "Produisez votre propre électricité et réduisez vos factures grâce à des modules solaires à haut rendement."
+          },
+          "reliability": {
+            "title": "Une énergie propre et fiable",
+            "description": "Profitez d’une énergie renouvelable durable, performante et nécessitant peu d’entretien."
+          }
+        }
+      },
+      "productModel": {
+        "eyebrow": "MODÈLE DE PRODUIT",
+        "heading": "Découvrez notre technologie",
+        "datasheetLabel": "Obtenez vos fiches techniques ici",
+        "products": {
+          "uranusPro": {
+            "name": "Module G12-0BB Uranus Pro 730-765 W"
+          },
+          "venusPro": {
+            "name": "Module G12-0BB Venus Pro 530-565 W"
+          }
+        }
+      },
+      "applications": {
+        "eyebrow": "SCÈNES D’APPLICATION",
+        "heading": "Applications idéales pour nos solutions solaires",
+        "previous": "Application précédente",
+        "next": "Application suivante",
+        "cards": {
+          "independentHouses": {
+            "title": "Maisons individuelles",
+            "description": "Réduisez vos factures d’électricité avec un solaire en toiture fiable, toute l’année."
+          },
+          "villas": {
+            "title": "Villas et maisons de prestige",
+            "description": "Des systèmes solaires haut de gamme pour des maisons modernes et performantes, au design soigné."
+          },
+          "apartments": {
+            "title": "Appartements",
+            "description": "Des solutions solaires intelligentes et efficaces pour les immeubles résidentiels collectifs."
+          },
+          "farmhouses": {
+            "title": "Fermes",
+            "description": "Une énergie solaire fiable et durable pour les propriétés rurales et agricoles."
+          },
+          "gatedCommunities": {
+            "title": "Résidences sécurisées",
+            "description": "Des solutions solaires collectives pour un voisinage durable et des économies d’énergie."
+          },
+          "smartHomes": {
+            "title": "Maisons connectées",
+            "description": "Des solutions solaires intelligentes pour des maisons connectées et une énergie propre et fiable."
+          }
+        }
+      },
+      "caseStudy": {
+        "eyebrow": "TÉMOIGNAGE CLIENT",
+        "heading": "La confiance des clients industriels",
+        "title": "Projet de 5 MW avec trackers HJT conçu pour un rendement supérieur",
+        "body": "Un projet solaire au sol européen a utilisé des modules HJT à haute bifacialité avec des systèmes de trackers locaux afin d’améliorer la production et le rendement par rapport aux configurations de modules N-type standard précédentes. CNX a accompagné la sélection des modules, la coordination des exports, la documentation technique et le suivi après-vente.",
+        "specs": {
+          "modules": "324 modules Vertex N NEG19RC.20",
+          "systemSize": "Puissance installée de 1,3 MW",
+          "mount": "T4 2025 – ombrière de parking en toiture"
+        }
+      }
+    }
+  },
+  "service": {
+    "downloads": {
+      "meta": {
+        "title": "Ressources techniques | Téléchargements | CNX Energy",
+        "description": "Accédez aux fiches techniques, brochures, certifications, guides d’installation et autres documents techniques pour faciliter le choix des produits, la conception des systèmes et la réalisation des projets."
+      },
+      "banner": {
+        "eyebrow": "TÉLÉCHARGEMENTS",
+        "heading": "Ressources techniques",
+        "description": "Accédez aux fiches techniques, brochures, certifications, guides d’installation et autres documents techniques pour faciliter le choix des produits, la conception des systèmes et la réalisation des projets."
+      },
+      "searchPlaceholder": "Rechercher ce que vous voulez…",
+      "searchLabel": "Rechercher dans les ressources techniques",
+      "searchSubmit": "Rechercher",
+      "filterHeading": "Filtrer",
+      "clearAll": "Tout effacer",
+      "applyFilters": "Appliquer les filtres",
+      "filtersButton": "Filtres",
+      "filtersDialogTitle": "Filtrer les ressources",
+      "closeFilters": "Fermer les filtres",
+      "toggleGroup": "Afficher / masquer {group}",
+      "resultsSuffix": " résultats trouvés",
+      "resultsSuffixOne": " résultat trouvé",
+      "sortLabel": "Trier",
+      "sortPrefix": "Trier : ",
+      "sort": {
+        "relevant": "Plus pertinents",
+        "newest": "Plus récents",
+        "oldest": "Plus anciens",
+        "az": "A-Z"
+      },
+      "download": "Télécharger",
+      "downloadAria": "Télécharger {title}",
+      "removeFilter": "Retirer le filtre : {name}",
+      "empty": {
+        "title": "Aucun document trouvé",
+        "body": "Aucune ressource technique ne correspond à votre recherche et à vos filtres. Essayez de retirer un filtre ou de modifier votre recherche.",
+        "action": "Effacer la recherche et les filtres"
+      },
+      "pagination": {
+        "previous": "Page précédente",
+        "next": "Page suivante",
+        "page": "Page {page}",
+        "current": "Page actuelle, page {page}"
+      },
+      "error": {
+        "title": "Les téléchargements sont momentanément indisponibles",
+        "body": "Impossible de charger la bibliothèque de ressources techniques. Actualisez la page ou réessayez dans un instant."
+      },
+      "filterLandmark": "Filtrer les téléchargements",
+      "pendingFilters": "Vous avez des modifications de filtre non appliquées.",
+      "activeFilterCount": "{count} actif(s)",
+      "activeFilters": "Filtres actifs",
+      "sortSelectLabel": "Trier les téléchargements",
+      "downloadFile": "Télécharger {title}",
+      "paginationLandmark": "Pagination des téléchargements",
+      "goToPage": "Aller à la page {page}"
+    }
+  },
   "about": {
     "whyChooseCnx": {
       "meta": {
@@ -478,12 +631,30 @@
         "certifiedTitle": "Certified to International Standards",
         "certifiedBody": "CNX products are made to meet global quality, safety, and performance standards, ensuring reliability for residential, commercial, and utility applications.",
         "stats": {
-          "smartManufacturing": { "value": "06", "label": "Smart Manufacturing Facilities" },
-          "annualProduction": { "value": "GW+", "label": "Annual Production Capacity" },
-          "countriesServed": { "value": "20+", "label": "Countries Served" },
-          "productionTraceability": { "value": "100%", "label": "Production Traceability" },
-          "performanceWarranty": { "value": "25-YR", "label": "Performance Warranty" },
-          "internationalCertifications": { "value": "ISO+", "label": "International Certifications" }
+          "smartManufacturing": {
+            "value": "06",
+            "label": "Smart Manufacturing Facilities"
+          },
+          "annualProduction": {
+            "value": "GW+",
+            "label": "Annual Production Capacity"
+          },
+          "countriesServed": {
+            "value": "20+",
+            "label": "Countries Served"
+          },
+          "productionTraceability": {
+            "value": "100%",
+            "label": "Production Traceability"
+          },
+          "performanceWarranty": {
+            "value": "25-YR",
+            "label": "Performance Warranty"
+          },
+          "internationalCertifications": {
+            "value": "ISO+",
+            "label": "International Certifications"
+          }
         }
       },
       "caseStudy": {
@@ -500,8 +671,14 @@
       "cta": {
         "heading": "Power your next project with CNX",
         "subtext": "From sourcing top solar modules to launching private-label products, CNX offers the technology and expertise your business needs.",
-        "primaryCta": { "label": "Contact Sales", "href": "/contact" },
-        "secondaryCta": { "label": "Explore Products", "href": "/products" }
+        "primaryCta": {
+          "label": "Contact Sales",
+          "href": "/contact"
+        },
+        "secondaryCta": {
+          "label": "Explore Products",
+          "href": "/products"
+        }
       }
     },
     "technology": {

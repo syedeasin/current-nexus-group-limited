@@ -2,6 +2,7 @@ import { Role, Locale, PostStatus } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import slugify from "slugify";
 import { prisma } from "@/lib/prisma";
+import { seedDownloads } from "./seed-downloads";
 
 const makeSlug = (s: string) => slugify(s, { lower: true, strict: true, trim: true });
 
@@ -191,6 +192,8 @@ async function main() {
         });
     }
     console.log("Posts ready:", posts.length);
+
+    await seedDownloads();
 }
 
 main()

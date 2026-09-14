@@ -20,6 +20,15 @@ const EXTENSIONS: Record<string, string> = {
   "image/webp": "webp",
   "image/avif": "avif",
   "image/gif": "gif",
+  // Downloadable documents (Service -> Downloads). Verified by magic bytes in
+  // lib/validation/upload.ts before they reach putFile, same as images.
+  "application/pdf": "pdf",
+  "application/msword": "doc",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "docx",
+  "application/vnd.ms-excel": "xls",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "xlsx",
+  "application/vnd.ms-powerpoint": "ppt",
+  "application/vnd.openxmlformats-officedocument.presentationml.presentation": "pptx",
 };
 
 function sanitizeFileName(name: string): string {

@@ -8,6 +8,7 @@ import {
   FolderTree,
   Tag,
   Image as ImageIcon,
+  Download,
   Users,
   Settings,
   type LucideIcon,
@@ -20,6 +21,7 @@ const ICONS: Record<string, LucideIcon> = {
   FolderTree,
   Tag,
   Image: ImageIcon,
+  Download,
   Users,
   Settings,
 };

@@ -1,11 +1,17 @@
 import Image from "next/image";
+import type { ElementType } from "react";
 import { Link } from "@/i18n/navigation";
 import { ArrowUpRight } from "@/components/icons/ArrowUpRight";
 import { CARD_IMAGE_ZOOM, CARD_LIFT } from "@/lib/motion/interactions";
 import { cn } from "@/lib/utils";
 
 interface SceneCardProps {
-  href: string;
+  /**
+   * Omit for a presentational card. The Residential solutions page (Figma node
+   * 4028:10553) draws the same card with nothing to navigate to, so it renders
+   * as a plain block with no lift, no hover arrow and no focus target.
+   */
+  href?: string;
   image: string;
   title: string;
   description: string;
@@ -21,14 +27,18 @@ export default function SceneCard({
   imageSizes,
   className,
 }: SceneCardProps) {
+  const interactive = Boolean(href);
+  const Tag = (interactive ? Link : "div") as ElementType;
+
   return (
-    <Link
-      href={href}
-      aria-label={title}
+    <Tag
+      {...(interactive ? { href, "aria-label": title } : {})}
       className={cn(
-        "group flex w-full flex-col gap-24 rounded-12",
-        "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary",
-        CARD_LIFT,
+        "flex w-full flex-col gap-24 rounded-12",
+        interactive && [
+          "group focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary",
+          CARD_LIFT,
+        ],
         className
       )}
     >
@@ -39,21 +49,23 @@ export default function SceneCard({
           aria-hidden="true"
           fill
           sizes={imageSizes}
-          className={cn("object-cover", CARD_IMAGE_ZOOM)}
+          className={cn("object-cover", interactive && CARD_IMAGE_ZOOM)}
         />
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 flex scale-90 items-center justify-center opacity-0 transition-[opacity,transform] duration-[var(--dur-base)] ease-[var(--ease-out)] group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
-        >
-          <span className="flex size-48 items-center justify-center rounded-full bg-white text-neutral-1">
-            <ArrowUpRight size={24} />
+        {interactive ? (
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 flex scale-90 items-center justify-center opacity-0 transition-[opacity,transform] duration-[var(--dur-base)] ease-[var(--ease-out)] group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+          >
+            <span className="flex size-48 items-center justify-center rounded-full bg-white text-neutral-1">
+              <ArrowUpRight size={24} />
+            </span>
           </span>
-        </span>
+        ) : null}
       </div>
       <div className="flex w-full flex-col gap-12 pr-24">
         <span className="text-h5 font-semibold text-neutral-1">{title}</span>
         <p className="min-h-48 text-p3 text-neutral-3 md:min-h-56">{description}</p>
       </div>
-    </Link>
+    </Tag>
   );
 }

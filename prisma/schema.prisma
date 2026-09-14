@@ -39,8 +39,9 @@ model User {
   tokenVersion Int       @default(0)
   lastLoginAt  DateTime?
 
-  posts Post[]
-  media Media[]
+  posts     Post[]
+  media     Media[]
+  downloads DownloadResource[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -160,4 +161,112 @@ model Media {
 
   @@index([createdAt])
   @@map("media")
+}
+
+// ---------------------------------------------------------------------------
+// Downloads (Service -> Downloads, "Technical resource")
+//
+// Taxonomy is data, not code: the Figma sidebar's groups ("Solar panel
+// modules", "Documents type", ...) are FilterGroup rows and their checkboxes
+// are FilterOption rows, so an admin can add a group or an option without a
+// deploy. A resource joins to many options through an explicit join table, so
+// one datasheet can be a HJT Series document *and* a Datasheet *and* a
+// Technical document at the same time.
+//
+// Localisation follows the Post/Category convention already in this schema:
+// one row per locale, keyed by `locale`, rather than side-by-side translation
+// columns. The binary file is language-neutral, so two locale rows may point at
+// the same storage key -- deletion counts references before unlinking.
+// ---------------------------------------------------------------------------
+
+enum DownloadStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model FilterGroup {
+  id        String  @id @default(cuid())
+  name      String
+  slug      String
+  locale    Locale  @default(EN)
+  sortOrder Int     @default(0)
+  isActive  Boolean @default(true)
+
+  options FilterOption[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([slug, locale])
+  @@index([locale, sortOrder])
+  @@map("filter_groups")
+}
+
+model FilterOption {
+  id        String  @id @default(cuid())
+  name      String
+  slug      String
+  sortOrder Int     @default(0)
+  isActive  Boolean @default(true)
+
+  groupId String
+  group   FilterGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  downloads DownloadResourceFilterOption[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([groupId, slug])
+  @@index([groupId, sortOrder])
+  @@map("filter_options")
+}
+
+model DownloadResource {
+  id          String  @id @default(cuid())
+  title       String
+  slug        String
+  locale      Locale  @default(EN)
+  description String?
+
+  // Storage reference, never the bytes. `fileKey` is the storage-driver key
+  // (lib/storage.ts); `fileUrl` is what the browser resolves.
+  fileUrl  String @db.VarChar(500)
+  fileKey  String @db.VarChar(500)
+  fileName String
+  mimeType String
+  fileSize Int
+
+  status        DownloadStatus @default(DRAFT)
+  publishedAt   DateTime?
+  displayOrder  Int            @default(0)
+  downloadCount Int            @default(0)
+
+  tags String[] @default([])
+
+  filterOptions DownloadResourceFilterOption[]
+
+  uploadedById String?
+  uploadedBy   User?   @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([slug, locale])
+  @@index([locale, status, displayOrder])
+  @@index([status, publishedAt])
+  @@index([uploadedById])
+  @@map("download_resources")
+}
+
+model DownloadResourceFilterOption {
+  downloadId String
+  optionId   String
+
+  download DownloadResource @relation(fields: [downloadId], references: [id], onDelete: Cascade)
+  option   FilterOption     @relation(fields: [optionId], references: [id], onDelete: Cascade)
+
+  @@id([downloadId, optionId])
+  @@index([optionId])
+  @@map("download_resource_filter_options")
 }

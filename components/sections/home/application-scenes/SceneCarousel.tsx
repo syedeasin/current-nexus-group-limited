@@ -8,7 +8,8 @@ interface SceneCarouselCard {
   title: string;
   description: string;
   image: string;
-  href: string;
+  /** Omit for presentational cards — see `SceneCard`. */
+  href?: string;
 }
 
 interface SceneCarouselProps {

@@ -17,6 +17,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "Categories", href: "/dashboard/categories", icon: "FolderTree", permission: "category.manage" },
   { label: "Tags", href: "/dashboard/tags", icon: "Tag", permission: "tag.manage" },
   { label: "Media", href: "/dashboard/media", icon: "Image", permission: "media.upload" },
+  { label: "Downloads", href: "/dashboard/downloads", icon: "Download", permission: "download.manage" },
   { label: "Users", href: "/dashboard/users", icon: "Users", permission: "user.manage" },
   { label: "Settings", href: "/dashboard/settings", icon: "Settings", permission: "settings.manage" },
 ];

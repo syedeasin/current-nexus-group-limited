@@ -403,6 +403,159 @@
       }
     }
   },
+  "solutions": {
+    "residential": {
+      "meta": {
+        "title": "Residential Solar Solutions | CNX Energy",
+        "description": "CurrentNexus Group Limited delivers residential energy storage systems that maximize solar self-consumption, provide reliable backup power, and reduce household energy costs."
+      },
+      "banner": {
+        "eyebrow": "SOLUTIONS & PROJECTS",
+        "heading": "Residential",
+        "description": "CurrentNexus Group Limited delivers residential energy storage systems that maximize solar self-consumption, provide reliable backup power, and reduce household energy costs."
+      },
+      "stats": {
+        "modulePerformance": "Module performance",
+        "efficiency": "Efficiency",
+        "annualReduction": "Annual performance reduction",
+        "warranty": "Power Linearity Warranty"
+      },
+      "whyChoose": {
+        "eyebrow": "WHY CHOOSE",
+        "heading": "Why choose solar for your residential?",
+        "description": "Residential solar is a smart investment that lowers energy costs, increases energy independence, and delivers clean, reliable power for years to come.",
+        "features": {
+          "independence": {
+            "title": "Greater energy independence",
+            "description": "Reduce reliance on the grid and power your home with sustainable solar energy."
+          },
+          "costs": {
+            "title": "Lower energy costs",
+            "description": "Generate your own electricity and reduce bills with high-efficiency solar modules."
+          },
+          "reliability": {
+            "title": "Reliable clean power",
+            "description": "Enjoy renewable energy with long-lasting performance and minimal maintenance."
+          }
+        }
+      },
+      "productModel": {
+        "eyebrow": "PRODUCT MODEL",
+        "heading": "Discover our technology",
+        "datasheetLabel": "Get your data-sheets here",
+        "products": {
+          "uranusPro": {
+            "name": "G12-0BB Uranus Pro Module 730-765W"
+          },
+          "venusPro": {
+            "name": "G12-0BB Venus Pro Module 530-565W"
+          }
+        }
+      },
+      "applications": {
+        "eyebrow": "SCENE OF APPLICATIONS",
+        "heading": "Ideal applications for our solar solutions",
+        "previous": "Previous application",
+        "next": "Next application",
+        "cards": {
+          "independentHouses": {
+            "title": "Independent houses",
+            "description": "Reduce electricity bills with reliable rooftop solar for everyday homes year-round."
+          },
+          "villas": {
+            "title": "Villas & luxury homes",
+            "description": "Premium solar systems for modern, high-performance homes with elegant design."
+          },
+          "apartments": {
+            "title": "Apartments",
+            "description": "Smart solar energy solutions for shared and multi-family residential buildings with efficiency."
+          },
+          "farmhouses": {
+            "title": "Farmhouses",
+            "description": "Reliable solar power for rural and agricultural properties with lasting performance."
+          },
+          "gatedCommunities": {
+            "title": "Gated communities",
+            "description": "Community solar solutions for sustainable neighborhood living and energy savings."
+          },
+          "smartHomes": {
+            "title": "Smart homes",
+            "description": "Smart solar solutions for connected modern homes with reliable clean energy."
+          }
+        }
+      },
+      "caseStudy": {
+        "eyebrow": "CLIENT SUCCESS STORY",
+        "heading": "Trusted by industrial clients",
+        "title": "5MW HJT tracker project designed for higher yield",
+        "body": "A European ground-mounted solar project used high-bifaciality HJT modules with local tracker systems to improve power generation and efficiency compared with previous standard N-type module layouts. CNX supported module selection, export coordination, technical documents, and after-sales communication.",
+        "specs": {
+          "modules": "324 Vertex N NEG19RC.20 modules",
+          "systemSize": "1.3MW System size",
+          "mount": "Q4 2025 Rooftop carport mount"
+        }
+      }
+    }
+  },
+  "service": {
+    "downloads": {
+      "meta": {
+        "title": "Technical resource | Downloads | CNX Energy",
+        "description": "Access datasheets, brochures, certifications, installation guides, and other technical documents to support product selection, system design, and project implementation."
+      },
+      "banner": {
+        "eyebrow": "DOWNLOADS",
+        "heading": "Technical resource",
+        "description": "Access datasheets, brochures, certifications, installation guides, and other technical documents to support product selection, system design, and project implementation."
+      },
+      "searchPlaceholder": "Search what you want ...",
+      "searchLabel": "Search technical resources",
+      "searchSubmit": "Search",
+      "filterHeading": "Filter",
+      "clearAll": "Clear all",
+      "applyFilters": "Apply all filters",
+      "filtersButton": "Filters",
+      "filtersDialogTitle": "Filter resources",
+      "closeFilters": "Close filters",
+      "toggleGroup": "Toggle {group}",
+      "resultsSuffix": " results found",
+      "resultsSuffixOne": " result found",
+      "sortLabel": "Sort",
+      "sortPrefix": "Sort: ",
+      "sort": {
+        "relevant": "Most relevant",
+        "newest": "Newest first",
+        "oldest": "Oldest first",
+        "az": "A-Z"
+      },
+      "download": "Download",
+      "downloadAria": "Download {title}",
+      "removeFilter": "Remove filter: {name}",
+      "empty": {
+        "title": "No documents found",
+        "body": "No technical resources match your search and filters. Try removing a filter or searching for a different term.",
+        "action": "Clear search and filters"
+      },
+      "pagination": {
+        "previous": "Previous page",
+        "next": "Next page",
+        "page": "Page {page}",
+        "current": "Current page, page {page}"
+      },
+      "error": {
+        "title": "Downloads are temporarily unavailable",
+        "body": "We could not load the technical resource library. Please refresh the page or try again shortly."
+      },
+      "filterLandmark": "Filter downloads",
+      "pendingFilters": "You have unapplied filter changes.",
+      "activeFilterCount": "{count} active",
+      "activeFilters": "Active filters",
+      "sortSelectLabel": "Sort downloads",
+      "downloadFile": "Download {title}",
+      "paginationLandmark": "Downloads pagination",
+      "goToPage": "Go to page {page}"
+    }
+  },
   "about": {
     "technology": {
       "meta": {
@@ -489,12 +642,30 @@
         "certifiedTitle": "Certified to International Standards",
         "certifiedBody": "CNX products are made to meet global quality, safety, and performance standards, ensuring reliability for residential, commercial, and utility applications.",
         "stats": {
-          "smartManufacturing": { "value": "06", "label": "Smart Manufacturing Facilities" },
-          "annualProduction": { "value": "GW+", "label": "Annual Production Capacity" },
-          "countriesServed": { "value": "20+", "label": "Countries Served" },
-          "productionTraceability": { "value": "100%", "label": "Production Traceability" },
-          "performanceWarranty": { "value": "25-YR", "label": "Performance Warranty" },
-          "internationalCertifications": { "value": "ISO+", "label": "International Certifications" }
+          "smartManufacturing": {
+            "value": "06",
+            "label": "Smart Manufacturing Facilities"
+          },
+          "annualProduction": {
+            "value": "GW+",
+            "label": "Annual Production Capacity"
+          },
+          "countriesServed": {
+            "value": "20+",
+            "label": "Countries Served"
+          },
+          "productionTraceability": {
+            "value": "100%",
+            "label": "Production Traceability"
+          },
+          "performanceWarranty": {
+            "value": "25-YR",
+            "label": "Performance Warranty"
+          },
+          "internationalCertifications": {
+            "value": "ISO+",
+            "label": "International Certifications"
+          }
         }
       },
       "caseStudy": {
@@ -511,8 +682,14 @@
       "cta": {
         "heading": "Power your next project with CNX",
         "subtext": "From sourcing top solar modules to launching private-label products, CNX offers the technology and expertise your business needs.",
-        "primaryCta": { "label": "Contact Sales", "href": "/contact" },
-        "secondaryCta": { "label": "Explore Products", "href": "/products" }
+        "primaryCta": {
+          "label": "Contact Sales",
+          "href": "/contact"
+        },
+        "secondaryCta": {
+          "label": "Explore Products",
+          "href": "/products"
+        }
       }
     }
   },
