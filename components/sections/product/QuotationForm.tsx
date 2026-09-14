@@ -107,11 +107,15 @@ export default function QuotationForm({ data }: { data: QuotationFormSection }) 
 
   if (status === "success") {
     return (
-      <section id="quotation" className="w-full bg-white py-80 md:py-100">
+      <section
+        id="quotation"
+        className="w-full bg-white pt-48 pb-48 md:pt-64 md:pb-64 xl:pt-80 xl:pb-100"
+      >
         <Container className="flex flex-col items-center gap-48">
-          <div className="mx-auto flex max-w-660 flex-col items-center gap-8 text-center">
+          <div className="mx-auto flex max-w-660 flex-col items-center gap-12 text-center">
             <SectionEyebrow label={data.eyebrow} />
-            <Heading level={2} size="h2" className="text-balance">
+            {/* Figma node 114:99537: H2 here tracks -1.2px, not the shared --text-h2 token's -0.72px. */}
+            <Heading level={2} size="h2" className="text-balance tracking-[-1.2px]!">
               {data.heading}
             </Heading>
           </div>
@@ -129,14 +133,18 @@ export default function QuotationForm({ data }: { data: QuotationFormSection }) 
   }
 
   return (
-    <section id="quotation" className="w-full bg-white py-80 md:py-100">
+    <section
+      id="quotation"
+      className="w-full bg-white pt-48 pb-48 md:pt-64 md:pb-64 xl:pt-80 xl:pb-100"
+    >
       <Container className="flex flex-col gap-48">
-        <div className="mx-auto flex max-w-660 flex-col items-center gap-8 text-center">
+        <div className="mx-auto flex max-w-660 flex-col items-center gap-12 text-center">
           <Reveal as="div" delay={0}>
             <SectionEyebrow label={data.eyebrow} />
           </Reveal>
           <Reveal as="div" delay={80}>
-            <Heading level={2} size="h2" className="text-balance">
+            {/* Figma node 114:99537: H2 here tracks -1.2px, not the shared --text-h2 token's -0.72px. */}
+            <Heading level={2} size="h2" className="text-balance tracking-[-1.2px]!">
               {data.heading}
             </Heading>
           </Reveal>
@@ -296,7 +304,8 @@ export default function QuotationForm({ data }: { data: QuotationFormSection }) 
             <button
               type="submit"
               disabled={status === "submitting"}
-              className="flex h-60 w-full items-center justify-center gap-8 rounded-full bg-secondary text-btn-lg font-semibold text-neutral-1 outline-none transition-colors duration-150 ease-out hover:bg-secondary/90 focus-visible:ring-2 focus-visible:ring-secondary disabled:cursor-not-allowed disabled:opacity-60"
+              // Figma node 114:99595: button text tracks -1px, not the shared --text-btn-lg token's -0.2px.
+              className="flex h-60 w-full items-center justify-center gap-8 rounded-full bg-secondary text-btn-lg font-semibold tracking-[-1px]! text-neutral-1 outline-none transition-colors duration-150 ease-out hover:bg-secondary/90 focus-visible:ring-2 focus-visible:ring-secondary disabled:cursor-not-allowed disabled:opacity-60"
             >
               {status === "submitting" ? (
                 <>
@@ -332,7 +341,8 @@ function Field({
 }) {
   return (
     <div className="flex w-full flex-1 flex-col gap-8">
-      <span className="text-p3 text-neutral-1">
+      {/* Figma node 114:99537: label tracks 0px, not the shared --text-p3 token's -0.09px. */}
+      <span className="text-p3 tracking-[0px]! text-neutral-1">
         {label}
         {required ? <span className="text-secondary"> *</span> : null}
       </span>

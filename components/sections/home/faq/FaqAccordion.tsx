@@ -74,7 +74,9 @@ export default function FaqAccordion({
                         onClick={() => setOpenId(isOpen ? "" : q.id)}
                         className="flex w-full cursor-pointer items-center justify-between gap-12 text-left"
                     >
-                  <span className="text-h6 font-semibold text-neutral-1">
+                  {/* Figma H6 spec here tracks -0.2px, not the shared --text-h6 token's
+                      -0.1px — consistent across every H6 usage checked this pass. */}
+                  <span className="text-h6 font-semibold tracking-[-0.2px]! text-neutral-1">
                     {q.question}
                   </span>
                       <span className="flex shrink-0 items-center py-4" aria-hidden>

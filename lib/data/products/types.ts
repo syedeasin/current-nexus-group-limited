@@ -15,9 +15,11 @@ export interface ProductHero {
   primaryCta: ProductCta;
   secondaryCta: ProductCta;
   stats: ProductStat[];
-  /** Full-bleed background photo behind the dark scrim. */
+  /** Full-bleed background photo, landscape crop (>= lg). Ships pre-scrimmed. */
   backgroundImage: string;
-  /** The product shot layered on top, right of centre on desktop. */
+  /** Portrait crop of the same photo — Figma art-directs a separate mobile hero frame. */
+  backgroundImageMobile: string;
+  /** The product shot layered on top: right of the copy on desktop, below it on mobile. */
   productImage: string;
 }
 
@@ -52,11 +54,14 @@ export interface EngineeringTab {
   rows: SpecRow[];
   /** True when the Figma file has no content for this panel — render an empty-state row instead of inventing datasheet values. */
   pending?: boolean;
+  /** Per-tab product image. Omit to fall back to `EngineeringDetails.image` (the first tab's photo) until a dedicated shot exists. */
+  image?: string;
 }
 
 export interface EngineeringDetails {
   eyebrow: string;
   heading: string;
+  /** Also the fallback image for any tab that doesn't set its own `image`. */
   image: string;
   tabs: EngineeringTab[];
 }
@@ -254,6 +259,8 @@ export interface FaqSection {
   heading: string;
   items: FaqItem[];
   defaultOpenId: string;
+  /** "Need to ask something else?" label above the contact card (Figma node 114:99410). */
+  needHelpLabel: string;
   contact: FaqContact;
 }
 

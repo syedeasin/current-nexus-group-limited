@@ -17,7 +17,7 @@ import RelatedProducts from "@/components/sections/product/RelatedProducts";
 import FaqSection from "@/components/sections/product/FaqSection";
 import QuotationForm from "@/components/sections/product/QuotationForm";
 import CtaBand from "@/components/sections/shared/CtaBand";
-import FloatingActionBar, { HeroEndSentinel } from "@/components/sections/product/FloatingActionBar";
+import FloatingActionBar from "@/components/sections/product/FloatingActionBar";
 import type { ProductDetail } from "@/lib/data/products/types";
 
 // Figma node 2254:8872 ("Why choose BC") ships these as bespoke line-art SVGs (stroke
@@ -42,7 +42,6 @@ export default function ProductDetailPage({ product }: { product: ProductDetail 
   return (
     <main>
       <Hero hero={product.hero} />
-      <HeroEndSentinel />
 
       {product.introduction ? <ProductIntroduction data={product.introduction} /> : null}
 
@@ -72,13 +71,7 @@ export default function ProductDetailPage({ product }: { product: ProductDetail 
         <ManufacturingReliability data={product.manufacturingReliability} />
       ) : null}
 
-      {product.manufacturingWorkflow ? (
-        <ManufacturingWorkflow
-          data={product.manufacturingWorkflow}
-          previousLabel="Previous step"
-          nextLabel="Next step"
-        />
-      ) : null}
+      {product.manufacturingWorkflow ? <ManufacturingWorkflow data={product.manufacturingWorkflow} /> : null}
 
       {product.awards ? (
         <AwardsSection
@@ -87,10 +80,23 @@ export default function ProductDetailPage({ product }: { product: ProductDetail 
           backgroundImage={product.awards.backgroundImage}
           veilGradient="linear-gradient(to bottom, #F8F8F8 0%, rgba(248,248,248,0.9) 35.182%, rgba(255,255,255,0) 80.871%)"
           cards={product.awards.cards}
+          // Figma's Awards frame is a fixed 900px tall — noticeably more than its own
+          // auto-layout content needs (~680px with py-100 both sides) — leaving ~220px of
+          // empty space below the cards purely so the photo shows through. Matched here
+          // with extra xl:pb so the existing (already Figma-exact) veilGradient percentages
+          // resolve against the same proportions Figma intended, instead of being crushed
+          // into a shorter box where the fade reaches the cards themselves.
+          containerClassName="relative pt-48 pb-56 md:pt-64 md:pb-72 xl:pt-100 xl:pb-320"
+          headerClassName="flex max-w-690 flex-col items-center gap-20 text-center"
+          // Figma node 2254:9165: a local 52/60/-1.04px/medium override on this heading,
+          // distinct from the shared --text-h2 token (48/56/-0.72) — forced with `!` since
+          // this project's Tailwind build resolves same-property utility conflicts by
+          // generation order, not source order (see Hero.tsx's pt/py fix for precedent).
+          headingClassName="text-[52px]! leading-[60px]! tracking-[-1.04px]! font-medium!"
           rowClassName="flex w-full flex-col items-center gap-16 md:flex-row md:justify-center"
           cardClassName="flex w-full flex-col items-center gap-32 rounded-16 bg-white p-24 md:w-251"
           logoSizeClassName="relative size-140 shrink-0"
-          captionClassName="text-center text-p3 font-semibold text-[#131314]"
+          captionClassName="text-center text-p4 font-semibold text-neutral-1"
         />
       ) : null}
 
@@ -113,6 +119,23 @@ export default function ProductDetailPage({ product }: { product: ProductDetail 
           backgroundImage={product.caseStudy.backgroundImage}
           title={product.caseStudy.title}
           body={product.caseStudy.body}
+          // Figma node 114:99286 differs from the Why Choose CNX page's defaults on every
+          // one of these — padding is asymmetric (pt-80/pb-100, not py-100), the H2/H5
+          // headings track tighter than their shared tokens, the veil gradient reaches 90%
+          // opacity by 61.566% instead of ramping 30%→100%, the content row centers instead
+          // of bottom-aligning, the divider is a fixed 108px (not stretched to the row), and
+          // the body/spec text is P3 (18px) not P2 (20px) with an 8px icon gap, not 12px.
+          // pt/pb spelled out at every breakpoint (not py-*) — mixing py-* and pt-*/pb-*
+          // anywhere in the same cascade is the same generation-order footgun fixed in
+          // Hero.tsx's pt/py conflict, so it's avoided from the base breakpoint up.
+          containerClassName="flex flex-col gap-48 pt-48 pb-48 md:pt-64 md:pb-64 xl:pt-80 xl:pb-100"
+          headingClassName="tracking-[-1.2px]!"
+          gradientCss="linear-gradient(180deg, rgba(10,13,27,0) 0%, rgba(10,13,27,0.9) 61.566%)"
+          contentRowClassName="relative flex flex-col gap-24 p-24 min-[480px]:p-32 lg:absolute lg:inset-x-0 lg:bottom-0 lg:flex-row lg:items-center lg:justify-between lg:gap-40 lg:p-60"
+          dividerClassName="hidden w-0 border-l border-white/20 lg:block lg:h-108"
+          titleClassName="text-white tracking-[-0.5px]!"
+          bodySize="p3"
+          specItemClassName="flex items-center gap-8 text-p3 font-medium text-white"
           specs={product.caseStudy.specs.map((spec) => {
             const Icon = CASE_STUDY_ICONS[spec.icon] ?? Layers;
             return {
@@ -145,8 +168,6 @@ export default function ProductDetailPage({ product }: { product: ProductDetail 
           image={{ src: product.documentsCta.backgroundImage }}
         />
       ) : null}
-
-      <div aria-hidden="true" style={{ height: 112 }} />
 
       <FloatingActionBar
         requestQuoteLabel="Request Quote"

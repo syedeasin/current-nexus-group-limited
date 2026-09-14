@@ -77,7 +77,12 @@ export default async function CtaBand({
       />
       <Container className="relative flex flex-col items-center gap-32">
         <Reveal as="div" className="flex flex-col items-center gap-20">
-          <Heading level={2} size="h2" className="max-w-846 text-balance text-center text-white">
+          {/* Figma node 114:99602: H2 here tracks -1.2px, not the shared --text-h2 token's -0.72px. */}
+          <Heading
+            level={2}
+            size="h2"
+            className="max-w-846 text-balance text-center text-white tracking-[-1.2px]!"
+          >
             {resolvedHeading}
           </Heading>
           {subtext ? (
@@ -87,10 +92,11 @@ export default async function CtaBand({
           ) : null}
         </Reveal>
         <Reveal as="div" delay={BUTTON_DELAY_MS} className="flex w-full flex-col items-center gap-12 min-[481px]:w-auto min-[481px]:flex-row min-[481px]:gap-16">
+          {/* Figma Button/Button Large spec here tracks -1px, not the shared --text-btn-lg token's -0.2px. */}
           <Button
             href={resolvedPrimary.href}
             size="xl"
-            className="w-full min-[481px]:w-auto"
+            className="w-full tracking-[-1px]! min-[481px]:w-auto"
           >
             {primaryIcon ?? null}
             {resolvedPrimary.label}
@@ -101,7 +107,7 @@ export default async function CtaBand({
               href={resolvedSecondary.href}
               size="xl"
               variant="secondary"
-              className="w-full min-[481px]:w-auto"
+              className="w-full tracking-[-1px]! min-[481px]:w-auto"
             >
               {resolvedSecondary.label}
             </Button>

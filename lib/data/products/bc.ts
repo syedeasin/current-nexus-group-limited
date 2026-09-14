@@ -47,8 +47,9 @@ export const bcProductDetail: ProductDetail = {
       { value: "15 year", label: "Process Warranty" },
       { value: "30 year", label: "Power Linearity Warranty" },
     ],
-    backgroundImage: "/images/manufacturing/bc-solar/bc-solar-hero-bg.webp",
-    productImage: "/images/manufacturing/bc-solar/product-image.webp",
+    backgroundImage: "/images/manufacturing/bc-solar/productPageHeroBgDesktop.webp",
+    backgroundImageMobile: "/images/manufacturing/bc-solar/productPageHeroBgMobile.webp",
+    productImage: "/images/manufacturing/bc-solar/ProductpageHeroProductimage.webp",
   },
   introduction: {
     eyebrow: "Product Introduction",
@@ -98,7 +99,7 @@ export const bcProductDetail: ProductDetail = {
   engineeringDetails: {
     eyebrow: "ENGINEERING DETAILS",
     heading: "Built for strength, efficiency and long-term reliability",
-    image: "/images/products/bc/engineering-panel.jpg",
+    image: "/images/manufacturing/bc-solar/mechanical-parameters.webp",
     tabs: [
       {
         id: "mechanical",
@@ -115,10 +116,24 @@ export const bcProductDetail: ProductDetail = {
         ],
       },
       {
+        // Dummy datasheet values — Figma has no content for this panel (doc §2). Follows
+        // typical HJT datasheet rows; replace with real certified figures before launch.
+        // No dedicated tab image yet either, so it falls back to `image` above (the
+        // Mechanical Parameters photo) until one is added.
         id: "temperature",
         label: "Temperature Coefficient",
-        rows: [],
-        pending: true,
+        rows: [
+          // Labels kept short (≤19 chars, matching the Mechanical Parameters tab's
+          // longest label) so they fit the fixed 164px label column on one line.
+          { label: "Pmax Coefficient:", value: "-0.24%/°C" },
+          { label: "Voc Coefficient:", value: "-0.24%/°C" },
+          { label: "Isc Coefficient:", value: "+0.04%/°C" },
+          { label: "NOCT:", value: "45°C ± 2°C" },
+          { label: "Operating Temp.:", value: "-40°C to +85°C" },
+          { label: "Max Voltage:", value: "1500V DC" },
+          { label: "Series Fuse Rating:", value: "30A" },
+          { label: "Application Class:", value: "Class II" },
+        ],
       },
     ],
   },
@@ -135,7 +150,7 @@ export const bcProductDetail: ProductDetail = {
       "In-house PID/LeTID/mechanical load testing",
       "Export to 50+ countries",
     ],
-    image: "/images/products/bc/manufacturing-reliability.jpg",
+    image: "/images/manufacturing/bc-solar/Manufacturing-excellence.webp",
   },
   manufacturingWorkflow: {
     eyebrow: "Manufacturing Workflow",
@@ -173,7 +188,7 @@ export const bcProductDetail: ProductDetail = {
   awards: {
     eyebrow: "Industry Recognition",
     heading: "Recognized for excellence in manufacturing & innovation",
-    backgroundImage: "/images/products/bc/awards-background.jpg",
+    backgroundImage: "/images/home/Awards.webp",
     cards: [
       {
         image: "/images/manufacturing/bc-solar/iec-logo.webp",
@@ -494,6 +509,7 @@ export const bcProductDetail: ProductDetail = {
     eyebrow: "Frequently asked question",
     heading: "Do you have any\nquestions for me?",
     defaultOpenId: "hjtDefinition",
+    needHelpLabel: "Need to ask something else?",
     items: [
       {
         id: "hjtDefinition",

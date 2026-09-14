@@ -44,7 +44,9 @@ export default function WhyChooseComparison({ data }: { data: WhyChooseCompariso
                 delay={delay}
                 className="flex flex-1 flex-col gap-24 rounded-16 border-[1.5px] border-neutral-10 bg-surface-2 py-24"
               >
-                <Heading level={3} size="h5" className="text-center">
+                {/* Figma H5 spec (node 2254:9348 etc.) tracks -0.5px, not the shared
+                    --text-h5 token's -0.24px. */}
+                <Heading level={3} size="h5" className="text-center tracking-[-0.5px]!">
                   {chart.title}
                 </Heading>
                 <div className="px-24">
@@ -57,9 +59,6 @@ export default function WhyChooseComparison({ data }: { data: WhyChooseCompariso
                     valueFormat={showPercent ? "percent" : "raw"}
                   />
                 </div>
-                {chart.lowerIsBetter ? (
-                  <p className="px-24 text-center text-p4 text-neutral-4">Lower is better</p>
-                ) : null}
               </Reveal>
             );
           })}
@@ -68,11 +67,15 @@ export default function WhyChooseComparison({ data }: { data: WhyChooseCompariso
         <Reveal as="div" className="w-full overflow-x-auto rounded-12 border border-neutral-10">
           <div className="hidden min-w-720 md:block">
             <div className="flex bg-surface-2">
+              {/* Figma header cells (node 2254:9425 etc.): Heading/H6 (20/28), tracking
+                  -0.2px — a local override distinct from the shared --text-h6 token's
+                  -0.1px, forced with `!` since this project's Tailwind build resolves
+                  same-property utility conflicts by generation order, not source order. */}
               {["Technology", "Positioning", "Strength", "Trade-off", "Best-fit applications"].map((label, i) => (
                 <div
                   key={label}
                   className={cn(
-                    "flex h-64 items-center border-r border-neutral-10 px-24 py-6 text-p2 font-semibold text-neutral-1 last:border-r-0",
+                    "flex h-64 items-center border-r border-neutral-10 px-24 py-6 text-h6 tracking-[-0.2px]! font-semibold text-neutral-1 last:border-r-0",
                     i === 0 ? "sticky left-0 w-172 shrink-0 bg-surface-2" : "flex-1"
                   )}
                 >
@@ -88,11 +91,12 @@ export default function WhyChooseComparison({ data }: { data: WhyChooseCompariso
                   row.highlight && "border-y border-secondary bg-surface-2"
                 )}
               >
-                <div className="sticky left-0 w-172 shrink-0 border-r border-neutral-10 bg-white px-24 py-16 text-p2 font-semibold text-neutral-1">
+                <div className="sticky left-0 w-172 shrink-0 border-r border-neutral-10 bg-white px-24 py-16 text-h6 tracking-[-0.2px]! font-semibold text-neutral-1">
                   {row.technology}
                 </div>
+                {/* Figma value cells (node 2254:9438 etc.): Paragraph/Regular P3 (18/28), not P2. */}
                 {[row.positioning, row.strength, row.tradeOff, row.bestFit].map((value, i) => (
-                  <div key={i} className="flex-1 border-r border-neutral-10 px-24 py-16 text-p2 text-neutral-3 last:border-r-0">
+                  <div key={i} className="flex-1 border-r border-neutral-10 px-24 py-16 text-p3 text-neutral-3 last:border-r-0">
                     {value}
                   </div>
                 ))}

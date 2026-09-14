@@ -48,8 +48,11 @@ export default function EngineeringDetails({ data }: { data: EngineeringDetailsD
             as="div"
             className="relative h-320 w-full shrink-0 md:h-420 lg:h-588 lg:w-500"
           >
+            {/* Falls back to the section's default (first tab's) image until a tab has
+                its own dedicated shot. */}
             <Image
-              src={data.image}
+              key={activeTab.id}
+              src={activeTab.image ?? data.image}
               alt=""
               aria-hidden="true"
               fill
@@ -59,10 +62,13 @@ export default function EngineeringDetails({ data }: { data: EngineeringDetailsD
           </Reveal>
 
           <div className="flex w-full flex-col gap-24 lg:w-760">
+            {/* Figma node 2254:8971 "Buttons Container": no gap between the two pills —
+                the active one's white fill against the transparent inactive one is what
+                separates them visually. */}
             <div
               role="tablist"
               aria-label={data.heading}
-              className="flex w-fit max-w-full gap-4 overflow-x-auto rounded-full border border-neutral-2 bg-white/5 p-4"
+              className="flex w-fit max-w-full overflow-x-auto rounded-full border border-neutral-2 bg-white/5 p-4"
             >
               {data.tabs.map((tab, index) => {
                 const active = index === activeIndex;
@@ -81,7 +87,8 @@ export default function EngineeringDetails({ data }: { data: EngineeringDetailsD
                     onClick={() => setActiveIndex(index)}
                     onKeyDown={handleKeyDown}
                     className={cn(
-                      "shrink-0 rounded-full px-24 py-8 text-p2 outline-none transition-colors duration-150 ease-out focus-visible:ring-2 focus-visible:ring-secondary",
+                      // Figma: Paragraph P3 (18/28), both states — not P2.
+                      "shrink-0 rounded-full px-24 py-8 text-p3 outline-none transition-colors duration-150 ease-out focus-visible:ring-2 focus-visible:ring-secondary",
                       active ? "bg-white font-medium text-neutral-1" : "bg-transparent font-normal text-neutral-8"
                     )}
                   >
@@ -101,7 +108,7 @@ export default function EngineeringDetails({ data }: { data: EngineeringDetailsD
                 className="min-w-320 rounded-12 border border-neutral-2 bg-white/5 transition-opacity duration-150 ease-out motion-reduce:transition-none"
               >
                 {activeTab.pending ? (
-                  <div className="p-20 text-p2 text-neutral-8">
+                  <div className="p-20 text-p3 text-neutral-8">
                     Content for this panel is not yet available. Flagged for Easin — the Figma file
                     has no {activeTab.label.toLowerCase()} values for this product.
                   </div>
@@ -114,8 +121,9 @@ export default function EngineeringDetails({ data }: { data: EngineeringDetailsD
                         index < activeTab.rows.length - 1 && "border-b border-neutral-2"
                       )}
                     >
-                      <span className="text-p2 text-neutral-9 sm:w-164 sm:shrink-0">{row.label}</span>
-                      <span className="text-p2 font-medium text-white">{row.value}</span>
+                      {/* Figma node 2254:8978/8979: Paragraph P3 (18/28), not P2. */}
+                      <span className="text-p3 text-neutral-9 sm:w-164 sm:shrink-0">{row.label}</span>
+                      <span className="text-p3 font-medium text-white">{row.value}</span>
                     </div>
                   ))
                 )}

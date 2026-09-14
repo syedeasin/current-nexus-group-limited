@@ -78,7 +78,8 @@ export default function EnergyGainChart({ data }: { data: EnergyGainSection }) {
                       {!isBaseline ? (
                         <span
                           className={cn(
-                            "mb-8 text-p1 font-medium text-neutral-1 transition-opacity duration-300",
+                            // Figma value text (node 2254:9518 etc.) is Paragraph/Medium P2 (20/32).
+                            "mb-8 text-p2 font-medium text-neutral-1 transition-opacity duration-300",
                             grown ? "opacity-100" : "opacity-0"
                           )}
                           style={{ transitionDelay: `${GROW_DURATION_MS + index * BAR_STEP_MS}ms` }}
@@ -98,7 +99,7 @@ export default function EnergyGainChart({ data }: { data: EnergyGainSection }) {
                         }}
                       >
                         {isBaseline ? (
-                          <span className="text-p1 font-medium text-white">{bar.displayValue}</span>
+                          <span className="text-p2 font-medium text-white">{bar.displayValue}</span>
                         ) : null}
                       </div>
                     </div>

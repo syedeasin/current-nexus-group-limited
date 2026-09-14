@@ -46,15 +46,19 @@ export default function ProductVariants({ data }: { data: ProductVariantsSection
 
                 <div className="flex w-full flex-col gap-32 p-24 md:p-32 lg:w-624 lg:gap-48 lg:p-0">
                   <div className="flex flex-col gap-16">
-                    <div className="flex items-center gap-8 text-p3 text-neutral-3">
+                    {/* Figma: Paragraph/Regular P4 (16/24), not P3. */}
+                    <div className="flex items-center gap-8 text-p4 text-neutral-3">
                       <span>{variant.eyebrowPair[0]}</span>
                       <span className="h-[1.5px] w-8 bg-neutral-9" aria-hidden="true" />
                       <span>{variant.eyebrowPair[1]}</span>
                     </div>
-                    <Heading level={3} size="h4">
+                    {/* Figma H4 spec (node 2254:9556 etc.) tracks -1px, not the shared
+                        --text-h4 token's -0.32px. */}
+                    <Heading level={3} size="h4" className="tracking-[-1px]!">
                       {variant.name}
                     </Heading>
-                    <Text size="p1" className="text-neutral-4">
+                    {/* Figma: Paragraph/Regular P2 (20/32), not P1. */}
+                    <Text size="p2" className="text-neutral-4">
                       {variant.body}
                     </Text>
                   </div>
@@ -69,13 +73,19 @@ export default function ProductVariants({ data }: { data: ProductVariantsSection
                             : "flex flex-col gap-4 sm:flex-row sm:gap-32"
                         }
                       >
-                        <span className="text-p2 text-neutral-3 sm:w-143 sm:shrink-0">{spec.label}</span>
-                        <span className="text-p2 font-medium text-neutral-1">{spec.value}</span>
+                        {/* Figma spec rows (node 2254:9560/9561 etc.): Paragraph P3 (18/28) for
+                            both label and value, not P2. */}
+                        <span className="text-p3 text-neutral-3 sm:w-143 sm:shrink-0">{spec.label}</span>
+                        <span className="text-p3 font-medium text-neutral-1">{spec.value}</span>
                       </div>
                     ))}
                   </div>
 
-                  <Button href={variant.buttonHref} size="xl" className="w-full sm:w-auto">
+                  {/* Figma button text tracks -1px, not the shared --text-btn-lg token's -0.2px.
+                      self-start: the parent is flex-col (default align-items: stretch), which
+                      was stretching the button to full width despite its own inline-flex
+                      sizing — this overrides just this child to hug its content, left-aligned. */}
+                  <Button href={variant.buttonHref} size="xl" className="self-start tracking-[-1px]!">
                     <Download size={20} />
                     {variant.buttonLabel}
                   </Button>

@@ -19,7 +19,8 @@ export default function ContactCard({ avatarSrc, name, role, message, ctaLabel, 
   return (
     <div className="flex w-full flex-col items-start rounded-12 bg-surface-2 p-20">
       <div className="flex w-full flex-col items-start gap-24">
-        <div className="flex w-full flex-col items-start gap-16">
+        {/* Figma node 114:99413: name/role → message is a 12px gap, not 16px. */}
+        <div className="flex w-full flex-col items-start gap-12">
           <div className="flex w-full items-center gap-12">
             <div className="relative size-48 shrink-0 overflow-hidden rounded-full">
               <Image src={avatarSrc} alt="" aria-hidden="true" fill sizes="48px" className="object-cover" />
@@ -31,7 +32,9 @@ export default function ContactCard({ avatarSrc, name, role, message, ctaLabel, 
           </div>
           <p className="whitespace-pre-line text-p3 text-neutral-3">{message}</p>
         </div>
-        <Button href={ctaHref} size="lg">
+        {/* Figma Button/Button Small spec here is gap-6 and tracks 0px, not the shared
+            Button "lg" size's gap-8 / --text-btn-sm token's -0.09px. */}
+        <Button href={ctaHref} size="lg" className="gap-6! tracking-[0px]!">
           <PhoneCall size={BUTTON_ICON_SIZE} />
           {ctaLabel}
         </Button>

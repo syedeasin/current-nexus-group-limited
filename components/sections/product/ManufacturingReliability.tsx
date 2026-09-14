@@ -14,12 +14,14 @@ export default function ManufacturingReliability({ data }: { data: Manufacturing
   return (
     <section className="w-full bg-white py-80 md:py-100 xl:py-120">
       <Container className="flex flex-col gap-48">
-        <div className="flex max-w-810 flex-col gap-12">
-          <Reveal as="div" delay={0}>
-            <SectionEyebrow label={data.eyebrow} />
+        {/* Figma node 2254:9003: this header is centered (unlike Product Introduction's
+            left-aligned one above it) — badge row justify-center, heading text-center. */}
+        <div className="mx-auto flex max-w-810 flex-col items-center gap-12">
+          <Reveal as="div" delay={0} className="w-full">
+            <SectionEyebrow label={data.eyebrow} className="justify-center" />
           </Reveal>
           <Reveal as="div" delay={80}>
-            <Heading level={2} size="h2" className="text-balance">
+            <Heading level={2} size="h2" className="text-balance text-center">
               {data.heading}
             </Heading>
           </Reveal>
@@ -28,11 +30,14 @@ export default function ManufacturingReliability({ data }: { data: Manufacturing
         <div className="flex flex-col gap-48 lg:flex-row lg:justify-between">
           <div className="flex w-full flex-col gap-48 lg:w-620">
             <Reveal as="div" delay={160}>
-              <Text size="p1" className="text-neutral-3">
+              {/* Figma: Paragraph/Regular P2 (20/32), not P1. */}
+              <Text size="p2" className="text-neutral-3">
                 {data.intro}
               </Text>
             </Reveal>
 
+            {/* Figma node 2254:9015: a divider before every item AND one closing the
+                list after the last item — not just between items. */}
             <div className="flex flex-col gap-16 border-t border-neutral-10 pt-16">
               {data.items.map((item, index) => {
                 const delay = ITEM_BASE_DELAY_MS + Math.min(index * ITEM_STEP_MS, ITEM_STAGGER_CAP_MS);
@@ -41,14 +46,11 @@ export default function ManufacturingReliability({ data }: { data: Manufacturing
                     key={item}
                     as="div"
                     delay={delay}
-                    className={
-                      index < data.items.length - 1
-                        ? "flex items-center gap-12 border-b border-neutral-10 pb-16"
-                        : "flex items-center gap-12"
-                    }
+                    className="flex items-center gap-12 border-b border-neutral-10 pb-16"
                   >
                     <span className="size-8 shrink-0 rounded-full bg-secondary" aria-hidden="true" />
-                    <Text size="p1" weight="medium" className="text-neutral-3">
+                    {/* Figma: Paragraph/Medium P2 (20/32), not P1. */}
+                    <Text size="p2" weight="medium" className="text-neutral-3">
                       {item}
                     </Text>
                   </Reveal>

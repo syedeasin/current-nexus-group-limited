@@ -1,8 +1,10 @@
 "use client";
 
 import {
+  forwardRef,
   useCallback,
   useEffect,
+  useImperativeHandle,
   useLayoutEffect,
   useRef,
   useState,
@@ -15,6 +17,14 @@ import { ArrowLeft } from "@/components/icons/ArrowLeft";
 import { ArrowRight } from "@/components/icons/ArrowRight";
 import { useCarouselScroll } from "@/lib/motion/use-carousel-scroll";
 import { cn } from "@/lib/utils";
+
+/** Imperative handle for callers that render their own prev/next buttons outside the
+ * component (e.g. in a section header) instead of using the built-in `controls` row —
+ * see Related Products, whose Figma puts the arrows next to the heading. */
+export interface CarouselHandle {
+  scrollPrev: () => void;
+  scrollNext: () => void;
+}
 
 interface CarouselProps {
   ariaLabel: string;
@@ -31,15 +41,22 @@ interface CarouselProps {
    * - `segments`: one 2px rule per card, aligned to the card columns and
    *   filling left-to-right (Figma: Latest News, where each blog card carries
    *   its own underline).
+   * - `none`: no indicator row at all — the track is the whole component
+   *   (Figma: Manufacturing Workflow, which relies only on the edge fade and
+   *   drag/scroll affordance, with no bar or arrow buttons).
    */
-  progressVariant?: "bar" | "segments";
+  progressVariant?: "bar" | "segments" | "none";
   /** `segments` only — how many rules to draw. Defaults to 3. */
   segmentCount?: number;
-  /** Prev/Next buttons. Omit for a track-only carousel (e.g. Latest News). */
+  /** Prev/Next buttons. Omit for a track-only carousel (e.g. Latest News), or when the
+   * caller renders its own buttons externally via the imperative ref + onScrollStateChange. */
   controls?: {
     previousLabel: string;
     nextLabel: string;
   };
+  /** Fires whenever scrollability changes — for callers driving external prev/next
+   * buttons via the ref, to mirror the same enabled/disabled styling shown here. */
+  onScrollStateChange?: (state: { canScrollPrev: boolean; canScrollNext: boolean }) => void;
 }
 
 const SCROLL_END_EPSILON_PX = 1;
@@ -66,15 +83,19 @@ function segmentFill(progress: number, index: number, count: number): number {
  * tween, pointer drag) and switched back on once the track has settled on a
  * card start, so the browser never fights the animation mid-flight.
  */
-export default function Carousel({
-  ariaLabel,
-  children,
-  rowClassName,
-  progressDelay = 0,
-  progressVariant = "bar",
-  segmentCount = 3,
-  controls,
-}: CarouselProps) {
+function Carousel(
+  {
+    ariaLabel,
+    children,
+    rowClassName,
+    progressDelay = 0,
+    progressVariant = "bar",
+    segmentCount = 3,
+    controls,
+    onScrollStateChange,
+  }: CarouselProps,
+  ref: React.Ref<CarouselHandle>
+) {
   const trackRef = useRef<HTMLDivElement>(null);
   const rowRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | undefined>(undefined);
@@ -88,16 +109,24 @@ export default function Carousel({
   const { scrollByCard, tweenScrollTo, cardOffsets, nearestCardIndex, cancelTween } =
     useCarouselScroll(trackRef, rowRef);
 
+  useImperativeHandle(ref, () => ({
+    scrollPrev: () => scrollByCard(-1),
+    scrollNext: () => scrollByCard(1),
+  }));
+
   const updateScrollState = useCallback(() => {
     const el = trackRef.current;
     if (!el) return;
     const maxScroll = el.scrollWidth - el.clientWidth;
     const ratio = maxScroll > 0 ? el.scrollLeft / maxScroll : 0;
+    const nextCanPrev = el.scrollLeft > SCROLL_END_EPSILON_PX;
+    const nextCanNext = el.scrollLeft < maxScroll - SCROLL_END_EPSILON_PX;
     setProgress(Math.min(100, Math.max(0, ratio * 100)));
-    setCanScrollPrev(el.scrollLeft > SCROLL_END_EPSILON_PX);
-    setCanScrollNext(el.scrollLeft < maxScroll - SCROLL_END_EPSILON_PX);
+    setCanScrollPrev(nextCanPrev);
+    setCanScrollNext(nextCanNext);
     setHasOverflow(maxScroll > SCROLL_END_EPSILON_PX);
-  }, []);
+    onScrollStateChange?.({ canScrollPrev: nextCanPrev, canScrollNext: nextCanNext });
+  }, [onScrollStateChange]);
 
   useLayoutEffect(() => {
     updateScrollState();
@@ -212,6 +241,7 @@ export default function Carousel({
         </div>
       </div>
 
+      {progressVariant === "none" ? null : (
       <Reveal
         as="div"
         delay={progressDelay}
@@ -285,6 +315,9 @@ export default function Carousel({
           ) : null}
         </div>
       </Reveal>
+      )}
     </div>
   );
 }
+
+export default forwardRef(Carousel);

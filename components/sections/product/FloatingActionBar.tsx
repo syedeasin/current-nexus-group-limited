@@ -14,10 +14,8 @@ interface FloatingActionBarProps {
   specialistHref: string;
 }
 
-/** Marks where the hero ends — the bar fades in once this scrolls past the top of the viewport. */
-export function HeroEndSentinel() {
-  return <div id="product-hero-end-sentinel" aria-hidden="true" style={{ height: 1, width: "100%" }} />;
-}
+/** Small enough to count as "the user started scrolling", large enough to ignore rubber-banding/jitter. */
+const SCROLL_REVEAL_THRESHOLD_PX = 24;
 
 export default function FloatingActionBar({
   requestQuoteLabel,
@@ -27,32 +25,31 @@ export default function FloatingActionBar({
   specialistLabel,
   specialistHref,
 }: FloatingActionBarProps) {
-  const [pastHero, setPastHero] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
 
   useEffect(() => {
-    const heroSentinel = document.getElementById("product-hero-end-sentinel");
     const footer = document.querySelector("footer");
 
-    // Not-intersecting alone is ambiguous (sentinel can be below the fold on
-    // load, or scrolled past) — boundingClientRect.top tells us which side.
-    const heroObserver = heroSentinel
-      ? new IntersectionObserver(([entry]) => setPastHero(entry.boundingClientRect.top <= 0), { threshold: 0 })
-      : null;
+    function onScroll() {
+      setScrolled(window.scrollY > SCROLL_REVEAL_THRESHOLD_PX);
+    }
+
     const footerObserver = footer
       ? new IntersectionObserver(([entry]) => setFooterVisible(entry.isIntersecting), { threshold: 0 })
       : null;
 
-    if (heroSentinel && heroObserver) heroObserver.observe(heroSentinel);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
     if (footer && footerObserver) footerObserver.observe(footer);
 
     return () => {
-      heroObserver?.disconnect();
+      window.removeEventListener("scroll", onScroll);
       footerObserver?.disconnect();
     };
   }, []);
 
-  const visible = pastHero && !footerVisible;
+  const visible = scrolled && !footerVisible;
 
   const transitionClass = cn(
     "fixed z-40 transition-[opacity,transform] duration-200 ease-out motion-reduce:transition-none",
@@ -62,21 +59,25 @@ export default function FloatingActionBar({
   return (
     <>
       <div className={cn(transitionClass, "inset-x-0 bottom-24 hidden justify-center px-20 lg:flex")} aria-hidden={!visible}>
+        {/* Figma node 114:99606: buttons size to their own label (shrink-0 + nowrap), they
+            never stretch to fill equal thirds — the old flex-1 forced "Download Datasheet"
+            and "Talk to ODM Specialist" to wrap onto two lines at the fixed 784px width. */}
         <nav
           aria-label="Quick actions"
-          className="flex w-full max-w-784 items-center gap-12 rounded-full border border-neutral-10 bg-white p-6 shadow-lg"
+          className="flex max-w-784 items-center gap-12 rounded-full border border-neutral-10 bg-white p-6 shadow-lg"
         >
           <Link
             href={requestQuoteHref}
             tabIndex={visible ? 0 : -1}
-            className="flex flex-1 items-center justify-center rounded-full border-[1.5px] border-neutral-10 px-32 py-18 text-btn-lg font-semibold text-neutral-1 outline-none transition-colors duration-150 ease-out hover:bg-neutral-11 focus-visible:ring-2 focus-visible:ring-secondary"
+            // Figma Button/Button Large spec here tracks -1px, not the shared --text-btn-lg token's -0.2px.
+            className="flex shrink-0 items-center justify-center whitespace-nowrap rounded-full border-[1.5px] border-neutral-10 px-32 py-18 text-btn-lg font-semibold tracking-[-1px]! text-neutral-1 outline-none transition-colors duration-150 ease-out hover:bg-neutral-11 focus-visible:ring-2 focus-visible:ring-secondary"
           >
             {requestQuoteLabel}
           </Link>
           <Link
             href={downloadHref}
             tabIndex={visible ? 0 : -1}
-            className="flex flex-1 items-center justify-center gap-8 rounded-full bg-secondary px-32 py-18 text-btn-lg font-semibold text-neutral-1 outline-none transition-colors duration-150 ease-out hover:bg-secondary/90 focus-visible:ring-2 focus-visible:ring-secondary"
+            className="flex shrink-0 items-center justify-center gap-8 whitespace-nowrap rounded-full bg-secondary px-32 py-18 text-btn-lg font-semibold tracking-[-1px]! text-neutral-1 outline-none transition-colors duration-150 ease-out hover:bg-secondary/90 focus-visible:ring-2 focus-visible:ring-secondary"
           >
             <Download size={20} />
             {downloadLabel}
@@ -84,7 +85,7 @@ export default function FloatingActionBar({
           <Link
             href={specialistHref}
             tabIndex={visible ? 0 : -1}
-            className="flex flex-1 items-center justify-center rounded-full border-[1.5px] border-neutral-10 px-32 py-18 text-btn-lg font-semibold text-neutral-1 outline-none transition-colors duration-150 ease-out hover:bg-neutral-11 focus-visible:ring-2 focus-visible:ring-secondary"
+            className="flex shrink-0 items-center justify-center whitespace-nowrap rounded-full border-[1.5px] border-neutral-10 px-32 py-18 text-btn-lg font-semibold tracking-[-1px]! text-neutral-1 outline-none transition-colors duration-150 ease-out hover:bg-neutral-11 focus-visible:ring-2 focus-visible:ring-secondary"
           >
             {specialistLabel}
           </Link>

@@ -1,6 +1,7 @@
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
 import Heading from "@/components/ui/Heading";
+import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import FaqAccordion from "@/components/sections/home/faq/FaqAccordion";
 import ContactCard from "@/components/sections/shared/ContactCard";
@@ -37,7 +38,8 @@ export default function FaqSection({ data }: { data: FaqSectionData }) {
               <SectionEyebrow label={data.eyebrow} />
             </Reveal>
             <Reveal as="div" delay={HEADING_DELAY_MS}>
-              <Heading level={2} size="h2" className="whitespace-pre-line">
+              {/* Figma H2 spec here tracks -1.2px, not the shared --text-h2 token's -0.72px. */}
+              <Heading level={2} size="h2" className="whitespace-pre-line tracking-[-1.2px]!">
                 {data.heading}
               </Heading>
             </Reveal>
@@ -54,6 +56,13 @@ export default function FaqSection({ data }: { data: FaqSectionData }) {
           </div>
 
           <div className="faq-contact-area flex w-full max-w-400 flex-col items-start gap-14">
+            {/* Figma node 114:99410: "Need to ask something else?" above the card — was
+                missing entirely (the homepage's Faq.tsx already renders its equivalent). */}
+            <Reveal as="div" delay={CONTACT_DELAY_MS}>
+              <Text size="p3" className="text-neutral-3">
+                {data.needHelpLabel}
+              </Text>
+            </Reveal>
             <Reveal as="div" delay={CONTACT_DELAY_MS} className="w-full">
               <ContactCard
                 avatarSrc={data.contact.avatarSrc}
