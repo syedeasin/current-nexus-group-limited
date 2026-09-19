@@ -4,7 +4,7 @@
 import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
-import { NAV_ITEMS } from "@/config/nav.config";
+import { NAV_ITEMS, navItemHrefs } from "@/config/nav.config";
 
 interface DesktopNavProps {
   isTransparent: boolean;
@@ -18,12 +18,11 @@ export default function DesktopNav({ isTransparent, pathname, openKey, onHover, 
   const t = useTranslations("nav");
 
   return (
-    <nav aria-label="Primary" className="hidden xl:flex">
-      <ul className="flex flex-nowrap items-center gap-16 min-[1400px]:gap-24">
+    <nav aria-label="Primary" className="hidden shrink-0 xl:flex xl:items-center">
+      <ul className="flex flex-nowrap items-center gap-8 min-[1500px]:gap-16 min-[1600px]:gap-24">
         {NAV_ITEMS.map((item) => {
           const isOpen = openKey === item.labelKey;
-          const isRouteActive =
-            pathname === item.href || item.columns.some((column) => column.items.some((entry) => entry.href === pathname));
+          const isRouteActive = pathname === item.href || navItemHrefs(item).includes(pathname);
           const active = isOpen || isRouteActive;
 
           return (

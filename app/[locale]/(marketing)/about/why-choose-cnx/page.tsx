@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import Awards from "@/components/sections/home/Awards";
 import CtaBand from "@/components/sections/shared/CtaBand";
 import Hero from "@/components/sections/about/why-choose-cnx/Hero";
 import CompetitiveAdvantage from "@/components/sections/about/why-choose-cnx/CompetitiveAdvantage";
 import BeyondProducts from "@/components/sections/about/why-choose-cnx/BeyondProducts";
 import GlobalConfidence from "@/components/sections/about/why-choose-cnx/GlobalConfidence";
+import IndustryRecognition from "@/components/sections/about/why-choose-cnx/IndustryRecognition";
 import CaseStudy from "@/components/sections/about/why-choose-cnx/CaseStudy";
 
 export async function generateMetadata({
@@ -31,7 +31,7 @@ export default async function WhyChooseCnxPage() {
       <CompetitiveAdvantage />
       <BeyondProducts />
       <GlobalConfidence />
-      <Awards />
+      <IndustryRecognition />
       <CaseStudy />
       <CtaBand
         heading={t("heading")}

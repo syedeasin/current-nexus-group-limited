@@ -120,6 +120,7 @@ export default function ProductTabs({ tabs, learnMoreLabel, ariaLabel }: Product
               aria-controls={`${baseId}-panel-${tab.id}`}
               tabIndex={index === activeIndex ? 0 : -1}
               onClick={() => selectTab(index)}
+              onMouseEnter={() => selectTab(index)}
               onKeyDown={handleKeyDown}
               className={cn(
                 "relative z-10 flex h-44 items-center justify-center whitespace-nowrap rounded-full px-16 text-p3 font-medium uppercase transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary min-[400px]:px-24",

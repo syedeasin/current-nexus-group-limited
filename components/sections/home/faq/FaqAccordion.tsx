@@ -64,7 +64,16 @@ export default function FaqAccordion({
                   delay={baseDelay + Math.min(index * stepDelay, staggerCapMs)}
                   className="w-full"
               >
-                <div className="w-full rounded-8 border border-surface-2 bg-surface-2 p-16 min-[481px]:p-20 lg:p-24">
+                {/* Client revision doc point 15: hover opens it (same pattern as the
+                    other accordions), and the open item now inverts to a dark fill
+                    instead of sharing the closed items' flat light-gray card — a real
+                    colour swap, not just a tint, so the selected question reads at a
+                    glance. */}
+                <div
+                    className={`w-full rounded-8 border p-16 transition-colors duration-200 ease-out min-[481px]:p-20 lg:p-24 ${
+                        isOpen ? "border-neutral-1 bg-neutral-1" : "border-surface-2 bg-surface-2"
+                    }`}
+                >
                   <h3 className="m-0">
                     <button
                         type="button"
@@ -72,11 +81,16 @@ export default function FaqAccordion({
                         aria-expanded={isOpen}
                         aria-controls={panelId}
                         onClick={() => setOpenId(isOpen ? "" : q.id)}
+                        onMouseEnter={() => setOpenId(q.id)}
                         className="flex w-full cursor-pointer items-center justify-between gap-12 text-left"
                     >
                   {/* Figma H6 spec here tracks -0.2px, not the shared --text-h6 token's
                       -0.1px — consistent across every H6 usage checked this pass. */}
-                  <span className="text-h6 font-semibold tracking-[-0.2px]! text-neutral-1">
+                  <span
+                      className={`text-h6 font-semibold tracking-[-0.2px]! transition-colors duration-200 ease-out ${
+                          isOpen ? "text-white" : "text-neutral-1"
+                      }`}
+                  >
                     {q.question}
                   </span>
                       <span className="flex shrink-0 items-center py-4" aria-hidden>
@@ -95,7 +109,7 @@ export default function FaqAccordion({
                       }`}
                   >
                     <div className="overflow-hidden">
-                      <p className="pt-12 pr-48 text-p3 text-neutral-3">
+                      <p className="pt-12 pr-48 text-p3 text-neutral-9">
                         {answer}
                       </p>
                     </div>

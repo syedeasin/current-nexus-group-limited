@@ -21,25 +21,36 @@ const placeholderImage = "/images/premiumSolutions/hithiumPVndEssIntegratedMachi
  * brands are rendering three generic "Product 1/2/3" placeholders on the
  * shared Hithium image until real content lands — JA Solar, Tongwei,
  * Growatt, DEYE, Solis, Goodwe.
+ *
+ * Every product card here links to its own brand's page — the same
+ * /tier-1-brands/<id> path config/nav.config.ts already uses for that brand
+ * in the mega menu, so the whole site has one URL per brand. None of those
+ * pages exist yet, so the link falls through to the app's not-found page;
+ * no new pages are being added for the first MVP pass — client's explicit
+ * call. Once a brand's page is built at that same path, these links (and the
+ * nav's) start working with no data change.
  */
-const placeholderProducts: PremiumSolutionsProduct[] = [
-  { key: "placeholder1", image: placeholderImage, href: "/products" },
-  { key: "placeholder2", image: placeholderImage, href: "/products" },
-  { key: "placeholder3", image: placeholderImage, href: "/products" },
-];
+function placeholderProductsFor(brandId: string): PremiumSolutionsProduct[] {
+  const href = `/tier-1-brands/${brandId}`;
+  return [
+    { key: "placeholder1", image: placeholderImage, href },
+    { key: "placeholder2", image: placeholderImage, href },
+    { key: "placeholder3", image: placeholderImage, href },
+  ];
+}
 
 export const premiumSolutionsBrands: PremiumSolutionsBrand[] = [
   {
     id: "ja-solar",
     brandKey: "jaSolar",
     titleKey: "jaSolar",
-    products: placeholderProducts,
+    products: placeholderProductsFor("ja-solar"),
   },
   {
     id: "tongwei",
     brandKey: "tongwei",
     titleKey: "tongwei",
-    products: placeholderProducts,
+    products: placeholderProductsFor("tongwei"),
   },
   {
     id: "hithium",
@@ -49,17 +60,17 @@ export const premiumSolutionsBrands: PremiumSolutionsBrand[] = [
       {
         key: "pvEssIntegratedMachine",
         image: "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
-        href: "/products",
+        href: "/tier-1-brands/hithium",
       },
       {
         key: "essCabinet",
         image: "/images/premiumSolutions/hithiumEssCabinet.webp",
-        href: "/products",
+        href: "/tier-1-brands/hithium",
       },
       {
         key: "infinityBlock",
         image: "/images/premiumSolutions/hithiumBlock.webp",
-        href: "/products",
+        href: "/tier-1-brands/hithium",
       },
     ],
   },
@@ -67,24 +78,24 @@ export const premiumSolutionsBrands: PremiumSolutionsBrand[] = [
     id: "growatt",
     brandKey: "growatt",
     titleKey: "growatt",
-    products: placeholderProducts,
+    products: placeholderProductsFor("growatt"),
   },
   {
     id: "deye",
     brandKey: "deye",
     titleKey: "deye",
-    products: placeholderProducts,
+    products: placeholderProductsFor("deye"),
   },
   {
     id: "solis",
     brandKey: "solis",
     titleKey: "solis",
-    products: placeholderProducts,
+    products: placeholderProductsFor("solis"),
   },
   {
     id: "goodwe",
     brandKey: "goodwe",
     titleKey: "goodwe",
-    products: placeholderProducts,
+    products: placeholderProductsFor("goodwe"),
   },
 ];

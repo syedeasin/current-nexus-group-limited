@@ -15,10 +15,6 @@ const STEPS = [
   { key: "longTermSupport", Icon: Headset },
 ] as const;
 
-/** Index of the divider that carries the gold progress segment (under step 03, matching the Figma design). */
-const ACTIVE_DIVIDER_INDEX = 3;
-const PROGRESS_SEGMENT_WIDTH = 199;
-
 const HEADING_DELAY_MS = 80;
 const STEP_BASE_DELAY_MS = 160;
 const STEP_STEP_MS = 80;
@@ -41,22 +37,13 @@ export default async function BeyondProducts() {
           </Reveal>
         </div>
 
-        <div className="flex flex-col gap-40 rounded-20 bg-white p-24 md:p-32 lg:flex-row lg:items-center lg:gap-60 xl:p-48">
+        <div className="flex flex-col gap-40 rounded-20 bg-white p-24 md:p-32 lg:flex-row lg:items-stretch lg:gap-60 xl:p-48">
           <div className="flex w-full flex-col lg:flex-1">
             {STEPS.map(({ key, Icon }, index) => {
               const delay = STEP_BASE_DELAY_MS + Math.min(index * STEP_STEP_MS, STEP_STAGGER_CAP_MS);
               return (
                 <div key={key}>
-                  {index > 0 && (
-                    <div className="relative h-2 w-full bg-neutral-11" aria-hidden="true">
-                      {index === ACTIVE_DIVIDER_INDEX && (
-                        <div
-                          className="absolute inset-y-0 left-0 bg-secondary"
-                          style={{ width: `${PROGRESS_SEGMENT_WIDTH}px` }}
-                        />
-                      )}
-                    </div>
-                  )}
+                  {index > 0 && <div className="h-2 w-full bg-neutral-11" aria-hidden="true" />}
                   <Reveal as="div" delay={delay} className="flex items-start gap-12 py-24">
                     <span className="flex shrink-0 items-center justify-center rounded-8 border border-neutral-11 bg-surface-2 p-14">
                       <Icon size={24} className="text-neutral-1" aria-hidden="true" />
@@ -78,10 +65,10 @@ export default async function BeyondProducts() {
           <Reveal
             variant="scale"
             delay={STEP_BASE_DELAY_MS}
-            className="relative aspect-square w-full overflow-hidden rounded-16 lg:w-[534px] lg:shrink-0"
+            className="relative aspect-square w-full overflow-hidden rounded-16 lg:aspect-auto lg:w-[534px] lg:shrink-0"
           >
             <Image
-              src="/images/aboutCNX/aboutCNXRightImage.webp"
+              src="/images/about/whyChooseCNX/beyondProductImage.webp"
               alt="Technician inspecting photovoltaic modules on the CNX manufacturing line"
               fill
               sizes="(min-width: 1024px) 534px, 100vw"

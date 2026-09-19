@@ -41,7 +41,7 @@ export default async function PremiumSolutions() {
             brands={brands}
             railAriaLabel={t("railAriaLabel")}
             viewAllLabel={t("viewAll")}
-            viewAllHref="/brands"
+            viewAllHref="/about/pv-bess-brands"
           />
         </div>
       </Container>

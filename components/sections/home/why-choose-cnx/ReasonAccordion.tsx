@@ -70,6 +70,7 @@ export default function ReasonAccordion({
                       aria-expanded={isOpen}
                       aria-controls={panelId}
                       onClick={() => setOpenKey(isOpen ? "" : reason.key)}
+                      onMouseEnter={() => setOpenKey(reason.key)}
                       className="flex w-full cursor-pointer items-start gap-24 text-left"
                   >
                 <span className="flex shrink-0 items-center py-2">

@@ -4,12 +4,16 @@ import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
+import Button, { BUTTON_ICON_SIZE } from "@/components/ui/Button";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
+import { ChevronRight } from "@/components/icons/ChevronRight";
 import ReasonAccordion from "@/components/sections/home/why-choose-cnx/ReasonAccordion";
 import { cascade, REVEAL_STEP_MS } from "@/lib/motion/timing";
 import { whyChooseReasons, DEFAULT_OPEN_KEY } from "@/lib/data/whyChooseCnx";
 
-const ACCORDION_BASE_DELAY_MS = cascade(4);
+// Canonical header cascade: eyebrow(0), heading(1), paragraph(2), cta(3) — the
+// photo and accordion pick up right after the CTA instead of colliding with it.
+const ACCORDION_BASE_DELAY_MS = cascade(5);
 
 export default async function WhyChooseCnx() {
   const t = await getTranslations("home.whyChoose");
@@ -45,11 +49,17 @@ export default async function WhyChooseCnx() {
                 </Text>
               </Reveal>
             </div>
+            <Reveal as="div" delay={cascade(3)}>
+              <Button href="/about/why-choose-cnx" size="xl" className="w-full min-[481px]:w-fit">
+                {t("cta")}
+                <ChevronRight size={BUTTON_ICON_SIZE} />
+              </Button>
+            </Reveal>
           </div>
 
           <Reveal
             as="div"
-            delay={cascade(3)}
+            delay={cascade(4)}
             className="why-choose-photo relative aspect-[600/338] w-full overflow-hidden rounded-16"
           >
             <Reveal variant="scale" as="div" className="absolute inset-0">

@@ -3,7 +3,8 @@
 import { useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
-import { Search, Phone } from "lucide-react";
+import { Search } from "lucide-react";
+import { ArrowRight } from "@/components/icons/ArrowRight";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 import MobileDrawer from "./MobileDrawer";
@@ -88,11 +89,11 @@ export default function Navbar() {
                 hidden ? "-translate-y-full" : "translate-y-0",
                 isTransparent
                     ? "bg-transparent text-white"
-                    : "bg-white text-neutral-1 border-b border-neutral-10 shadow-sm"
+                    : "bg-white text-neutral-1 border-b border-neutral-10"
             )}
         >
           {/* ডেস্কটপ রো */}
-          <div className="mx-auto hidden h-full max-w-1600 items-center justify-between px-40 py-20 min-[1400px]:px-80 xl:flex">
+          <div className="mx-auto hidden h-full max-w-1600 items-center justify-between gap-12 px-40 py-20 min-[1400px]:gap-24 min-[1400px]:px-80 xl:flex">
             <Link href="/" className="shrink-0">
               <Logo isTransparent={isTransparent} width={129} height={32} className="h-32 w-129" />
             </Link>
@@ -105,7 +106,7 @@ export default function Navbar() {
                 onToggle={handleToggleItem}
             />
 
-            <div className="flex items-center">
+            <div className="flex shrink-0 items-center">
               <button
                   type="button"
                   aria-label={t("search")}
@@ -120,10 +121,10 @@ export default function Navbar() {
 
               <Link
                   href="/contact"
-                  className="flex h-48 shrink-0 items-center gap-8 rounded-full bg-secondary pl-20 pr-24 text-btn-sm font-semibold text-neutral-1 transition-colors duration-[var(--dur-base)] ease-[var(--ease-out)] hover:brightness-95"
+                  className="flex h-48 shrink-0 items-center gap-8 rounded-full bg-secondary px-24 text-btn-sm font-semibold text-neutral-1 transition-colors duration-[var(--dur-base)] ease-[var(--ease-out)] hover:brightness-95"
               >
-                <Phone size={20} />
                 <span className="whitespace-nowrap">{t("contact")}</span>
+                <ArrowRight size={20} />
               </Link>
 
               <LanguageSwitcher isTransparent={isTransparent} />

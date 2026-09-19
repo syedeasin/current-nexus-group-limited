@@ -26,6 +26,14 @@ export const CARD_IMAGE_ZOOM =
 export const CARD_TITLE_TINT =
   "transition-colors duration-[var(--dur-base)] ease-[var(--ease-out)] group-hover:text-secondary group-focus-visible:text-secondary motion-reduce:transition-none";
 
+/**
+ * Gold wash over a card's photo on hover/focus — bottom-anchored so it reads as
+ * a scrim, not a flat tint, and never fights a centered hover icon sitting on
+ * top of it in z-order (Scene of Applications, client revision doc point 10).
+ */
+export const CARD_COLOR_WASH =
+  "pointer-events-none absolute inset-0 bg-gradient-to-t from-secondary/50 via-secondary/15 to-transparent opacity-0 transition-opacity duration-[var(--dur-base)] ease-[var(--ease-out)] group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none";
+
 /** Trailing chevron that slides in on hover (inline "Learn more" style links). */
 export const LINK_CHEVRON =
   "shrink-0 -translate-x-4 opacity-0 transition-[opacity,transform] duration-[var(--dur-slow)] ease-[var(--ease-out)] group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100 motion-reduce:translate-x-0 motion-reduce:opacity-100 motion-reduce:transition-none";

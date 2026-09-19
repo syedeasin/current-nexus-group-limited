@@ -2,7 +2,7 @@ import Image from "next/image";
 import type { ElementType } from "react";
 import { Link } from "@/i18n/navigation";
 import { ArrowUpRight } from "@/components/icons/ArrowUpRight";
-import { CARD_IMAGE_ZOOM, CARD_LIFT } from "@/lib/motion/interactions";
+import { CARD_COLOR_WASH, CARD_IMAGE_ZOOM, CARD_LIFT } from "@/lib/motion/interactions";
 import { cn } from "@/lib/utils";
 
 interface SceneCardProps {
@@ -52,14 +52,17 @@ export default function SceneCard({
           className={cn("object-cover", interactive && CARD_IMAGE_ZOOM)}
         />
         {interactive ? (
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 flex scale-90 items-center justify-center opacity-0 transition-[opacity,transform] duration-[var(--dur-base)] ease-[var(--ease-out)] group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
-          >
-            <span className="flex size-48 items-center justify-center rounded-full bg-white text-neutral-1">
-              <ArrowUpRight size={24} />
+          <>
+            <div aria-hidden="true" className={CARD_COLOR_WASH} />
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 flex scale-90 items-center justify-center opacity-0 transition-[opacity,transform] duration-[var(--dur-base)] ease-[var(--ease-out)] group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+            >
+              <span className="flex size-48 items-center justify-center rounded-full bg-white text-neutral-1">
+                <ArrowUpRight size={24} />
+              </span>
             </span>
-          </span>
+          </>
         ) : null}
       </div>
       <div className="flex w-full flex-col gap-12 pr-24">

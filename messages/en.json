@@ -135,6 +135,7 @@
       "eyebrow": "WHY CHOOSE US",
       "heading": "Reasons to choose CNX Energy confidently",
       "paragraph": "Your trusted China partner for private-label PV & BESS manufacturing, Tier 1 products, and after-sales support.",
+      "cta": "Learn more",
       "items": {
         "verticalManufacturing": {
           "title": "Vertical Manufacturing & Quality Control",
@@ -186,6 +187,7 @@
     "latestNews": {
       "eyebrow": "NEWS ROOM",
       "heading": "Latest blog & news",
+      "viewAll": "View All",
       "posts": {
         "high-efficiency-solar-modules": {
           "title": "Why high-efficiency solar modules are transforming utility-scale projects"
@@ -206,7 +208,7 @@
         "name": "Emma Collins",
         "role": "Customer care",
         "message": "Hi, I'm Emma from the CNX team.\nHave a question? I'm here to help anytime.",
-        "cta": "Let's talk"
+        "cta": "Contact now"
       },
       "items": {
         "productsProvided": {
@@ -267,8 +269,9 @@
     "backContact": "Back Contact",
     "hjt": "HJT",
     "topcon": "TOPCon",
-    "odmVerticalSolarModules": "ODM / Vertical Solar Modules",
+    "odmVerticalSolarModules": "ODM-Vertical Solar Modules",
     "odmVertical": "ODM-Vertical Solar",
+    "revamping": "Revamping",
     "residentialBess": "Residential BESS",
     "bess112": "112kWh",
     "bess261": "261kWh",
@@ -665,6 +668,21 @@
           "internationalCertifications": {
             "value": "ISO+",
             "label": "International Certifications"
+          }
+        }
+      },
+      "industryRecognition": {
+        "eyebrow": "INDUSTRY RECOGNITION",
+        "heading": "Recognized for excellence in manufacturing & innovation",
+        "items": {
+          "iec": {
+            "caption": "Leading Renewable Energy Manufacturer Award"
+          },
+          "tuv": {
+            "caption": "Leading Renewable Energy Manufacturer Award"
+          },
+          "yellowSolar": {
+            "caption": "Leading Renewable Energy Manufacturer Award"
           }
         }
       },

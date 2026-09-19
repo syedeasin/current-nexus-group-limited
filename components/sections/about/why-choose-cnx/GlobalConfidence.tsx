@@ -1,10 +1,10 @@
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
-import DotGlobe from "@/components/sections/about/why-choose-cnx/DotGlobe";
 import { cascade, stagger } from "@/lib/motion/timing";
 
 const STAT_KEYS = [
@@ -35,12 +35,20 @@ export default async function GlobalConfidence() {
 
         <div className="flex flex-col gap-40 lg:flex-row lg:items-center lg:gap-80">
           {/* Left: dotted globe with the certification card overlapping its base,
-              matching the Figma composition (node 1:3497). */}
+              matching the Figma composition (node 2080-18094). Real photo asset,
+              not the hand-drawn canvas sphere this used to render — Figma's globe
+              is a flat dotted world map graphic, not an abstract rotating sphere. */}
           <Reveal variant="fade" delay={cascade(2)} className="relative w-full lg:flex-1">
-            <div className="relative mx-auto aspect-square w-full max-w-[460px]">
-              <DotGlobe />
+            <div className="relative mx-auto aspect-[1056/864] w-full max-w-[700px]">
+              <Image
+                src="/images/about/whyChooseCNX/globe.webp"
+                alt="Dotted world map representing CNX's global manufacturing and distribution reach"
+                fill
+                sizes="(min-width: 1024px) 700px, 100vw"
+                className="object-contain"
+              />
             </div>
-            <div className="relative z-10 mx-auto -mt-56 w-full max-w-[360px] rounded-16 border border-neutral-10 bg-white/90 p-24 shadow-[0_16px_40px_rgba(10,13,27,0.10)] backdrop-blur-sm">
+            <div className="relative z-10 mx-auto -mt-[220px] w-full max-w-[480px] rounded-16 border border-neutral-10 bg-white/90 p-24 shadow-[0_16px_40px_rgba(10,13,27,0.10)] backdrop-blur-sm">
               <div className="flex flex-col gap-8 text-center">
                 <Heading level={3} size="h6">
                   {t("certifiedTitle")}
@@ -60,7 +68,7 @@ export default async function GlobalConfidence() {
                 delay={stagger(index, cascade(2))}
                 className="flex items-baseline justify-between gap-16 border-b border-neutral-10 py-20 first:pt-0 last:border-b-0 last:pb-0"
               >
-                <span className="text-h4 font-semibold text-neutral-1">
+                <span className="text-h4 font-semibold text-secondary">
                   {t(`stats.${key}.value`)}
                 </span>
                 <span className="text-p3 text-neutral-4">{t(`stats.${key}.label`)}</span>

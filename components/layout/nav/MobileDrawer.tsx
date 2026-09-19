@@ -4,9 +4,10 @@ import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
-import { ChevronDown, Phone, X } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
+import { ArrowRight } from "@/components/icons/ArrowRight";
 import { cn } from "@/lib/utils";
-import { NAV_ITEMS } from "@/config/nav.config";
+import { NAV_ITEMS, navItemHrefs, type NavLink } from "@/config/nav.config";
 import { useLocaleSwitch } from "@/src/hooks/useLocaleSwitch";
 import type { Locale } from "@/i18n/routing";
 
@@ -23,6 +24,34 @@ const LOCALE_LABELS: Record<Locale, string> = {
 
 const FOCUSABLE_SELECTOR =
     'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+/** One link row inside an expanded drawer section. */
+function DrawerLink({
+  link,
+  pathname,
+  onClose,
+}: {
+  link: Pick<NavLink, "labelKey" | "href">;
+  pathname: string;
+  onClose: () => void;
+}) {
+  const t = useTranslations("nav");
+  const active = pathname === link.href;
+
+  return (
+      <Link
+          href={link.href}
+          onClick={onClose}
+          aria-current={active ? "page" : undefined}
+          className={cn(
+              "py-12 text-p4 transition-colors duration-150 hover:text-secondary",
+              active ? "font-medium text-secondary" : "text-neutral-4"
+          )}
+      >
+        {t(link.labelKey)}
+      </Link>
+  );
+}
 
 export default function MobileDrawer({ isOpen, onClose, triggerRef }: MobileDrawerProps) {
   const t = useTranslations("nav");
@@ -140,7 +169,7 @@ export default function MobileDrawer({ isOpen, onClose, triggerRef }: MobileDraw
             {NAV_ITEMS.map((item) => {
               const sectionId = `${baseId}-section-${item.labelKey}`;
               const isSectionOpen = openSection === item.labelKey;
-              const isRouteActive = item.columns.some((column) => column.items.some((entry) => entry.href === pathname));
+              const isRouteActive = navItemHrefs(item).includes(pathname);
               const active = isSectionOpen || isRouteActive;
 
               return (
@@ -172,46 +201,58 @@ export default function MobileDrawer({ isOpen, onClose, triggerRef }: MobileDraw
                     >
                       <div className="overflow-hidden">
                         <div className="flex flex-col gap-16 bg-surface-2 px-20 pb-16 pt-12">
-                          {item.columns.map((column, index) =>
-                              column.kind === "links" ? (
-                                  <div key={index} className="flex flex-col">
-                                    {column.items.map((link) => {
-                                      const linkActive = pathname === link.href;
-                                      return (
-                                          <Link
-                                              key={link.href}
-                                              href={link.href}
-                                              onClick={close}
-                                              className={cn(
-                                                  "py-12 text-p4 transition-colors duration-150 hover:text-secondary",
-                                                  linkActive ? "font-medium text-secondary" : "text-neutral-4"
-                                              )}
-                                          >
-                                            {t(link.labelKey)}
-                                          </Link>
-                                      );
-                                    })}
+                          {item.panel.kind === "groups" ? (
+                              // Second level as a sub-heading with its own third level under it,
+                              // mirroring the desktop panel's two tiers.
+                              item.panel.groups.map((group) => (
+                                  <div key={group.href} className="flex flex-col">
+                                    <Link
+                                        href={group.href}
+                                        onClick={close}
+                                        aria-current={pathname === group.href ? "page" : undefined}
+                                        className={cn(
+                                            "py-12 text-p4 font-semibold transition-colors duration-150 hover:text-secondary",
+                                            pathname === group.href ? "text-secondary" : "text-neutral-1"
+                                        )}
+                                    >
+                                      {t(group.labelKey)}
+                                    </Link>
+
+                                    {group.links && group.links.length > 0 && (
+                                        <div className="flex flex-col pl-16">
+                                          {group.links.map((link) => (
+                                              <DrawerLink key={link.href} link={link} pathname={pathname} onClose={close} />
+                                          ))}
+                                        </div>
+                                    )}
+
+                                    {group.products && group.products.length > 0 && (
+                                        <div className="flex gap-12 overflow-x-auto py-12">
+                                          {group.products.map((product) => (
+                                              <Link
+                                                  key={product.href}
+                                                  href={product.href}
+                                                  onClick={close}
+                                                  className="flex w-140 shrink-0 flex-col items-center gap-12 rounded-8 bg-white p-12"
+                                              >
+                                                <div className="relative h-120 w-100">
+                                                  <Image src={product.image} alt="" fill className="object-contain" />
+                                                </div>
+                                                <span className="text-center text-p4 font-semibold text-neutral-1">
+                                                  {t(product.labelKey)}
+                                                </span>
+                                              </Link>
+                                          ))}
+                                        </div>
+                                    )}
                                   </div>
-                              ) : (
-                                  <div key={index} className="flex gap-12 overflow-x-auto py-12">
-                                    {column.items.map((product) => (
-                                        <Link
-                                            key={product.href}
-                                            href={product.href}
-                                            onClick={close}
-                                            className="flex w-140 shrink-0 flex-col items-center gap-12 rounded-8 bg-white p-12"
-                                        >
-                                          <div className="relative h-120 w-100">
-                                            {/* TODO: replace with real product images */}
-                                            <Image src={product.image} alt="" fill className="object-contain" />
-                                          </div>
-                                          <span className="text-center text-p4 font-semibold text-neutral-1">
-                                    {t(product.labelKey)}
-                                  </span>
-                                        </Link>
-                                    ))}
-                                  </div>
-                              )
+                              ))
+                          ) : (
+                              <div className="flex flex-col">
+                                {item.panel.items.map((link) => (
+                                    <DrawerLink key={link.href} link={link} pathname={pathname} onClose={close} />
+                                ))}
+                              </div>
                           )}
                         </div>
                       </div>
@@ -228,8 +269,8 @@ export default function MobileDrawer({ isOpen, onClose, triggerRef }: MobileDraw
                 onClick={close}
                 className="flex h-48 w-full items-center justify-center gap-8 rounded-full bg-secondary text-p3 font-semibold text-neutral-1 transition-[filter] duration-150 hover:brightness-95"
             >
-              <Phone size={18} />
               {t("contact")}
+              <ArrowRight size={18} />
             </Link>
 
             <div className="mt-16 flex items-center justify-center gap-16 py-4">

@@ -121,6 +121,7 @@ export default function BrandTabs({
                 aria-controls={`${baseId}-panel-${brand.id}`}
                 tabIndex={active ? 0 : -1}
                 onClick={() => selectTab(index)}
+                onMouseEnter={() => selectTab(index)}
                 onKeyDown={handleKeyDown}
                 className={cn(
                   "relative flex w-fit min-h-44 shrink-0 snap-start items-center justify-center rounded-8 border-[1.5px] px-20 py-14 text-p2 transition-colors duration-[var(--dur-base)] ease-[var(--ease-out)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary motion-reduce:transition-none lg:w-full",

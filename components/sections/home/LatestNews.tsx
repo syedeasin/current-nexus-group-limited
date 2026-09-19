@@ -5,6 +5,8 @@ import Heading from "@/components/ui/Heading";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import BlogCard from "@/components/ui/BlogCard";
 import Carousel from "@/components/ui/Carousel";
+import Button, { BUTTON_ICON_SIZE } from "@/components/ui/Button";
+import { ChevronRight } from "@/components/icons/ChevronRight";
 import { latestNews } from "@/lib/data/latestNews";
 import { cascade, stagger, CONTENT_BASE_DELAY_MS } from "@/lib/motion/timing";
 
@@ -29,7 +31,7 @@ export default async function LatestNews() {
         </div>
       </Container>
 
-      <Container className="mt-48">
+      <Container className="mt-48 flex flex-col items-center gap-24">
         <Carousel
           ariaLabel={t("heading")}
           progressDelay={stagger(latestNews.length, CONTENT_BASE_DELAY_MS)}
@@ -54,6 +56,16 @@ export default async function LatestNews() {
             </Reveal>
           ))}
         </Carousel>
+
+        {/* Figma node 4199-9973: View All is the site's own solid/lg/secondary
+            Button component, centered under the cards — not a text link above
+            them (that was this section's first pass, before this reference). */}
+        <Reveal as="div">
+          <Button href="/news" size="lg">
+            {t("viewAll")}
+            <ChevronRight size={BUTTON_ICON_SIZE} />
+          </Button>
+        </Reveal>
       </Container>
     </section>
   );

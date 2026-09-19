@@ -52,7 +52,7 @@ export default async function AboutCnx() {
               </div>
             </div>
             <Reveal as="div" delay={cascade(4)}>
-              <Button href="/about" size="xl" className="w-full min-[481px]:w-fit">
+              <Button href="/about/why-choose-cnx" size="xl" className="w-full min-[481px]:w-fit">
                 {t("cta")}
                 <ChevronRight size={BUTTON_ICON_SIZE} />
               </Button>

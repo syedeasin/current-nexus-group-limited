@@ -3,7 +3,7 @@ import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
 import Heading from "@/components/ui/Heading";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
-import SceneCarousel from "@/components/sections/home/application-scenes/SceneCarousel";
+import ApplicationScenesCarousel from "@/components/sections/home/application-scenes/ApplicationScenesCarousel";
 import { applicationScenes } from "@/lib/data/applicationScenes";
 import { cascade } from "@/lib/motion/timing";
 
@@ -37,7 +37,7 @@ export default async function ApplicationScenes() {
       </Container>
 
       <Container className="mt-48">
-        <SceneCarousel
+        <ApplicationScenesCarousel
           cards={cards}
           ariaLabel={t("heading")}
           previousLabel={t("previous")}

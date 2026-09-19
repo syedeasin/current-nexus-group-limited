@@ -593,7 +593,7 @@ export const bcProductDetail: ProductDetail = {
       // Doc warning: wrong company name ("Kelana", not CNX), double space,
       // and missing final period — kept 100% verbatim per instruction.
       message: "Hi, I'm Emma, Customer care of Kelana  Reach out anytime.",
-      ctaLabel: "Let's talk",
+      ctaLabel: "Contact now",
       ctaHref: "/contact",
     },
   },

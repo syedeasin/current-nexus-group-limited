@@ -22,7 +22,7 @@ export default async function WhyChooseCnxHero() {
       className={cn("relative w-full overflow-hidden bg-neutral-1", HERO_HEADER_OFFSET)}
     >
       <Image
-        src="/images/home/residentialSolar.webp"
+        src="/images/about/whyChooseCNX/whyChooseCNXHeroBanner.webp"
         alt=""
         aria-hidden="true"
         fill

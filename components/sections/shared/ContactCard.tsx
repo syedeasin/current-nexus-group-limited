@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Button, { BUTTON_ICON_SIZE } from "@/components/ui/Button";
-import { PhoneCall } from "@/components/icons/PhoneCall";
+import { ArrowRight } from "@/components/icons/ArrowRight";
 
 interface ContactCardProps {
   avatarSrc: string;
@@ -33,10 +33,12 @@ export default function ContactCard({ avatarSrc, name, role, message, ctaLabel, 
           <p className="whitespace-pre-line text-p3 text-neutral-3">{message}</p>
         </div>
         {/* Figma Button/Button Small spec here is gap-6 and tracks 0px, not the shared
-            Button "lg" size's gap-8 / --text-btn-sm token's -0.09px. */}
+            Button "lg" size's gap-8 / --text-btn-sm token's -0.09px. Trailing arrow,
+            not a leading phone icon (node 4199-10014) — "Contact now" isn't a dial
+            action, it opens the contact page/form. */}
         <Button href={ctaHref} size="lg" className="gap-6! tracking-[0px]!">
-          <PhoneCall size={BUTTON_ICON_SIZE} />
           {ctaLabel}
+          <ArrowRight size={BUTTON_ICON_SIZE} />
         </Button>
       </div>
     </div>
