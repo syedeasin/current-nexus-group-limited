@@ -22,7 +22,7 @@ type ImageUploadProps = {
 
 type Dimensions = { width: number; height: number } | null;
 
-const ACCEPT = "image/jpeg,image/png,image/webp,image/avif,image/gif";
+const ACCEPT = "image/jpeg,image/png,image/webp,image/avif,image/gif,image/svg+xml,.svg";
 
 async function readDimensions(file: File): Promise<Dimensions> {
   if (typeof createImageBitmap === "function") {
@@ -178,7 +178,7 @@ export default function ImageUpload({
             <span className="font-medium text-primary">Click to upload</span> or drag and drop
           </span>
           <span className="text-p4 text-neutral-5">
-            {label} — JPEG, PNG, WebP, AVIF or GIF, up to 8MB
+            {label} — JPEG, PNG, WebP, AVIF, GIF or SVG, up to 8MB
           </span>
           <input
             ref={fileInputRef}

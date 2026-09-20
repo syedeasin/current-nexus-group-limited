@@ -43,9 +43,16 @@ export async function uploadMedia(formData: FormData): Promise<UploadMediaResult
   const width = parseDimension(formData.get("width"));
   const height = parseDimension(formData.get("height"));
 
+  // SVG is stored sanitised, never the uploaded bytes — validateImageUpload
+  // already ran it through DOMPurify's SVG profile.
+  const fileToStore =
+    validation.verifiedType === "image/svg+xml" && validation.sanitizedSvg !== undefined
+      ? new File([validation.sanitizedSvg], file.name, { type: "image/svg+xml" })
+      : file;
+
   let stored;
   try {
-    stored = await putFile(file);
+    stored = await putFile(fileToStore);
   } catch (error) {
     console.error("[media] storage write failed", error);
     return { ok: false, error: "Could not store the file. Please try again." };

@@ -28,6 +28,7 @@ const MIME_TYPES: Record<string, string> = {
   webp: "image/webp",
   avif: "image/avif",
   gif: "image/gif",
+  svg: "image/svg+xml",
 };
 
 export async function GET(_request: NextRequest, context: { params: Promise<{ path: string[] }> }) {
@@ -62,6 +63,7 @@ export async function GET(_request: NextRequest, context: { params: Promise<{ pa
       "Content-Length": String(size),
       // Filenames are random UUIDs, never reused — safe to cache indefinitely.
       "Cache-Control": "public, max-age=31536000, immutable",
+      "X-Content-Type-Options": "nosniff",
     },
   });
 }

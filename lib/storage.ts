@@ -20,6 +20,7 @@ const EXTENSIONS: Record<string, string> = {
   "image/webp": "webp",
   "image/avif": "avif",
   "image/gif": "gif",
+  "image/svg+xml": "svg",
   // Downloadable documents (Service -> Downloads). Verified by magic bytes in
   // lib/validation/upload.ts before they reach putFile, same as images.
   "application/pdf": "pdf",

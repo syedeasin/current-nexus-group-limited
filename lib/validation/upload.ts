@@ -1,15 +1,18 @@
+import DOMPurify from "isomorphic-dompurify";
+
 export const ALLOWED_IMAGE_TYPES = [
   "image/jpeg",
   "image/png",
   "image/webp",
   "image/avif",
   "image/gif",
+  "image/svg+xml",
 ] as const;
 
 export const MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
 
 export type UploadValidationResult =
-  | { ok: true; verifiedType: (typeof ALLOWED_IMAGE_TYPES)[number] }
+  | { ok: true; verifiedType: (typeof ALLOWED_IMAGE_TYPES)[number]; sanitizedSvg?: string }
   | { ok: false; error: string };
 
 function matchesJpeg(b: Uint8Array) {
@@ -64,12 +67,37 @@ function detectSignature(bytes: Uint8Array): (typeof ALLOWED_IMAGE_TYPES)[number
 // Verifies magic bytes rather than trusting file.type — the MIME type on a
 // multipart upload is attacker-controlled. Without this, "image upload"
 // is "arbitrary file upload".
+/**
+ * An uploaded SVG is untrusted markup — it can carry `<script>`, event-handler
+ * attributes, or an external `<use href>` reference, any of which would run in
+ * the site's own origin once served back to a visitor. Sanitised with
+ * DOMPurify's SVG profile (the same library already used for post content in
+ * lib/sanitize-html.ts) rather than trusting the original bytes.
+ */
+function sanitizeSvg(source: string): string {
+  return DOMPurify.sanitize(source, {
+    USE_PROFILES: { svg: true, svgFilters: true },
+    FORBID_TAGS: ["script", "foreignObject", "use"],
+  });
+}
+
+function looksLikeSvg(text: string): boolean {
+  // Strip a UTF-8 BOM, XML prolog/doctype/comments before the root element.
+  const trimmed = text.replace(/^﻿/, "").trimStart();
+  return /^(<\?xml[^>]*\?>\s*)?(<!--[\s\S]*?-->\s*)*(<!DOCTYPE[^>]*>\s*)?<svg[\s>]/i.test(trimmed);
+}
+
 export async function validateImageUpload(file: File): Promise<UploadValidationResult> {
-  if (file.type === "image/svg+xml") {
-    return {
-      ok: false,
-      error: "SVG is not supported — it is executable markup and would need sanitisation first.",
-    };
+  if (file.type === "image/svg+xml" || /\.svg$/i.test(file.name)) {
+    if (file.size > MAX_UPLOAD_BYTES) {
+      const mb = (file.size / (1024 * 1024)).toFixed(1);
+      return { ok: false, error: `File is ${mb}MB, which exceeds the 8MB limit.` };
+    }
+    const text = await file.text();
+    if (!looksLikeSvg(text)) {
+      return { ok: false, error: "File contents do not match a supported image format." };
+    }
+    return { ok: true, verifiedType: "image/svg+xml", sanitizedSvg: sanitizeSvg(text) };
   }
 
   if (file.size > MAX_UPLOAD_BYTES) {
