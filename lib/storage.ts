@@ -59,7 +59,10 @@ async function putFileLocal(file: File, opts?: { prefix?: string }): Promise<Sto
   await writeFile(absolutePath, buffer);
 
   return {
-    url: `/${key}`,
+    // Served through app/media/[...path]/route.ts, not the raw /public path —
+    // see that file's doc comment for why a direct /uploads/... href is unsafe
+    // for content written after the server started.
+    url: `/media/${key.replace(/^uploads\//, "")}`,
     key,
     fileName: sanitizeFileName(file.name),
     mimeType: file.type,
