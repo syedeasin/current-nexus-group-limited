@@ -111,13 +111,21 @@ function useHeroUnderHeader(pathname?: string): boolean {
 export function useHeaderScroll({ forceOpen = false, pathname }: UseHeaderScrollOptions = {}): HeaderScrollState {
   const heroVisible = useHeroUnderHeader(pathname);
   const [hidden, setHidden] = useState(false);
+  const [lastPathname, setLastPathname] = useState(pathname);
   const lastScrollY = useRef(0);
 
   // A route change keeps the <Navbar> mounted but resets the scroll position,
   // so a header hidden on the previous page would stay hidden on the new one.
+  // The reset runs during render instead of in an effect so the new page never
+  // paints one frame with the old page's hidden header.
+  if (lastPathname !== pathname) {
+    setLastPathname(pathname);
+    setHidden(false);
+  }
+
+  // The scroll baseline is a DOM read, so it stays in an effect.
   useEffect(() => {
     lastScrollY.current = window.scrollY;
-    setHidden(false);
   }, [pathname]);
 
   useEffect(() => {

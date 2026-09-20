@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ["192.168.0.150"],
   images: {
     remotePatterns: [],
+    // Logo assets (footer wordmark, trusted-brand logos) are local SVGs.
+    dangerouslyAllowSVG: true,
+    contentDispositionType: "attachment",
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   experimental: {
     serverActions: {

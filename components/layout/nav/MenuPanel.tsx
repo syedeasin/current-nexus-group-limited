@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -96,12 +96,15 @@ function GroupsPanel({
 }) {
   const t = useTranslations("nav");
   const [activeIndex, setActiveIndex] = useState(0);
+  const [wasOpen, setWasOpen] = useState(isOpen);
 
   // Reopening the menu starts from the first group again, not from wherever the
-  // pointer happened to leave off last time.
-  useEffect(() => {
+  // pointer happened to leave off last time. Adjusted during render rather than
+  // in an effect so the closed panel never commits a stale highlight first.
+  if (wasOpen !== isOpen) {
+    setWasOpen(isOpen);
     if (!isOpen) setActiveIndex(0);
-  }, [isOpen]);
+  }
 
   const active = groups[activeIndex] ?? groups[0];
   const hasProducts = (active.products?.length ?? 0) > 0;

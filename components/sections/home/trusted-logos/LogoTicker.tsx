@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import type { TrustedLogo } from "@/lib/data/trustedLogos";
+
+/** Native height (px) the per-logo `width` values in trustedLogos.ts were measured at. */
+const LOGO_NATIVE_HEIGHT = 32;
 
 interface LogoTickerProps {
   logos: TrustedLogo[];
@@ -46,13 +50,14 @@ export default function LogoTicker({ logos }: LogoTickerProps) {
           return (
             <div key={`${logo.name}-${index}`} className="group flex shrink-0 items-center gap-[var(--ticker-gap)]">
               {index > 0 && <span className="h-[20px] w-px shrink-0 bg-neutral-10" aria-hidden="true" />}
-              <img
+              <Image
                 src={logo.image}
                 alt={isDuplicate ? "" : logo.name}
                 aria-hidden={isDuplicate || undefined}
+                width={logo.width}
+                height={LOGO_NATIVE_HEIGHT}
                 style={{ height: "var(--logo-h)", width: "auto" }}
                 loading="lazy"
-                decoding="async"
                 className="opacity-65 transition-opacity duration-200 ease-out group-hover:opacity-100 group-focus-within:opacity-100 motion-reduce:transition-none"
               />
             </div>

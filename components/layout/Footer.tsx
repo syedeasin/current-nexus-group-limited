@@ -1,5 +1,6 @@
 import { MapPin, Mail, Phone } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import Container from "@/components/layout/Container";
 import { Facebook, Instagram, LinkedIn } from "@/components/icons/SocialIcons";
@@ -20,10 +21,12 @@ export default async function Footer() {
       className="relative w-full overflow-hidden bg-neutral-1 py-60"
       style={{ "--footer-wordmark-offset": "-40px" } as React.CSSProperties}
     >
-      <img
+      <Image
         src="/footer-wordmark.svg"
         alt=""
         aria-hidden="true"
+        width={1600}
+        height={176}
         className="pointer-events-none absolute inset-x-0 z-0 h-auto w-full select-none bottom-[var(--footer-wordmark-offset)]"
       />
       <Container>
