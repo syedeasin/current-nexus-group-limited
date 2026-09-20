@@ -55,7 +55,7 @@ export default function SolutionsProductModels({
                     <div className="relative aspect-[424/340] w-full overflow-hidden">
                       <Image
                         src={product.image}
-                        alt={product.name}
+                        alt={product.imageAlt || product.name}
                         fill
                         sizes="(min-width: 1024px) 424px, (min-width: 640px) 45vw, 90vw"
                         className={cn("object-contain p-32", CARD_IMAGE_ZOOM)}

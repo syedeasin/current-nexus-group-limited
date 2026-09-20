@@ -17,6 +17,7 @@ export default function SolutionsWhyChoose({
   heading,
   description,
   image,
+  imageAlt,
   features,
 }: SolutionWhyChooseSection) {
   return (
@@ -48,8 +49,8 @@ export default function SolutionsWhyChoose({
           >
             <Image
               src={image}
-              alt=""
-              aria-hidden="true"
+              alt={imageAlt ?? ""}
+              aria-hidden={imageAlt ? undefined : "true"}
               fill
               sizes="(min-width: 1600px) 1320px, 100vw"
               className="object-cover"

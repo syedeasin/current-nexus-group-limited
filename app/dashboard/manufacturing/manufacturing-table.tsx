@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Copy, Trash2 } from "lucide-react";
+import { Copy, Trash2, Lock } from "lucide-react";
 import StatusBadge from "@/components/dashboard/status-badge";
 import {
   setManufacturingStatus,
@@ -21,6 +21,7 @@ export type ManufacturingRow = {
   menuLabel: string;
   menuOrder: number;
   showInMegaMenu: boolean;
+  isProtectedTemplate: boolean;
   updatedAt: string;
 };
 
@@ -76,7 +77,14 @@ export default function ManufacturingTable({ pages }: { pages: ManufacturingRow[
           {pages.map((p) => (
             <tr key={p.id} className="text-p3 text-neutral-1">
               <td className="px-24 py-16">
-                <div className="font-medium text-neutral-1">{p.title}</div>
+                <div className="flex items-center gap-8">
+                  <span className="font-medium text-neutral-1">{p.title}</span>
+                  {p.isProtectedTemplate && (
+                    <span title="Master template — always available as the base design" className="inline-flex items-center gap-4 rounded-full bg-surface-1 px-8 py-2 text-p4 font-semibold uppercase tracking-[1px] text-primary">
+                      <Lock size={11} /> Master
+                    </span>
+                  )}
+                </div>
                 <div className="mt-2 text-p4 font-light text-neutral-5">/{p.slug} · {CATEGORY_LABEL[p.category]} · {p.locale}</div>
               </td>
               <td className="px-24 py-16 text-p4 text-neutral-4">
@@ -97,9 +105,15 @@ export default function ManufacturingTable({ pages }: { pages: ManufacturingRow[
                     <button type="button" disabled={isPending} onClick={() => act(() => setManufacturingStatus(p.id, "PUBLISHED"))} className="rounded-8 px-12 py-8 text-p4 font-semibold uppercase tracking-[1px] text-success hover:bg-surface-2 disabled:opacity-50">Publish</button>
                   )}
                   <button type="button" disabled={isPending} aria-label="Duplicate" onClick={() => act(async () => { const r = await duplicateManufacturingPage(p.id); return r; })} className="rounded-8 p-8 text-neutral-4 hover:text-primary disabled:opacity-50"><Copy size={16} /></button>
-                  <button type="button" disabled={isPending} aria-label="Delete" onClick={() => onDelete(p.id)} className={`rounded-8 p-8 hover:bg-error/5 disabled:opacity-50 ${confirmId === p.id ? "bg-error/10 text-error" : "text-error"}`}>
-                    {confirmId === p.id ? <span className="text-p4 font-semibold uppercase">Sure?</span> : <Trash2 size={16} />}
-                  </button>
+                  {p.isProtectedTemplate ? (
+                    <span title="This is a protected master template and cannot be deleted." className="rounded-8 p-8 text-neutral-8">
+                      <Lock size={16} />
+                    </span>
+                  ) : (
+                    <button type="button" disabled={isPending} aria-label="Delete" onClick={() => onDelete(p.id)} className={`rounded-8 p-8 hover:bg-error/5 disabled:opacity-50 ${confirmId === p.id ? "bg-error/10 text-error" : "text-error"}`}>
+                      {confirmId === p.id ? <span className="text-p4 font-semibold uppercase">Sure?</span> : <Trash2 size={16} />}
+                    </button>
+                  )}
                 </div>
               </td>
             </tr>

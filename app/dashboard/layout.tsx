@@ -28,9 +28,14 @@ export default async function DashboardLayout({
       <body className="h-full">
         <div className="flex h-screen overflow-hidden bg-surface-2">
           <Sidebar items={items} />
-          <div className="flex min-w-0 flex-1 flex-col">
+          {/* min-h-0 overrides the flex-item default of min-height:auto — without it
+              <main>'s content can grow this column (and the row containing the
+              sidebar) taller than h-screen, and the browser body becomes the
+              scroll container instead of <main>, dragging the sidebar along with
+              it and leaving a large blank gap below short pages. */}
+          <div className="flex min-h-0 min-w-0 flex-1 flex-col">
             <Topbar name={user.name} email={user.email} role={user.role} />
-            <main className="flex-1 overflow-y-auto p-32">{children}</main>
+            <main className="min-h-0 flex-1 overflow-y-auto p-32">{children}</main>
           </div>
         </div>
       </body>

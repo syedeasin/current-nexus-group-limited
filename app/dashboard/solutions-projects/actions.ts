@@ -30,13 +30,17 @@ function fieldErrorsFrom(error: ZodError): Record<string, string> {
   return fieldErrors;
 }
 
-function parseFormData(formData: FormData) {
-  let content: unknown = {};
+function parseJson(raw: string): unknown {
   try {
-    content = JSON.parse(str(formData, "content") || "{}");
+    return JSON.parse(raw || "{}");
   } catch {
-    content = { __invalid: true };
+    return { __invalid: true };
   }
+}
+
+function parseFormData(formData: FormData) {
+  const content = parseJson(str(formData, "content"));
+  const seo = parseJson(str(formData, "seo"));
   return {
     title: str(formData, "title"),
     slug: str(formData, "slug"),
@@ -49,6 +53,7 @@ function parseFormData(formData: FormData) {
     metaTitle: str(formData, "metaTitle"),
     metaDescription: str(formData, "metaDescription"),
     content,
+    seo,
   };
 }
 
@@ -92,6 +97,7 @@ function rowData(data: SolutionPageFormValues) {
     metaTitle: data.metaTitle ?? null,
     metaDescription: data.metaDescription ?? null,
     content: data.content as object,
+    seo: data.seo as object,
   };
 }
 
@@ -165,9 +171,12 @@ export async function deleteSolutionPage(id: string): Promise<SimpleActionResult
 
   const existing = await prisma.solutionPage.findUnique({
     where: { id },
-    select: { slug: true, menuGroup: true },
+    select: { slug: true, menuGroup: true, isProtectedTemplate: true },
   });
   if (!existing) return { ok: false, error: "This page no longer exists." };
+  if (existing.isProtectedTemplate) {
+    return { ok: false, error: "This is a protected master template and cannot be deleted." };
+  }
 
   try {
     await prisma.solutionPage.delete({ where: { id } });
@@ -201,6 +210,7 @@ export async function duplicateSolutionPage(id: string): Promise<SimpleActionRes
         metaTitle: source.metaTitle,
         metaDescription: source.metaDescription,
         content: source.content as object,
+        seo: (source.seo as object) ?? undefined,
         createdById: user.id,
       },
       select: { id: true },

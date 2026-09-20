@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -39,17 +40,12 @@ export default function Sidebar({ items }: { items: NavItem[] }) {
   }
 
   return (
-    <aside className="hidden w-240 shrink-0 flex-col bg-primary lg:flex">
+    <aside className="hidden w-240 shrink-0 flex-col bg-neutral-1 lg:flex">
       <div className="flex h-64 items-center border-b border-white/10 px-24">
-        <div>
-          <p className="text-p4 font-medium leading-tight text-white">CurrentNexus</p>
-          <p className="text-p4 font-medium uppercase tracking-[2px] text-tertiary">
-            Group Limited
-          </p>
-        </div>
+        <Image src="/logos/cnx-logo-white.svg" alt="CNX Energy" width={129} height={32} className="h-32 w-auto" priority />
       </div>
 
-      <nav aria-label="Dashboard" className="flex-1 py-24">
+      <nav aria-label="Dashboard" className="min-h-0 flex-1 overflow-y-auto py-24">
         <p className="mb-12 px-24 text-p4 font-semibold uppercase tracking-[2px] text-white/25">
           Manage
         </p>

@@ -302,14 +302,27 @@ model SolutionPage {
   status      DownloadStatus @default(DRAFT)
   publishedAt DateTime?
 
+  // The Residential master template this whole page type was extracted from.
+  // Protected so the admin can never delete the page every other Solutions
+  // page's design derives from — deleteSolutionPage rejects it server-side
+  // regardless of what the UI shows. Duplicating it does NOT copy this flag;
+  // the copy is a normal, deletable page.
+  isProtectedTemplate Boolean @default(false)
+
   // Mega-menu placement
   menuGroup      SolutionMenuGroup @default(SOLUTIONS)
   menuLabel      String
   menuOrder      Int               @default(0)
   showInMegaMenu Boolean           @default(true)
 
+  // Kept for backward compatibility / quick access; superseded by `seo` below,
+  // which is what generateMetadata and the dashboard's SEO panel actually use.
   metaTitle       String?
   metaDescription String? @db.VarChar(500)
+
+  // Extended SEO / Open Graph / Twitter metadata JSON — same shape as
+  // ManufacturingPage.seo (lib/solutions-projects/types.ts SolutionSeo).
+  seo Json?
 
   // Full page body (hero + sections + cta). Shape: SolutionPageContent.
   content Json
@@ -350,6 +363,11 @@ model ManufacturingPage {
 
   status      DownloadStatus @default(DRAFT)
   publishedAt DateTime?
+
+  // The BC master template this whole page type was extracted from. Protected
+  // so it can never be deleted (server-enforced in deleteManufacturingPage,
+  // not just hidden in the UI). Duplicating it does NOT copy this flag.
+  isProtectedTemplate Boolean @default(false)
 
   menuLabel      String
   menuOrder      Int     @default(0)

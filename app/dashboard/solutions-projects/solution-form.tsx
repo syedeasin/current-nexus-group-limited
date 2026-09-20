@@ -18,7 +18,9 @@ import Select from "@/components/dashboard/form/select";
 import FieldError from "@/components/dashboard/form/field-error";
 import FieldHint from "@/components/dashboard/form/field-hint";
 import ImageUpload from "@/components/dashboard/image-upload";
+import AltField from "@/components/dashboard/alt-field";
 import FormAccordion, { useFormAccordion, sectionsWithErrors } from "@/components/dashboard/form-accordion";
+import { solutionEntryHref } from "@/config/nav.config";
 import { SOLUTION_ICON_NAMES } from "@/lib/solutions-projects/icons";
 import type {
   SolutionPageContent,
@@ -27,6 +29,7 @@ import type {
   SolutionProduct,
   SolutionApplicationCard,
   SolutionCaseSpec,
+  SolutionSeo,
 } from "@/lib/solutions-projects/types";
 
 export type SolutionPageInitial = {
@@ -39,8 +42,10 @@ export type SolutionPageInitial = {
   menuLabel: string;
   menuOrder: number;
   showInMegaMenu: boolean;
+  isProtectedTemplate: boolean;
   metaTitle: string;
   metaDescription: string;
+  seo: SolutionSeo;
   content: SolutionPageContent;
 };
 
@@ -190,6 +195,7 @@ export default function SolutionForm({
   const [showInMenu, setShowInMenu] = useState(init?.showInMegaMenu ?? true);
   const [metaTitle, setMetaTitle] = useState(init?.metaTitle ?? "");
   const [metaDescription, setMetaDescription] = useState(init?.metaDescription ?? "");
+  const [seo, setSeo] = useState<SolutionSeo>(init?.seo ?? {});
 
   // content
   const c = init?.content ?? EMPTY_CONTENT;
@@ -269,6 +275,7 @@ export default function SolutionForm({
     fd.set("metaTitle", metaTitle);
     fd.set("metaDescription", metaDescription);
     fd.set("content", JSON.stringify(buildContent()));
+    fd.set("seo", JSON.stringify(seo));
 
     startTransition(async () => {
       let result: ActionResult;
@@ -334,6 +341,7 @@ export default function SolutionForm({
   }
 
   const busy = isPending || uploading > 0;
+  const liveHref = useMemo(() => `/en${solutionEntryHref(menuGroup, slug)}`, [menuGroup, slug]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -396,6 +404,7 @@ export default function SolutionForm({
                 onUrlChange={(url) => setHero((h) => ({ ...h, backgroundImage: url }))}
               />
               <FieldError>{err("content.hero.backgroundImage")}</FieldError>
+              <AltField url={hero.backgroundImage} value={hero.backgroundImageAlt ?? ""} onChange={(v) => setHero((h) => ({ ...h, backgroundImageAlt: v }))} />
             </Field>
             <Field label="Eyebrow">
               <TextInput value={hero.eyebrow} onChange={(e) => setHero({ ...hero, eyebrow: e.target.value })} />
@@ -452,6 +461,7 @@ export default function SolutionForm({
                   <ImageUpload name="__why" defaultUrl={why.image || null} label="Section image"
                     onUploadingChange={(u) => setUploading((n) => n + (u ? 1 : -1))}
                     onUrlChange={(url) => setWhy((w) => ({ ...w, image: url }))} />
+                  <AltField url={why.image} value={why.imageAlt ?? ""} onChange={(v) => setWhy((w) => ({ ...w, imageAlt: v }))} />
                 </Field>
                 <FieldLabel>Feature cards</FieldLabel>
                 <div className="mt-8 space-y-12">
@@ -496,6 +506,7 @@ export default function SolutionForm({
                         <ImageUpload name="__prod" defaultUrl={p.image || null} label="Product image"
                           onUploadingChange={(u) => setUploading((n) => n + (u ? 1 : -1))}
                           onUrlChange={(url) => setPm((s) => ({ ...s, products: s.products.map((x, j) => (j === i ? { ...x, image: url } : x)) }))} />
+                        <AltField url={p.image} value={p.imageAlt ?? ""} onChange={(v) => setPm((s) => ({ ...s, products: s.products.map((x, j) => (j === i ? { ...x, imageAlt: v } : x)) }))} />
                       </div>
                       <TextInput className="mb-12" placeholder="Name" value={p.name} onChange={(e) => setPm((s) => ({ ...s, products: s.products.map((x, j) => (j === i ? { ...x, name: e.target.value } : x)) }))} />
                       <TextInput className="mb-12" placeholder="Datasheet link (/service/downloads)" value={p.datasheetHref} onChange={(e) => setPm((s) => ({ ...s, products: s.products.map((x, j) => (j === i ? { ...x, datasheetHref: e.target.value } : x)) }))} />
@@ -531,6 +542,7 @@ export default function SolutionForm({
                         <ImageUpload name="__app" defaultUrl={card.image || null} label="Card image"
                           onUploadingChange={(u) => setUploading((n) => n + (u ? 1 : -1))}
                           onUrlChange={(url) => setApps((s) => ({ ...s, cards: s.cards.map((x, j) => (j === i ? { ...x, image: url } : x)) }))} />
+                        <AltField url={card.image} value={card.imageAlt ?? ""} onChange={(v) => setApps((s) => ({ ...s, cards: s.cards.map((x, j) => (j === i ? { ...x, imageAlt: v } : x)) }))} />
                       </div>
                       <TextInput className="mb-12" placeholder="Title" value={card.title} onChange={(e) => setApps((s) => ({ ...s, cards: s.cards.map((x, j) => (j === i ? { ...x, title: e.target.value } : x)) }))} />
                       <Textarea rows={2} placeholder="Description" value={card.description} onChange={(e) => setApps((s) => ({ ...s, cards: s.cards.map((x, j) => (j === i ? { ...x, description: e.target.value } : x)) }))} />
@@ -555,6 +567,7 @@ export default function SolutionForm({
                   <ImageUpload name="__cs" defaultUrl={cs.backgroundImage || null} label="Case study background"
                     onUploadingChange={(u) => setUploading((n) => n + (u ? 1 : -1))}
                     onUrlChange={(url) => setCs((s) => ({ ...s, backgroundImage: url }))} />
+                  <AltField url={cs.backgroundImage} value={cs.backgroundImageAlt ?? ""} onChange={(v) => setCs((s) => ({ ...s, backgroundImageAlt: v }))} />
                 </Field>
                 <Field label="Title"><TextInput value={cs.title} onChange={(e) => setCs({ ...cs, title: e.target.value })} /></Field>
                 <Field label="Body"><Textarea rows={4} value={cs.body} onChange={(e) => setCs({ ...cs, body: e.target.value })} /></Field>
@@ -597,12 +610,19 @@ export default function SolutionForm({
                 Save as draft
               </button>
               {page && status === "PUBLISHED" && (
-                <a href={`/en${menuGroup === "RENEWABLE_PROJECTS" ? "/solutions-projects/renewable-projects" : "/solutions-projects/solutions"}/${slug}`} target="_blank" rel="noreferrer" className="text-center text-p4 font-semibold uppercase tracking-[1px] text-primary underline">
+                <a href={liveHref} target="_blank" rel="noreferrer" className="text-center text-p4 font-semibold uppercase tracking-[1px] text-primary underline">
                   View live page
                 </a>
               )}
             </div>
-            {mode === "edit" && (
+            {mode === "edit" && page?.isProtectedTemplate && (
+              <div className="mt-24 border-t border-neutral-10 pt-24">
+                <p title="This is a protected master template and cannot be deleted." className="w-full cursor-not-allowed rounded-full border border-neutral-10 bg-surface-2 px-24 py-16 text-center text-btn-sm font-semibold uppercase tracking-[0.5px] text-neutral-6">
+                  Protected — cannot delete
+                </p>
+              </div>
+            )}
+            {mode === "edit" && page && !page.isProtectedTemplate && (
               <div className="mt-24 border-t border-neutral-10 pt-24">
                 {!confirmDelete ? (
                   <button type="button" onClick={onDelete} className="w-full rounded-full border border-error px-24 py-16 text-btn-sm font-semibold uppercase tracking-[0.5px] text-error hover:bg-error/5">Delete page</button>
@@ -642,22 +662,42 @@ export default function SolutionForm({
           </div>
 
           <div className="rounded-16 border border-neutral-10 bg-white p-24">
-            <h2 className="mb-16 text-p2 font-medium text-neutral-1">Organisation & SEO</h2>
-            <div className="mb-16">
-              <FieldLabel>Locale</FieldLabel>
-              <Select value={locale} onChange={(e) => setLocale(e.target.value as "EN" | "FR")}>
-                <option value="EN">English</option>
-                <option value="FR">French</option>
-              </Select>
+            <h2 className="mb-16 text-p2 font-medium text-neutral-1">Organisation</h2>
+            <FieldLabel>Locale</FieldLabel>
+            <Select value={locale} onChange={(e) => setLocale(e.target.value as "EN" | "FR")}>
+              <option value="EN">English</option>
+              <option value="FR">French</option>
+            </Select>
+          </div>
+
+          <div className="rounded-16 border border-neutral-10 bg-white p-24">
+            <h2 className="mb-16 text-p2 font-medium text-neutral-1">SEO & social</h2>
+            {/* Search preview */}
+            <div className="mb-16 rounded-8 border border-neutral-10 bg-surface-2 p-12">
+              <p className="truncate text-p3 text-primary">{seo.metaTitle || metaTitle || title || "Page title"}</p>
+              <p className="truncate text-p4 text-success">{liveHref}</p>
+              <p className="line-clamp-2 text-p4 text-neutral-5">{seo.metaDescription || metaDescription || "Meta description preview…"}</p>
             </div>
-            <div className="mb-16">
-              <FieldLabel>Meta title</FieldLabel>
-              <TextInput value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)} />
+            <div className="mb-12"><FieldLabel>SEO title</FieldLabel><TextInput value={seo.metaTitle ?? ""} onChange={(e) => setSeo({ ...seo, metaTitle: e.target.value })} placeholder={metaTitle || title} /><FieldHint>{(seo.metaTitle ?? "").length} chars (aim 50–60). Falls back to the meta title below, then the page title.</FieldHint></div>
+            <div className="mb-12"><FieldLabel>Meta description</FieldLabel><Textarea rows={2} value={seo.metaDescription ?? ""} onChange={(e) => setSeo({ ...seo, metaDescription: e.target.value })} placeholder={metaDescription} /><FieldHint>{(seo.metaDescription ?? "").length} chars (aim 140–160)</FieldHint></div>
+            <div className="mb-12"><FieldLabel>Keywords</FieldLabel><TextInput value={seo.keywords ?? ""} onChange={(e) => setSeo({ ...seo, keywords: e.target.value })} placeholder="solar, residential, renewable energy" /></div>
+            <div className="mb-12"><FieldLabel>Canonical URL</FieldLabel><TextInput value={seo.canonicalUrl ?? ""} onChange={(e) => setSeo({ ...seo, canonicalUrl: e.target.value })} /><FieldHint>Leave blank to auto-generate from the site domain and page URL.</FieldHint></div>
+            <div className="mb-12 flex gap-16">
+              <label className="flex items-center gap-8 text-p4 text-neutral-1"><input type="checkbox" checked={Boolean(seo.noIndex)} onChange={(e) => setSeo({ ...seo, noIndex: e.target.checked })} className="h-16 w-16 rounded-4 border-neutral-10 text-primary" /> No index</label>
+              <label className="flex items-center gap-8 text-p4 text-neutral-1"><input type="checkbox" checked={Boolean(seo.noFollow)} onChange={(e) => setSeo({ ...seo, noFollow: e.target.checked })} className="h-16 w-16 rounded-4 border-neutral-10 text-primary" /> No follow</label>
             </div>
-            <div>
-              <FieldLabel>Meta description</FieldLabel>
-              <Textarea rows={3} value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} />
+            <div className="mb-12"><FieldLabel>OG title</FieldLabel><TextInput value={seo.ogTitle ?? ""} onChange={(e) => setSeo({ ...seo, ogTitle: e.target.value })} /></div>
+            <div className="mb-12"><FieldLabel>OG description</FieldLabel><Textarea rows={2} value={seo.ogDescription ?? ""} onChange={(e) => setSeo({ ...seo, ogDescription: e.target.value })} /></div>
+            <div className="mb-12"><FieldLabel>OG image</FieldLabel>
+              <ImageUpload name="__ogimg" defaultUrl={seo.ogImage || null} label="OG image" onUploadingChange={(u) => setUploading((n) => n + (u ? 1 : -1))} onUrlChange={(u) => setSeo({ ...seo, ogImage: u })} />
             </div>
+            <div className="mb-12"><FieldLabel>OG image alt</FieldLabel><TextInput value={seo.ogImageAlt ?? ""} onChange={(e) => setSeo({ ...seo, ogImageAlt: e.target.value })} /></div>
+            <div className="mb-12"><FieldLabel>Twitter title</FieldLabel><TextInput value={seo.twitterTitle ?? ""} onChange={(e) => setSeo({ ...seo, twitterTitle: e.target.value })} /></div>
+            <div className="mb-12"><FieldLabel>Twitter description</FieldLabel><Textarea rows={2} value={seo.twitterDescription ?? ""} onChange={(e) => setSeo({ ...seo, twitterDescription: e.target.value })} /></div>
+            <div className="mb-12"><FieldLabel>Twitter image</FieldLabel>
+              <ImageUpload name="__twimg" defaultUrl={seo.twitterImage || null} label="Twitter image" onUploadingChange={(u) => setUploading((n) => n + (u ? 1 : -1))} onUrlChange={(u) => setSeo({ ...seo, twitterImage: u })} />
+            </div>
+            <div><FieldLabel>Twitter image alt</FieldLabel><TextInput value={seo.twitterImageAlt ?? ""} onChange={(e) => setSeo({ ...seo, twitterImageAlt: e.target.value })} /></div>
           </div>
         </div>
       </div>

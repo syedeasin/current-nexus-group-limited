@@ -25,7 +25,7 @@ export default function SolutionsProjectTemplate({ content }: { content: Solutio
         eyebrowLabel={hero.eyebrow}
         heading={hero.heading}
         description={hero.description}
-        image={{ src: hero.backgroundImage }}
+        image={{ src: hero.backgroundImage, alt: hero.backgroundImageAlt }}
         textMaxWidthClassName={centered ? "max-w-606" : "max-w-855"}
         containerClassName={
           centered
@@ -44,6 +44,7 @@ export default function SolutionsProjectTemplate({ content }: { content: Solutio
           eyebrowLabel={caseStudy.eyebrow}
           heading={caseStudy.heading}
           backgroundImage={caseStudy.backgroundImage}
+          backgroundImageAlt={caseStudy.backgroundImageAlt}
           title={caseStudy.title}
           body={caseStudy.body}
           headingClassName="tracking-[-1.2px]!"

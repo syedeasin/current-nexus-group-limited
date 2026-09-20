@@ -20,6 +20,7 @@ export default async function ManufacturingDashboardPage() {
       menuLabel: true,
       menuOrder: true,
       showInMegaMenu: true,
+      isProtectedTemplate: true,
       updatedAt: true,
     },
   });

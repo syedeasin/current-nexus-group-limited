@@ -2,7 +2,7 @@ import "server-only";
 
 import { DownloadStatus, Locale, SolutionMenuGroup } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import type { SolutionPageContent, SolutionMenuEntry } from "@/lib/solutions-projects/types";
+import type { SolutionPageContent, SolutionMenuEntry, SolutionSeo } from "@/lib/solutions-projects/types";
 
 /** Route param ("en"/"fr") → Prisma Locale. */
 export function toPrismaLocale(locale: string): Locale {
@@ -15,6 +15,7 @@ export interface PublishedSolutionPage {
   metaTitle: string | null;
   metaDescription: string | null;
   content: SolutionPageContent;
+  seo: SolutionSeo | null;
 }
 
 /**
@@ -33,10 +34,14 @@ export async function getPublishedSolutionPage(
       status: DownloadStatus.PUBLISHED,
       ...(group ? { menuGroup: group } : {}),
     },
-    select: { title: true, slug: true, metaTitle: true, metaDescription: true, content: true },
+    select: { title: true, slug: true, metaTitle: true, metaDescription: true, seo: true, content: true },
   });
   if (!row) return null;
-  return { ...row, content: row.content as unknown as SolutionPageContent };
+  return {
+    ...row,
+    content: row.content as unknown as SolutionPageContent,
+    seo: (row.seo as unknown as SolutionSeo) ?? null,
+  };
 }
 
 /**

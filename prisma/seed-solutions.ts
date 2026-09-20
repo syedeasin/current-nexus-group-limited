@@ -148,6 +148,7 @@ async function main() {
       menuLabel: "Residential",
       menuOrder: 1,
       showInMegaMenu: true,
+      isProtectedTemplate: true,
       metaTitle: "Residential Solar Solutions | CNX Energy",
       metaDescription:
         "CurrentNexus Group Limited delivers residential energy storage systems that maximize solar self-consumption, provide reliable backup power, and reduce household energy costs.",
@@ -163,6 +164,7 @@ async function main() {
       menuLabel: "Residential",
       menuOrder: 1,
       showInMegaMenu: true,
+      isProtectedTemplate: true,
       metaTitle: "Residential Solar Solutions | CNX Energy",
       metaDescription:
         "CurrentNexus Group Limited delivers residential energy storage systems that maximize solar self-consumption, provide reliable backup power, and reduce household energy costs.",

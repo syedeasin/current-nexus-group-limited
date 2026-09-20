@@ -20,6 +20,7 @@ export default async function SolutionsProjectsPage() {
       menuLabel: true,
       menuOrder: true,
       showInMegaMenu: true,
+      isProtectedTemplate: true,
       updatedAt: true,
     },
   });

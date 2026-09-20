@@ -190,9 +190,12 @@ export async function deleteManufacturingPage(id: string): Promise<SimpleActionR
   await requirePermission("manufacturingPage.manage");
   const existing = await prisma.manufacturingPage.findUnique({
     where: { id },
-    select: { slug: true, category: true },
+    select: { slug: true, category: true, isProtectedTemplate: true },
   });
   if (!existing) return { ok: false, error: "This page no longer exists." };
+  if (existing.isProtectedTemplate) {
+    return { ok: false, error: "This is a protected master template and cannot be deleted." };
+  }
 
   try {
     await prisma.manufacturingPage.delete({ where: { id } });

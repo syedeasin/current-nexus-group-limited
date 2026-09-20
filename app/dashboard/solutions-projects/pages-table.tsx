@@ -3,8 +3,9 @@
 import { useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Copy, Trash2 } from "lucide-react";
+import { Copy, Trash2, Lock } from "lucide-react";
 import StatusBadge from "@/components/dashboard/status-badge";
+import { solutionEntryHref } from "@/config/nav.config";
 import { deleteSolutionPage, duplicateSolutionPage } from "./actions";
 
 export type PageRow = {
@@ -17,6 +18,7 @@ export type PageRow = {
   menuLabel: string;
   menuOrder: number;
   showInMegaMenu: boolean;
+  isProtectedTemplate: boolean;
   updatedAt: string;
 };
 
@@ -24,6 +26,10 @@ const GROUP_LABEL: Record<PageRow["menuGroup"], string> = {
   SOLUTIONS: "Solutions",
   RENEWABLE_PROJECTS: "Renewable Projects",
 };
+
+function liveHref(row: PageRow) {
+  return `/en${solutionEntryHref(row.menuGroup, row.slug)}`;
+}
 
 export default function PagesTable({ pages }: { pages: PageRow[] }) {
   const router = useRouter();
@@ -82,9 +88,16 @@ export default function PagesTable({ pages }: { pages: PageRow[] }) {
           {pages.map((p) => (
             <tr key={p.id} className="text-p3 text-neutral-1">
               <td className="px-24 py-16">
-                <Link href={`/dashboard/solutions-projects/${p.id}/edit`} className="font-medium text-primary hover:underline">
-                  {p.title}
-                </Link>
+                <div className="flex items-center gap-8">
+                  <Link href={`/dashboard/solutions-projects/${p.id}/edit`} className="font-medium text-primary hover:underline">
+                    {p.title}
+                  </Link>
+                  {p.isProtectedTemplate && (
+                    <span title="Master template — always available as the base design" className="inline-flex items-center gap-4 rounded-full bg-surface-1 px-8 py-2 text-p4 font-semibold uppercase tracking-[1px] text-primary">
+                      <Lock size={11} /> Master
+                    </span>
+                  )}
+                </div>
                 <div className="mt-2 text-p4 font-light text-neutral-5">/{p.slug} · {p.locale}</div>
               </td>
               <td className="px-24 py-16 text-p4 text-neutral-4">
@@ -101,10 +114,19 @@ export default function PagesTable({ pages }: { pages: PageRow[] }) {
               <td className="px-24 py-16">
                 <div className="flex items-center justify-end gap-4">
                   <Link href={`/dashboard/solutions-projects/${p.id}/edit`} className="rounded-8 px-12 py-8 text-p4 font-semibold uppercase tracking-[1px] text-primary hover:bg-surface-2">Edit</Link>
+                  {p.status === "PUBLISHED" && (
+                    <a href={liveHref(p)} target="_blank" rel="noreferrer" className="rounded-8 px-12 py-8 text-p4 font-semibold uppercase tracking-[1px] text-primary hover:bg-surface-2">View</a>
+                  )}
                   <button type="button" disabled={isPending} aria-label="Duplicate" onClick={() => onDuplicate(p.id)} className="rounded-8 p-8 text-neutral-4 hover:text-primary disabled:opacity-50"><Copy size={16} /></button>
-                  <button type="button" disabled={isPending} aria-label="Delete" onClick={() => onDelete(p.id)} className={`rounded-8 p-8 hover:bg-error/5 disabled:opacity-50 ${confirmId === p.id ? "bg-error/10 text-error" : "text-error"}`}>
-                    {confirmId === p.id ? <span className="text-p4 font-semibold uppercase">Sure?</span> : <Trash2 size={16} />}
-                  </button>
+                  {p.isProtectedTemplate ? (
+                    <span title="This is a protected master template and cannot be deleted." className="rounded-8 p-8 text-neutral-8">
+                      <Lock size={16} />
+                    </span>
+                  ) : (
+                    <button type="button" disabled={isPending} aria-label="Delete" onClick={() => onDelete(p.id)} className={`rounded-8 p-8 hover:bg-error/5 disabled:opacity-50 ${confirmId === p.id ? "bg-error/10 text-error" : "text-error"}`}>
+                      {confirmId === p.id ? <span className="text-p4 font-semibold uppercase">Sure?</span> : <Trash2 size={16} />}
+                    </button>
+                  )}
                 </div>
               </td>
             </tr>

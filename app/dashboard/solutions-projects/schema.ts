@@ -25,6 +25,7 @@ function toOrder(val: unknown) {
 
 const orderField = z.preprocess(toOrder, z.number().int().min(0).max(9999).default(0));
 const nonEmpty = (label: string, max = 300) => z.string().trim().min(1, `${label} is required`).max(max);
+const opt = (max = 4000) => z.preprocess(emptyToUndefined, z.string().max(max).optional());
 
 // --- content sections -------------------------------------------------------
 
@@ -38,6 +39,7 @@ const heroSchema = z.object({
   heading: nonEmpty("Hero title", 200),
   description: z.preprocess(emptyToUndefined, z.string().max(600).optional()),
   backgroundImage: nonEmpty("Hero background image", 500),
+  backgroundImageAlt: opt(300),
   layout: z.enum(["centered", "bottom"]).default("centered"),
 });
 
@@ -52,6 +54,7 @@ const whyChooseSchema = z.object({
   heading: nonEmpty("Heading", 200),
   description: nonEmpty("Description", 600),
   image: nonEmpty("Image", 500),
+  imageAlt: opt(300),
   features: z
     .array(
       z.object({
@@ -72,6 +75,7 @@ const productModelsSchema = z.object({
       z.object({
         name: nonEmpty("Product name", 200),
         image: nonEmpty("Product image", 500),
+        imageAlt: opt(300),
         datasheetHref: z.string().trim().max(300).default("/service/downloads"),
         buttonVariant: z.enum(["primary", "outline"]).default("primary"),
       })
@@ -90,6 +94,7 @@ const applicationsSchema = z.object({
         title: nonEmpty("Card title", 160),
         description: nonEmpty("Card description", 400),
         image: nonEmpty("Card image", 500),
+        imageAlt: opt(300),
       })
     )
     .max(12),
@@ -99,6 +104,7 @@ const caseStudySchema = z.object({
   eyebrow: nonEmpty("Eyebrow", 120),
   heading: nonEmpty("Heading", 200),
   backgroundImage: nonEmpty("Background image", 500),
+  backgroundImageAlt: opt(300),
   title: nonEmpty("Title", 200),
   body: nonEmpty("Body", 1200),
   specs: z
@@ -129,6 +135,13 @@ export const solutionContentSchema = z.object({
   cta: ctaSchema.optional(),
 });
 
+const seoSchema = z.object({
+  metaTitle: opt(300), metaDescription: opt(600), keywords: opt(400), canonicalUrl: opt(500),
+  noIndex: z.boolean().optional(), noFollow: z.boolean().optional(),
+  ogTitle: opt(300), ogDescription: opt(600), ogImage: opt(500), ogImageAlt: opt(300),
+  twitterTitle: opt(300), twitterDescription: opt(600), twitterImage: opt(500), twitterImageAlt: opt(300),
+});
+
 // --- page row ---------------------------------------------------------------
 
 export const solutionPageSchema = z.object({
@@ -149,6 +162,7 @@ export const solutionPageSchema = z.object({
   metaDescription: z.preprocess(emptyToUndefined, z.string().max(500).optional()),
 
   content: solutionContentSchema,
+  seo: seoSchema.default({}),
 });
 
 export type SolutionPageFormValues = z.infer<typeof solutionPageSchema>;

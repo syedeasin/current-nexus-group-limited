@@ -12,6 +12,7 @@ import Select from "@/components/dashboard/form/select";
 import FieldError from "@/components/dashboard/form/field-error";
 import FieldHint from "@/components/dashboard/form/field-hint";
 import ImageUpload from "@/components/dashboard/image-upload";
+import AltField from "@/components/dashboard/alt-field";
 import FormAccordion, { useFormAccordion, sectionsWithErrors } from "@/components/dashboard/form-accordion";
 import type { ManufacturingContent, ManufacturingSeo } from "@/lib/manufacturing/types";
 
@@ -25,6 +26,7 @@ export type ManufacturingInitial = {
   menuLabel: string;
   menuOrder: number;
   showInMegaMenu: boolean;
+  isProtectedTemplate: boolean;
   content: ManufacturingContent;
   seo: ManufacturingSeo;
 };
@@ -154,21 +156,6 @@ function StringList({ items, set, add, textarea }: { items: string[]; set: (next
 function ImageField({ label, url, onChange, onUploading }: { label: string; url: string; onChange: (u: string) => void; onUploading: (d: number) => void }) {
   return (
     <ImageUpload name="__img" label={label} defaultUrl={url || null} onUploadingChange={(u) => onUploading(u ? 1 : -1)} onUrlChange={onChange} />
-  );
-}
-
-/**
- * Alt text for an image field above it. Left empty, the image renders as
- * decorative (skipped by screen readers) — that's a valid choice, not an
- * error, for photos that don't add information beyond the surrounding copy.
- */
-function AltField({ url, value, onChange }: { url: string; value: string; onChange: (v: string) => void }) {
-  if (!url) return null;
-  return (
-    <div className="mt-8">
-      <TextInput value={value} onChange={(e) => onChange(e.target.value)} placeholder="Alt text (leave empty if purely decorative)" />
-      <FieldHint>Describe what the image communicates for users who cannot see it.</FieldHint>
-    </div>
   );
 }
 
@@ -575,7 +562,14 @@ export default function ManufacturingForm({ mode, page }: { mode: "create" | "ed
               <button type="button" disabled={busy} onClick={() => submit("DRAFT")} className="rounded-full border border-neutral-10 px-24 py-16 text-btn-sm font-semibold uppercase tracking-[0.5px] text-neutral-4 hover:border-primary hover:text-primary disabled:opacity-60">Save as draft</button>
               {page && status === "PUBLISHED" && <a href={liveHref} target="_blank" rel="noreferrer" className="text-center text-p4 font-semibold uppercase tracking-[1px] text-primary underline">View live page</a>}
             </div>
-            {mode === "edit" && (
+            {mode === "edit" && page?.isProtectedTemplate && (
+              <div className="mt-24 border-t border-neutral-10 pt-24">
+                <p title="This is a protected master template and cannot be deleted." className="w-full cursor-not-allowed rounded-full border border-neutral-10 bg-surface-2 px-24 py-16 text-center text-btn-sm font-semibold uppercase tracking-[0.5px] text-neutral-6">
+                  Protected — cannot delete
+                </p>
+              </div>
+            )}
+            {mode === "edit" && page && !page.isProtectedTemplate && (
               <div className="mt-24 border-t border-neutral-10 pt-24">
                 {!confirmDelete ? (
                   <button type="button" onClick={onDelete} className="w-full rounded-full border border-error px-24 py-16 text-btn-sm font-semibold uppercase tracking-[0.5px] text-error hover:bg-error/5">Delete page</button>

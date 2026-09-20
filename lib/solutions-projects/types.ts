@@ -24,6 +24,8 @@ export interface SolutionHero {
   heading: string;
   description?: string;
   backgroundImage: string;
+  /** Decorative by default (empty). Set to describe the photo for screen readers. */
+  backgroundImageAlt?: string;
   layout?: "centered" | "bottom";
 }
 
@@ -49,12 +51,16 @@ export interface SolutionWhyChooseSection {
   heading: string;
   description: string;
   image: string;
+  /** Decorative by default (empty). Set to describe the photo for screen readers. */
+  imageAlt?: string;
   features: SolutionFeature[];
 }
 
 export interface SolutionProduct {
   name: string;
   image: string;
+  /** Decorative by default (empty). Set to describe the product shot for screen readers. */
+  imageAlt?: string;
   /** Datasheet target (e.g. /service/downloads). */
   datasheetHref: string;
   /** `primary` = filled gold; `outline` = neutral hairline. */
@@ -72,6 +78,8 @@ export interface SolutionApplicationCard {
   title: string;
   description: string;
   image: string;
+  /** Decorative by default (empty). Set to describe the photo for screen readers. */
+  imageAlt?: string;
 }
 
 export interface SolutionApplicationsSection {
@@ -92,6 +100,8 @@ export interface SolutionCaseStudySection {
   eyebrow: string;
   heading: string;
   backgroundImage: string;
+  /** Decorative by default (empty) — the photo sits behind a text scrim. */
+  backgroundImageAlt?: string;
   title: string;
   body: string;
   specs: SolutionCaseSpec[];
@@ -120,6 +130,27 @@ export interface SolutionPageContent {
   caseStudy?: SolutionCaseStudySection;
   /** Omit to render the site-wide default CTA band. */
   cta?: SolutionCtaSection;
+}
+
+/** Extended SEO / social metadata, stored on `SolutionPage.seo`. Same shape as
+ *  ManufacturingSeo (lib/manufacturing/types.ts) — kept as a separate type
+ *  rather than a shared import so each page family's SEO model can evolve
+ *  independently without one accidentally breaking the other. */
+export interface SolutionSeo {
+  metaTitle?: string;
+  metaDescription?: string;
+  keywords?: string;
+  canonicalUrl?: string;
+  noIndex?: boolean;
+  noFollow?: boolean;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  ogImageAlt?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
+  twitterImage?: string;
+  twitterImageAlt?: string;
 }
 
 /** A published page as the mega menu needs it — no body, just placement. */
