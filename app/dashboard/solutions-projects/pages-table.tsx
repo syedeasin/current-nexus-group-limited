@@ -33,11 +33,16 @@ export default function PagesTable({ pages }: { pages: PageRow[] }) {
 
   function onDuplicate(id: string) {
     startTransition(async () => {
-      const result = await duplicateSolutionPage(id);
-      if (result.ok) {
-        router.push(`/dashboard/solutions-projects/${result.id}/edit`);
-        router.refresh();
-      } else setError(result.error);
+      try {
+        const result = await duplicateSolutionPage(id);
+        if (result.ok) {
+          router.push(`/dashboard/solutions-projects/${result.id}/edit`);
+          router.refresh();
+        } else setError(result.error);
+      } catch (err) {
+        console.error("[pages-table] duplicate failed", err);
+        setError("Something went wrong. Please try again.");
+      }
     });
   }
 
@@ -47,10 +52,16 @@ export default function PagesTable({ pages }: { pages: PageRow[] }) {
       return;
     }
     startTransition(async () => {
-      const result = await deleteSolutionPage(id);
-      setConfirmId(null);
-      if (result.ok) router.refresh();
-      else setError(result.error);
+      try {
+        const result = await deleteSolutionPage(id);
+        setConfirmId(null);
+        if (result.ok) router.refresh();
+        else setError(result.error);
+      } catch (err) {
+        console.error("[pages-table] delete failed", err);
+        setConfirmId(null);
+        setError("Something went wrong. Please try again.");
+      }
     });
   }
 

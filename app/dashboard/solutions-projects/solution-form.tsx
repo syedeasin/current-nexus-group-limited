@@ -9,6 +9,7 @@ import {
   updateSolutionPage,
   deleteSolutionPage,
   type ActionResult,
+  type SimpleActionResult,
 } from "./actions";
 import FieldLabel from "@/components/dashboard/form/field-label";
 import TextInput from "@/components/dashboard/form/text-input";
@@ -270,8 +271,15 @@ export default function SolutionForm({
     fd.set("content", JSON.stringify(buildContent()));
 
     startTransition(async () => {
-      const result: ActionResult =
-        mode === "create" ? await createSolutionPage(fd) : await updateSolutionPage(page!.id, fd);
+      let result: ActionResult;
+      try {
+        result = mode === "create" ? await createSolutionPage(fd) : await updateSolutionPage(page!.id, fd);
+      } catch (error) {
+        console.error("[solution-form] save failed", error);
+        setFormError("Something went wrong while saving. Please try again.");
+        summaryRef.current?.focus();
+        return;
+      }
       if (!result.ok) {
         setFormError(result.error);
         const errors = result.fieldErrors ?? {};
@@ -300,7 +308,15 @@ export default function SolutionForm({
       return;
     }
     startTransition(async () => {
-      const result = await deleteSolutionPage(page!.id);
+      let result: SimpleActionResult;
+      try {
+        result = await deleteSolutionPage(page!.id);
+      } catch (error) {
+        console.error("[solution-form] delete failed", error);
+        setFormError("Something went wrong while deleting. Please try again.");
+        setConfirmDelete(false);
+        return;
+      }
       if (result.ok) {
         router.push("/dashboard/solutions-projects");
         router.refresh();

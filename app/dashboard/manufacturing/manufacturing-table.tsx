@@ -42,9 +42,14 @@ export default function ManufacturingTable({ pages }: { pages: ManufacturingRow[
 
   function act(fn: () => Promise<{ ok: boolean; error?: string }>) {
     startTransition(async () => {
-      const result = await fn();
-      if (result.ok) router.refresh();
-      else setError(result.error ?? "Something went wrong.");
+      try {
+        const result = await fn();
+        if (result.ok) router.refresh();
+        else setError(result.error ?? "Something went wrong.");
+      } catch (err) {
+        console.error("[manufacturing-table] action failed", err);
+        setError("Something went wrong. Please try again.");
+      }
     });
   }
 

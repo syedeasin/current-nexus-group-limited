@@ -4,7 +4,7 @@ import { useMemo, useRef, useState, useTransition, type ReactNode } from "react"
 import { useRouter } from "next/navigation";
 import slugify from "slugify";
 import { ChevronUp, ChevronDown, Trash2, Plus } from "lucide-react";
-import { createManufacturingPage, updateManufacturingPage, deleteManufacturingPage, type ActionResult } from "./actions";
+import { createManufacturingPage, updateManufacturingPage, deleteManufacturingPage, type ActionResult, type SimpleActionResult } from "./actions";
 import FieldLabel from "@/components/dashboard/form/field-label";
 import TextInput from "@/components/dashboard/form/text-input";
 import Textarea from "@/components/dashboard/form/textarea";
@@ -264,7 +264,15 @@ export default function ManufacturingForm({ mode, page }: { mode: "create" | "ed
     fd.set("seo", JSON.stringify(seo));
 
     startTransition(async () => {
-      const result: ActionResult = mode === "create" ? await createManufacturingPage(fd) : await updateManufacturingPage(page!.id, fd);
+      let result: ActionResult;
+      try {
+        result = mode === "create" ? await createManufacturingPage(fd) : await updateManufacturingPage(page!.id, fd);
+      } catch (error) {
+        console.error("[manufacturing-form] save failed", error);
+        setFormError("Something went wrong while saving. Please try again.");
+        summaryRef.current?.focus();
+        return;
+      }
       if (!result.ok) {
         setFormError(result.error);
         const errors = result.fieldErrors ?? {};
@@ -290,7 +298,15 @@ export default function ManufacturingForm({ mode, page }: { mode: "create" | "ed
   function onDelete() {
     if (!confirmDelete) return setConfirmDelete(true);
     startTransition(async () => {
-      const result = await deleteManufacturingPage(page!.id);
+      let result: SimpleActionResult;
+      try {
+        result = await deleteManufacturingPage(page!.id);
+      } catch (error) {
+        console.error("[manufacturing-form] delete failed", error);
+        setFormError("Something went wrong while deleting. Please try again.");
+        setConfirmDelete(false);
+        return;
+      }
       if (result.ok) {
         router.push("/dashboard/manufacturing");
         router.refresh();
