@@ -43,7 +43,13 @@ export async function uploadMedia(formData: FormData): Promise<UploadMediaResult
   const width = parseDimension(formData.get("width"));
   const height = parseDimension(formData.get("height"));
 
-  const stored = await putFile(file);
+  let stored;
+  try {
+    stored = await putFile(file);
+  } catch (error) {
+    console.error("[media] storage write failed", error);
+    return { ok: false, error: "Could not store the file. Please try again." };
+  }
 
   try {
     const media = await prisma.media.create({

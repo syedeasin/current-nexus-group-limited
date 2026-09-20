@@ -107,7 +107,17 @@ export default function ImageUpload({
       formData.set("height", String(dims.height));
     }
 
-    const result = await uploadMedia(formData);
+    let result;
+    try {
+      result = await uploadMedia(formData);
+    } catch (error) {
+      console.error("[image-upload] upload failed", error);
+      URL.revokeObjectURL(objectUrl);
+      setLocalPreview(null);
+      setUploading(false);
+      setError("Something went wrong while uploading. Please try again.");
+      return;
+    }
 
     URL.revokeObjectURL(objectUrl);
     setLocalPreview(null);
