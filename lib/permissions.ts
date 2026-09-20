@@ -11,6 +11,8 @@ export const PERMISSIONS = [
   "media.upload",
   "media.deleteAny",
   "download.manage",
+  "solutionsPage.manage",
+  "manufacturingPage.manage",
   "user.manage",
   "settings.manage",
 ] as const;
@@ -30,6 +32,8 @@ const ROLE_PERMISSIONS: Record<Role, Permission[]> = {
     "media.upload",
     "media.deleteAny",
     "download.manage",
+    "solutionsPage.manage",
+    "manufacturingPage.manage",
   ],
   AUTHOR: ["post.create", "media.upload"],
   VIEWER: [],

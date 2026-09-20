@@ -9,6 +9,8 @@ import {
   Tag,
   Image as ImageIcon,
   Download,
+  LayoutTemplate,
+  Factory,
   Users,
   Settings,
   type LucideIcon,
@@ -22,6 +24,8 @@ const ICONS: Record<string, LucideIcon> = {
   Tag,
   Image: ImageIcon,
   Download,
+  LayoutTemplate,
+  Factory,
   Users,
   Settings,
 };

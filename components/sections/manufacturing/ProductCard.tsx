@@ -6,6 +6,8 @@ import { ChevronRight } from "@/components/icons/ChevronRight";
 interface ManufacturingProductCardProps {
   href: string;
   image: string;
+  /** Decorative by default (empty) — the card title/description already name the product. */
+  imageAlt?: string;
   title: string;
   description: string;
   learnMoreLabel: string;
@@ -15,6 +17,7 @@ interface ManufacturingProductCardProps {
 export default function ManufacturingProductCard({
   href,
   image,
+  imageAlt,
   title,
   description,
   learnMoreLabel,
@@ -28,8 +31,8 @@ export default function ManufacturingProductCard({
       <div className="relative mx-auto aspect-[363/300] w-full max-w-363 xl:aspect-[363/418]">
         <Image
           src={image}
-          alt=""
-          aria-hidden="true"
+          alt={imageAlt ?? ""}
+          aria-hidden={imageAlt ? undefined : "true"}
           fill
           sizes="(min-width: 1280px) 363px, (min-width: 768px) 45vw, 90vw"
           className="object-contain transition-transform duration-300 ease-out group-hover:scale-[1.03]"

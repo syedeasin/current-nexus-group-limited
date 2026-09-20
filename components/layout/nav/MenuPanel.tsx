@@ -142,7 +142,7 @@ function GroupsPanel({
                 aria-current={pathname === link.href ? "page" : undefined}
                 className={cn(PANEL_LINK, pathname === link.href && "text-secondary")}
               >
-                {t(link.labelKey)}
+                {link.label ?? (link.labelKey ? t(link.labelKey) : "")}
               </Link>
             </li>
           ))}
@@ -182,8 +182,9 @@ export default function MenuPanel({ item, panelId, isOpen, pathname, onClose }: 
       onKeyDown={handlePanelKeyDown}
       className={cn(
         "absolute left-0 right-0 top-88 z-40 hidden xl:block",
-        // A single hairline under the bar — no drop shadow anywhere in the design.
-        "border-t border-neutral-10 bg-white",
+        // No top border: the header's 1px bottom border already draws the seam.
+        // A soft downward shadow separates the panel from the page content below.
+        "bg-white shadow-[0_20px_28px_-16px_rgba(10,13,27,0.16)]",
         "transition-[opacity,transform] duration-200 ease-out motion-reduce:transition-none",
         isOpen ? "visible translate-y-0 opacity-100" : "invisible pointer-events-none -translate-y-8 opacity-0"
       )}
@@ -203,7 +204,7 @@ export default function MenuPanel({ item, panelId, isOpen, pathname, onClose }: 
                     aria-current={active ? "page" : undefined}
                     className={cn(PANEL_LINK, active && "text-secondary")}
                   >
-                    {t(link.labelKey)}
+                    {link.label ?? (link.labelKey ? t(link.labelKey) : "")}
                   </Link>
                 </Fragment>
               );

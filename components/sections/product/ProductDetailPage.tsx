@@ -18,6 +18,8 @@ import FaqSection from "@/components/sections/product/FaqSection";
 import QuotationForm from "@/components/sections/product/QuotationForm";
 import CtaBand from "@/components/sections/shared/CtaBand";
 import FloatingActionBar from "@/components/sections/product/FloatingActionBar";
+import { toAbsolute } from "@/lib/manufacturing/metadata";
+import { siteConfig } from "@/site.config";
 import type { ProductDetail } from "@/lib/data/products/types";
 
 // Figma node 2254:8872 ("Why choose BC") ships these as bespoke line-art SVGs (stroke
@@ -38,9 +40,37 @@ const CASE_STUDY_ICONS: Record<string, typeof Layers> = {
   building: Building2,
 };
 
+/**
+ * Product schema built entirely from page data — no BC-specific values —
+ * so it stays correct for every page this template renders. Only the two
+ * hero photos are meaningful/identifying enough to list as `image`; every
+ * other photo in the template is decorative by design (see the alt-text
+ * fields' doc comments in lib/data/products/types.ts).
+ */
+function buildProductJsonLd(product: ProductDetail) {
+  const images = [product.hero.productImage, product.hero.backgroundImage]
+    .filter((src): src is string => Boolean(src))
+    .map(toAbsolute);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.hero.heading || product.meta.title,
+    description: product.meta.description || product.hero.body || undefined,
+    category: product.category,
+    ...(images.length ? { image: images } : {}),
+    brand: { "@type": "Organization", name: siteConfig.name },
+  };
+}
+
 export default function ProductDetailPage({ product }: { product: ProductDetail }) {
   return (
     <main>
+      {/* Serialised from DB fields, JSON.stringify only — avoids React's text-node escaping corrupting the JSON. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildProductJsonLd(product)) }}
+      />
       <Hero hero={product.hero} />
 
       {product.introduction ? <ProductIntroduction data={product.introduction} /> : null}
@@ -117,6 +147,7 @@ export default function ProductDetailPage({ product }: { product: ProductDetail 
           eyebrowLabel={product.caseStudy.eyebrow}
           heading={product.caseStudy.heading}
           backgroundImage={product.caseStudy.backgroundImage}
+          backgroundImageAlt={product.caseStudy.backgroundImageAlt}
           title={product.caseStudy.title}
           body={product.caseStudy.body}
           // Figma node 114:99286 differs from the Why Choose CNX page's defaults on every
@@ -165,7 +196,7 @@ export default function ProductDetailPage({ product }: { product: ProductDetail 
           primaryCta={{ label: product.documentsCta.buttonLabel, href: product.documentsCta.buttonHref }}
           primaryIcon={<Download size={20} />}
           secondaryCta={null}
-          image={{ src: product.documentsCta.backgroundImage }}
+          image={{ src: product.documentsCta.backgroundImage, alt: product.documentsCta.backgroundImageAlt }}
         />
       ) : null}
 

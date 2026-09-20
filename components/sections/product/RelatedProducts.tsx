@@ -94,6 +94,7 @@ export default function RelatedProducts({
                 <ManufacturingProductCard
                   href={item.href}
                   image={item.image}
+                  imageAlt={item.imageAlt}
                   title={item.title}
                   description={item.body}
                   learnMoreLabel={learnMoreLabel}

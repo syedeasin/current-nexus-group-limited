@@ -18,8 +18,8 @@ export default function ProductIntroduction({ data }: { data: ProductIntroductio
           >
             <Image
               src={data.image}
-              alt=""
-              aria-hidden="true"
+              alt={data.imageAlt ?? ""}
+              aria-hidden={data.imageAlt ? undefined : "true"}
               fill
               sizes="(min-width: 1024px) 568px, 100vw"
               className="object-cover"

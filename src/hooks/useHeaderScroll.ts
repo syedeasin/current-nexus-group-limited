@@ -13,6 +13,8 @@ export interface HeaderScrollState {
 interface UseHeaderScrollOptions {
   /** mega menu, mobile drawer, or search is open — force white + visible */
   forceOpen?: boolean;
+  /** current route; re-measures the hero after a client-side navigation */
+  pathname?: string;
 }
 
 const DESKTOP_HEADER_HEIGHT_PX = 88;
@@ -38,82 +40,85 @@ function getHeaderHeight() {
  * with no `[data-hero-sentinel]` corrects to white in the same commit, before
  * the browser paints.
  *
- * The whole hero section is observed (not a thin marker at its bottom edge):
+ * The whole hero section is measured (not a thin marker at its bottom edge):
  * a 1px sentinel can't tell "haven't scrolled there yet" apart from "already
- * scrolled past" once the hero is taller than the viewport — both read as
- * not-intersecting. Observing the full section with a top-shrunk rootMargin
- * stays intersecting for as long as any part of the hero is still below the
- * header's bottom edge, which is what "still over the hero" actually means.
- * The header is 56px below xl and 88px at xl and up, so the rootMargin is
- * recomputed from the current viewport rather than a constant.
+ * scrolled past" once the hero is taller than the viewport. The sentinel is
+ * re-queried on every measurement instead of being captured once, because the
+ * <Navbar> lives in the layout and survives client-side navigation — a captured
+ * node would be the *previous* page's detached hero.
  */
-let heroUnderHeader = false;
+let heroUnderHeader: boolean | null = null;
 const heroListeners = new Set<() => void>();
-let heroObserver: IntersectionObserver | null = null;
-let heroMql: MediaQueryList | null = null;
 let heroRefCount = 0;
+let heroFrame = 0;
 
-function heroGeometrySnapshot(sentinel: Element): boolean {
+function measureHeroUnderHeader(): boolean {
+  const sentinel = document.querySelector(HERO_SENTINEL_SELECTOR);
+  if (!sentinel) return false;
   return sentinel.getBoundingClientRect().bottom > getHeaderHeight();
 }
 
-function setHeroUnderHeader(next: boolean) {
+function syncHeroUnderHeader() {
+  const next = measureHeroUnderHeader();
   if (next === heroUnderHeader) return;
   heroUnderHeader = next;
   for (const listener of heroListeners) listener();
 }
 
-function attachHeroObserver() {
-  heroObserver?.disconnect();
-  heroObserver = null;
-
-  const sentinel = document.querySelector(HERO_SENTINEL_SELECTOR);
-  if (!sentinel) {
-    setHeroUnderHeader(false);
-    return;
-  }
-
-  // Seed synchronously from geometry rather than waiting on the observer's first
-  // callback — browsers can defer that callback (e.g. a backgrounded/occluded
-  // tab), which would otherwise leave the header stuck until the next scroll.
-  setHeroUnderHeader(heroGeometrySnapshot(sentinel));
-
-  heroObserver = new IntersectionObserver(([entry]) => setHeroUnderHeader(entry.isIntersecting), {
-    rootMargin: `-${getHeaderHeight()}px 0px 0px 0px`,
-    threshold: 0,
+function scheduleHeroSync() {
+  if (heroFrame) return;
+  heroFrame = window.requestAnimationFrame(() => {
+    heroFrame = 0;
+    syncHeroUnderHeader();
   });
-  heroObserver.observe(sentinel);
 }
 
 function subscribeHeroUnderHeader(callback: () => void) {
   heroListeners.add(callback);
   if (heroRefCount++ === 0) {
-    attachHeroObserver();
-    heroMql = window.matchMedia(DESKTOP_HEADER_QUERY);
-    heroMql.addEventListener("change", attachHeroObserver);
+    window.addEventListener("scroll", scheduleHeroSync, { passive: true });
+    window.addEventListener("resize", scheduleHeroSync);
   }
   return () => {
     heroListeners.delete(callback);
     if (--heroRefCount === 0) {
-      heroObserver?.disconnect();
-      heroObserver = null;
-      heroMql?.removeEventListener("change", attachHeroObserver);
-      heroMql = null;
+      window.removeEventListener("scroll", scheduleHeroSync);
+      window.removeEventListener("resize", scheduleHeroSync);
+      if (heroFrame) window.cancelAnimationFrame(heroFrame);
+      heroFrame = 0;
+      heroUnderHeader = null;
     }
   };
 }
 
-const getHeroClientSnapshot = () => heroUnderHeader;
-const getHeroServerSnapshot = () => true;
-
-function useHeroUnderHeader(): boolean {
-  return useSyncExternalStore(subscribeHeroUnderHeader, getHeroClientSnapshot, getHeroServerSnapshot);
+function getHeroClientSnapshot() {
+  if (heroUnderHeader === null) heroUnderHeader = measureHeroUnderHeader();
+  return heroUnderHeader;
 }
 
-export function useHeaderScroll({ forceOpen = false }: UseHeaderScrollOptions = {}): HeaderScrollState {
-  const heroVisible = useHeroUnderHeader();
+const getHeroServerSnapshot = () => true;
+
+function useHeroUnderHeader(pathname?: string): boolean {
+  const heroVisible = useSyncExternalStore(subscribeHeroUnderHeader, getHeroClientSnapshot, getHeroServerSnapshot);
+
+  useEffect(() => {
+    syncHeroUnderHeader();
+  }, [pathname]);
+
+  return heroVisible;
+}
+
+export function useHeaderScroll({ forceOpen = false, pathname }: UseHeaderScrollOptions = {}): HeaderScrollState {
+  const heroVisible = useHeroUnderHeader(pathname);
   const [hidden, setHidden] = useState(false);
   const lastScrollY = useRef(0);
+
+  // A route change keeps the <Navbar> mounted but resets the scroll position,
+  // so a header hidden on the previous page would stay hidden on the new one.
+  useEffect(() => {
+    lastScrollY.current = window.scrollY;
+    setHidden(false);
+  }, [pathname]);
 
   useEffect(() => {
     lastScrollY.current = window.scrollY;

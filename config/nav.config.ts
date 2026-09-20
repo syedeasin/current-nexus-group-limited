@@ -27,7 +27,10 @@
  * aspect ratio never distorts — same convention as lib/data/trustedLogos.ts.
  */
 
+import type { SolutionMenuGroup, ManufacturingCategory } from "@prisma/client";
 import type messages from "@/messages/en.json";
+import type { SolutionMenuEntry } from "@/lib/solutions-projects/types";
+import type { ManufacturingMenuEntry } from "@/lib/manufacturing/types";
 
 export type NavLabelKey = keyof typeof messages.nav;
 
@@ -35,7 +38,10 @@ export type NavLabelKey = keyof typeof messages.nav;
 export const NAV_BRAND_LOGO_HEIGHT = 24;
 
 export type NavLink = {
-  labelKey: NavLabelKey;
+  /** i18n key for static links. Dynamic (DB) links carry a raw `label` instead. */
+  labelKey?: NavLabelKey;
+  /** Raw, already-localised label — used by DB-driven links that have no i18n key. */
+  label?: string;
   href: string;
 };
 
@@ -239,6 +245,93 @@ export const NAV_ITEMS: NavItem[] = [
     },
   },
 ];
+
+/**
+ * Whether a top-level nav item owns the current route.
+ *
+ * Matches on the item's section (the first path segment of its href) rather
+ * than an exact list of leaf hrefs: every page under a section — including
+ * detail/leaf routes the menu doesn't list, e.g. `/news/<slug>` or
+ * `/manufacturing/solar-panels/hjt` — highlights that section's top item. Each
+ * top item owns a distinct first segment, so exactly one item can ever match.
+ */
+export function isNavItemActive(item: NavItem, pathname: string): boolean {
+  const base = `/${item.href.split("/")[1]}`;
+  return pathname === base || pathname.startsWith(`${base}/`);
+}
+
+/** Route base for a Solutions page, by its mega-menu group. */
+export function solutionEntryHref(group: SolutionMenuGroup, slug: string): string {
+  const base =
+    group === "RENEWABLE_PROJECTS"
+      ? "/solutions-projects/renewable-projects"
+      : "/solutions-projects/solutions";
+  return `${base}/${slug}`;
+}
+
+/** Which static group in the Solutions panel a DB group maps onto. */
+const SOLUTION_GROUP_LABEL_KEY: Record<SolutionMenuGroup, NavLabelKey> = {
+  SOLUTIONS: "solutions",
+  RENEWABLE_PROJECTS: "renewableProjects",
+};
+
+/** Which static group in the Manufacturing panel a DB category maps onto. */
+const MANUFACTURING_GROUP_LABEL_KEY: Record<ManufacturingCategory, NavLabelKey> = {
+  SOLAR_PANELS: "solarPanels",
+  BESS: "bess",
+};
+
+/** Route base for a manufacturing page, by category. */
+export function manufacturingEntryHref(category: ManufacturingCategory, slug: string): string {
+  const base = category === "BESS" ? "/manufacturing/bess" : "/manufacturing/solar-panels";
+  return `${base}/${slug}`;
+}
+
+export interface DynamicMenu {
+  solutions?: SolutionMenuEntry[];
+  manufacturing?: ManufacturingMenuEntry[];
+}
+
+/**
+ * NAV_ITEMS with the Solutions & Projects and Manufacturing panels' child links
+ * replaced by the live, published pages. Group headers and product cards stay;
+ * only the page links become data-driven, so a draft or deleted page is absent
+ * and a newly published one appears. Called per request in the marketing layout.
+ */
+export function buildNavItems({ solutions = [], manufacturing = [] }: DynamicMenu): NavItem[] {
+  const solutionLinks = new Map<NavLabelKey, NavLink[]>();
+  for (const e of solutions) {
+    const key = SOLUTION_GROUP_LABEL_KEY[e.menuGroup];
+    const links = solutionLinks.get(key) ?? [];
+    links.push({ label: e.menuLabel, href: solutionEntryHref(e.menuGroup, e.slug) });
+    solutionLinks.set(key, links);
+  }
+
+  const manufacturingLinks = new Map<NavLabelKey, NavLink[]>();
+  for (const e of manufacturing) {
+    const key = MANUFACTURING_GROUP_LABEL_KEY[e.category];
+    const links = manufacturingLinks.get(key) ?? [];
+    links.push({ label: e.menuLabel, href: manufacturingEntryHref(e.category, e.slug) });
+    manufacturingLinks.set(key, links);
+  }
+
+  function withDynamicGroups(item: NavItem, source: Map<NavLabelKey, NavLink[]>): NavItem {
+    if (item.panel.kind !== "groups") return item;
+    return {
+      ...item,
+      panel: {
+        ...item.panel,
+        groups: item.panel.groups.map((group) => ({ ...group, links: source.get(group.labelKey) ?? [] })),
+      },
+    };
+  }
+
+  return NAV_ITEMS.map((item) => {
+    if (item.labelKey === "solutionsProjects") return withDynamicGroups(item, solutionLinks);
+    if (item.labelKey === "manufacturing") return withDynamicGroups(item, manufacturingLinks);
+    return item;
+  });
+}
 
 /** Every href a panel can reach — used for active-route matching. */
 export function navItemHrefs(item: NavItem): string[] {

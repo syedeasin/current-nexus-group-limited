@@ -70,7 +70,7 @@ export default function Hero({ hero }: { hero: ProductHero }) {
           >
             <Image
               src={hero.productImage}
-              alt=""
+              alt={hero.productImageAlt ?? ""}
               fill
               priority
               sizes={PRODUCT_IMAGE_SIZES}
@@ -136,8 +136,8 @@ export default function Hero({ hero }: { hero: ProductHero }) {
           >
             <Image
               src={hero.productImage}
-              alt=""
-              aria-hidden="true"
+              alt={hero.productImageAlt ?? ""}
+              aria-hidden={hero.productImageAlt ? undefined : "true"}
               fill
               priority
               sizes={PRODUCT_IMAGE_SIZES}

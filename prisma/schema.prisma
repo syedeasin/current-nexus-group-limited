@@ -39,9 +39,11 @@ model User {
   tokenVersion Int       @default(0)
   lastLoginAt  DateTime?
 
-  posts     Post[]
-  media     Media[]
-  downloads DownloadResource[]
+  posts              Post[]
+  media              Media[]
+  downloads          DownloadResource[]
+  solutionPages      SolutionPage[]
+  manufacturingPages ManufacturingPage[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -269,4 +271,103 @@ model DownloadResourceFilterOption {
   @@id([downloadId, optionId])
   @@index([optionId])
   @@map("download_resource_filter_options")
+}
+
+// ---------------------------------------------------------------------------
+// Solutions & Projects pages (lightweight CMS)
+//
+// One reusable page template (SolutionsProjectTemplate) rendered from data. The
+// whole page body — hero + fixed ordered sections + CTA — lives in `content` as
+// typed JSON (lib/solutions-projects/types.ts owns its shape) so an admin edits
+// a page from the dashboard without a deploy. Mega-menu placement is columns on
+// the row (menuGroup / menuLabel / menuOrder / showInMegaMenu), so a published
+// page appears in the header automatically and a draft/deleted one does not.
+//
+// Localisation follows the Post/Download convention: one row per locale, keyed
+// by `locale`, unique on [slug, locale]. Status reuses DownloadStatus
+// (DRAFT | PUBLISHED) — the same two-state publish gate.
+// ---------------------------------------------------------------------------
+
+enum SolutionMenuGroup {
+  SOLUTIONS
+  RENEWABLE_PROJECTS
+}
+
+model SolutionPage {
+  id     String @id @default(cuid())
+  title  String
+  slug   String
+  locale Locale @default(EN)
+
+  status      DownloadStatus @default(DRAFT)
+  publishedAt DateTime?
+
+  // Mega-menu placement
+  menuGroup      SolutionMenuGroup @default(SOLUTIONS)
+  menuLabel      String
+  menuOrder      Int               @default(0)
+  showInMegaMenu Boolean           @default(true)
+
+  metaTitle       String?
+  metaDescription String? @db.VarChar(500)
+
+  // Full page body (hero + sections + cta). Shape: SolutionPageContent.
+  content Json
+
+  createdById String?
+  createdBy   User?   @relation(fields: [createdById], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([slug, locale])
+  @@index([locale, status, menuGroup, menuOrder])
+  @@index([status, publishedAt])
+  @@map("solution_pages")
+}
+
+// ---------------------------------------------------------------------------
+// Manufacturing product pages (lightweight CMS)
+//
+// One reusable template (ProductDetailPage) rendered from data. The full page
+// body — hero + up to 17 optional sections — lives in `content` as typed JSON
+// (ProductDetail, lib/data/products/types.ts). `seo` holds the extended SEO /
+// social metadata as JSON. `category` is both the route base
+// (/manufacturing/solar-panels|bess/<slug>) and the mega-menu group.
+// ---------------------------------------------------------------------------
+
+enum ManufacturingCategory {
+  SOLAR_PANELS
+  BESS
+}
+
+model ManufacturingPage {
+  id       String                @id @default(cuid())
+  title    String
+  slug     String
+  locale   Locale                @default(EN)
+  category ManufacturingCategory
+
+  status      DownloadStatus @default(DRAFT)
+  publishedAt DateTime?
+
+  menuLabel      String
+  menuOrder      Int     @default(0)
+  showInMegaMenu Boolean @default(true)
+
+  // ProductDetail JSON (hero + sections).
+  content Json
+  // Extended SEO / Open Graph / Twitter metadata JSON. Falls back to content.meta.
+  seo     Json?
+
+  createdById String?
+  createdBy   User?   @relation(fields: [createdById], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([category, slug, locale])
+  @@index([locale, status, category, menuOrder])
+  @@index([status, publishedAt])
+  @@map("manufacturing_pages")
 }

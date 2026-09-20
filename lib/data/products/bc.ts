@@ -50,6 +50,7 @@ export const bcProductDetail: ProductDetail = {
     backgroundImage: "/images/manufacturing/bc-solar/productPageHeroBgDesktop.webp",
     backgroundImageMobile: "/images/manufacturing/bc-solar/productPageHeroBgMobile.webp",
     productImage: "/images/manufacturing/bc-solar/ProductpageHeroProductimage.webp",
+    productImageAlt: "CNX HJT bifacial double-glass solar module",
   },
   introduction: {
     eyebrow: "Product Introduction",
@@ -59,6 +60,7 @@ export const bcProductDetail: ProductDetail = {
       "Ideal for utility-scale, C&I rooftops, trackers, carports, and high-reflectance sites, CNX HJT modules improve project performance while simplifying procurement with one-stop manufacturing, certification support, packaging customization, and global shipping.",
     ],
     image: "/images/manufacturing/bc-solar/bc-solar-product-introduction.webp",
+    imageAlt: "CNX HJT solar modules installed on a utility-scale ground-mount array",
   },
   competitiveAdvantage: {
     eyebrow: "Our Competitive Advantage",
@@ -151,6 +153,7 @@ export const bcProductDetail: ProductDetail = {
       "Export to 50+ countries",
     ],
     image: "/images/manufacturing/bc-solar/Manufacturing-excellence.webp",
+    imageAlt: "CNX smart factory production line for solar module manufacturing",
   },
   manufacturingWorkflow: {
     eyebrow: "Manufacturing Workflow",
@@ -391,6 +394,7 @@ export const bcProductDetail: ProductDetail = {
           { label: "Visual keywords", value: "Scale, desert/snowy terrain, tracking stand" },
         ],
         image: "/images/manufacturing/bc-solar/g12-0bb-uranus-pro.webp",
+        imageAlt: "G12-0BB Uranus Pro HJT solar module",
         buttonLabel: "Download data-sheets",
         buttonHref: "#quotation",
       },
@@ -404,6 +408,7 @@ export const bcProductDetail: ProductDetail = {
           { label: "Visual keywords", value: "Architecture integration, city skyline, rooftops" },
         ],
         image: "/images/manufacturing/bc-solar/g12-0bb-venus-pro.webp",
+        imageAlt: "G12-0BB Venus Pro full-black HJT solar module",
         buttonLabel: "Download data-sheets",
         buttonHref: "#quotation",
       },

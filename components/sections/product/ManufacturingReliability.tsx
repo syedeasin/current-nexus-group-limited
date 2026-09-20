@@ -66,8 +66,8 @@ export default function ManufacturingReliability({ data }: { data: Manufacturing
           >
             <Image
               src={data.image}
-              alt=""
-              aria-hidden="true"
+              alt={data.imageAlt ?? ""}
+              aria-hidden={data.imageAlt ? undefined : "true"}
               fill
               sizes="(min-width: 1024px) 620px, 100vw"
               className="rounded-16 object-cover"

@@ -36,8 +36,8 @@ export default function ProductVariants({ data }: { data: ProductVariantsSection
                 <Reveal variant="scale" as="div" className="relative h-320 w-full shrink-0 md:h-420 lg:h-656 lg:w-576">
                   <Image
                     src={variant.image}
-                    alt=""
-                    aria-hidden="true"
+                    alt={variant.imageAlt ?? ""}
+                    aria-hidden={variant.imageAlt ? undefined : "true"}
                     fill
                     sizes="(min-width: 1024px) 576px, 100vw"
                     className="object-cover lg:rounded-l-16"

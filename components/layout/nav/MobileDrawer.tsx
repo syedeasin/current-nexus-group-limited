@@ -7,11 +7,12 @@ import { Link, usePathname } from "@/i18n/navigation";
 import { ChevronDown, X } from "lucide-react";
 import { ArrowRight } from "@/components/icons/ArrowRight";
 import { cn } from "@/lib/utils";
-import { NAV_ITEMS, navItemHrefs, type NavLink } from "@/config/nav.config";
+import { isNavItemActive, type NavItem, type NavLink } from "@/config/nav.config";
 import { useLocaleSwitch } from "@/src/hooks/useLocaleSwitch";
 import type { Locale } from "@/i18n/routing";
 
 interface MobileDrawerProps {
+  items: NavItem[];
   isOpen: boolean;
   onClose: () => void;
   triggerRef: React.RefObject<HTMLButtonElement | null>;
@@ -31,7 +32,7 @@ function DrawerLink({
   pathname,
   onClose,
 }: {
-  link: Pick<NavLink, "labelKey" | "href">;
+  link: Pick<NavLink, "labelKey" | "label" | "href">;
   pathname: string;
   onClose: () => void;
 }) {
@@ -48,12 +49,12 @@ function DrawerLink({
               active ? "font-medium text-secondary" : "text-neutral-4"
           )}
       >
-        {t(link.labelKey)}
+        {link.label ?? (link.labelKey ? t(link.labelKey) : "")}
       </Link>
   );
 }
 
-export default function MobileDrawer({ isOpen, onClose, triggerRef }: MobileDrawerProps) {
+export default function MobileDrawer({ items, isOpen, onClose, triggerRef }: MobileDrawerProps) {
   const t = useTranslations("nav");
   const pathname = usePathname();
   const baseId = useId();
@@ -166,10 +167,10 @@ export default function MobileDrawer({ isOpen, onClose, triggerRef }: MobileDraw
 
           {/* ড্রয়ার বডি */}
           <div className="flex-1 overflow-y-auto">
-            {NAV_ITEMS.map((item) => {
+            {items.map((item) => {
               const sectionId = `${baseId}-section-${item.labelKey}`;
               const isSectionOpen = openSection === item.labelKey;
-              const isRouteActive = navItemHrefs(item).includes(pathname);
+              const isRouteActive = isNavItemActive(item, pathname);
               const active = isSectionOpen || isRouteActive;
 
               return (

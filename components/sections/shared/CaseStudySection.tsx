@@ -16,6 +16,8 @@ interface CaseStudySectionProps {
   eyebrowLabel: string;
   heading: string;
   backgroundImage: string;
+  /** Decorative by default (empty) — the photo sits behind a text scrim. */
+  backgroundImageAlt?: string;
   title: string;
   body: string;
   specs: CaseStudySpecItem[];
@@ -50,6 +52,7 @@ export default function CaseStudySection({
   eyebrowLabel,
   heading,
   backgroundImage,
+  backgroundImageAlt,
   title,
   body,
   specs,
@@ -84,8 +87,8 @@ export default function CaseStudySection({
           <div className="relative aspect-[4/3] w-full lg:absolute lg:inset-0 lg:aspect-auto">
             <Image
               src={backgroundImage}
-              alt=""
-              aria-hidden="true"
+              alt={backgroundImageAlt ?? ""}
+              aria-hidden={backgroundImageAlt ? undefined : "true"}
               fill
               sizes="(min-width: 1280px) 1320px, 100vw"
               className="object-cover"

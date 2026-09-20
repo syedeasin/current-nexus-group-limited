@@ -13,11 +13,11 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import SearchOverlay from "./SearchOverlay";
 import Logo from "./Logo";
 import { cn } from "@/lib/utils";
-import { NAV_ITEMS } from "@/config/nav.config";
+import { NAV_ITEMS, type NavItem } from "@/config/nav.config";
 import { useMenuState } from "@/src/hooks/useMenuState";
 import { useHeaderScroll } from "@/src/hooks/useHeaderScroll";
 
-export default function Navbar() {
+export default function Navbar({ navItems = NAV_ITEMS }: { navItems?: NavItem[] }) {
   const t = useTranslations("nav");
   const pathname = usePathname();
   const headerRef = useRef<HTMLElement | null>(null);
@@ -26,10 +26,10 @@ export default function Navbar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
-  const { openKey, scheduleOpen, scheduleClose, close, toggle } = useMenuState(headerRef, pathname);
+  const { openKey, open, scheduleOpen, scheduleClose, close } = useMenuState(headerRef, pathname);
 
   const forceOpen = openKey !== null || isSearchOpen || isMobileOpen;
-  const { visual, hidden } = useHeaderScroll({ forceOpen });
+  const { visual, hidden } = useHeaderScroll({ forceOpen, pathname });
   const isTransparent = visual === "transparent";
 
   function handleHoverItem(key: string) {
@@ -37,9 +37,14 @@ export default function Navbar() {
     scheduleOpen(key);
   }
 
+  // Click opens (never toggles closed): hover already auto-opens the panel, so a
+  // toggle would race — by the time the click lands the panel is usually open,
+  // and toggling would close it, which read as "the click did nothing". Opening
+  // is idempotent, so one click is always deterministic. Close via hover-away,
+  // outside-click, or Escape.
   function handleToggleItem(key: string) {
     setIsSearchOpen(false);
-    toggle(key);
+    open(key);
   }
 
   function handleOpenSearch() {
@@ -89,7 +94,13 @@ export default function Navbar() {
                 hidden ? "-translate-y-full" : "translate-y-0",
                 isTransparent
                     ? "bg-transparent text-white"
-                    : "bg-white text-neutral-1 border-b border-neutral-10"
+                    : "bg-white text-neutral-1 border-b border-neutral-10",
+                // Subtle shadow lifts the white bar off the page. While a mega
+                // panel is open the shadow belongs to the panel, not the bar, so
+                // drop it here to avoid a second seam under the header.
+                !isTransparent &&
+                    openKey === null &&
+                    "shadow-[0_4px_12px_-6px_rgba(10,13,27,0.10)]"
             )}
         >
           {/* ডেস্কটপ রো */}
@@ -99,6 +110,7 @@ export default function Navbar() {
             </Link>
 
             <DesktopNav
+                items={navItems}
                 isTransparent={isTransparent}
                 pathname={pathname}
                 openKey={openKey}
@@ -141,7 +153,7 @@ export default function Navbar() {
           />
 
           {/* মেগা মেনু প্যানেল — হেডারের সাথে অ্যাংকর করা, ফুল উইড্থ */}
-          {NAV_ITEMS.map((item) => (
+          {navItems.map((item) => (
               <MenuPanel
                   key={item.labelKey}
                   item={item}
@@ -156,7 +168,7 @@ export default function Navbar() {
         </header>
 
         {/* ফুল-স্ক্রিন মোবাইল ড্রয়ার — হেডারের বাইরে, DOM-এ পরে থাকায় এটি হেডারের উপরে বসে (z-50 উভয়ই) */}
-        <MobileDrawer isOpen={isMobileOpen} onClose={() => setIsMobileOpen(false)} triggerRef={mobileTriggerRef} />
+        <MobileDrawer items={navItems} isOpen={isMobileOpen} onClose={() => setIsMobileOpen(false)} triggerRef={mobileTriggerRef} />
 
         {/* স্পেসার - হেডারের উচ্চতা অনুযায়ী (হিরো পেজে HeroCarousel এর negative margin এটা ক্যান্সেল করে) */}
         <div className="h-56 xl:h-88" />

@@ -21,6 +21,8 @@ export interface ProductHero {
   backgroundImageMobile: string;
   /** The product shot layered on top: right of the copy on desktop, below it on mobile. */
   productImage: string;
+  /** Decorative by default (empty). Set to describe the product shot for screen readers. */
+  productImageAlt?: string;
 }
 
 export interface ProductIntroduction {
@@ -28,6 +30,8 @@ export interface ProductIntroduction {
   heading: string;
   paragraphs: string[];
   image: string;
+  /** Decorative by default (empty). Set to describe the photo for screen readers. */
+  imageAlt?: string;
 }
 
 export interface FeatureItem {
@@ -72,6 +76,8 @@ export interface ManufacturingReliability {
   intro: string;
   items: string[];
   image: string;
+  /** Decorative by default (empty). Set to describe the photo for screen readers. */
+  imageAlt?: string;
 }
 
 export interface WorkflowStep {
@@ -181,6 +187,8 @@ export interface ProductVariant {
   body: string;
   specs: ProductVariantSpec[];
   image: string;
+  /** Decorative by default (empty). Set to describe the product shot for screen readers. */
+  imageAlt?: string;
   buttonLabel: string;
   buttonHref: string;
 }
@@ -220,6 +228,8 @@ export interface CaseStudySection {
   eyebrow: string;
   heading: string;
   backgroundImage: string;
+  /** Decorative by default (empty) — the photo sits behind a text scrim. Set only if it conveys information the title/body don't. */
+  backgroundImageAlt?: string;
   title: string;
   body: string;
   specs: CaseStudySpec[];
@@ -229,6 +239,8 @@ export interface RelatedProduct {
   title: string;
   body: string;
   image: string;
+  /** Decorative by default (empty). Set to describe the product shot for screen readers. */
+  imageAlt?: string;
   href: string;
   featured?: boolean;
 }
@@ -276,6 +288,8 @@ export interface DocumentsCtaSection {
   buttonLabel: string;
   buttonHref: string;
   backgroundImage: string;
+  /** Decorative by default (empty) — the photo sits behind a text scrim. */
+  backgroundImageAlt?: string;
 }
 
 export interface ProductDetail {
