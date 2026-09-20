@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { requireUser } from "@/lib/auth";
 import { can } from "@/lib/permissions";
-import { NAV_ITEMS } from "@/lib/dashboard-nav";
+import { NAV_ENTRIES, filterNavEntries } from "@/lib/dashboard-nav";
 import Sidebar from "@/components/dashboard/sidebar";
 import Topbar from "@/components/dashboard/topbar";
 import { switzer } from "@/app/fonts";
@@ -19,9 +19,7 @@ export default async function DashboardLayout({
 }) {
   const user = await requireUser();
 
-  const items = NAV_ITEMS.filter(
-    (item) => !item.permission || can(user.role, item.permission)
-  );
+  const items = filterNavEntries(NAV_ENTRIES, (permission) => can(user.role, permission));
 
   return (
     <html lang="en" className={`${switzer.variable} h-full antialiased`}>
@@ -34,7 +32,7 @@ export default async function DashboardLayout({
               scroll container instead of <main>, dragging the sidebar along with
               it and leaving a large blank gap below short pages. */}
           <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-            <Topbar name={user.name} email={user.email} role={user.role} />
+            <Topbar name={user.name} email={user.email} role={user.role} avatarUrl={user.avatarUrl} />
             <main className="min-h-0 flex-1 overflow-y-auto p-32">{children}</main>
           </div>
         </div>
