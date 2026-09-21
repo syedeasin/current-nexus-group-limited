@@ -3,10 +3,12 @@ import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import Button, { BUTTON_ICON_SIZE } from "@/components/ui/Button";
 import { ChevronRight } from "@/components/icons/ChevronRight";
+import { BODY_DELAY_MS, CTA_DELAY_MS } from "@/lib/motion/timing";
 
 interface CtaLink {
   label: string;
@@ -29,7 +31,6 @@ interface CtaBandProps {
   };
 }
 
-const BUTTON_DELAY_MS = 80;
 
 export default async function CtaBand({
   heading,
@@ -76,22 +77,26 @@ export default async function CtaBand({
         }}
       />
       <Container className="relative flex flex-col items-center gap-32">
-        <Reveal as="div" className="flex flex-col items-center gap-20">
-          {/* Figma node 114:99602: H2 here tracks -1.2px, not the shared --text-h2 token's -0.72px. */}
-          <Heading
-            level={2}
-            size="h2"
-            className="max-w-846 text-balance text-center text-white tracking-[-1.2px]!"
-          >
-            {resolvedHeading}
-          </Heading>
+        <div className="flex flex-col items-center gap-20">
+          <TextReveal className="flex flex-col items-center">
+            {/* Figma node 114:99602: H2 here tracks -1.2px, not the shared --text-h2 token's -0.72px. */}
+            <Heading
+              level={2}
+              size="h2"
+              className="max-w-846 text-balance text-center text-white tracking-[-1.2px]!"
+            >
+              {resolvedHeading}
+            </Heading>
+          </TextReveal>
           {subtext ? (
-            <Text size="p1" className="max-w-736 text-balance text-center text-white">
-              {subtext}
-            </Text>
+            <Reveal as="div" delay={BODY_DELAY_MS}>
+              <Text size="p1" className="max-w-736 text-balance text-center text-white">
+                {subtext}
+              </Text>
+            </Reveal>
           ) : null}
-        </Reveal>
-        <Reveal as="div" delay={BUTTON_DELAY_MS} className="flex w-full flex-col items-center gap-12 min-[481px]:w-auto min-[481px]:flex-row min-[481px]:gap-16">
+        </div>
+        <Reveal as="div" delay={CTA_DELAY_MS} className="flex w-full flex-col items-center gap-12 min-[481px]:w-auto min-[481px]:flex-row min-[481px]:gap-16">
           {/* Figma Button/Button Large spec here tracks -1px, not the shared --text-btn-lg token's -0.2px. */}
           <Button
             href={resolvedPrimary.href}

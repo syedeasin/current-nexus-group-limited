@@ -51,3 +51,24 @@ export const CTA_DELAY_MS = cascade(3);
 
 /** Where a grid/carousel of content under a centred eyebrow+heading starts. */
 export const CONTENT_BASE_DELAY_MS = cascade(2);
+
+/**
+ * The hero runs its own cascade.
+ *
+ * Its H1 uses `<TextReveal>`, whose mask is by far the longest motion on the
+ * site — a word is still rising ~900ms after it starts. On the 80ms section
+ * cascade the supporting copy and the CTA would land while the headline is
+ * halfway out of its line, and the whole entrance reads as one indistinct
+ * clump. These delays let the headline establish itself first and then bring
+ * the rest in behind it.
+ */
+export const HERO_HEADING_DELAY_MS = 0;
+export const HERO_BODY_DELAY_MS = 320;
+export const HERO_CTA_DELAY_MS = 440;
+
+/**
+ * Total drift for a scroll-linked backdrop, in px, across its whole pass
+ * through the viewport. Deliberately small: past roughly 80px the image
+ * visibly slides inside its frame and reads as a bug rather than as depth.
+ */
+export const PARALLAX_DISTANCE_PX = 56;

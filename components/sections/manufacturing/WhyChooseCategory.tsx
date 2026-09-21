@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { Cpu, TrendingUp, Globe } from "lucide-react";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
@@ -31,11 +32,11 @@ export default async function WhyChooseCategory({ category }: { category: Produc
           <Reveal as="div" delay={0}>
             <SectionEyebrow label={t("whyChoose.eyebrow" as never)} />
           </Reveal>
-          <Reveal as="div" delay={HEADING_DELAY_MS}>
+          <TextReveal delay={HEADING_DELAY_MS}>
             <Heading level={2} size="h2" className="text-balance">
               {t("whyChoose.heading" as never)}
             </Heading>
-          </Reveal>
+          </TextReveal>
         </div>
 
         <div className="flex flex-col gap-48">

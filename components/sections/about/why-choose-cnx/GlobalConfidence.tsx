@@ -2,6 +2,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
@@ -26,11 +27,11 @@ export default async function GlobalConfidence() {
           <Reveal as="div" delay={cascade(0)}>
             <SectionEyebrow label={t("eyebrow")} />
           </Reveal>
-          <Reveal as="div" delay={cascade(1)}>
+          <TextReveal delay={cascade(1)}>
             <Heading level={2} size="h2" className="text-balance">
               {t("heading")}
             </Heading>
-          </Reveal>
+          </TextReveal>
         </div>
 
         <div className="flex flex-col gap-40 lg:flex-row lg:items-center lg:gap-80">

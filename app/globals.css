@@ -167,6 +167,53 @@
 }
 
 /* ------------------------------------------------------------------------- */
+/* Global container system — one horizontal grid for the whole site          */
+/* (docs/DESIGN-SYSTEM.md "Container"). Content column is 1320px on desktop; */
+/* nothing else may declare its own page width.                              */
+/* ------------------------------------------------------------------------- */
+:root {
+  --container-max: 1320px;
+  --gutter: 20px;
+}
+
+@media (width >= 48rem) {
+  :root {
+    --gutter: 64px;
+  }
+}
+
+/* The single content container. max-width includes the gutters, so the inner
+   column lands on exactly --container-max once the viewport is wide enough and
+   degrades to a fluid width with the same gutters below that. */
+.cnx-container {
+  width: 100%;
+  max-width: calc(var(--container-max) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Full-bleed elements (carousel rails, edge arrow rails) that still have to
+   start on the container's content edge. max() reproduces .cnx-container's
+   left edge exactly: the gutter while the container is fluid, half the leftover
+   space once it is capped. Uses % (parent width) rather than vw so a visible
+   scrollbar can never push it out of alignment. */
+.cnx-container-inset {
+  padding-inline: max(var(--gutter), calc((100% - var(--container-max)) / 2));
+  /* When the inset element is itself a scroll-snap container, the snap port's
+     start edge is its *border* box, not its padding box — so the browser
+     immediately scrolls the first card flush to the viewport edge and the inset
+     silently disappears. scroll-padding moves the snap edge onto the content
+     edge, where the container's own text sits. Inert on anything that is not a
+     scroll container, so it costs nothing to keep it on the shared class. */
+  scroll-padding-inline: max(var(--gutter), calc((100% - var(--container-max)) / 2));
+}
+
+.cnx-container-inset-l {
+  padding-left: max(var(--gutter), calc((100% - var(--container-max)) / 2));
+  scroll-padding-left: max(var(--gutter), calc((100% - var(--container-max)) / 2));
+}
+
+/* ------------------------------------------------------------------------- */
 /* Motion tokens — single source for the site-wide scroll/animation system   */
 /* (docs/ANIMATION-SYSTEM.md §8). JS variants in lib/motion/ mirror these;    */
 /* keep the two in sync. Additive only — does not touch color/spacing/type.   */
@@ -183,6 +230,18 @@
   --dur-counter: 1600ms; /* stat number count-up */
   --reveal-distance: 24px; /* fade-up translateY (desktop) */
   --reveal-threshold: 0.15; /* IntersectionObserver threshold */
+
+  /* Masked text reveal (display headings). Longer and softer than --dur-reveal:
+     a headline rising out of its own line box is the site's slowest motion and
+     the one that carries the "expensive" read. */
+  --ease-mask: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-mask: 900ms; /* one word/line rising into place */
+  --mask-stagger: 70ms; /* gap between consecutive words */
+  --mask-travel: 110%; /* how far below its line a word starts */
+
+  /* Image reveal: the photo is uncovered rather than faded, then settles. */
+  --dur-image-reveal: 1000ms;
+  --image-reveal-scale: 1.06; /* start scale, eases back to 1 */
 }
 
 /* Mobile: smaller viewport reads better with less travel (§5). Gated on
@@ -190,6 +249,12 @@
 @media (max-width: 768px) {
   :root {
     --reveal-distance: 16px;
+    /* Phones: less travel, tighter stagger, shorter holds. A cascade tuned for a
+       1440px headline reads as sluggish when the same words wrap onto five lines. */
+    --dur-mask: 720ms;
+    --mask-stagger: 45ms;
+    --dur-image-reveal: 800ms;
+    --image-reveal-scale: 1.04;
   }
 }
 

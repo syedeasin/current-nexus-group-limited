@@ -2,11 +2,13 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
+import Parallax from "@/components/motion/Parallax";
 import Heading from "@/components/ui/Heading";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import ProductTabs from "@/components/sections/home/energy-ecosystem/ProductTabs";
 import { energyEcosystemTabs } from "@/lib/data/energyEcosystem";
-import { cascade } from "@/lib/motion/timing";
+import { cascade, PARALLAX_DISTANCE_PX } from "@/lib/motion/timing";
 
 export default async function EnergyEcosystem() {
   const t = await getTranslations("home.ecosystem");
@@ -25,13 +27,20 @@ export default async function EnergyEcosystem() {
   return (
     <section aria-label={t("heading")} className="relative w-full overflow-hidden">
       <div className="absolute inset-0" aria-hidden="true">
-        <Image
-          src="/images/energyEcosystem/energyEcosystemSectionBackground.webp"
-          alt=""
-          fill
-          sizes="1600px"
-          className="object-cover"
-        />
+        {/* The backdrop drifts against the page as the section passes, which is
+            what separates it from the copy sitting on top. The photo is scaled
+            past its frame so the drift can never expose an edge, and the
+            section's own overflow-hidden clips the overhang. Desktop pointer
+            only — Parallax opts itself out below lg and under reduced motion. */}
+        <Parallax distance={PARALLAX_DISTANCE_PX} className="absolute inset-0 scale-[1.08]">
+          <Image
+            src="/images/energyEcosystem/energyEcosystemSectionBackground.webp"
+            alt=""
+            fill
+            sizes="1600px"
+            className="object-cover"
+          />
+        </Parallax>
         <div className="energy-ecosystem-overlay absolute inset-0" />
       </div>
 
@@ -40,11 +49,11 @@ export default async function EnergyEcosystem() {
           <Reveal as="div" delay={cascade(0)}>
             <SectionEyebrow label={t("eyebrow")} tone="light" />
           </Reveal>
-          <Reveal as="div" delay={cascade(1)}>
+          <TextReveal delay={cascade(1)}>
             <Heading level={2} size="h2" className="text-balance text-center">
               {t("heading")}
             </Heading>
-          </Reveal>
+          </TextReveal>
         </div>
 
         <div className="mt-48 w-full">

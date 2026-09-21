@@ -3,6 +3,7 @@ import Container from "@/components/layout/Container";
 import { HERO_HEADER_OFFSET } from "@/src/layout/headerOffset";
 import { cn } from "@/lib/utils";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
@@ -82,11 +83,11 @@ export default function PageBanner({
           {/* Figma node 4028:10446 keeps the heading and its paragraph 16px apart
               inside the 12px eyebrow gap, so they group as one block. */}
           <div className="flex flex-col gap-16">
-            <Reveal as="div" delay={80}>
+            <TextReveal delay={80}>
               <Heading level={1} size="h1" className="text-balance text-white">
                 {heading}
               </Heading>
-            </Reveal>
+            </TextReveal>
             {description ? (
               <Reveal as="div" delay={DESCRIPTION_DELAY_MS}>
                 <Text size="p2" className="text-neutral-9">

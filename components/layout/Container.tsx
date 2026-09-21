@@ -9,18 +9,25 @@ interface ContainerProps {
 /**
  * The single horizontal rhythm for every page.
  *
- * Figma draws the homepage on a 1600px frame with a 1320px content column and
- * 140px gutters (confirmed on About CNX, Application Scenes, Awards, Client
- * Testimonials, FAQ, Latest News and the hero's arrow rail). `max-w-1600` +
- * `xl:px-140` reproduces that exactly at >= 1600px and keeps the same gutter
- * proportion as the viewport narrows, instead of capping content at an
- * arbitrary width.
+ * One content column, 1320px wide on desktop, centred, with the same gutters
+ * everywhere: 20px on mobile, 64px from 768px up. The header, every section,
+ * the news grid and the footer all sit on it, so nothing on the site is ever
+ * measurably wider or narrower than anything else.
  *
- * Gutters: 20 (mobile) / 64 (>= md) / 140 (>= xl).
+ * The geometry lives in `.cnx-container` in globals.css rather than in Tailwind
+ * classes here, because full-bleed rails (carousel tracks, the hero's edge
+ * arrows) need to land on the same content edge without being inside this
+ * component — `.cnx-container-inset` reproduces it from the same two custom
+ * properties. Two classes, one source of truth.
+ *
+ * A section may still be full-width — backgrounds, hero imagery, a horizontal
+ * track. Its *content* goes in here.
+ *
+ * @see docs/DESIGN-SYSTEM.md
  */
 export default function Container({ children, className }: ContainerProps) {
   return (
-    <div className={cn("mx-auto w-full max-w-1600 px-20 md:px-64 xl:px-140", className)}>
+    <div className={cn("cnx-container", className)}>
       {children}
     </div>
   );

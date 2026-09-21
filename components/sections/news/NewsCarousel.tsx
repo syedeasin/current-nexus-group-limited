@@ -3,11 +3,13 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import { ArrowLeft } from "@/components/icons/ArrowLeft";
 import { ArrowRight } from "@/components/icons/ArrowRight";
 import { useCarouselScroll } from "@/lib/motion/use-carousel-scroll";
 import { cn } from "@/lib/utils";
+import { HEADING_DELAY_MS } from "@/lib/motion/timing";
 
 interface NewsCarouselProps {
   heading: string;
@@ -64,11 +66,13 @@ export default function NewsCarousel({ heading, previousLabel, nextLabel, childr
   return (
     <>
       <Container>
-        <Reveal as="div" className="flex items-center justify-between gap-24">
-          <Heading level={2} size="h2" className="text-balance">
-            {heading}
-          </Heading>
-          <div className="flex shrink-0 items-center gap-8">
+        <div className="flex items-center justify-between gap-24">
+          <TextReveal>
+            <Heading level={2} size="h2" className="text-balance">
+              {heading}
+            </Heading>
+          </TextReveal>
+          <Reveal as="div" delay={HEADING_DELAY_MS} className="flex shrink-0 items-center gap-8">
             <button
               type="button"
               aria-label={previousLabel}
@@ -93,24 +97,27 @@ export default function NewsCarousel({ heading, previousLabel, nextLabel, childr
             >
               <ArrowRight size={24} />
             </button>
-          </div>
-        </Reveal>
-      </Container>
-
-      <div
-        ref={trackRef}
-        role="region"
-        aria-label={heading}
-        tabIndex={0}
-        onScroll={handleScroll}
-        onWheel={cancelTween}
-        onTouchStart={cancelTween}
-        className="news-carousel-track mx-auto mt-48 w-full max-w-1600 overflow-x-auto pl-20 outline-none [scroll-snap-type:x_mandatory] [overscroll-behavior-x:contain] focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-inset md:pl-64 xl:pl-140"
-      >
-        <div ref={rowRef} className="flex gap-24 pb-4">
-          {children}
+          </Reveal>
         </div>
-      </div>
+
+        {/* The track lives inside the container, not full-bleed: the row of cards
+            starts and ends on the same grid as the heading and the arrows above
+            it, so nothing is ever cut off past the right-hand arrow. */}
+        <div
+          ref={trackRef}
+          role="region"
+          aria-label={heading}
+          tabIndex={0}
+          onScroll={handleScroll}
+          onWheel={cancelTween}
+          onTouchStart={cancelTween}
+          className="news-carousel-track mt-48 w-full overflow-x-auto outline-none [scroll-snap-type:x_mandatory] [overscroll-behavior-x:contain] focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-inset"
+        >
+          <div ref={rowRef} className="flex gap-24 pb-4">
+            {children}
+          </div>
+        </div>
+      </Container>
     </>
   );
 }

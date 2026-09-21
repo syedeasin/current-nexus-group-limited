@@ -2,6 +2,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import ShareLinks from "@/components/sections/news/ShareLinks";
 import { formatDate } from "@/lib/formatDate";
@@ -57,11 +58,11 @@ export default async function DetailsHero({ post, postUrl }: DetailsHeroProps) {
               <span>{formatDate(post.publishedAt)}</span>
             </div>
           </Reveal>
-          <Reveal as="div" delay={80}>
+          <TextReveal delay={80}>
             <Heading level={1} size="h2" className="text-balance text-white">
               {post.title}
             </Heading>
-          </Reveal>
+          </TextReveal>
         </div>
 
         <Reveal as="div" delay={160} className="w-full xl:w-161">

@@ -192,7 +192,7 @@ export default function MenuPanel({ item, panelId, isOpen, pathname, onClose }: 
         isOpen ? "visible translate-y-0 opacity-100" : "invisible pointer-events-none -translate-y-8 opacity-0"
       )}
     >
-      <div className="mx-auto max-w-1600 px-40 py-48 min-[1400px]:px-80">
+      <div className="cnx-container py-48">
         {panel.kind === "flat" && (
           // One horizontal row, items separated by a hairline rule.
           <div className="flex flex-wrap items-center gap-y-20">

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
@@ -28,11 +29,11 @@ export default function SolutionsWhyChoose({
             <Reveal as="div" delay={cascade(0)}>
               <SectionEyebrow label={eyebrow} />
             </Reveal>
-            <Reveal as="div" delay={cascade(1)}>
+            <TextReveal delay={cascade(1)}>
               <Heading level={2} size="h2" className="tracking-[-1.2px]!">
                 {heading}
               </Heading>
-            </Reveal>
+            </TextReveal>
           </div>
           <Reveal as="div" delay={cascade(2)} className="max-w-600 lg:max-w-458">
             <Text size="p2" className="text-neutral-3">

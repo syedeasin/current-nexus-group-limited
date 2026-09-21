@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import Carousel, { type CarouselHandle } from "@/components/ui/Carousel";
@@ -11,6 +12,7 @@ import { ArrowRight } from "@/components/icons/ArrowRight";
 import ManufacturingProductCard from "@/components/sections/manufacturing/ProductCard";
 import { cn } from "@/lib/utils";
 import type { RelatedProductsSection } from "@/lib/data/products/types";
+import { HEADING_DELAY_MS, BODY_DELAY_MS } from "@/lib/motion/timing";
 
 const CARD_STEP_MS = 80;
 const CARD_STAGGER_CAP_MS = 400;
@@ -35,15 +37,19 @@ export default function RelatedProducts({
         {/* Figma node 114:99337: the prev/next buttons sit in the header row next to the
             heading, not below the cards like Carousel's own built-in controls — driven
             here via the imperative ref instead. */}
-        <Reveal as="div" className="flex items-center gap-48">
+        <div className="flex items-center gap-48">
           <div className="flex flex-1 flex-col gap-12">
-            <SectionEyebrow label={data.eyebrow} />
-            {/* Figma H2 spec here tracks -1.2px, not the shared --text-h2 token's -0.72px. */}
-            <Heading level={2} size="h2" className="text-balance tracking-[-1.2px]!">
-              {data.heading}
-            </Heading>
+            <Reveal as="div">
+              <SectionEyebrow label={data.eyebrow} />
+            </Reveal>
+            <TextReveal delay={HEADING_DELAY_MS}>
+              {/* Figma H2 spec here tracks -1.2px, not the shared --text-h2 token's -0.72px. */}
+              <Heading level={2} size="h2" className="text-balance tracking-[-1.2px]!">
+                {data.heading}
+              </Heading>
+            </TextReveal>
           </div>
-          <div className="flex shrink-0 items-center gap-8">
+          <Reveal as="div" delay={BODY_DELAY_MS} className="flex shrink-0 items-center gap-8">
             <button
               type="button"
               aria-label={previousLabel}
@@ -68,8 +74,8 @@ export default function RelatedProducts({
             >
               <ArrowRight size={24} />
             </button>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
 
         {/* Figma card row (114:99355): a fixed 24px gap, not Carousel's default
             variable-width scale — forced with `!` since Carousel's own responsive gap

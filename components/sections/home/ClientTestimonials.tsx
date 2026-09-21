@@ -2,6 +2,8 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import ImageReveal from "@/components/motion/ImageReveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import Button, { BUTTON_ICON_SIZE } from "@/components/ui/Button";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
@@ -25,19 +27,20 @@ export default async function ClientTestimonials() {
           <Reveal as="div" delay={cascade(0)}>
             <SectionEyebrow label={t("eyebrow")} />
           </Reveal>
-          <Reveal as="div" delay={cascade(1)}>
+          <TextReveal delay={cascade(1)}>
             <Heading level={2} size="h2" className="text-center">
               {t("heading")}
             </Heading>
-          </Reveal>
+          </TextReveal>
         </div>
 
         <Reveal
           as="div"
+          variant="fade"
           delay={CARD_DELAY_MS}
           className="relative w-full overflow-hidden rounded-16 bg-neutral-2 lg:h-600"
         >
-          <Reveal variant="scale" as="div" className="absolute inset-0">
+          <ImageReveal delay={CARD_DELAY_MS} className="absolute inset-0">
             <Image
               src={story.photo}
               alt=""
@@ -47,7 +50,7 @@ export default async function ClientTestimonials() {
               className="object-cover"
               style={{ objectPosition: "center 45%" }}
             />
-          </Reveal>
+          </ImageReveal>
           <div aria-hidden="true" className="testimonial-scrim pointer-events-none absolute inset-0" />
 
           <div className="relative flex flex-col justify-between gap-40 p-24 min-[480px]:p-32 lg:absolute lg:inset-0 lg:p-40 xl:p-60">

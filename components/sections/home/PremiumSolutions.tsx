@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import BrandTabs from "@/components/sections/home/premium-solutions/BrandTabs";
@@ -29,11 +30,11 @@ export default async function PremiumSolutions() {
           <Reveal as="div" delay={cascade(0)}>
             <SectionEyebrow label={t("eyebrow")} tone="dark" />
           </Reveal>
-          <Reveal as="div" delay={cascade(1)}>
+          <TextReveal delay={cascade(1)}>
             <Heading level={2} size="h2" className="text-balance text-center text-white">
               {t("heading")}
             </Heading>
-          </Reveal>
+          </TextReveal>
         </div>
 
         <div className="mt-48 w-full">

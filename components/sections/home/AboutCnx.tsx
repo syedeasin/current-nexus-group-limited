@@ -3,6 +3,8 @@ import { getTranslations } from "next-intl/server";
 import { cn } from "@/lib/utils";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import ImageReveal from "@/components/motion/ImageReveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import Button, { BUTTON_ICON_SIZE } from "@/components/ui/Button";
@@ -32,11 +34,11 @@ export default async function AboutCnx() {
                 <Reveal as="div" delay={cascade(0)}>
                   <SectionEyebrow label={t("eyebrow")} />
                 </Reveal>
-                <Reveal as="div" delay={cascade(1)}>
+                <TextReveal delay={cascade(1)}>
                   <Heading level={2} size="h2">
                     {t("heading")}
                   </Heading>
-                </Reveal>
+                </TextReveal>
               </div>
               <div className="flex flex-col gap-12">
                 <Reveal as="div" delay={cascade(2)}>
@@ -62,7 +64,7 @@ export default async function AboutCnx() {
           {/* Right column */}
           <div className="relative w-full min-w-0">
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-16 lg:aspect-[630/476]">
-              <Reveal variant="scale" as="div" className="absolute inset-0">
+              <ImageReveal className="absolute inset-0">
                 <Image
                   src="/images/aboutCNX/aboutCNXRightImage.webp"
                   alt="Technician inspecting photovoltaic modules on the CNX manufacturing line"
@@ -70,7 +72,7 @@ export default async function AboutCnx() {
                   sizes="(min-width: 1024px) 630px, 100vw"
                   className="object-cover"
                 />
-              </Reveal>
+              </ImageReveal>
               <div className="about-cnx-scrim pointer-events-none absolute inset-0" />
               <Reveal
                 variant="fade"

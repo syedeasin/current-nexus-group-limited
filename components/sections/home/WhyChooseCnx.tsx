@@ -2,6 +2,8 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import ImageReveal from "@/components/motion/ImageReveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import Button, { BUTTON_ICON_SIZE } from "@/components/ui/Button";
@@ -38,11 +40,11 @@ export default async function WhyChooseCnx() {
               <SectionEyebrow label={t("eyebrow")} tone="dark" />
             </Reveal>
             <div className="flex flex-col gap-16">
-              <Reveal as="div" delay={cascade(1)}>
+              <TextReveal delay={cascade(1)}>
                 <Heading level={2} size="h2" className="text-white">
                   {t("heading")}
                 </Heading>
-              </Reveal>
+              </TextReveal>
               <Reveal as="div" delay={cascade(2)}>
                 <Text size="p2" className="text-neutral-9">
                   {t("paragraph")}
@@ -57,21 +59,18 @@ export default async function WhyChooseCnx() {
             </Reveal>
           </div>
 
-          <Reveal
-            as="div"
+          <ImageReveal
             delay={cascade(4)}
-            className="why-choose-photo relative aspect-[600/338] w-full overflow-hidden rounded-16"
+            className="why-choose-photo relative aspect-[600/338] w-full rounded-16"
           >
-            <Reveal variant="scale" as="div" className="absolute inset-0">
-              <Image
-                src="/images/home/whyChooseUs.webp"
-                alt="Technician monitoring the automated solar panel line inside CNX's manufacturing facility"
-                fill
-                sizes="(min-width: 1024px) 600px, 100vw"
-                className="object-cover"
-              />
-            </Reveal>
-          </Reveal>
+            <Image
+              src="/images/home/whyChooseUs.webp"
+              alt="Technician monitoring the automated solar panel line inside CNX's manufacturing facility"
+              fill
+              sizes="(min-width: 1024px) 600px, 100vw"
+              className="object-cover"
+            />
+          </ImageReveal>
 
           <div className="why-choose-accordion w-full">
             <ReasonAccordion

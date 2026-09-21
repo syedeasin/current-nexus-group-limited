@@ -104,7 +104,13 @@ export default function Navbar({ navItems = NAV_ITEMS }: { navItems?: NavItem[] 
             )}
         >
           {/* ডেস্কটপ রো */}
-          <div className="mx-auto hidden h-full max-w-1600 items-center justify-between gap-12 px-40 py-20 min-[1400px]:gap-24 min-[1400px]:px-80 xl:flex">
+          {/* The row now sits on the global 1320 grid (64px gutters), which leaves
+              it ~1150px between 1280 and 1440 — just under what the logo, six
+              mega-menu labels and the action cluster need at their full spacing.
+              So the *chrome* compresses in that band rather than the container
+              widening: gaps and button padding step up at 1400/1500 instead of
+              the header claiming its own wider grid. */}
+          <div className="cnx-container hidden h-full items-center justify-between gap-8 py-20 min-[1400px]:gap-16 min-[1500px]:gap-24 xl:flex">
             <Link href="/" className="shrink-0">
               <Logo isTransparent={isTransparent} width={129} height={32} className="h-32 w-129" />
             </Link>
@@ -124,7 +130,7 @@ export default function Navbar({ navItems = NAV_ITEMS }: { navItems?: NavItem[] 
                   aria-label={t("search")}
                   onClick={handleOpenSearch}
                   className={cn(
-                      "rounded-full p-14 transition-colors hover:text-secondary",
+                      "rounded-full p-10 transition-colors hover:text-secondary min-[1500px]:p-14",
                       isTransparent ? "text-white" : "text-neutral-1"
                   )}
               >
@@ -133,7 +139,7 @@ export default function Navbar({ navItems = NAV_ITEMS }: { navItems?: NavItem[] 
 
               <Link
                   href="/contact"
-                  className="flex h-48 shrink-0 items-center gap-8 rounded-full bg-secondary px-24 text-btn-sm font-semibold text-neutral-1 transition-colors duration-[var(--dur-base)] ease-[var(--ease-out)] hover:brightness-95"
+                  className="flex h-48 shrink-0 items-center gap-8 rounded-full bg-secondary px-16 text-btn-sm font-semibold text-neutral-1 transition-colors duration-[var(--dur-base)] ease-[var(--ease-out)] hover:brightness-95 min-[1500px]:px-24"
               >
                 <span className="whitespace-nowrap">{t("contact")}</span>
                 <ArrowRight size={20} />

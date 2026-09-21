@@ -61,9 +61,9 @@ interface CarouselProps {
    * Extends the track (only — controls/progress row stay put) past the parent
    * Container's right gutter so the last card bleeds to the true edge instead
    * of stopping short of it (Figma: Scene of Applications, node 4199:9760).
-   * Cancels Container's `xl:px-140 md:px-64 px-20` right padding with an equal
-   * negative right margin — the caller must still be inside a Container for
-   * the math to land on the edge.
+   * Cancels `.cnx-container`'s right gutter with an equal negative margin, so
+   * it tracks `--gutter` at every breakpoint — the caller must still be inside
+   * a Container for the math to land on the edge.
    */
   bleedRight?: boolean;
 }
@@ -242,7 +242,7 @@ function Carousel(
           // would stop the negative margin below from growing the box — so the
           // bleeding track relies on plain stretch (no width class) instead, and
           // only the non-bleeding case keeps the explicit w-full it always had.
-          bleedRight ? "-mr-20 md:-mr-64 xl:-mr-140" : "w-full"
+          bleedRight ? "mr-[calc(var(--gutter)*-1)]" : "w-full"
         )}
       >
         <div

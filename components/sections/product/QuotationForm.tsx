@@ -4,6 +4,7 @@ import { useId, useState, type FormEvent } from "react";
 import { Loader2 } from "lucide-react";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
@@ -142,12 +143,12 @@ export default function QuotationForm({ data }: { data: QuotationFormSection }) 
           <Reveal as="div" delay={0}>
             <SectionEyebrow label={data.eyebrow} />
           </Reveal>
-          <Reveal as="div" delay={80}>
+          <TextReveal delay={80}>
             {/* Figma node 114:99537: H2 here tracks -1.2px, not the shared --text-h2 token's -0.72px. */}
             <Heading level={2} size="h2" className="text-balance tracking-[-1.2px]!">
               {data.heading}
             </Heading>
-          </Reveal>
+          </TextReveal>
         </div>
 
         <Reveal as="div" delay={160} className="mx-auto w-full max-w-840">

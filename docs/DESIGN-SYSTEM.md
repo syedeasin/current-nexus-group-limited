@@ -12,27 +12,69 @@ from this document, add the token here first, then use it.
 
 ## 1. Container
 
-```
-mx-auto w-full max-w-1600 px-20 md:px-64 xl:px-140
+One content column for the whole site: **1320px on desktop**, centred, with the
+same gutters everywhere. Nothing else may declare a page width.
+
+```tsx
+<Container>…</Container>          // components/layout/Container.tsx
 ```
 
-Figma draws a 1320px content column inside a 1600px frame — a 140px gutter each
-side. `Container` reproduces that exactly at >= 1600px and keeps proportional
-gutters below it.
+The geometry is two custom properties and two classes in `app/globals.css`:
+
+```css
+--container-max: 1320px;
+--gutter: 20px;              /* 64px from 768px up */
+
+.cnx-container        { max-width: calc(var(--container-max) + var(--gutter) * 2);
+                        margin-inline: auto; padding-inline: var(--gutter); }
+.cnx-container-inset  { padding-inline: max(var(--gutter),
+                        calc((100% - var(--container-max)) / 2)); }
+```
+
+`max-width` includes the gutters, so the inner column lands on exactly 1320px
+once the viewport is wide enough, and stays fluid with the same gutters below
+that.
 
 | Viewport | Gutter | Content width |
 |---|---|---|
-| >= 1600 | 140 | 1320 (capped) |
-| 1280–1599 | 140 | 1000–1320 |
-| 768–1279 | 64 | 640–1152 |
+| >= 1448 | 64 | 1320 (capped) |
+| 768–1447 | 64 | 640–1320 |
 | < 768 | 20 | fluid |
 
-Two things sit deliberately **outside** the container:
+### Everything is on it
 
-- The **header row**, which uses the design's own 80px gutter (`px-40` between
-  1280 and 1400, `px-80` above) inside the same `max-w-1600`.
-- **Carousel tracks**, which bleed to the viewport edge on mobile so cards can
-  scroll past the gutter.
+The header row, the mega-menu panel, the mobile bar, the search overlay, every
+section, the news grid and the footer all use `.cnx-container`. The header used
+to sit on its own `max-w-1600 px-40/px-80` grid, which is why it read as wider
+than the page; it no longer does. If you find yourself typing `max-w-1600`,
+`max-w-1460` or `xl:px-140`, you are re-introducing the bug this section exists
+to prevent.
+
+A `max-w-*` on a *paragraph* is a different thing entirely — that is a reading
+measure, not a page width, and is fine.
+
+### Full-bleed
+
+A section's **background** may be full width; its **content** goes in the
+container. Backgrounds, hero imagery, decorative graphics and a horizontal
+track are all legitimately edge-to-edge.
+
+Full-bleed rails that must still *start* on the content edge — the news carousel
+track, the hero's edge arrow rail — use `.cnx-container-inset`
+(or `.cnx-container-inset-l` for left only) instead of re-deriving the padding.
+It reproduces `.cnx-container`'s edge exactly, from the same two properties, and
+uses `%` rather than `vw` so a visible scrollbar cannot knock it out of
+alignment.
+
+Carousels that bleed past the right gutter cancel it with
+`mr-[calc(var(--gutter)*-1)]`, which tracks the token at every breakpoint.
+
+**Trap:** when an inset element is itself a `scroll-snap-type` container, the
+snap port's start edge is its *border* box, not its padding box — the browser
+scrolls the first card flush to the viewport edge on load and the inset vanishes
+without a trace. Both inset classes therefore carry a matching
+`scroll-padding-inline`. It is inert on non-scroll elements, so the pair always
+travels together.
 
 ## 2. Spacing
 
@@ -207,11 +249,11 @@ Two progress treatments, both driven by the same scroll state:
 |---|---|---|
 | — | < 481 | single column, 85vw carousel cards |
 | `min-[481px]` | 481 | 2-up grids, side-by-side buttons |
-| `md` | 768 | 64px gutters, second type tier |
+| `md` | 768 | 64px gutters (the desktop value), second type tier |
 | `lg` | 1024 | 3-up grids, two-column splits, desktop hero |
-| `xl` | 1280 | 140px gutters, third type tier, **desktop header** |
+| `xl` | 1280 | third type tier, **desktop header** |
 | `min-[1400px]` | 1400 | header widens to its 80px design gutter |
-| — | 1600 | container reaches its 1320 cap |
+| — | 1448 | container reaches its 1320 cap |
 
 The desktop navigation needs ~1150px of row for the logo, six mega-menu labels
 and the action cluster. Below `xl` it does not fit, so the compact bar with the

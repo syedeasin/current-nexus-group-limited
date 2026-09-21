@@ -2,6 +2,8 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import ImageReveal from "@/components/motion/ImageReveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
@@ -72,19 +74,18 @@ export default function CaseStudySection({
           <Reveal as="div" delay={0}>
             <SectionEyebrow label={eyebrowLabel} />
           </Reveal>
-          <Reveal as="div" delay={HEADING_DELAY_MS}>
+          <TextReveal delay={HEADING_DELAY_MS}>
             <Heading level={2} size="h2" className={cn("text-balance text-center", headingClassName)}>
               {heading}
             </Heading>
-          </Reveal>
+          </TextReveal>
         </div>
 
-        <Reveal
-          variant="scale"
-          delay={IMAGE_DELAY_MS}
-          className="relative w-full overflow-hidden rounded-16 lg:h-600"
-        >
-          <div className="relative aspect-[4/3] w-full lg:absolute lg:inset-0 lg:aspect-auto">
+        <div className="relative w-full overflow-hidden rounded-16 lg:h-600">
+          <ImageReveal
+            delay={IMAGE_DELAY_MS}
+            className="relative aspect-[4/3] w-full lg:absolute lg:inset-0 lg:aspect-auto"
+          >
             <Image
               src={backgroundImage}
               alt={backgroundImageAlt ?? ""}
@@ -94,7 +95,7 @@ export default function CaseStudySection({
               className="object-cover"
             />
             <div aria-hidden="true" className="absolute inset-0" style={{ background: gradientCss }} />
-          </div>
+          </ImageReveal>
 
           <Reveal variant="fade" delay={CONTENT_DELAY_MS} as="div" className={contentRowClassName}>
             <div className="flex max-w-704 flex-col gap-12">
@@ -117,7 +118,7 @@ export default function CaseStudySection({
               ))}
             </ul>
           </Reveal>
-        </Reveal>
+        </div>
       </Container>
     </section>
   );

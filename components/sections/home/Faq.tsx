@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
@@ -53,11 +54,11 @@ export default async function Faq() {
             <Reveal as="div" delay={cascade(0)}>
               <SectionEyebrow label={t("eyebrow")} />
             </Reveal>
-            <Reveal as="div" delay={HEADING_DELAY_MS}>
+            <TextReveal delay={HEADING_DELAY_MS}>
               <Heading level={2} size="h2" className="whitespace-pre-line">
                 {t("heading")}
               </Heading>
-            </Reveal>
+            </TextReveal>
           </div>
 
           <div className="faq-accordion-area w-full">

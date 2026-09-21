@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import { cascade, stagger } from "@/lib/motion/timing";
@@ -66,11 +67,11 @@ export default function AwardsSection({
             <Reveal as="div">
               <SectionEyebrow label={eyebrowLabel} />
             </Reveal>
-            <Reveal as="div" delay={HEADING_DELAY_MS}>
+            <TextReveal delay={HEADING_DELAY_MS}>
               <Heading level={2} size="h2" className={cn("text-balance", headingClassName)}>
                 {heading}
               </Heading>
-            </Reveal>
+            </TextReveal>
           </div>
 
           <div className={rowClassName}>

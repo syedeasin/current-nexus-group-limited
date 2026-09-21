@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Download } from "lucide-react";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
@@ -18,11 +19,11 @@ export default function ProductVariants({ data }: { data: ProductVariantsSection
           <Reveal as="div" delay={0}>
             <SectionEyebrow label={data.eyebrow} />
           </Reveal>
-          <Reveal as="div" delay={80}>
+          <TextReveal delay={80}>
             <Heading level={2} size="h2" className="text-balance">
               {data.heading}
             </Heading>
-          </Reveal>
+          </TextReveal>
         </div>
 
         <div className="flex flex-col gap-60">

@@ -1,5 +1,6 @@
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import { cn } from "@/lib/utils";
@@ -26,11 +27,11 @@ export default function TechnicalSpecifications({ data }: { data: TechnicalSpeci
           <Reveal as="div" delay={0}>
             <SectionEyebrow label={data.eyebrow} />
           </Reveal>
-          <Reveal as="div" delay={80}>
+          <TextReveal delay={80}>
             <Heading level={2} size="h2" className="text-balance text-white">
               {data.heading}
             </Heading>
-          </Reveal>
+          </TextReveal>
         </div>
 
         <div className="flex flex-col gap-40">

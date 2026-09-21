@@ -47,7 +47,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
         isOpen ? "visible translate-y-0 opacity-100" : "invisible pointer-events-none -translate-y-8 opacity-0"
       )}
     >
-      <div className="flex items-center gap-12 px-20 py-16 xl:gap-16 xl:px-80">
+      <div className="cnx-container flex items-center gap-12 py-16 xl:gap-16">
         <button
           type="button"
           aria-label={t("closeSearch")}

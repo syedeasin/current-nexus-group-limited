@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import { usePrefersReducedMotion } from "@/lib/hooks/useMediaQuery";
@@ -44,11 +45,11 @@ export default function EnergyGainChart({ data }: { data: EnergyGainSection }) {
           <Reveal as="div" delay={0}>
             <SectionEyebrow label={data.eyebrow} />
           </Reveal>
-          <Reveal as="div" delay={80}>
+          <TextReveal delay={80}>
             <Heading level={2} size="h2" className="text-balance">
               {data.heading}
             </Heading>
-          </Reveal>
+          </TextReveal>
         </div>
 
         <Reveal as="div" variant="scale" delay={160}>

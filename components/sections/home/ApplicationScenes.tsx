@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import ApplicationScenesCarousel from "@/components/sections/home/application-scenes/ApplicationScenesCarousel";
@@ -28,11 +29,11 @@ export default async function ApplicationScenes() {
           <Reveal as="div" delay={cascade(0)}>
             <SectionEyebrow label={t("eyebrow")} />
           </Reveal>
-          <Reveal as="div" delay={cascade(1)}>
+          <TextReveal delay={cascade(1)}>
             <Heading level={2} size="h2" className="max-w-650 text-balance text-center">
               {t("heading")}
             </Heading>
-          </Reveal>
+          </TextReveal>
         </div>
       </Container>
 

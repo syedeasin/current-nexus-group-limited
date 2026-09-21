@@ -3,6 +3,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { ElementType, ReactNode } from "react";
 import { usePrefersReducedMotion } from "@/lib/hooks/useMediaQuery";
+import { observeOnce } from "@/lib/motion/observer";
 import { cn } from "@/lib/utils";
 
 // Arm before the first browser paint so the hidden state (opacity 0 + offset)
@@ -58,20 +59,9 @@ export default function Reveal({
 
     setArmed(true);
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.unobserve(node);
-        }
-      },
-      // Fires slightly before the element is fully in view so the motion has
-      // already started by the time the reader's eye reaches it.
-      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
+    // Threshold and root margin live in the shared observer so every entrance
+    // on the site fires on the same line.
+    return observeOnce(node, () => setVisible(true));
   }, [reducedMotion]);
 
   const hidden = armed && !visible;

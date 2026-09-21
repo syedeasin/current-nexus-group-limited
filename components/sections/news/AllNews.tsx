@@ -1,6 +1,7 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import BlogCard from "@/components/ui/BlogCard";
@@ -25,11 +26,11 @@ export default async function AllNews({ page }: AllNewsProps) {
   return (
     <section aria-label={t("allNewsHeading")} className="w-full bg-surface-2 py-48 md:py-64 xl:py-100">
       <Container className="flex flex-col items-center gap-48">
-        <Reveal as="div" className="w-full">
+        <TextReveal className="w-full">
           <Heading level={2} size="h2">
             {t("allNewsHeading")}
           </Heading>
-        </Reveal>
+        </TextReveal>
 
         {posts.length === 0 ? (
           <Reveal as="div" className="w-full">

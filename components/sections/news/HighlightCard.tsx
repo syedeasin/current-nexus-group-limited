@@ -24,7 +24,7 @@ export default function HighlightCard({ post, readingMinutesLabel }: HighlightCa
             alt={post.coverImageAlt}
             aria-hidden={post.coverImageAlt ? undefined : true}
             fill
-            sizes="(min-width: 1024px) 648px, (min-width: 600px) 64vw, 85vw"
+            sizes="(min-width: 1280px) 424px, (min-width: 1024px) 30vw, (min-width: 600px) 60vw, 85vw"
             className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03] group-focus-visible:scale-[1.03] motion-reduce:transition-none"
           />
         )}
@@ -47,7 +47,6 @@ export default function HighlightCard({ post, readingMinutesLabel }: HighlightCa
           {post.title}
         </Heading>
       </div>
-      <div className="mt-32 h-2 w-full bg-neutral-10" aria-hidden="true" />
     </Link>
   );
 }

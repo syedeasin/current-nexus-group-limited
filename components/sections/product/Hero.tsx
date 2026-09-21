@@ -3,6 +3,7 @@ import Image from "next/image";
 import { FileText } from "lucide-react";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
@@ -106,13 +107,13 @@ export default function Hero({ hero }: { hero: ProductHero }) {
               <SectionEyebrow label={hero.eyebrow} />
             </Reveal>
             <div className="flex flex-col gap-16">
-              <Reveal as="div" delay={80}>
+              <TextReveal delay={80}>
                 {/* Figma's mobile frame tracks this heading at -1px against the shared
                     --text-h2 token's -0.48px; tablet and desktop match their tokens. */}
                 <Heading level={1} size="h2" className="text-balance text-white max-md:tracking-[-1px]!">
                   {hero.heading}
                 </Heading>
-              </Reveal>
+              </TextReveal>
               <Reveal as="div" delay={160}>
                 {/* Figma node 4284:3260 sets the mobile body in the H6 heading style
                     (18/26 semibold, 0 tracking); desktop node 4272:3317 keeps it regular

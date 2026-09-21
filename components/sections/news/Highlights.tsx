@@ -28,7 +28,7 @@ export default async function Highlights() {
               key={post.slug}
               as="div"
               delay={delay}
-              className="w-[85vw] shrink-0 [scroll-snap-align:start] min-[600px]:w-[64%] lg:w-648"
+              className="w-[85%] shrink-0 [scroll-snap-align:start] min-[600px]:w-[60%] lg:w-[calc((100%-48px)/3)]"
             >
               <HighlightCard post={post} readingMinutesLabel={t("minRead", { count: post.readingMinutes })} />
             </Reveal>

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
@@ -36,11 +37,11 @@ export default function FeatureGrid({ eyebrowLabel, heading, items, className }:
           <Reveal as="div" delay={0}>
             <SectionEyebrow label={eyebrowLabel} />
           </Reveal>
-          <Reveal as="div" delay={HEADING_DELAY_MS}>
+          <TextReveal delay={HEADING_DELAY_MS}>
             <Heading level={2} size="h2" className="text-balance">
               {heading}
             </Heading>
-          </Reveal>
+          </TextReveal>
         </div>
 
         <div className="grid w-full grid-cols-1 gap-24 sm:grid-cols-2 lg:grid-cols-3">

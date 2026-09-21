@@ -2,6 +2,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import Button from "@/components/ui/Button";
@@ -53,11 +54,11 @@ export default async function WhyChooseCnxHero() {
               <Reveal as="div" delay={cascade(0)}>
                 <SectionEyebrow label={t("eyebrow")} />
               </Reveal>
-              <Reveal as="div" delay={cascade(1)}>
+              <TextReveal delay={cascade(1)}>
                 <Heading level={1} size="h1" className="text-balance text-white">
                   {t("heading")}
                 </Heading>
-              </Reveal>
+              </TextReveal>
             </div>
             <Reveal as="div" delay={cascade(2)}>
               <Text size="p1" className="text-neutral-9">

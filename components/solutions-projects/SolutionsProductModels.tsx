@@ -4,6 +4,7 @@ import Container from "@/components/layout/Container";
 import Button from "@/components/ui/Button";
 import Heading from "@/components/ui/Heading";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import { CARD_IMAGE_ZOOM, CARD_LIFT } from "@/lib/motion/interactions";
 import { CONTENT_BASE_DELAY_MS, cascade, stagger } from "@/lib/motion/timing";
@@ -29,11 +30,11 @@ export default function SolutionsProductModels({
             <Reveal as="div" delay={cascade(0)}>
               <SectionEyebrow label={eyebrow} />
             </Reveal>
-            <Reveal as="div" delay={cascade(1)}>
+            <TextReveal delay={cascade(1)}>
               <Heading level={2} size="h2" className="text-balance text-center tracking-[-1.2px]!">
                 {heading}
               </Heading>
-            </Reveal>
+            </TextReveal>
           </div>
 
           <div className="flex w-full flex-col items-center justify-center gap-24 sm:flex-row sm:items-stretch">

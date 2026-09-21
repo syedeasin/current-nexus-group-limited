@@ -24,7 +24,7 @@ export default function MobileNav({ isTransparent, isOpen, onOpenChange, onOpenS
   );
 
   return (
-      <div className="flex h-56 items-center justify-between px-20 py-16 xl:hidden">
+      <div className="cnx-container flex h-56 items-center justify-between py-16 xl:hidden">
         <Link href="/" className="shrink-0">
           <Logo isTransparent={isTransparent} width={98} height={24} className="h-24 w-98" />
         </Link>

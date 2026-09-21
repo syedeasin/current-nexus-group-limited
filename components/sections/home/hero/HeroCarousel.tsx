@@ -9,10 +9,15 @@ import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import Button, { BUTTON_ICON_SIZE } from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import { ChevronRight } from "@/components/icons/ChevronRight";
 import { usePrefersReducedMotion } from "@/lib/hooks/useMediaQuery";
 import { HERO_HEADER_OFFSET } from "@/src/layout/headerOffset";
-import { BODY_DELAY_MS, EYEBROW_DELAY_MS, HEADING_DELAY_MS } from "@/lib/motion/timing";
+import {
+  HERO_BODY_DELAY_MS,
+  HERO_CTA_DELAY_MS,
+  HERO_HEADING_DELAY_MS,
+} from "@/lib/motion/timing";
 import { cn } from "@/lib/utils";
 
 interface HeroCarouselSlide {
@@ -158,16 +163,25 @@ export default function HeroCarousel({
           />
         </div>
 
-        <div className="flex flex-col items-center bg-neutral-1 px-20 pb-40">
-          <Heading level={1} size="h1" className="text-center font-bold text-white text-balance">
-            {active.heading}
-          </Heading>
-          <p className="mt-12 text-center text-h4 font-medium text-neutral-9">{active.body}</p>
-          <Button href={active.ctaHref} size="lg" className="mt-27">
-            {active.cta}
-            <ChevronRight size={BUTTON_ICON_SIZE} />
-          </Button>
-        </div>
+        {/* The small-screen hero is its own block, so it needs the same entrance
+            as the desktop one rather than arriving flat. Same cascade, and the
+            mask tokens already tighten under 768px. */}
+        <Container className="flex flex-col items-center bg-neutral-1 pb-40">
+          <TextReveal delay={HERO_HEADING_DELAY_MS}>
+            <Heading level={1} size="h1" className="text-center font-bold text-white text-balance">
+              {active.heading}
+            </Heading>
+          </TextReveal>
+          <Reveal as="div" delay={HERO_BODY_DELAY_MS}>
+            <p className="mt-12 text-center text-h4 font-medium text-neutral-9">{active.body}</p>
+          </Reveal>
+          <Reveal as="div" delay={HERO_CTA_DELAY_MS}>
+            <Button href={active.ctaHref} size="lg" className="mt-27">
+              {active.cta}
+              <ChevronRight size={BUTTON_ICON_SIZE} />
+            </Button>
+          </Reveal>
+        </Container>
       </div>
 
       {/* ডেস্কটপ হিরো — বিদ্যমান ক্যারোসেল (>= lg) */}
@@ -219,19 +233,19 @@ export default function HeroCarousel({
         <Container className="relative z-10 flex min-h-720 flex-col items-center justify-end gap-40 pt-108 pb-48 xl:min-h-960 xl:pb-110">
           <div aria-live="polite" className="flex w-full flex-col items-center gap-40">
             <div className="flex w-full flex-col items-center gap-19 text-center">
-              <Reveal as="div" delay={EYEBROW_DELAY_MS} className="w-full xl:max-w-888">
+              <TextReveal delay={HERO_HEADING_DELAY_MS} className="w-full xl:max-w-888">
                 <Heading level={1} size="h1" className="font-bold text-white text-balance">
                   {active.heading}
                 </Heading>
-              </Reveal>
-              <Reveal as="div" delay={HEADING_DELAY_MS} className="w-full xl:max-w-747">
+              </TextReveal>
+              <Reveal as="div" delay={HERO_BODY_DELAY_MS} className="w-full xl:max-w-747">
                 <Text size="p1" className="text-neutral-9">
                   {active.body}
                 </Text>
               </Reveal>
             </div>
 
-            <Reveal as="div" delay={BODY_DELAY_MS}>
+            <Reveal as="div" delay={HERO_CTA_DELAY_MS}>
               <Button href={active.ctaHref} size="xl" className="w-full sm:w-auto">
                 {active.cta}
                 <ChevronRight size={BUTTON_ICON_SIZE} />
@@ -241,7 +255,7 @@ export default function HeroCarousel({
         </Container>
 
         <div className="pointer-events-none absolute inset-x-0 top-1/2 z-10 flex -translate-y-1/2">
-          <div className="mx-auto flex w-full max-w-1600 items-center justify-between px-64 xl:px-140">
+          <div className="cnx-container-inset flex w-full items-center justify-between">
             <div className="pointer-events-auto">
               <ArrowButton
                 direction="prev"

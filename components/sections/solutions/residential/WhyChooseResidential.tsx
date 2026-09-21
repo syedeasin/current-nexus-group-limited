@@ -2,6 +2,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
@@ -45,11 +46,11 @@ export default async function WhyChooseResidential() {
                 rather than carrying the placeholder's odd -1.04px. The shared
                 --text-h2 token (-0.72px) stays untouched.
                 The 482px cap is what wraps the line in two — no manual <br>. */}
-            <Reveal as="div" delay={cascade(1)}>
+            <TextReveal delay={cascade(1)}>
               <Heading level={2} size="h2" className="tracking-[-1.2px]!">
                 {t("heading")}
               </Heading>
-            </Reveal>
+            </TextReveal>
           </div>
           <Reveal as="div" delay={cascade(2)} className="max-w-600 lg:max-w-458">
             <Text size="p2" className="text-neutral-3">
