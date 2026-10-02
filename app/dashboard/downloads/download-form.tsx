@@ -150,11 +150,21 @@ export default function DownloadForm({ mode, download, groups }: DownloadFormPro
 
   function submit(formData: FormData) {
     startTransition(async () => {
-      const result =
-        mode === "create"
-          ? await createDownload(formData)
-          : await updateDownload(download!.id, formData);
-      applyResult(result);
+      // A rejected request (connection drop, a proxy's body-size limit on a
+      // large file) throws instead of returning { ok: false }.
+      try {
+        const result =
+          mode === "create"
+            ? await createDownload(formData)
+            : await updateDownload(download!.id, formData);
+        applyResult(result);
+      } catch (error) {
+        console.error("[download-form] save failed", error);
+        setFormError(
+          "The file could not be uploaded. Check your connection and try again — documents can be up to 25MB."
+        );
+        summaryRef.current?.focus();
+      }
     });
   }
 

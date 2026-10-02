@@ -24,6 +24,7 @@ import {
   Redo2,
 } from "lucide-react";
 import { uploadMedia } from "@/app/dashboard/media/actions";
+import { MAX_UPLOAD_BYTES, formatMegabytes } from "@/lib/upload-limits";
 
 type RichTextEditorProps = {
   name: string; // hidden input field name, "content"
@@ -148,13 +149,32 @@ export default function RichTextEditor({
     if (!file || !editor) return;
 
     setImageError(null);
+
+    if (file.size > MAX_UPLOAD_BYTES) {
+      setImageError(
+        `This image is ${formatMegabytes(file.size)} — the limit is ${formatMegabytes(MAX_UPLOAD_BYTES)}. Please use a smaller image.`
+      );
+      return;
+    }
+
     setIsUploadingImage(true);
 
     const formData = new FormData();
     formData.set("file", file);
-    const result = await uploadMedia(formData);
 
-    setIsUploadingImage(false);
+    // A rejected request (network drop, a proxy's body-size limit) throws
+    // rather than returning { ok: false } — without this the toolbar stayed on
+    // "Uploading…" forever.
+    let result: Awaited<ReturnType<typeof uploadMedia>>;
+    try {
+      result = await uploadMedia(formData);
+    } catch (error) {
+      console.error("[rich-text-editor] image upload failed", error);
+      setImageError("The image could not be uploaded. Check your connection and try again, or use a smaller image.");
+      return;
+    } finally {
+      setIsUploadingImage(false);
+    }
 
     if (!result.ok) {
       setImageError(result.error);

@@ -17,7 +17,11 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     serverActions: {
-      bodySizeLimit: "10mb",
+      // Must cover the largest upload (25MB documents, lib/upload-limits.ts)
+      // plus multipart overhead — at 10mb, documents over ~10MB failed even
+      // though the validator allows 25MB. nginx's client_max_body_size on the
+      // server has to be at least this too.
+      bodySizeLimit: "26mb",
     },
   },
 };

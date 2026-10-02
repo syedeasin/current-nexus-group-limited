@@ -3,6 +3,7 @@
 import { useId, useRef, useState, type ChangeEvent, type DragEvent } from "react";
 import { ImagePlus } from "lucide-react";
 import { uploadMedia } from "@/app/dashboard/media/actions";
+import { MAX_UPLOAD_BYTES, formatMegabytes } from "@/lib/upload-limits";
 import FieldLabel from "@/components/dashboard/form/field-label";
 import TextInput from "@/components/dashboard/form/text-input";
 import FieldHint from "@/components/dashboard/form/field-hint";
@@ -94,6 +95,12 @@ export default function ImageUpload({
     if (!file) return;
 
     setError(null);
+    if (file.size > MAX_UPLOAD_BYTES) {
+      setError(
+        `This image is ${formatMegabytes(file.size)} — the limit is ${formatMegabytes(MAX_UPLOAD_BYTES)}. Please use a smaller image.`
+      );
+      return;
+    }
     const objectUrl = URL.createObjectURL(file);
     setLocalPreview(objectUrl);
     setUploading(true);

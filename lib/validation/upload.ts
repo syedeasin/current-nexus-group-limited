@@ -1,4 +1,7 @@
 import DOMPurify from "isomorphic-dompurify";
+import { MAX_DOCUMENT_BYTES, MAX_UPLOAD_BYTES } from "@/lib/upload-limits";
+
+export { MAX_DOCUMENT_BYTES, MAX_UPLOAD_BYTES };
 
 export const ALLOWED_IMAGE_TYPES = [
   "image/jpeg",
@@ -8,8 +11,6 @@ export const ALLOWED_IMAGE_TYPES = [
   "image/gif",
   "image/svg+xml",
 ] as const;
-
-export const MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
 
 export type UploadValidationResult =
   | { ok: true; verifiedType: (typeof ALLOWED_IMAGE_TYPES)[number]; sanitizedSvg?: string }
@@ -150,8 +151,6 @@ export const ALLOWED_DOCUMENT_TYPES = [
 ] as const;
 
 export type AllowedDocumentType = (typeof ALLOWED_DOCUMENT_TYPES)[number];
-
-export const MAX_DOCUMENT_BYTES = 25 * 1024 * 1024;
 
 /** Extension used on disk for each accepted type — keep in sync with lib/storage.ts. */
 export const DOCUMENT_EXTENSIONS: Record<AllowedDocumentType, string> = {
