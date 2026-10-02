@@ -16,6 +16,9 @@ const nextConfig: NextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   experimental: {
+    // forbidden() → app/dashboard/forbidden.tsx when a role opens a dashboard
+    // page it has no permission for (lib/auth.ts requirePageAccess).
+    authInterrupts: true,
     serverActions: {
       // Must cover the largest upload (25MB documents, lib/upload-limits.ts)
       // plus multipart overhead — at 10mb, documents over ~10MB failed even

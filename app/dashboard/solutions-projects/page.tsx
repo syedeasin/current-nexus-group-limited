@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import { requirePermission } from "@/lib/auth";
+import { requirePageAccess } from "@/lib/auth";
 import EmptyState from "@/components/dashboard/empty-state";
 import PagesTable from "./pages-table";
 
 export default async function SolutionsProjectsPage() {
-  await requirePermission("solutionsPage.manage");
+  await requirePageAccess("solutionsPage.manage");
 
   const pages = await prisma.solutionPage.findMany({
     orderBy: [{ menuGroup: "asc" }, { menuOrder: "asc" }, { updatedAt: "desc" }],

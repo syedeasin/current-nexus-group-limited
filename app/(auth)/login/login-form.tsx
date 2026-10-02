@@ -1,7 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import PasswordInput from "@/components/dashboard/form/password-input";
+import { AuthNotice, authButtonClass, authInputClass, authLabelClass, authLinkClass } from "../auth-ui";
 import { loginAction } from "./actions";
 
 export default function LoginForm() {
@@ -15,68 +18,54 @@ export default function LoginForm() {
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    const result = await loginAction(formData);
-
-    if (result.ok) {
-      router.push("/dashboard");
-      router.refresh();
-    } else {
+    try {
+      const result = await loginAction(formData);
+      if (result.ok) {
+        router.push("/dashboard");
+        router.refresh();
+        return;
+      }
       setError(result.error);
-      setLoading(false);
+    } catch {
+      setError("Couldn't reach the server. Check your connection and try again.");
     }
+    setLoading(false);
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-20">
-      {error && (
-        <div
-          role="alert"
-          className="rounded-8 border border-error/30 bg-error/5 px-16 py-12 text-p4 text-error"
-        >
-          {error}
+      {error && <AuthNotice tone="error">{error}</AuthNotice>}
+
+      <div>
+        <label htmlFor="identifier" className={authLabelClass}>
+          Email or username
+        </label>
+        <input
+          id="identifier"
+          name="identifier"
+          type="text"
+          required
+          autoComplete="username"
+          autoCapitalize="off"
+          spellCheck={false}
+          className={authInputClass}
+        />
+      </div>
+
+      <div>
+        <div className="mb-8 flex items-baseline justify-between gap-12">
+          <label htmlFor="password" className={`${authLabelClass} mb-0`}>
+            Password
+          </label>
+          <Link href="/forgot-password" className={`text-p4 ${authLinkClass}`}>
+            Forgot password?
+          </Link>
         </div>
-      )}
-
-      <div>
-        <label
-          htmlFor="email"
-          className="mb-8 block text-p4 font-semibold uppercase tracking-[2px] text-neutral-5"
-        >
-          Email Address
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          autoComplete="email"
-          className="w-full rounded-8 border border-neutral-10 bg-surface-2 px-16 py-12 text-p3 text-neutral-1 outline-none transition-colors duration-200 focus:border-primary focus:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-        />
+        <PasswordInput id="password" name="password" required autoComplete="current-password" />
       </div>
 
-      <div>
-        <label
-          htmlFor="password"
-          className="mb-8 block text-p4 font-semibold uppercase tracking-[2px] text-neutral-5"
-        >
-          Password
-        </label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          required
-          autoComplete="current-password"
-          className="w-full rounded-8 border border-neutral-10 bg-surface-2 px-16 py-12 text-p3 text-neutral-1 outline-none transition-colors duration-200 focus:border-primary focus:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-        />
-      </div>
-
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full rounded-full bg-primary px-24 py-16 text-btn-sm font-semibold uppercase tracking-[0.5px] text-white transition-colors duration-200 hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-60"
-      >
-        {loading ? "Signing in..." : "Sign In"}
+      <button type="submit" disabled={loading} className={authButtonClass}>
+        {loading ? "Signing in…" : "Sign in"}
       </button>
     </form>
   );

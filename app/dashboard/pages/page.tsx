@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ExternalLink, PencilLine } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import { requirePermission } from "@/lib/auth";
+import { requirePageAccess } from "@/lib/auth";
 import { routing } from "@/i18n/routing";
 import { PAGES, pageSlug } from "@/lib/page-content/registry";
 
@@ -12,7 +12,7 @@ function formatDate(date: Date) {
 }
 
 export default async function PagesDashboardPage() {
-  await requirePermission("page.manage");
+  await requirePageAccess("page.manage");
 
   const rows = await prisma.pageContent.findMany({
     select: { pageKey: true, locale: true, updatedAt: true, updatedBy: { select: { name: true } } },

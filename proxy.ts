@@ -18,7 +18,8 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  if (pathname === "/login") {
+  // Sign-in and password recovery live outside the localised site.
+  if (pathname === "/login" || pathname === "/forgot-password" || pathname.startsWith("/reset-password/")) {
     return NextResponse.next();
   }
 

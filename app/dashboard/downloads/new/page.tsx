@@ -1,9 +1,9 @@
-import { requirePermission } from "@/lib/auth";
+import { requirePageAccess } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import DownloadForm from "@/app/dashboard/downloads/download-form";
 
 export default async function NewDownloadPage() {
-  await requirePermission("download.manage");
+  await requirePageAccess("download.manage");
 
   const groups = await prisma.filterGroup.findMany({
     orderBy: [{ locale: "asc" }, { sortOrder: "asc" }, { name: "asc" }],

@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { redirect } from "next/navigation";
+import { forbidden, redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { readSessionCookie } from "@/lib/session";
 import { verifySessionToken } from "@/lib/jwt";
@@ -40,10 +40,26 @@ export async function requireUser() {
   return user;
 }
 
+/**
+ * For server actions: a missing permission throws, which the calling form
+ * surfaces as a failed request. Pages use requirePageAccess instead.
+ */
 export async function requirePermission(permission: Permission) {
   const user = await requireUser();
   if (!can(user.role, permission)) {
     throw new Error(`Forbidden: missing permission ${permission}`);
   }
+  return user;
+}
+
+/**
+ * For dashboard pages: a role without `permission` gets the dashboard's 403
+ * screen (app/dashboard/forbidden.tsx) instead of a crashed page. The sidebar
+ * already hides what a role can't open, so this is reached by typed or shared
+ * URLs.
+ */
+export async function requirePageAccess(permission: Permission) {
+  const user = await requireUser();
+  if (!can(user.role, permission)) forbidden();
   return user;
 }

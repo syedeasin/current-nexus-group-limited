@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
 
+# Two quick pushes must not build on the server at the same time.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -15,11 +20,29 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
+          command_timeout: 30m
+          # Any failing step fails the run (red in GitHub) and stops before
+          # pm2 restarts — previously only the last command's exit code counted,
+          # so a blocked `git pull` still showed a green deploy.
+          script_stop: true
           script: |
+            set -e
             cd ~/cnx-website
-            git pull origin main
-            npm install
+            # Match main exactly. `git pull` refused to run whenever the server
+            # had a locally modified file (npm install rewrote package-lock.json),
+            # silently leaving old code live. Untracked files — .env and
+            # public/uploads — are not touched by reset.
+            git fetch origin main
+            git reset --hard origin/main
+            # Installs exactly what package-lock.json pins and never rewrites
+            # it. The lockfile is generated with npm 10 (the server's version);
+            # see README "Dependencies".
+            npm ci --no-audit --no-fund
             npx prisma generate
             npx prisma migrate deploy
             npm run build
             pm2 restart cnx-web --update-env
+            # Fail the run if the restarted app does not answer.
+            sleep 8
+            curl -fsS -o /dev/null --retry 5 --retry-delay 3 --retry-connrefused http://localhost:3000/en
+            echo "Deployed $(git rev-parse --short HEAD)"

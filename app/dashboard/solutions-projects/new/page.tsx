@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { requirePermission } from "@/lib/auth";
+import { requirePageAccess } from "@/lib/auth";
 import SolutionForm from "../solution-form";
 
 export default async function NewSolutionPage() {
-  await requirePermission("solutionsPage.manage");
+  await requirePageAccess("solutionsPage.manage");
 
   return (
     <div>

@@ -8,7 +8,7 @@ import { createSessionToken } from "@/lib/jwt";
 import { setSessionCookie, clearSessionCookie } from "@/lib/session";
 
 const loginSchema = z.object({
-  email: z.email("Please enter a valid email address"),
+  identifier: z.string().min(1, "Enter your email address or username").max(254),
   password: z.string().min(1, "Password is required"),
 });
 
@@ -31,7 +31,7 @@ function tooManyAttempts(key: string): boolean {
 
 export async function loginAction(formData: FormData): Promise<ActionResult> {
   const parsed = loginSchema.safeParse({
-    email: String(formData.get("email") ?? "").trim().toLowerCase(),
+    identifier: String(formData.get("identifier") ?? "").trim().toLowerCase(),
     password: String(formData.get("password") ?? ""),
   });
 
@@ -39,23 +39,26 @@ export async function loginAction(formData: FormData): Promise<ActionResult> {
     return { ok: false, error: parsed.error.issues[0].message };
   }
 
-  const { email, password } = parsed.data;
+  const { identifier, password } = parsed.data;
 
-  if (tooManyAttempts(email)) {
+  if (tooManyAttempts(identifier)) {
     return { ok: false, error: "Too many attempts. Please try again in 10 minutes." };
   }
 
-  const user = await prisma.user.findUnique({ where: { email } });
+  // Usernames can't contain "@" (lib/validation/user.ts), so the two never collide.
+  const user = identifier.includes("@")
+    ? await prisma.user.findUnique({ where: { email: identifier } })
+    : await prisma.user.findUnique({ where: { username: identifier } });
   if (!user || !user.isActive) {
-    return { ok: false, error: "Invalid email or password" };
+    return { ok: false, error: "Those sign-in details don't match an active account." };
   }
 
   const valid = await verifyPassword(password, user.passwordHash);
   if (!valid) {
-    return { ok: false, error: "Invalid email or password" };
+    return { ok: false, error: "Those sign-in details don't match an active account." };
   }
 
-  attempts.delete(email);
+  attempts.delete(identifier);
 
   await prisma.user.update({
     where: { id: user.id },
@@ -74,5 +77,5 @@ export async function loginAction(formData: FormData): Promise<ActionResult> {
 
 export async function logoutAction() {
   await clearSessionCookie();
-  redirect("/login");
+  redirect("/login?notice=signedout");
 }

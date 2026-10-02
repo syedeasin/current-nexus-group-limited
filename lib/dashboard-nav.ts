@@ -40,7 +40,9 @@ export const NAV_ENTRIES: NavEntry[] = [
   { label: "Manufacturing", href: "/dashboard/manufacturing", icon: "Factory", permission: "manufacturingPage.manage" },
   { label: "Solutions & Projects", href: "/dashboard/solutions-projects", icon: "LayoutTemplate", permission: "solutionsPage.manage" },
   { label: "Users", href: "/dashboard/users", icon: "Users", permission: "user.manage" },
-  { label: "Settings", href: "/dashboard/settings", icon: "Settings", permission: "settings.manage" },
+  // Everyone has a profile and password to manage; the site-wide tabs inside
+  // are limited to settings.manage (app/dashboard/settings/page.tsx).
+  { label: "Settings", href: "/dashboard/settings", icon: "Settings" },
 ];
 
 /** Flat list of every leaf nav item, used by search/breadcrumb lookups that don't care about grouping. */

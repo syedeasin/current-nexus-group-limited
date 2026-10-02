@@ -41,6 +41,8 @@ model User {
   id           String    @id @default(cuid())
   name         String
   email        String    @unique
+  /// Optional sign-in alternative to the email address. Stored lower-case.
+  username     String?   @unique
   passwordHash String
   role         Role      @default(AUTHOR)
   avatarUrl    String?
@@ -48,6 +50,8 @@ model User {
   isActive     Boolean   @default(true)
   tokenVersion Int       @default(0)
   lastLoginAt  DateTime?
+  /// Last time the password was set — by the user, an admin, or a reset link.
+  passwordChangedAt DateTime?
 
   posts              Post[]
   media              Media[]
@@ -55,6 +59,8 @@ model User {
   solutionPages      SolutionPage[]
   manufacturingPages ManufacturingPage[]
   pageContents       PageContent[]
+  passwordTokens     PasswordToken[]
+  siteSettings       SiteSetting[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -437,4 +443,54 @@ model PageContent {
   @@unique([pageKey, locale])
   @@index([locale])
   @@map("page_contents")
+}
+
+// ---------------------------------------------------------------------------
+// Password links (forgot password, admin reset, new-account invitation)
+//
+// Only the SHA-256 of the token is stored — the raw token exists solely in the
+// link that was emailed or copied, so a database read can't be turned into a
+// working link. Single use (usedAt) and short-lived (expiresAt); issuing a new
+// link for a user voids their older unused ones.
+// ---------------------------------------------------------------------------
+
+enum PasswordTokenPurpose {
+  /// "Forgot password" or an admin-issued reset link.
+  RESET
+  /// A new account choosing its first password.
+  INVITE
+}
+
+model PasswordToken {
+  id        String               @id @default(cuid())
+  userId    String
+  user      User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String               @unique
+  purpose   PasswordTokenPurpose @default(RESET)
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime             @default(now())
+
+  @@index([userId])
+  @@map("password_tokens")
+}
+
+// ---------------------------------------------------------------------------
+// Site settings (Dashboard → Settings)
+//
+// Key/value rows for the few site-wide switches an admin changes without a
+// deploy (lib/site-settings.ts owns the keys, defaults and validation). Secrets
+// such as SMTP credentials never live here — they stay in the server's .env.
+// ---------------------------------------------------------------------------
+
+model SiteSetting {
+  key   String @id
+  value Json
+
+  updatedById String?
+  updatedBy   User?   @relation(fields: [updatedById], references: [id], onDelete: SetNull)
+
+  updatedAt DateTime @updatedAt
+
+  @@map("site_settings")
 }

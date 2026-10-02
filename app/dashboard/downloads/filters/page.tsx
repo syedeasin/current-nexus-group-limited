@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { requirePermission } from "@/lib/auth";
+import { requirePageAccess } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import FiltersManager, { type GroupView } from "@/app/dashboard/downloads/filters/filters-manager";
 
 export default async function DownloadFiltersPage() {
-  await requirePermission("download.manage");
+  await requirePageAccess("download.manage");
 
   const groups = await prisma.filterGroup.findMany({
     orderBy: [{ locale: "asc" }, { sortOrder: "asc" }, { name: "asc" }],

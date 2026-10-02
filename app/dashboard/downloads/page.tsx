@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Plus, SlidersHorizontal } from "lucide-react";
 import { DownloadStatus, Locale, type Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { requirePermission } from "@/lib/auth";
+import { requirePageAccess } from "@/lib/auth";
 import Pagination from "@/components/dashboard/pagination";
 import EmptyState from "@/components/dashboard/empty-state";
 import DownloadsFilters from "@/app/dashboard/downloads/downloads-filters";
@@ -17,7 +17,7 @@ export default async function DownloadsPage({
 }: {
   searchParams: Promise<{ q?: string; status?: string; locale?: string; page?: string }>;
 }) {
-  await requirePermission("download.manage");
+  await requirePageAccess("download.manage");
   const sp = await searchParams;
 
   const requestedPage = Math.max(1, Math.min(10000, Number(sp.page ?? 1) || 1));

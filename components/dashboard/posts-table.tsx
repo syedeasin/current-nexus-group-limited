@@ -28,7 +28,7 @@ export default function PostsTable({
   canPublish: boolean;
 }) {
   return (
-    <div className="overflow-x-auto">
+    <div className="relative overflow-x-auto">
       <table className="w-full min-w-[1100px] border-collapse">
         <thead>
           <tr className="border-b border-neutral-10 bg-surface-2">

@@ -32,8 +32,21 @@ export default async function DashboardLayout({
               scroll container instead of <main>, dragging the sidebar along with
               it and leaving a large blank gap below short pages. */}
           <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-            <Topbar name={user.name} email={user.email} role={user.role} avatarUrl={user.avatarUrl} />
-            <main className="min-h-0 flex-1 overflow-y-auto p-32">{children}</main>
+            <Topbar
+              name={user.name}
+              email={user.email}
+              role={user.role}
+              avatarUrl={user.avatarUrl}
+              canManageUsers={can(user.role, "user.manage")}
+              canManageSettings={can(user.role, "settings.manage")}
+            />
+            {/* `relative` makes <main> the containing block for absolutely
+                positioned descendants (the `sr-only` file inputs in ImageUpload
+                and the editor). Without it they resolved against the viewport
+                at their in-flow offset — far below the fold on long edit
+                pages — and stretched the document, so the whole dashboard
+                scrolled up and left a tall blank area under it. */}
+            <main className="relative min-h-0 flex-1 overflow-y-auto p-32">{children}</main>
           </div>
         </div>
       </body>

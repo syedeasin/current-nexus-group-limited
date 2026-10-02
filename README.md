@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CNX Energy website
 
-## Getting Started
+Public website (English/French) and content dashboard for CurrentNexus Group.
+Next.js 16 (App Router), Prisma + PostgreSQL, Tailwind CSS 4, next-intl.
 
-First, run the development server:
+## Local development
 
 ```bash
+docker compose up -d        # PostgreSQL on localhost:6543 (Docker Desktop must be running)
+npm install
+npx prisma migrate deploy   # never `migrate reset` — it wipes the database
+npx prisma db seed          # first run only: admin user + sample content
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Website: http://localhost:3000/en · Dashboard: http://localhost:3000/dashboard
+- Type-check with `npx tsc --noEmit` (the production build skips type-checking to fit the server's memory).
+- Stop the dev server before `npx prisma generate` on Windows — the running server locks the Prisma engine DLL.
+- Never run `npm run build` while the dev server is running; it corrupts `.next`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment variables (`.env`)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Purpose |
+| --- | --- |
+| `DATABASE_URL`, `DIRECT_URL` | PostgreSQL connection |
+| `JWT_SECRET` | Signs dashboard session cookies |
+| `SESSION_MAX_AGE_DAYS` | Session length (default 7) |
+| `COOKIE_SECURE` | `"false"` while the site is served over plain http (browsers drop secure cookies there); remove once HTTPS is live |
+| `STORAGE_DRIVER` | `local` — uploads are stored in `public/uploads` |
+| `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `ADMIN_NAME` | First admin, created by the seed |
+| `APP_URL` | Optional. Address used in password emails when Dashboard → Settings → Website → *Site address* is empty |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_FROM`, `SMTP_SECURE` | Optional. Enables forgot-password and invitation emails (Dashboard → Settings → Email delivery shows the status and sends a test) |
 
-## Learn More
+Without SMTP the dashboard still works: admins copy reset/invitation links from Dashboard → Users and send them themselves.
 
-To learn more about Next.js, take a look at the following resources:
+## Dashboard roles
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Roles and what each can do are listed in Dashboard → Users → *Roles & permissions* (source: `lib/permissions.ts`). Every page and server action checks the permission, not just the menu.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
+Pushing to `main` deploys to the AWS server (`.github/workflows/deploy.yml`): the server is reset to exactly `origin/main`, then `npm ci`, `prisma generate`, `prisma migrate deploy`, `npm run build`, `pm2 restart cnx-web`, and a health check. Any failing step turns the run red and stops before the restart.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`.env` and `public/uploads` are untracked, so the reset never touches them. nginx must allow uploads of at least 26MB (`client_max_body_size`).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Dependencies
+
+`package-lock.json` is generated with **npm 10**, the version on the server — npm 11 writes a lockfile that the server's `npm ci` rejects. Add or update packages with:
+
+```bash
+npx npm@10 install <package>
+```

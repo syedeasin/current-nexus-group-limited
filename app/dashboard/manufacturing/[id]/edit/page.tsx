@@ -2,13 +2,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Lock } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import { requirePermission } from "@/lib/auth";
+import { requirePageAccess } from "@/lib/auth";
 import StatusBadge from "@/components/dashboard/status-badge";
 import ManufacturingForm, { type ManufacturingInitial } from "../../manufacturing-form";
 import type { ManufacturingContent, ManufacturingSeo } from "@/lib/manufacturing/types";
 
 export default async function EditManufacturingPage({ params }: { params: Promise<{ id: string }> }) {
-  await requirePermission("manufacturingPage.manage");
+  await requirePageAccess("manufacturingPage.manage");
   const { id } = await params;
 
   const row = await prisma.manufacturingPage.findUnique({ where: { id } });

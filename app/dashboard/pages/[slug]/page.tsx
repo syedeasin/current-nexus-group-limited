@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import { requirePermission } from "@/lib/auth";
+import { requirePageAccess } from "@/lib/auth";
 import { routing, type Locale } from "@/i18n/routing";
 import { COLLECTION_PATTERNS, getPageDefBySlug, pageSlug } from "@/lib/page-content/registry";
 import { getBaseMessages, getMergedMessages, toPrismaLocale } from "@/lib/page-content/messages";
@@ -25,7 +25,7 @@ export default async function EditWebsitePage({
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ locale?: string }>;
 }) {
-  await requirePermission("page.manage");
+  await requirePageAccess("page.manage");
   const [{ slug }, sp] = await Promise.all([params, searchParams]);
 
   const page = getPageDefBySlug(slug);

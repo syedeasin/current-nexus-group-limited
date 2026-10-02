@@ -20,7 +20,7 @@ const HEADINGS = ["Title", "Type", "Size", "Filters", "Status", "Locale", "Updat
 
 export default function DownloadsTable({ downloads }: { downloads: DownloadRow[] }) {
   return (
-    <div className="overflow-x-auto">
+    <div className="relative overflow-x-auto">
       <table className="w-full min-w-[1000px] border-collapse">
         <thead>
           <tr className="border-b border-neutral-10 bg-surface-2">

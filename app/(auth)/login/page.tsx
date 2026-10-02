@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
+import { AuthHeading, AuthNotice } from "../auth-ui";
 import LoginForm from "./login-form";
 
 export const metadata = {
@@ -7,21 +8,26 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
-export default async function LoginPage() {
+const NOTICES: Record<string, string> = {
+  reset: "Your password has been changed. Sign in with the new one.",
+  welcome: "Your password is set. Sign in to get started.",
+  signedout: "You've been signed out.",
+};
+
+export default async function LoginPage({ searchParams }: { searchParams: Promise<{ notice?: string }> }) {
   const user = await getCurrentUser();
   if (user) redirect("/dashboard");
 
+  const { notice } = await searchParams;
+  const message = notice ? NOTICES[notice] : undefined;
+
   return (
-    <main className="flex min-h-screen items-center justify-center bg-surface-2 px-16">
-      <div className="w-full max-w-md rounded-16 border border-neutral-10 bg-white p-40">
-        <p className="mb-8 text-p4 font-semibold uppercase tracking-[2px] text-primary">
-          CurrentNexus Group
-        </p>
-        <h1 className="mb-32 text-h4 font-extralight uppercase tracking-tight text-neutral-1">
-          Dashboard Login
-        </h1>
-        <LoginForm />
-      </div>
-    </main>
+    <>
+      <AuthHeading eyebrow="CurrentNexus Group" title="Dashboard sign in">
+        Welcome back. Sign in with your email address or username.
+      </AuthHeading>
+      {message && <AuthNotice tone="success">{message}</AuthNotice>}
+      <LoginForm />
+    </>
   );
 }

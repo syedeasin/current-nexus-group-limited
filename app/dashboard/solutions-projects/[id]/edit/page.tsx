@@ -2,13 +2,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Lock } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import { requirePermission } from "@/lib/auth";
+import { requirePageAccess } from "@/lib/auth";
 import StatusBadge from "@/components/dashboard/status-badge";
 import SolutionForm, { type SolutionPageInitial } from "../../solution-form";
 import type { SolutionPageContent } from "@/lib/solutions-projects/types";
 
 export default async function EditSolutionPage({ params }: { params: Promise<{ id: string }> }) {
-  await requirePermission("solutionsPage.manage");
+  await requirePageAccess("solutionsPage.manage");
   const { id } = await params;
 
   const row = await prisma.solutionPage.findUnique({ where: { id } });

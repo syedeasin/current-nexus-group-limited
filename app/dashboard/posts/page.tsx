@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import { requirePermission } from "@/lib/auth";
+import { requirePageAccess } from "@/lib/auth";
 import { can } from "@/lib/permissions";
 import { PostSection, PostStatus, type Prisma } from "@prisma/client";
 import PostsFilters from "@/components/dashboard/posts-filters";
@@ -18,7 +18,7 @@ export default async function PostsPage({
 }: {
   searchParams: Promise<{ q?: string; status?: string; section?: string; highlight?: string; page?: string }>;
 }) {
-  const user = await requirePermission("post.create");
+  const user = await requirePageAccess("post.create");
   const sp = await searchParams;
 
   const page = Math.max(1, Number(sp.page ?? 1) || 1);

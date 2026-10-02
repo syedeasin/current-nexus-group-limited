@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ExternalLink, PencilLine, Plus } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import { requirePermission } from "@/lib/auth";
+import { requirePageAccess } from "@/lib/auth";
 import { can } from "@/lib/permissions";
 import { routing } from "@/i18n/routing";
 import { getPageDef, pageSlug } from "@/lib/page-content/registry";
@@ -12,7 +12,7 @@ import ManufacturingTable from "./manufacturing-table";
 const CATEGORY_PAGE_KEYS = ["manufacturing.solarPanels", "manufacturing.bess"] as const;
 
 export default async function ManufacturingDashboardPage() {
-  const user = await requirePermission("manufacturingPage.manage");
+  const user = await requirePageAccess("manufacturingPage.manage");
   const canEditCategories = can(user.role, "page.manage");
   const categoryPages = CATEGORY_PAGE_KEYS.map((key) => getPageDef(key)).filter((p) => p !== undefined);
 

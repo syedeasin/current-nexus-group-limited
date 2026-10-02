@@ -1,10 +1,10 @@
-import { requirePermission } from "@/lib/auth";
+import { requirePageAccess } from "@/lib/auth";
 import { can } from "@/lib/permissions";
 import { prisma } from "@/lib/prisma";
 import PostForm from "@/components/dashboard/post-form";
 
 export default async function NewPostPage() {
-  const user = await requirePermission("post.create");
+  const user = await requirePageAccess("post.create");
   const categories = await prisma.category.findMany({ orderBy: { sortOrder: "asc" } });
   const canPublish = can(user.role, "post.publish");
 

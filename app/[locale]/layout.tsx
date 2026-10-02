@@ -5,17 +5,24 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { switzer } from "@/app/fonts";
 import { routing } from "@/i18n/routing";
 import { siteConfig } from "@/site.config";
+import { getSiteSettings } from "@/lib/site-settings";
 import SmoothScrollProvider from "@/lib/motion/smooth-scroll-provider";
 import "@/app/globals.css";
 
-export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
-  },
-  description:
-    "Solar, BESS and energy manufacturing partner. Tier 1 brands, global distribution and end to end project support.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { allowIndexing } = await getSiteSettings();
+  return {
+    title: {
+      default: siteConfig.name,
+      template: `%s | ${siteConfig.name}`,
+    },
+    description:
+      "Solar, BESS and energy manufacturing partner. Tier 1 brands, global distribution and end to end project support.",
+    // Dashboard → Settings → Website. robots.txt is the main switch; this
+    // covers pages that don't set robots themselves.
+    ...(allowIndexing ? {} : { robots: { index: false, follow: false } }),
+  };
+}
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

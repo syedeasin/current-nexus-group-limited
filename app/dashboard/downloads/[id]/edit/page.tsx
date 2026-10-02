@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { requirePermission } from "@/lib/auth";
+import { requirePageAccess } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import DownloadForm from "@/app/dashboard/downloads/download-form";
 
@@ -11,7 +11,7 @@ export default async function EditDownloadPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  await requirePermission("download.manage");
+  await requirePageAccess("download.manage");
 
   const [resource, groups] = await Promise.all([
     prisma.downloadResource.findUnique({

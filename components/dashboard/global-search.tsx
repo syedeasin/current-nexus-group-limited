@@ -1,11 +1,23 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 import { Search, Loader2 } from "lucide-react";
 import { globalSearch, type SearchResult } from "@/app/dashboard/search-actions";
 
+const noSubscribe = () => () => {};
+
+/** ⌘ on Apple keyboards, Ctrl everywhere else (the shortcut handler accepts both). */
+function useIsApple(): boolean {
+  return useSyncExternalStore(
+    noSubscribe,
+    () => /Mac|iPhone|iPad/i.test(navigator.userAgent),
+    () => false
+  );
+}
+
 export default function GlobalSearch() {
+  const isApple = useIsApple();
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -36,28 +48,44 @@ export default function GlobalSearch() {
     return () => document.removeEventListener("mousedown", onClick);
   }, []);
 
-  useEffect(() => {
+  // Each keystroke gets a ticket; only the latest one may write results, so a
+  // slow response for "sol" can't overwrite the newer one for "solar".
+  const ticketRef = useRef(0);
+
+  function updateQuery(next: string) {
+    setQuery(next);
     if (debounceRef.current) clearTimeout(debounceRef.current);
-    if (query.trim().length < 2) {
+    const ticket = ++ticketRef.current;
+    if (next.trim().length < 2) {
       setResults([]);
       setLoading(false);
       return;
     }
     setLoading(true);
     debounceRef.current = setTimeout(async () => {
-      const r = await globalSearch(query);
-      setResults(r);
+      let found: SearchResult[] = [];
+      try {
+        found = await globalSearch(next);
+      } catch {
+        found = [];
+      }
+      if (ticket !== ticketRef.current) return;
+      setResults(found);
       setLoading(false);
       setActiveIndex(-1);
     }, 250);
-    return () => {
+  }
+
+  useEffect(
+    () => () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
-    };
-  }, [query]);
+    },
+    []
+  );
 
   function go(result: SearchResult) {
     setOpen(false);
-    setQuery("");
+    updateQuery("");
     setResults([]);
     router.push(result.href);
   }
@@ -93,14 +121,14 @@ export default function GlobalSearch() {
           aria-expanded={showPanel}
           aria-controls="global-search-results"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => updateQuery(e.target.value)}
           onFocus={() => setOpen(true)}
           onKeyDown={onKeyDown}
           placeholder="Search posts, pages, downloads..."
           className="h-40 w-full rounded-full border border-neutral-10 bg-surface-2 pl-40 pr-56 text-p4 text-neutral-1 outline-none transition-colors duration-200 placeholder:text-neutral-6 focus:border-primary focus:bg-white"
         />
         <kbd className="pointer-events-none absolute right-12 top-1/2 -translate-y-1/2 rounded-4 border border-neutral-10 bg-white px-6 py-2 text-[11px] font-medium text-neutral-6">
-          ⌘K
+          {isApple ? "⌘K" : "Ctrl K"}
         </kbd>
       </div>
 
@@ -116,7 +144,7 @@ export default function GlobalSearch() {
               Searching…
             </div>
           ) : results.length === 0 ? (
-            <p className="px-16 py-20 text-p4 text-neutral-5">No results for "{query}".</p>
+            <p className="px-16 py-20 text-p4 text-neutral-5">No results for &ldquo;{query}&rdquo;.</p>
           ) : (
             <ul className="py-8">
               {results.map((r, i) => (

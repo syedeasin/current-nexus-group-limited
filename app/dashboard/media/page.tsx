@@ -1,4 +1,4 @@
-import { requirePermission } from "@/lib/auth";
+import { requirePageAccess } from "@/lib/auth";
 import { can } from "@/lib/permissions";
 import { prisma } from "@/lib/prisma";
 import MediaTile from "@/components/dashboard/media-tile";
@@ -12,7 +12,7 @@ export default async function MediaPage({
 }: {
   searchParams: Promise<{ page?: string }>;
 }) {
-  const user = await requirePermission("media.upload");
+  const user = await requirePageAccess("media.upload");
   const sp = await searchParams;
   const page = Math.max(1, Number(sp.page ?? 1) || 1);
 
