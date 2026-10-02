@@ -27,14 +27,24 @@ const SITE_ORIGIN = new URL(siteConfig.url).origin;
 
 let hooksRegistered = false;
 
-// img src must be a same-origin /uploads/... path. Rejects data: URIs
+// Same-origin upload paths an <img> may point at. "/media/" is what
+// lib/storage.ts hands out today (served by app/media/[...path]/route.ts);
+// "/uploads/" is the raw public path older posts were saved with. Allowing
+// only "/uploads/" silently stripped every image inserted after the switch to
+// "/media/" — the editor showed it, the saved post did not.
+const IMAGE_PATH_PREFIXES = ["/media/", "/uploads/"];
+
+// img src must be a same-origin upload path. Rejects data: URIs
 // (exfiltration/payload vector) and any external host outright.
 function isAllowedImageSrc(src: string): boolean {
   if (!src) return false;
-  if (src.startsWith("/uploads/")) return true;
+  if (IMAGE_PATH_PREFIXES.some((prefix) => src.startsWith(prefix))) return true;
   try {
     const resolved = new URL(src, siteConfig.url);
-    return resolved.origin === SITE_ORIGIN && resolved.pathname.startsWith("/uploads/");
+    return (
+      resolved.origin === SITE_ORIGIN &&
+      IMAGE_PATH_PREFIXES.some((prefix) => resolved.pathname.startsWith(prefix))
+    );
   } catch {
     return false;
   }

@@ -7,20 +7,22 @@ import Parallax from "@/components/motion/Parallax";
 import Heading from "@/components/ui/Heading";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import ProductTabs from "@/components/sections/home/energy-ecosystem/ProductTabs";
-import { energyEcosystemTabs } from "@/lib/data/energyEcosystem";
 import { cascade, PARALLAX_DISTANCE_PX } from "@/lib/motion/timing";
+import { entries, str } from "@/lib/page-content/read";
 
 export default async function EnergyEcosystem() {
   const t = await getTranslations("home.ecosystem");
 
-  const tabs = energyEcosystemTabs.map((tab) => ({
-    id: tab.id,
-    label: t(`tabs.${tab.tabKey}` as never),
-    products: tab.products.map((product) => ({
-      key: product.key,
-      title: t(`products.${product.key}` as never),
-      image: product.image,
-      href: product.href,
+  // Tabs are fixed (Solar Panels / BESS); each tab's products are an editable
+  // list (Dashboard → Pages → Homepage → Manufacturing products).
+  const tabs = entries(t.raw("tabs" as never)).map(([tabId, tab]) => ({
+    id: tabId,
+    label: str(tab, "label"),
+    products: entries(tab.products).map(([productId, product]) => ({
+      key: productId,
+      title: str(product, "title"),
+      image: str(product, "image"),
+      href: str(product, "href") || "#",
     })),
   }));
 
@@ -34,7 +36,7 @@ export default async function EnergyEcosystem() {
             only — Parallax opts itself out below lg and under reduced motion. */}
         <Parallax distance={PARALLAX_DISTANCE_PX} className="absolute inset-0 scale-[1.08]">
           <Image
-            src="/images/energyEcosystem/energyEcosystemSectionBackground.webp"
+            src={t("backgroundImage")}
             alt=""
             fill
             sizes="1600px"

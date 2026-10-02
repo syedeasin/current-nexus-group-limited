@@ -12,16 +12,13 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import { ChevronRight } from "@/components/icons/ChevronRight";
 import StatsRow from "@/components/sections/home/about-cnx/StatsRow";
 import { cascade } from "@/lib/motion/timing";
-
-const avatars = [
-  "/images/aboutCNX/person01.webp",
-  "/images/aboutCNX/person02.webp",
-  "/images/aboutCNX/person03.webp",
-  "/images/aboutCNX/person04.webp",
-];
+import { entries, str } from "@/lib/page-content/read";
 
 export default async function AboutCnx() {
   const t = await getTranslations("home.about");
+  const avatars = entries(t.raw("avatars" as never))
+    .map(([, avatar]) => str(avatar, "photo"))
+    .filter(Boolean);
 
   return (
     <section aria-label={t("heading")} className="w-full bg-surface-2">
@@ -54,7 +51,7 @@ export default async function AboutCnx() {
               </div>
             </div>
             <Reveal as="div" delay={cascade(4)}>
-              <Button href="/about/why-choose-cnx" size="xl" className="w-full min-[481px]:w-fit">
+              <Button href={t("ctaHref")} size="xl" className="w-full min-[481px]:w-fit">
                 {t("cta")}
                 <ChevronRight size={BUTTON_ICON_SIZE} />
               </Button>
@@ -66,8 +63,8 @@ export default async function AboutCnx() {
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-16 lg:aspect-[630/476]">
               <ImageReveal className="absolute inset-0">
                 <Image
-                  src="/images/aboutCNX/aboutCNXRightImage.webp"
-                  alt="Technician inspecting photovoltaic modules on the CNX manufacturing line"
+                  src={t("image")}
+                  alt={t("imageAlt")}
                   fill
                   sizes="(min-width: 1024px) 630px, 100vw"
                   className="object-cover"
@@ -83,7 +80,7 @@ export default async function AboutCnx() {
                 <div className="flex items-center" aria-hidden="true">
                   {avatars.map((src, index) => (
                     <Reveal
-                      key={src}
+                      key={`${src}-${index}`}
                       variant="fade"
                       delay={60 * index}
                       as="div"

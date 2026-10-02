@@ -8,7 +8,6 @@ import Heading from "@/components/ui/Heading";
 import Button, { BUTTON_ICON_SIZE } from "@/components/ui/Button";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import { ChevronRight } from "@/components/icons/ChevronRight";
-import { testimonials } from "@/lib/data/testimonials";
 import { cascade } from "@/lib/motion/timing";
 
 const CARD_DELAY_MS = cascade(2);
@@ -18,7 +17,12 @@ const CONTENT_STEP_MS = 80;
 
 export default async function ClientTestimonials() {
   const t = await getTranslations("home.testimonials");
-  const story = testimonials[0];
+  const story = {
+    clientWordmark: t("clientWordmark"),
+    logo: t("logo"),
+    photo: t("photo"),
+    href: t("ctaHref"),
+  };
 
   return (
     <section aria-label={t("heading")} className="w-full bg-surface-2">
@@ -61,21 +65,23 @@ export default async function ClientTestimonials() {
               className="flex flex-col items-start gap-16 min-[480px]:gap-27"
             >
               <div className="flex items-center gap-12">
-                <Image
-                  src={story.logo}
-                  alt=""
-                  aria-hidden="true"
-                  width={48}
-                  height={47}
-                  className="h-32 w-auto min-[480px]:h-40 lg:h-48"
-                />
+                {story.logo ? (
+                  <Image
+                    src={story.logo}
+                    alt=""
+                    aria-hidden="true"
+                    width={48}
+                    height={47}
+                    className="h-32 w-auto min-[480px]:h-40 lg:h-48"
+                  />
+                ) : null}
                 <span className="text-[24px] font-semibold leading-[32px] tracking-[-0.48px] text-white min-[480px]:text-[30px] min-[480px]:leading-[40px] min-[480px]:tracking-[-0.6px] lg:text-[36px] lg:leading-[48px] lg:tracking-[-0.72px]">
                   {story.clientWordmark}
                 </span>
               </div>
               <div className="flex flex-col gap-8">
-                <p className="text-p1 font-medium text-white">{t(`stories.${story.key}.clientName` as never)}</p>
-                <p className="text-p1 font-medium text-white">{t(`stories.${story.key}.location` as never)}</p>
+                <p className="text-p1 font-medium text-white">{t("clientName")}</p>
+                <p className="text-p1 font-medium text-white">{t("location")}</p>
               </div>
             </Reveal>
 
@@ -88,7 +94,7 @@ export default async function ClientTestimonials() {
               >
                 <blockquote className="m-0">
                   <p className="text-p1 font-medium text-white lg:min-h-136 xl:min-h-144">
-                    {t(`stories.${story.key}.quote` as never)}
+                    {t("quote")}
                   </p>
                   <cite className="sr-only not-italic">{story.clientWordmark}</cite>
                 </blockquote>

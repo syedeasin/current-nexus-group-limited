@@ -1,9 +1,10 @@
 import { getTranslations } from "next-intl/server";
 import StatItem from "@/components/ui/StatItem";
-import { aboutStats } from "@/lib/data/aboutStats";
+import { entries, num, str } from "@/lib/page-content/read";
 
 export default async function StatsRow() {
-  const t = await getTranslations("home.about.stats");
+  const t = await getTranslations("home.about");
+  const stats = entries(t.raw("stats" as never));
 
   return (
     <div
@@ -12,12 +13,12 @@ export default async function StatsRow() {
         "[&>*:nth-child(odd)]:max-lg:border-l-0"
       }
     >
-      {aboutStats.map((stat) => (
+      {stats.map(([id, stat]) => (
         <StatItem
-          key={stat.labelKey}
-          value={stat.value}
-          suffix={stat.suffix}
-          label={t(stat.labelKey)}
+          key={id}
+          value={num(stat, "number")}
+          suffix={str(stat, "suffix") || undefined}
+          label={str(stat, "label")}
         />
       ))}
     </div>

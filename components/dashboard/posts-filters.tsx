@@ -1,4 +1,5 @@
 import { Search } from "lucide-react";
+import { NEWS_SECTION_LIST } from "@/lib/news-sections";
 
 const STATUSES = ["ALL", "DRAFT", "PENDING_REVIEW", "PUBLISHED", "ARCHIVED"] as const;
 const LABELS: Record<string, string> = {
@@ -12,9 +13,13 @@ const LABELS: Record<string, string> = {
 export default function PostsFilters({
   query,
   status,
+  section,
+  highlightOnly,
 }: {
   query: string;
   status: string;
+  section: string;
+  highlightOnly: boolean;
 }) {
   return (
     <form
@@ -37,6 +42,34 @@ export default function PostsFilters({
             </option>
           ))}
         </select>
+
+        <label htmlFor="section" className="sr-only">
+          Filter by News Room section
+        </label>
+        <select
+          id="section"
+          name="section"
+          defaultValue={section}
+          className="h-40 rounded-8 border border-neutral-10 bg-surface-2 px-16 text-p4 font-medium uppercase tracking-[1px] text-neutral-4 outline-none transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        >
+          <option value="">All sections</option>
+          {NEWS_SECTION_LIST.map((s) => (
+            <option key={s.section} value={s.section}>
+              {s.label}
+            </option>
+          ))}
+        </select>
+
+        <label className="flex h-40 cursor-pointer items-center gap-8 rounded-8 border border-neutral-10 bg-surface-2 px-16 text-p4 font-medium uppercase tracking-[1px] text-neutral-4">
+          <input
+            type="checkbox"
+            name="highlight"
+            value="1"
+            defaultChecked={highlightOnly}
+            className="h-16 w-16 rounded-4 border-neutral-10 text-primary"
+          />
+          Highlights only
+        </label>
       </div>
 
       <div className="relative">

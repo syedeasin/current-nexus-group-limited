@@ -23,7 +23,7 @@ export default async function WhyChooseCnxHero() {
       className={cn("relative w-full overflow-hidden bg-neutral-1", HERO_HEADER_OFFSET)}
     >
       <Image
-        src="/images/about/whyChooseCNX/whyChooseCNXHeroBanner.webp"
+        src={t("backgroundImage")}
         alt=""
         aria-hidden="true"
         fill
@@ -67,7 +67,7 @@ export default async function WhyChooseCnxHero() {
             </Reveal>
           </div>
           <Reveal as="div" delay={cascade(3)} className="w-full min-[481px]:w-fit">
-            <Button href="/products" size="xl" className="w-full min-[481px]:w-fit">
+            <Button href={t("ctaHref")} size="xl" className="w-full min-[481px]:w-fit">
               {t("cta")}
               <ChevronRight size={BUTTON_ICON_SIZE} />
             </Button>

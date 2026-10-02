@@ -2,9 +2,10 @@
 
 import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/auth";
+import { PAGES, pageSlug } from "@/lib/page-content/registry";
 
 export type SearchResult = {
-  type: "Post" | "Manufacturing" | "Solutions & Projects" | "Download" | "Media";
+  type: "Page" | "Post" | "Manufacturing" | "Solutions & Projects" | "Download" | "Media";
   title: string;
   subtitle?: string;
   status?: string;
@@ -52,7 +53,18 @@ export async function globalSearch(rawQuery: string): Promise<SearchResult[]> {
     }),
   ]);
 
+  const needle = query.toLowerCase();
+  const websitePages = PAGES.filter((page) =>
+    [page.label, page.group, page.href ?? "", page.description].some((s) => s.toLowerCase().includes(needle))
+  ).slice(0, PER_TYPE_LIMIT);
+
   const results: SearchResult[] = [
+    ...websitePages.map((page) => ({
+      type: "Page" as const,
+      title: page.label,
+      subtitle: page.group,
+      href: `/dashboard/pages/${pageSlug(page.key)}`,
+    })),
     ...posts.map((p) => ({
       type: "Post" as const,
       title: p.title,

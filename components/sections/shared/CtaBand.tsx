@@ -48,7 +48,7 @@ export default async function CtaBand({
     secondaryCta === undefined
       ? { label: t("secondaryCta.label"), href: t("secondaryCta.href") }
       : secondaryCta;
-  const resolvedImage = image ?? { src: "/images/home/CTABackground.webp", alt: "" };
+  const resolvedImage = image ?? { src: t("backgroundImage"), alt: "" };
 
   return (
     <section

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import {
   Hero,
   TrustedLogos,
@@ -13,13 +14,13 @@ import {
   Faq,
 } from "@/components/sections/home";
 import CtaBand from "@/components/sections/shared/CtaBand";
-import { siteConfig } from "@/site.config";
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("home.meta");
   return {
-    title: siteConfig.name,
-    description:
-      "Solar, BESS and energy manufacturing partner. Tier 1 brands, global distribution and end to end project support.",
+    // Absolute: the homepage title is the whole title, not "%s | CNX Energy".
+    title: { absolute: t("title") },
+    description: t("description"),
   };
 }
 

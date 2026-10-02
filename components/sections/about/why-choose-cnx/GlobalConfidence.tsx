@@ -7,18 +7,11 @@ import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import { cascade, stagger } from "@/lib/motion/timing";
-
-const STAT_KEYS = [
-  "smartManufacturing",
-  "annualProduction",
-  "countriesServed",
-  "productionTraceability",
-  "performanceWarranty",
-  "internationalCertifications",
-] as const;
+import { entries, str } from "@/lib/page-content/read";
 
 export default async function GlobalConfidence() {
   const t = await getTranslations("about.whyChooseCnx.globalConfidence");
+  const stats = entries(t.raw("stats" as never));
 
   return (
     <section aria-label={t("heading")} className="w-full bg-white">
@@ -42,8 +35,8 @@ export default async function GlobalConfidence() {
           <Reveal variant="fade" delay={cascade(2)} className="relative w-full lg:flex-1">
             <div className="relative mx-auto aspect-[1056/864] w-full max-w-[700px]">
               <Image
-                src="/images/about/whyChooseCNX/globe.webp"
-                alt="Dotted world map representing CNX's global manufacturing and distribution reach"
+                src={t("image")}
+                alt={t("imageAlt")}
                 fill
                 sizes="(min-width: 1024px) 700px, 100vw"
                 className="object-contain"
@@ -62,7 +55,7 @@ export default async function GlobalConfidence() {
           </Reveal>
 
           <div className="flex w-full flex-col lg:flex-1">
-            {STAT_KEYS.map((key, index) => (
+            {stats.map(([key, stat], index) => (
               <Reveal
                 key={key}
                 as="div"
@@ -70,9 +63,9 @@ export default async function GlobalConfidence() {
                 className="flex items-baseline justify-between gap-16 border-b border-neutral-10 py-20 first:pt-0 last:border-b-0 last:pb-0"
               >
                 <span className="text-h4 font-semibold text-secondary">
-                  {t(`stats.${key}.value`)}
+                  {str(stat, "value")}
                 </span>
-                <span className="text-p3 text-neutral-4">{t(`stats.${key}.label`)}</span>
+                <span className="text-p3 text-neutral-4">{str(stat, "label")}</span>
               </Reveal>
             ))}
           </div>

@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
 import TextReveal from "@/components/motion/TextReveal";
@@ -8,11 +8,27 @@ import BlogCard from "@/components/ui/BlogCard";
 import Carousel from "@/components/ui/Carousel";
 import Button, { BUTTON_ICON_SIZE } from "@/components/ui/Button";
 import { ChevronRight } from "@/components/icons/ChevronRight";
-import { latestNews } from "@/lib/data/latestNews";
+import { getLatestPosts, type NewsPost } from "@/lib/data/news";
 import { cascade, stagger, CONTENT_BASE_DELAY_MS } from "@/lib/motion/timing";
 
+const LATEST_COUNT = 6;
+
 export default async function LatestNews() {
-  const t = await getTranslations("home.latestNews");
+  const [t, tn, locale] = await Promise.all([
+    getTranslations("home.latestNews"),
+    getTranslations("news"),
+    getLocale(),
+  ]);
+
+  // The real, latest published posts (Dashboard → News → Posts). A database
+  // outage hides the section rather than failing the homepage.
+  let posts: NewsPost[] = [];
+  try {
+    posts = await getLatestPosts(locale, LATEST_COUNT);
+  } catch (error) {
+    console.error("[home] latest news query failed", error);
+  }
+  if (posts.length === 0) return null;
 
   return (
     <section
@@ -35,11 +51,11 @@ export default async function LatestNews() {
       <Container className="mt-48 flex flex-col items-center gap-24">
         <Carousel
           ariaLabel={t("heading")}
-          progressDelay={stagger(latestNews.length, CONTENT_BASE_DELAY_MS)}
+          progressDelay={stagger(posts.length, CONTENT_BASE_DELAY_MS)}
           progressVariant="segments"
-          segmentCount={latestNews.length}
+          segmentCount={posts.length}
         >
-          {latestNews.map((post, index) => (
+          {posts.map((post, index) => (
             <Reveal
               key={post.slug}
               as="div"
@@ -47,11 +63,12 @@ export default async function LatestNews() {
               className="w-[85vw] shrink-0 [scroll-snap-align:start] min-[481px]:w-[64%] lg:w-[36%] xl:w-[32.1%]"
             >
               <BlogCard
-                href="/news"
-                image={post.image}
-                title={t(`posts.${post.slug}.title` as never)}
-                date={post.date}
-                readTime={post.readTime}
+                href={`/news/${post.slug}`}
+                image={post.coverImage}
+                imageAlt={post.coverImageAlt}
+                title={post.title}
+                date={post.publishedAt}
+                readTime={post.readingMinutes > 0 ? tn("minRead", { count: post.readingMinutes }) : undefined}
                 imageSizes="(min-width: 1280px) 32vw, (min-width: 1024px) 36vw, (min-width: 481px) 64vw, 85vw"
               />
             </Reveal>

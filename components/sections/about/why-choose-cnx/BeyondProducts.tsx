@@ -1,20 +1,13 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { ClipboardList, Factory, Headset, Settings2, Truck } from "lucide-react";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
 import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
-
-const STEPS = [
-  { key: "consultationPlanning", Icon: ClipboardList },
-  { key: "productSelection", Icon: Settings2 },
-  { key: "precisionManufacturing", Icon: Factory },
-  { key: "qualityGlobalDelivery", Icon: Truck },
-  { key: "longTermSupport", Icon: Headset },
-] as const;
+import { pageIcon } from "@/lib/page-content/icons";
+import { entries, str } from "@/lib/page-content/read";
 
 const HEADING_DELAY_MS = 80;
 const STEP_BASE_DELAY_MS = 160;
@@ -23,6 +16,7 @@ const STEP_STAGGER_CAP_MS = 400;
 
 export default async function BeyondProducts() {
   const t = await getTranslations("about.whyChooseCnx.beyondProducts");
+  const steps = entries(t.raw("steps" as never));
 
   return (
     <section aria-label={t("heading")} className="w-full bg-surface-2">
@@ -40,7 +34,8 @@ export default async function BeyondProducts() {
 
         <div className="flex flex-col gap-40 rounded-20 bg-white p-24 md:p-32 lg:flex-row lg:items-stretch lg:gap-60 xl:p-48">
           <div className="flex w-full flex-col lg:flex-1">
-            {STEPS.map(({ key, Icon }, index) => {
+            {steps.map(([key, step], index) => {
+              const Icon = pageIcon(str(step, "icon"));
               const delay = STEP_BASE_DELAY_MS + Math.min(index * STEP_STEP_MS, STEP_STAGGER_CAP_MS);
               return (
                 <div key={key}>
@@ -51,10 +46,10 @@ export default async function BeyondProducts() {
                     </span>
                     <div className="flex flex-col gap-4">
                       <Heading level={3} size="h6">
-                        {t(`steps.${key}.title`)}
+                        {str(step, "title")}
                       </Heading>
                       <Text size="p2" className="text-neutral-4">
-                        {t(`steps.${key}.body`)}
+                        {str(step, "body")}
                       </Text>
                     </div>
                   </Reveal>
@@ -69,8 +64,8 @@ export default async function BeyondProducts() {
             className="relative aspect-square w-full overflow-hidden rounded-16 lg:aspect-auto lg:w-[534px] lg:shrink-0"
           >
             <Image
-              src="/images/about/whyChooseCNX/beyondProductImage.webp"
-              alt="Technician inspecting photovoltaic modules on the CNX manufacturing line"
+              src={t("image")}
+              alt={t("imageAlt")}
               fill
               sizes="(min-width: 1024px) 534px, 100vw"
               className="object-cover"

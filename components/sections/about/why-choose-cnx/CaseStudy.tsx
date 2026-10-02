@@ -12,7 +12,7 @@ export default async function CaseStudy() {
     <CaseStudySection
       eyebrowLabel={t("eyebrow")}
       heading={t("heading")}
-      backgroundImage="/images/home/clientTestimonialsBackground.webp"
+      backgroundImage={t("backgroundImage")}
       title={t("title")}
       body={t("body")}
       specs={SPEC_KEYS.map((key, index) => {

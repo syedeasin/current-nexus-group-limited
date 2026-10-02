@@ -1,6 +1,9 @@
 import Link from "next/link";
 import StatusBadge from "@/components/dashboard/status-badge";
 import PostPublishToggle from "@/components/dashboard/post-publish-toggle";
+import PostHighlightToggle from "@/components/dashboard/post-highlight-toggle";
+import { NEWS_SECTIONS } from "@/lib/news-sections";
+import type { PostSection } from "@prisma/client";
 
 type PostRow = {
   id: string;
@@ -8,13 +11,14 @@ type PostRow = {
   slug: string;
   locale: string;
   status: string;
+  section: PostSection;
+  isHighlight: boolean;
   updatedAt: Date;
-  viewCount: number;
   category: { name: string } | null;
   author: { name: string };
 };
 
-const HEADINGS = ["Title", "Category", "Author", "Locale", "Status", "Views", "Updated", "Actions"];
+const HEADINGS = ["Title", "Section", "Highlight", "Category", "Author", "Locale", "Status", "Updated", "Actions"];
 
 export default function PostsTable({
   posts,
@@ -25,7 +29,7 @@ export default function PostsTable({
 }) {
   return (
     <div className="overflow-x-auto">
-      <table className="w-full min-w-[900px] border-collapse">
+      <table className="w-full min-w-[1100px] border-collapse">
         <thead>
           <tr className="border-b border-neutral-10 bg-surface-2">
             {HEADINGS.map((heading) => (
@@ -45,7 +49,7 @@ export default function PostsTable({
               key={post.id}
               className="border-b border-neutral-10 transition-colors duration-200 last:border-b-0 hover:bg-surface-1"
             >
-              <td className="px-20 py-16">
+              <td className="min-w-[260px] px-20 py-16">
                 <Link
                   href={`/dashboard/posts/${post.id}/edit`}
                   className="text-p3 font-light text-neutral-1 transition-colors duration-200 hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
@@ -53,6 +57,17 @@ export default function PostsTable({
                   {post.title}
                 </Link>
                 <p className="mt-2 text-p4 text-neutral-5">/{post.slug}</p>
+              </td>
+              <td className="whitespace-nowrap px-20 py-16 text-p4 font-light text-neutral-5">
+                {NEWS_SECTIONS[post.section].label}
+              </td>
+              <td className="px-20 py-16">
+                <PostHighlightToggle
+                  id={post.id}
+                  title={post.title}
+                  isHighlight={post.isHighlight}
+                  canToggle={canPublish}
+                />
               </td>
               <td className="px-20 py-16 text-p4 font-light text-neutral-5">
                 {post.category?.name ?? "—"}
@@ -66,7 +81,6 @@ export default function PostsTable({
               <td className="px-20 py-16">
                 <StatusBadge status={post.status} />
               </td>
-              <td className="px-20 py-16 text-p4 font-light text-neutral-5">{post.viewCount}</td>
               <td className="whitespace-nowrap px-20 py-16 text-p4 font-light text-neutral-5">
                 {post.updatedAt.toLocaleDateString("en-GB", {
                   day: "numeric",

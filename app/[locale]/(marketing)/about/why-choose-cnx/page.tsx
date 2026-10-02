@@ -26,7 +26,7 @@ export default async function WhyChooseCnxPage() {
   const t = await getTranslations("about.whyChooseCnx.cta");
 
   return (
-    <main>
+    <>
       <Hero />
       <CompetitiveAdvantage />
       <BeyondProducts />
@@ -39,6 +39,6 @@ export default async function WhyChooseCnxPage() {
         primaryCta={{ label: t("primaryCta.label"), href: t("primaryCta.href") }}
         secondaryCta={{ label: t("secondaryCta.label"), href: t("secondaryCta.href") }}
       />
-    </main>
+    </>
   );
 }

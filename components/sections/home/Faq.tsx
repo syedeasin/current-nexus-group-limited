@@ -7,8 +7,8 @@ import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import FaqAccordion from "@/components/sections/home/faq/FaqAccordion";
 import ContactCard from "@/components/sections/shared/ContactCard";
-import { faqItems, DEFAULT_OPEN_ID } from "@/lib/data/faq";
 import { cascade, REVEAL_STEP_MS } from "@/lib/motion/timing";
+import { entries, str } from "@/lib/page-content/read";
 
 const HEADING_DELAY_MS = cascade(1);
 const CONTACT_DELAY_MS = cascade(2);
@@ -20,11 +20,12 @@ export default async function Faq() {
   const t = await getTranslations("home.faq");
   const contact = await getTranslations("home.faq.contact");
 
-  const questions = faqItems.map((item) => ({
-    id: item.id,
-    question: t(`items.${item.id}.question` as never),
-    answer: t(`items.${item.id}.answer` as never),
+  const questions = entries(t.raw("items" as never)).map(([id, item]) => ({
+    id,
+    question: str(item, "question"),
+    answer: str(item, "answer"),
   }));
+  const defaultOpenId = questions.find((q) => q.answer)?.id ?? "";
 
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -43,10 +44,10 @@ export default async function Faq() {
 
   return (
     <section aria-label={t("heading")} className="w-full bg-white pt-48 pb-40 md:pt-64 md:pb-56 xl:pt-80 xl:pb-100">
-      {/* Static, local data — safe per project convention, avoids React's default text-node HTML-escaping corrupting the JSON. */}
+      {/* JSON.stringify only (no HTML) — avoids React's default text-node escaping corrupting the JSON. "<" is escaped so admin-edited copy can never close the script tag. */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }}
       />
       <Container>
         <div className="faq-grid w-full">
@@ -64,7 +65,7 @@ export default async function Faq() {
           <div className="faq-accordion-area w-full">
             <FaqAccordion
               questions={questions}
-              defaultOpenId={DEFAULT_OPEN_ID}
+              defaultOpenId={defaultOpenId}
               baseDelay={ACCORDION_BASE_DELAY_MS}
               stepDelay={ACCORDION_STEP_MS}
               staggerCapMs={ACCORDION_STAGGER_CAP_MS}
@@ -79,12 +80,12 @@ export default async function Faq() {
             </Reveal>
             <Reveal as="div" delay={CONTACT_DELAY_MS} className="w-full">
               <ContactCard
-                avatarSrc="/images/home/emmaDP.png"
+                avatarSrc={contact("avatar")}
                 name={contact("name")}
                 role={contact("role")}
                 message={contact("message")}
                 ctaLabel={contact("cta")}
-                ctaHref="/contact"
+                ctaHref={contact("ctaHref")}
               />
             </Reveal>
           </div>

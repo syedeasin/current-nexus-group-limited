@@ -24,7 +24,7 @@
  *
  * Brand logos reuse /public/images/trustedLogos (the home-page logo ticker
  * assets). `logoWidth` is the native width at `NAV_BRAND_LOGO_HEIGHT`, so the
- * aspect ratio never distorts — same convention as lib/data/trustedLogos.ts.
+ * aspect ratio never distorts — same convention as the homepage logo ticker (messages home.trustedLogos.logos).
  */
 
 import type { SolutionMenuGroup, ManufacturingCategory } from "@prisma/client";

@@ -104,10 +104,11 @@ export default async function NewsDetailsPage({
 
   return (
     <main>
-      {/* Serialised from DB fields, JSON.stringify only — avoids React's text-node escaping corrupting the JSON. */}
+      {/* Serialised from DB fields, JSON.stringify only — avoids React's text-node escaping corrupting the JSON.
+          "<" is escaped so a title containing "</script>" can never close the tag. */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd).replace(/</g, "\\u003c") }}
       />
       <DetailsHero post={post} postUrl={postUrl} />
 

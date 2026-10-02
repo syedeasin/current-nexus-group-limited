@@ -16,6 +16,7 @@ import {
   Users,
   Settings,
   Newspaper,
+  PanelsTopLeft,
   ChevronDown,
   type LucideIcon,
 } from "lucide-react";
@@ -33,6 +34,7 @@ const ICONS: Record<string, LucideIcon> = {
   Users,
   Settings,
   Newspaper,
+  PanelsTopLeft,
 };
 
 function isItemActive(item: NavItem, pathname: string) {

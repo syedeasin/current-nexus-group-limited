@@ -25,6 +25,7 @@ export function isNavGroup(entry: NavEntry): entry is NavGroup {
 
 export const NAV_ENTRIES: NavEntry[] = [
   { label: "Overview", href: "/dashboard", icon: "LayoutDashboard", exact: true },
+  { label: "Pages", href: "/dashboard/pages", icon: "PanelsTopLeft", permission: "page.manage" },
   {
     label: "News",
     icon: "Newspaper",

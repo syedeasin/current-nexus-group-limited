@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import Container from "@/components/layout/Container";
+import PageBanner from "@/components/sections/shared/PageBanner";
 
 export async function generateMetadata({
   params,
@@ -17,13 +17,14 @@ export async function generateMetadata({
 }
 
 export default async function PvBessBrandsPage() {
-  const t = await getTranslations("about.pvBessBrands");
+  const t = await getTranslations("about.pvBessBrands.banner");
 
   return (
-    <main>
-      <Container>
-        <h1>{t("meta.title")}</h1>
-      </Container>
-    </main>
+    <PageBanner
+      eyebrowLabel={t("eyebrow")}
+      heading={t("heading")}
+      description={t("description") || undefined}
+      image={{ src: t("image") }}
+    />
   );
 }

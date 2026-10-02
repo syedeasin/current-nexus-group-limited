@@ -6,6 +6,7 @@ import { requirePermission } from "@/lib/auth";
 import { can } from "@/lib/permissions";
 import { validateImageUpload } from "@/lib/validation/upload";
 import { putFile, deleteFile } from "@/lib/storage";
+import { findMediaUsage } from "@/lib/media-usage";
 
 type UploadMediaResult =
   | {
@@ -23,8 +24,15 @@ function parseDimension(value: FormDataEntryValue | null): number | null {
   return n;
 }
 
+/**
+ * Storage key for a media URL. Uploads live under public/uploads but are
+ * linked as /media/... (app/media/[...path]/route.ts) — stripping the slash
+ * alone turned "/media/2026/09/x.webp" into "media/2026/09/x.webp", which
+ * deleteFile rightly refused as outside the uploads root, and the uncaught
+ * throw took the whole Media page down.
+ */
 function keyFromUrl(url: string): string {
-  return url.replace(/^\//, "");
+  return url.replace(/^\/media\//, "uploads/").replace(/^\//, "");
 }
 
 export async function uploadMedia(formData: FormData): Promise<UploadMediaResult> {
@@ -98,8 +106,27 @@ export async function deleteMedia(id: string): Promise<SimpleResult> {
     return { ok: false, error: "You do not have permission to delete this file." };
   }
 
-  await deleteFile(keyFromUrl(media.url));
-  await prisma.media.delete({ where: { id } });
+  try {
+    const usage = await findMediaUsage(media.url);
+    if (usage.length > 0) {
+      return {
+        ok: false,
+        error: `This image is still used by ${usage.join("; ")}. Remove it there first, then delete it here.`,
+      };
+    }
+
+    // Row first: if the file unlink then fails, the library no longer lists
+    // a file that might be half-gone — an orphaned file on disk is harmless.
+    await prisma.media.delete({ where: { id } });
+    try {
+      await deleteFile(keyFromUrl(media.url));
+    } catch (error) {
+      console.error("[media] file unlink failed after row delete", error);
+    }
+  } catch (error) {
+    console.error("[media] delete failed", error);
+    return { ok: false, error: "Could not delete this file. Please try again." };
+  }
 
   revalidatePath("/dashboard/media");
   revalidatePath("/dashboard");
@@ -121,7 +148,12 @@ export async function updateMediaAlt(id: string, alt: string): Promise<SimpleRes
     return { ok: false, error: "You do not have permission to edit this file." };
   }
 
-  await prisma.media.update({ where: { id }, data: { alt: alt.trim() || null } });
+  try {
+    await prisma.media.update({ where: { id }, data: { alt: alt.trim().slice(0, 180) || null } });
+  } catch (error) {
+    console.error("[media] alt update failed", error);
+    return { ok: false, error: "Could not save the alt text. Please try again." };
+  }
 
   revalidatePath("/dashboard/media");
 

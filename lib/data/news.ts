@@ -1,4 +1,4 @@
-import { Prisma, PostStatus, type Locale } from "@prisma/client";
+import { Prisma, PostStatus, PostSection, type Locale } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 
 /**
@@ -17,9 +17,10 @@ import { prisma } from "@/lib/prisma";
  * Phase D2B). The old NewsBlock[] renderer has been retired — see
  * app/[locale]/(marketing)/news/[slug]/page.tsx.
  *
- * Reserved slugs "re-analysis", "knowledge-database", "events" belong to
- * static routes under /news/ and must never be used by a post (not enforced
- * here — flagged for a later seed/validation guard).
+ * Every list query is also scoped to one News Room section (News, RE
+ * Analysis, Knowledge Database, Events — lib/news-sections.ts). The reserved
+ * slugs "re-analysis", "knowledge-database" and "events" belong to those
+ * section index routes; lib/validation/post.ts rejects them for posts.
  */
 export interface NewsPost {
   slug: string;
@@ -35,7 +36,9 @@ export interface NewsPost {
   /** ISO date string — used for JSON-LD dateModified. */
   updatedAt: string;
   readingMinutes: number;
-  /** Derived (not a DB column): true for the most recent published posts. */
+  /** Which News Room listing the post belongs to. */
+  section: PostSection;
+  /** Editor-picked for its section's Highlights carousel. */
   isHighlight: boolean;
   /** Sanitised HTML. Empty string for list items (content is not fetched for lists). */
   content: string;
@@ -48,8 +51,10 @@ export interface NewsPost {
   noIndex: boolean;
 }
 
-/** How many of the most recent published posts are treated as highlights. */
-const HIGHLIGHT_COUNT = 4;
+/** Upper bound on the Highlights carousel. */
+const HIGHLIGHT_LIMIT = 9;
+/** When no post in a section is picked as a highlight, show this many of the latest instead. */
+const HIGHLIGHT_FALLBACK_COUNT = 4;
 
 const PUBLISHED_ORDER = [
   { publishedAt: "desc" as const },
@@ -71,6 +76,8 @@ const listSelect = {
   createdAt: true,
   updatedAt: true,
   readingTime: true,
+  section: true,
+  isHighlight: true,
   category: { select: { name: true } },
 } satisfies Prisma.PostSelect;
 
@@ -82,7 +89,7 @@ const detailInclude = {
 type ListRow = Prisma.PostGetPayload<{ select: typeof listSelect }>;
 type DetailRow = Prisma.PostGetPayload<{ include: typeof detailInclude }>;
 
-function mapListRow(row: ListRow, isHighlight: boolean): NewsPost {
+function mapListRow(row: ListRow): NewsPost {
   return {
     slug: row.slug,
     title: row.title,
@@ -93,7 +100,8 @@ function mapListRow(row: ListRow, isHighlight: boolean): NewsPost {
     publishedAt: (row.publishedAt ?? row.createdAt).toISOString(),
     updatedAt: row.updatedAt.toISOString(),
     readingMinutes: row.readingTime,
-    isHighlight,
+    section: row.section,
+    isHighlight: row.isHighlight,
     content: "",
     authorName: "",
     metaTitle: null,
@@ -104,7 +112,7 @@ function mapListRow(row: ListRow, isHighlight: boolean): NewsPost {
   };
 }
 
-function mapDetailRow(row: DetailRow, isHighlight: boolean): NewsPost {
+function mapDetailRow(row: DetailRow): NewsPost {
   return {
     slug: row.slug,
     title: row.title,
@@ -115,7 +123,8 @@ function mapDetailRow(row: DetailRow, isHighlight: boolean): NewsPost {
     publishedAt: (row.publishedAt ?? row.createdAt).toISOString(),
     updatedAt: row.updatedAt.toISOString(),
     readingMinutes: row.readingTime,
-    isHighlight,
+    section: row.section,
+    isHighlight: row.isHighlight,
     content: row.content,
     authorName: row.author.name,
     metaTitle: row.metaTitle,
@@ -126,30 +135,62 @@ function mapDetailRow(row: DetailRow, isHighlight: boolean): NewsPost {
   };
 }
 
-/** Most recent published posts for the highlights carousel on the index page. */
-export async function getHighlightPosts(locale: string): Promise<NewsPost[]> {
+/**
+ * Posts for a section's Highlights carousel: the ones an editor ticked
+ * "Show in Highlights" on (Dashboard → Posts → edit), newest first. If none
+ * are ticked yet the carousel falls back to the latest few, so it is never
+ * empty on a section that has posts.
+ */
+export async function getHighlightPosts(
+  locale: string,
+  section: PostSection = PostSection.NEWS
+): Promise<NewsPost[]> {
+  const prismaLocale = toPrismaLocale(locale);
+  if (!prismaLocale) return [];
+
+  const where = { status: PostStatus.PUBLISHED, locale: prismaLocale, section };
+  const picked = await prisma.post.findMany({
+    where: { ...where, isHighlight: true },
+    orderBy: PUBLISHED_ORDER,
+    take: HIGHLIGHT_LIMIT,
+    select: listSelect,
+  });
+  if (picked.length > 0) return picked.map(mapListRow);
+
+  const latest = await prisma.post.findMany({
+    where,
+    orderBy: PUBLISHED_ORDER,
+    take: HIGHLIGHT_FALLBACK_COUNT,
+    select: listSelect,
+  });
+  return latest.map(mapListRow);
+}
+
+/** Latest published posts across every section — the homepage "Latest news" carousel. */
+export async function getLatestPosts(locale: string, take: number): Promise<NewsPost[]> {
   const prismaLocale = toPrismaLocale(locale);
   if (!prismaLocale) return [];
 
   const rows = await prisma.post.findMany({
     where: { status: PostStatus.PUBLISHED, locale: prismaLocale },
     orderBy: PUBLISHED_ORDER,
-    take: HIGHLIGHT_COUNT,
+    take,
     select: listSelect,
   });
-  return rows.map((row) => mapListRow(row, true));
+  return rows.map(mapListRow);
 }
 
-/** Paginated published-post list for the news index. */
+/** Paginated published-post list for a section index. */
 export async function getPosts(
   locale: string,
   page: number,
-  perPage: number
+  perPage: number,
+  section: PostSection = PostSection.NEWS
 ): Promise<{ posts: NewsPost[]; total: number; totalPages: number }> {
   const prismaLocale = toPrismaLocale(locale);
   if (!prismaLocale) return { posts: [], total: 0, totalPages: 1 };
 
-  const where = { status: PostStatus.PUBLISHED, locale: prismaLocale };
+  const where = { status: PostStatus.PUBLISHED, locale: prismaLocale, section };
   const total = await prisma.post.count({ where });
   const totalPages = Math.max(1, Math.ceil(total / perPage));
   const safePage = Math.min(Math.max(1, page), totalPages);
@@ -161,7 +202,7 @@ export async function getPosts(
     take: perPage,
     select: listSelect,
   });
-  return { posts: rows.map((row) => mapListRow(row, false)), total, totalPages };
+  return { posts: rows.map(mapListRow), total, totalPages };
 }
 
 /** Full published post for the detail page. Returns null so the page can notFound(). */
@@ -176,12 +217,13 @@ export async function getPostBySlug(
     where: { slug, locale: prismaLocale, status: PostStatus.PUBLISHED },
     include: detailInclude,
   });
-  return row ? mapDetailRow(row, false) : null;
+  return row ? mapDetailRow(row) : null;
 }
 
 /**
- * Previous (newer) and next (older) published post in the same locale,
- * ordered by publishedAt, for the prev/next navigation on the detail page.
+ * Previous (newer) and next (older) published post in the same locale and
+ * News Room section, ordered by publishedAt, for the prev/next navigation on
+ * the detail page.
  */
 export async function getAdjacentPosts(
   slug: string,
@@ -192,7 +234,7 @@ export async function getAdjacentPosts(
 
   const current = await prisma.post.findFirst({
     where: { slug, locale: prismaLocale, status: PostStatus.PUBLISHED },
-    select: { publishedAt: true, createdAt: true },
+    select: { publishedAt: true, createdAt: true, section: true },
   });
   if (!current) return { prev: null, next: null };
 
@@ -200,6 +242,7 @@ export async function getAdjacentPosts(
   const base = {
     status: PostStatus.PUBLISHED,
     locale: prismaLocale,
+    section: current.section,
     slug: { not: slug },
   };
 
@@ -217,8 +260,8 @@ export async function getAdjacentPosts(
   ]);
 
   return {
-    prev: prev ? mapListRow(prev, false) : null,
-    next: next ? mapListRow(next, false) : null,
+    prev: prev ? mapListRow(prev) : null,
+    next: next ? mapListRow(next) : null,
   };
 }
 

@@ -15,7 +15,6 @@ import {
 import { parseDownloadParams, type RawSearchParams } from "@/lib/downloads-params";
 
 const BASE_PATH = "/service/downloads";
-const BANNER_IMAGE = "/images/service/Downloads/service-downloads-heroBanner.jpg";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("service.downloads.meta");
@@ -116,7 +115,7 @@ export default async function DownloadsPage({
   };
 
   return (
-    <main>
+    <>
       {/* Figma node 2080:38679 — the same 660px banner the Solutions pages use,
           text block centred in the 572px below the header. Unlike those pages
           this one has no CTA band: the CTA frame in node 4011:3670 is hidden,
@@ -125,7 +124,7 @@ export default async function DownloadsPage({
         eyebrowLabel={t("banner.eyebrow")}
         heading={t("banner.heading")}
         description={t("banner.description")}
-        image={{ src: BANNER_IMAGE }}
+        image={{ src: t("banner.image") }}
         textMaxWidthClassName="max-w-573"
         containerClassName="h-460 justify-center pt-56 md:h-560 xl:h-660 xl:pt-88"
       />
@@ -137,6 +136,6 @@ export default async function DownloadsPage({
         labels={labels}
         basePath={BASE_PATH}
       />
-    </main>
+    </>
   );
 }

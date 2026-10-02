@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { requirePermission } from "@/lib/auth";
 import { can } from "@/lib/permissions";
-import { PostStatus, type Prisma } from "@prisma/client";
+import { PostSection, PostStatus, type Prisma } from "@prisma/client";
 import PostsFilters from "@/components/dashboard/posts-filters";
 import PostsTable from "@/components/dashboard/posts-table";
 import Pagination from "@/components/dashboard/pagination";
@@ -11,11 +11,12 @@ import EmptyState from "@/components/dashboard/empty-state";
 
 const PER_PAGE = 20;
 const VALID_STATUSES = new Set<string>(Object.values(PostStatus));
+const VALID_SECTIONS = new Set<string>(Object.values(PostSection));
 
 export default async function PostsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; status?: string; page?: string }>;
+  searchParams: Promise<{ q?: string; status?: string; section?: string; highlight?: string; page?: string }>;
 }) {
   const user = await requirePermission("post.create");
   const sp = await searchParams;
@@ -23,10 +24,14 @@ export default async function PostsPage({
   const page = Math.max(1, Number(sp.page ?? 1) || 1);
   const query = sp.q?.trim() ?? "";
   const status = sp.status && VALID_STATUSES.has(sp.status) ? (sp.status as PostStatus) : undefined;
+  const section = sp.section && VALID_SECTIONS.has(sp.section) ? (sp.section as PostSection) : undefined;
+  const highlightOnly = sp.highlight === "1";
 
   const where: Prisma.PostWhereInput = {
     ...(query ? { title: { contains: query, mode: "insensitive" } } : {}),
     ...(status ? { status } : {}),
+    ...(section ? { section } : {}),
+    ...(highlightOnly ? { isHighlight: true } : {}),
     ...(can(user.role, "post.viewAll") ? {} : { authorId: user.id }),
   };
 
@@ -43,6 +48,8 @@ export default async function PostsPage({
         slug: true,
         locale: true,
         status: true,
+        section: true,
+        isHighlight: true,
         updatedAt: true,
         viewCount: true,
         category: { select: { name: true } },
@@ -52,13 +59,15 @@ export default async function PostsPage({
   ]);
 
   const totalPages = Math.max(1, Math.ceil(total / PER_PAGE));
-  const isFiltered = Boolean(query || status);
+  const isFiltered = Boolean(query || status || section || highlightOnly);
   const canPublish = can(user.role, "post.publish");
 
   function pageHref(n: number) {
     const params = new URLSearchParams();
     if (query) params.set("q", query);
     if (status) params.set("status", status);
+    if (section) params.set("section", section);
+    if (highlightOnly) params.set("highlight", "1");
     if (n > 1) params.set("page", String(n));
     const qs = params.toString();
     return qs ? `/dashboard/posts?${qs}` : "/dashboard/posts";
@@ -88,7 +97,7 @@ export default async function PostsPage({
       </div>
 
       <div className="overflow-hidden rounded-16 border border-neutral-10 bg-white">
-        <PostsFilters query={query} status={status ?? ""} />
+        <PostsFilters query={query} status={status ?? ""} section={section ?? ""} highlightOnly={highlightOnly} />
 
         {posts.length === 0 ? (
           <div className="p-32">

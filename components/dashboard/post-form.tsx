@@ -13,6 +13,7 @@ import Textarea from "@/components/dashboard/form/textarea";
 import Select from "@/components/dashboard/form/select";
 import FieldError from "@/components/dashboard/form/field-error";
 import FieldHint from "@/components/dashboard/form/field-hint";
+import { NEWS_SECTION_LIST } from "@/lib/news-sections";
 
 export type PostFormValues = {
   title: string;
@@ -22,6 +23,8 @@ export type PostFormValues = {
   content: string;
   status: "DRAFT" | "PENDING_REVIEW" | "PUBLISHED" | "ARCHIVED";
   categoryId: string;
+  section: "NEWS" | "RE_ANALYSIS" | "KNOWLEDGE_DATABASE" | "EVENTS";
+  isHighlight: boolean;
   tags: string;
   featuredImage: string;
   featuredImageAlt: string;
@@ -48,6 +51,8 @@ const DEFAULTS: PostFormValues = {
   content: "",
   status: "DRAFT",
   categoryId: "",
+  section: "NEWS",
+  isHighlight: false,
   tags: "",
   featuredImage: "",
   featuredImageAlt: "",
@@ -513,6 +518,49 @@ export default function PostForm({ mode, post, categories, canPublish }: PostFor
           </div>
 
           <div className="rounded-16 border border-neutral-10 bg-white p-24">
+            <h2 className="mb-16 text-p2 font-medium text-neutral-1">News Room placement</h2>
+
+            <div className="mb-16">
+              <FieldLabel htmlFor="section">Section</FieldLabel>
+              <Select
+                id="section"
+                name="section"
+                defaultValue={initial.section}
+                aria-describedby="section-hint"
+              >
+                {NEWS_SECTION_LIST.map((s) => (
+                  <option key={s.section} value={s.section}>
+                    {s.label}
+                  </option>
+                ))}
+              </Select>
+              <FieldHint id="section-hint">
+                Which News Room page lists this post: News, RE Analysis, Knowledge Database or Events.
+              </FieldHint>
+            </div>
+
+            <div className="flex items-start gap-8">
+              <input
+                type="checkbox"
+                id="isHighlight"
+                name="isHighlight"
+                defaultChecked={initial.isHighlight}
+                className="mt-4 h-16 w-16 rounded-4 border-neutral-10 text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                aria-describedby="isHighlight-hint"
+              />
+              <div>
+                <FieldLabel htmlFor="isHighlight" className="mb-0">
+                  Show in Highlights
+                </FieldLabel>
+                <FieldHint id="isHighlight-hint">
+                  Adds this post to the &ldquo;Highlights&rdquo; carousel at the top of its section page
+                  (once published). If no post in a section is ticked, the latest 4 are shown there.
+                </FieldHint>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-16 border border-neutral-10 bg-white p-24">
             <h2 className="mb-16 text-p2 font-medium text-neutral-1">Organisation</h2>
 
             <div className="mb-16">
@@ -526,12 +574,9 @@ export default function PostForm({ mode, post, categories, canPublish }: PostFor
                 <option value="EN">English</option>
                 <option value="FR">French</option>
               </Select>
-              {locale === "FR" && (
-                <FieldHint id="locale-hint">
-                  The site&apos;s routing has no French locale configured (only English and Chinese),
-                  so French posts have no public URL yet.
-                </FieldHint>
-              )}
+              <FieldHint id="locale-hint">
+                The language version of the site this post appears on.
+              </FieldHint>
             </div>
 
             <div className="mb-16">

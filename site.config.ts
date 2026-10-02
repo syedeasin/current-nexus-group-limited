@@ -3,11 +3,13 @@ export const siteConfig = {
   legalName: "Current Nexus Group Limited",
   /** Placeholder production domain — used for canonical URLs, OG/Twitter tags, and share links until the real domain is confirmed. */
   url: "https://www.currentnexus.com",
+  /** Defaults — overridable in Dashboard → Pages → Footer → Contact info. */
   contact: {
     location: "Hong Kong, China",
     email: "info@CurrentNexus.com",
     phone: "+1 (000) 000-0000",
   },
+  /** Defaults — overridable in Dashboard → Pages → Footer → Social links. Empty hides a link. */
   social: {
     facebook: "#",
     instagram: "#",
@@ -19,58 +21,10 @@ export type SiteConfig = typeof siteConfig;
 
 // Header nav data model lives in config/nav.config.ts (NAV_ITEMS) — see docs/HEADER-FIX-SPEC.md.
 
-export const footerNav = [
-  {
-    heading: "Quick links",
-    links: [
-      { label: "Technology", href: "/technology" },
-      { label: "Why choose CNX", href: "/about" },
-      { label: "PV and BESS Brands", href: "/brands" },
-      { label: "Manufacturing", href: "/manufacturing" },
-      { label: "Solutions", href: "/solutions" },
-      { label: "Renewable projects", href: "/projects" },
-      { label: "Downloads", href: "/downloads" },
-      { label: "Newsroom", href: "/news" },
-    ],
-  },
-  {
-    heading: "Tier 1 brands",
-    links: [
-      { label: "JA solar", href: "/brands/ja-solar" },
-      { label: "TONGWEI", href: "/brands/tongwei" },
-      { label: "Hithium", href: "/brands/hithium" },
-      { label: "Growatt", href: "/brands/growatt" },
-      { label: "DEYE", href: "/brands/deye" },
-      { label: "Solis", href: "/brands/solis" },
-      { label: "Goodwe", href: "/brands/goodwe" },
-    ],
-  },
-  {
-    // TODO: Figma repeats the Tier 1 brands list here. Replace with real
-    // solution links once the client confirms them.
-    heading: "Solutions",
-    links: [
-      { label: "JA solar", href: "/brands/ja-solar" },
-      { label: "TONGWEI", href: "/brands/tongwei" },
-      { label: "Hithium", href: "/brands/hithium" },
-      { label: "Growatt", href: "/brands/growatt" },
-      { label: "DEYE", href: "/brands/deye" },
-      { label: "Solis", href: "/brands/solis" },
-      { label: "Goodwe", href: "/brands/goodwe" },
-    ],
-  },
-  {
-    heading: "Services",
-    links: [
-      { label: "Downloads", href: "/downloads" },
-      { label: "Global distributors", href: "/distributors" },
-      { label: "Warranty", href: "/warranty" },
-      { label: "Stock products with discount price", href: "/stock" },
-    ],
-  },
-] as const;
-
-export type FooterColumn = (typeof footerNav)[number];
+// Footer link columns and labels live in messages/<locale>.json (`footer`)
+// and are edited in Dashboard → Pages → Footer. `contact` and `social` above
+// stay here as the site-level defaults; lib/page-content/messages.ts feeds
+// them into the same editable tree.
 
 export const socialLinks = [
   { label: "Facebook", href: siteConfig.social.facebook, icon: "facebook" },

@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import AwardsSection from "@/components/sections/shared/AwardsSection";
-import { awards } from "@/lib/data/awards";
+import { entries, str } from "@/lib/page-content/read";
 
 export default async function Awards() {
   const t = await getTranslations("home.awards");
@@ -9,12 +9,14 @@ export default async function Awards() {
     <AwardsSection
       eyebrowLabel={t("eyebrow")}
       heading={t("heading")}
-      backgroundImage="/images/home/Awards.webp"
-      cards={awards.map((award) => ({
-        image: award.image,
-        alt: award.alt,
-        caption: t(`items.${award.key}.caption` as never),
-      }))}
+      backgroundImage={t("backgroundImage")}
+      cards={entries(t.raw("items" as never))
+        .map(([, award]) => ({
+          image: str(award, "image"),
+          alt: str(award, "imageAlt"),
+          caption: str(award, "caption"),
+        }))
+        .filter((award) => award.image)}
     />
   );
 }

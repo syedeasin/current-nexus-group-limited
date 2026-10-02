@@ -27,6 +27,16 @@ enum Locale {
   FR
 }
 
+/// Which News Room listing a post belongs to. Every post's detail page stays
+/// at /news/<slug>; the section only decides which index lists it
+/// (/news, /news/re-analysis, /news/knowledge-database, /news/events).
+enum PostSection {
+  NEWS
+  RE_ANALYSIS
+  KNOWLEDGE_DATABASE
+  EVENTS
+}
+
 model User {
   id           String    @id @default(cuid())
   name         String
@@ -44,6 +54,7 @@ model User {
   downloads          DownloadResource[]
   solutionPages      SolutionPage[]
   manufacturingPages ManufacturingPage[]
+  pageContents       PageContent[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -101,6 +112,10 @@ model Post {
   status      PostStatus @default(DRAFT)
   publishedAt DateTime?
 
+  section     PostSection @default(NEWS)
+  /// Editor-picked for the "Highlights" carousel at the top of the post's section index.
+  isHighlight Boolean     @default(false)
+
   featuredImage    String? @db.VarChar(500)
   featuredImageAlt String?
 
@@ -129,6 +144,7 @@ model Post {
 
   @@unique([slug, locale])
   @@index([status, publishedAt])
+  @@index([locale, status, section, publishedAt])
   @@index([categoryId])
   @@index([authorId])
   @@index([translationKey])
@@ -388,4 +404,37 @@ model ManufacturingPage {
   @@index([locale, status, category, menuOrder])
   @@index([status, publishedAt])
   @@map("manufacturing_pages")
+}
+
+// ---------------------------------------------------------------------------
+// Website page content (Dashboard → Pages)
+//
+// The static marketing pages (home, about, manufacturing category pages, news
+// room banners, downloads, header labels, footer) render their copy and images
+// from next-intl messages (messages/<locale>.json). A row here holds an
+// admin's *edits* to one page for one locale, as a partial message tree rooted
+// at the messages root — only the leaves that differ from the shipped default,
+// plus whole lists ("collections") the admin has changed. i18n/request.ts
+// merges every row for the request's locale over the defaults
+// (lib/page-content/merge.ts), so every page component keeps reading plain
+// `t(...)` and an unedited page falls back to the default copy. Deleting the
+// row restores the defaults.
+// ---------------------------------------------------------------------------
+
+model PageContent {
+  id      String @id @default(cuid())
+  /// Registry key from lib/page-content/registry.ts, e.g. "home", "manufacturing.solarPanels".
+  pageKey String
+  locale  Locale
+  data    Json
+
+  updatedById String?
+  updatedBy   User?   @relation(fields: [updatedById], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([pageKey, locale])
+  @@index([locale])
+  @@map("page_contents")
 }

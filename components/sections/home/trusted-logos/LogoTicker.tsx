@@ -2,9 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import type { TrustedLogo } from "@/lib/data/trustedLogos";
+export interface TrustedLogo {
+  name: string;
+  image: string;
+  /** Native width in px at the 32px logo height, so aspect ratio never distorts. */
+  width: number;
+}
 
-/** Native height (px) the per-logo `width` values in trustedLogos.ts were measured at. */
+/** Native height (px) the per-logo `width` values (home.trustedLogos.logos) were measured at. */
 const LOGO_NATIVE_HEIGHT = 32;
 
 interface LogoTickerProps {

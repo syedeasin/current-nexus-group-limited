@@ -5,18 +5,18 @@ import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import ApplicationScenesCarousel from "@/components/sections/home/application-scenes/ApplicationScenesCarousel";
-import { applicationScenes } from "@/lib/data/applicationScenes";
 import { cascade } from "@/lib/motion/timing";
+import { entries, str } from "@/lib/page-content/read";
 
 export default async function ApplicationScenes() {
   const t = await getTranslations("home.applicationScenes");
 
-  const cards = applicationScenes.map((scene) => ({
-    key: scene.key,
-    title: t(`cards.${scene.key}.title` as never),
-    description: t(`cards.${scene.key}.description` as never),
-    image: scene.image,
-    href: scene.href,
+  const cards = entries(t.raw("cards" as never)).map(([id, card]) => ({
+    key: id,
+    title: str(card, "title"),
+    description: str(card, "description"),
+    image: str(card, "image"),
+    href: str(card, "href") || "#",
   }));
 
   return (

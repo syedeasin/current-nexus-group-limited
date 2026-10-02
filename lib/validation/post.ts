@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { RESERVED_NEWS_SLUGS } from "@/lib/news-sections";
 
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const URL_OR_PATH_PATTERN = /^https?:\/\//;
@@ -41,6 +42,9 @@ export const postSchema = z.object({
     z
       .string()
       .regex(SLUG_PATTERN, "Use lowercase letters, numbers and hyphens only")
+      .refine((val) => !RESERVED_NEWS_SLUGS.includes(val), {
+        message: "This slug is reserved for a News Room page. Choose another.",
+      })
       .optional()
   ),
 
@@ -53,6 +57,9 @@ export const postSchema = z.object({
   status: z.enum(["DRAFT", "PENDING_REVIEW", "PUBLISHED", "ARCHIVED"]),
 
   categoryId: z.preprocess(emptyToNull, z.string().nullable().optional().default(null)),
+
+  section: z.enum(["NEWS", "RE_ANALYSIS", "KNOWLEDGE_DATABASE", "EVENTS"]).default("NEWS"),
+  isHighlight: z.preprocess(toBoolean, z.boolean().default(false)),
 
   tags: z.preprocess(
     emptyToUndefined,

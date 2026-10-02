@@ -5,21 +5,23 @@ import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import BrandTabs from "@/components/sections/home/premium-solutions/BrandTabs";
-import { premiumSolutionsBrands } from "@/lib/data/premiumSolutions";
 import { cascade } from "@/lib/motion/timing";
+import { entries, str } from "@/lib/page-content/read";
 
 export default async function PremiumSolutions() {
   const t = await getTranslations("home.premiumSolutions");
 
-  const brands = premiumSolutionsBrands.map((brand) => ({
-    id: brand.id,
-    label: t(`brands.${brand.brandKey}` as never),
-    title: t(`titles.${brand.titleKey}` as never),
-    products: brand.products.map((product) => ({
-      key: product.key,
-      title: t(`products.${product.key}` as never),
-      image: product.image,
-      href: product.href,
+  // Brands and each brand's products are editable lists
+  // (Dashboard → Pages → Homepage → Tier 1 brand products).
+  const brands = entries(t.raw("brands" as never)).map(([brandId, brand]) => ({
+    id: brandId,
+    label: str(brand, "label"),
+    title: str(brand, "title"),
+    products: entries(brand.products).map(([productId, product]) => ({
+      key: productId,
+      title: str(product, "title"),
+      image: str(product, "image"),
+      href: str(product, "href") || "#",
     })),
   }));
 
@@ -42,7 +44,7 @@ export default async function PremiumSolutions() {
             brands={brands}
             railAriaLabel={t("railAriaLabel")}
             viewAllLabel={t("viewAll")}
-            viewAllHref="/about/pv-bess-brands"
+            viewAllHref={t("viewAllHref")}
           />
         </div>
       </Container>

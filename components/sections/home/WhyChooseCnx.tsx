@@ -11,7 +11,7 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import { ChevronRight } from "@/components/icons/ChevronRight";
 import ReasonAccordion from "@/components/sections/home/why-choose-cnx/ReasonAccordion";
 import { cascade, REVEAL_STEP_MS } from "@/lib/motion/timing";
-import { whyChooseReasons, DEFAULT_OPEN_KEY } from "@/lib/data/whyChooseCnx";
+import { entries, str } from "@/lib/page-content/read";
 
 // Canonical header cascade: eyebrow(0), heading(1), paragraph(2), cta(3) — the
 // photo and accordion pick up right after the CTA instead of colliding with it.
@@ -20,12 +20,14 @@ const ACCORDION_BASE_DELAY_MS = cascade(5);
 export default async function WhyChooseCnx() {
   const t = await getTranslations("home.whyChoose");
 
-  const reasons = whyChooseReasons.map((reason) => ({
-    key: reason.key,
-    icon: reason.icon,
-    title: t(`items.${reason.key}.title` as never),
-    body: t(`items.${reason.key}.body` as never),
+  const reasons = entries(t.raw("items" as never)).map(([id, item]) => ({
+    key: id,
+    icon: str(item, "iconImage"),
+    title: str(item, "title"),
+    body: str(item, "body"),
   }));
+  // Rows without body copy can't expand, so open the first one that has some.
+  const defaultOpenKey = reasons.find((reason) => reason.body)?.key ?? "";
 
   return (
     <section aria-label={t("heading")} className="w-full bg-neutral-1">
@@ -52,7 +54,7 @@ export default async function WhyChooseCnx() {
               </Reveal>
             </div>
             <Reveal as="div" delay={cascade(3)}>
-              <Button href="/about/why-choose-cnx" size="xl" className="w-full min-[481px]:w-fit">
+              <Button href={t("ctaHref")} size="xl" className="w-full min-[481px]:w-fit">
                 {t("cta")}
                 <ChevronRight size={BUTTON_ICON_SIZE} />
               </Button>
@@ -64,8 +66,8 @@ export default async function WhyChooseCnx() {
             className="why-choose-photo relative aspect-[600/338] w-full rounded-16"
           >
             <Image
-              src="/images/home/whyChooseUs.webp"
-              alt="Technician monitoring the automated solar panel line inside CNX's manufacturing facility"
+              src={t("image")}
+              alt={t("imageAlt")}
               fill
               sizes="(min-width: 1024px) 600px, 100vw"
               className="object-cover"
@@ -75,7 +77,7 @@ export default async function WhyChooseCnx() {
           <div className="why-choose-accordion w-full">
             <ReasonAccordion
               reasons={reasons}
-              defaultOpenKey={DEFAULT_OPEN_KEY}
+              defaultOpenKey={defaultOpenKey}
               baseDelay={ACCORDION_BASE_DELAY_MS}
               stepDelay={REVEAL_STEP_MS}
             />

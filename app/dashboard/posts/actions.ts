@@ -31,6 +31,8 @@ function parseFormData(formData: FormData) {
     content: formValue(formData, "content"),
     status: formValue(formData, "status"),
     categoryId: formValue(formData, "categoryId"),
+    section: formValue(formData, "section") || undefined,
+    isHighlight: formValue(formData, "isHighlight"),
     tags: formValue(formData, "tags"),
     featuredImage: formValue(formData, "featuredImage"),
     featuredImageAlt: formValue(formData, "featuredImageAlt"),
@@ -50,6 +52,18 @@ function fieldErrorsFrom(error: ZodError): Record<string, string> {
     if (!(key in fieldErrors)) fieldErrors[key] = issue.message;
   }
   return fieldErrors;
+}
+
+/**
+ * Post detail pages are statically generated (generateStaticParams) and the
+ * homepage lists the latest posts, so a save must refresh the public site
+ * too — revalidating only /dashboard left the live article showing its old
+ * content (e.g. an image inserted after publishing never appeared).
+ */
+function revalidatePublicSite() {
+  for (const locale of ["en", "fr"]) {
+    revalidatePath(`/${locale}`, "layout");
+  }
 }
 
 function resolveStatus(
@@ -72,6 +86,8 @@ function sharedPostData(data: PostFormValues) {
     excerpt: data.excerpt ?? null,
     content: data.content,
     categoryId: data.categoryId,
+    section: data.section,
+    isHighlight: data.isHighlight,
     featuredImage: data.featuredImage ?? null,
     featuredImageAlt: data.featuredImageAlt ?? null,
     metaTitle: data.metaTitle ?? null,
@@ -149,6 +165,7 @@ export async function createPost(formData: FormData): Promise<ActionResult> {
 
   revalidatePath("/dashboard/posts");
   revalidatePath("/dashboard");
+  revalidatePublicSite();
 
   return { ok: true, id: post.id, note };
 }
@@ -210,6 +227,7 @@ export async function updatePost(id: string, formData: FormData): Promise<Action
 
   revalidatePath("/dashboard/posts");
   revalidatePath("/dashboard");
+  revalidatePublicSite();
 
   return { ok: true, id, note };
 }
@@ -228,6 +246,7 @@ export async function deletePost(id: string): Promise<SimpleActionResult> {
 
   revalidatePath("/dashboard/posts");
   revalidatePath("/dashboard");
+  revalidatePublicSite();
 
   return { ok: true };
 }
@@ -245,6 +264,7 @@ export async function publishPost(id: string): Promise<SimpleActionResult> {
 
   revalidatePath("/dashboard/posts");
   revalidatePath("/dashboard");
+  revalidatePublicSite();
 
   return { ok: true };
 }
@@ -259,6 +279,23 @@ export async function unpublishPost(id: string): Promise<SimpleActionResult> {
 
   revalidatePath("/dashboard/posts");
   revalidatePath("/dashboard");
+  revalidatePublicSite();
+
+  return { ok: true };
+}
+
+export async function setPostHighlight(id: string, isHighlight: boolean): Promise<SimpleActionResult> {
+  await requirePermission("post.publish");
+
+  try {
+    await prisma.post.update({ where: { id }, data: { isHighlight } });
+  } catch (error) {
+    console.error("[posts] highlight toggle failed", error);
+    return { ok: false, error: "Could not update this post. Please try again." };
+  }
+
+  revalidatePath("/dashboard/posts");
+  revalidatePublicSite();
 
   return { ok: true };
 }

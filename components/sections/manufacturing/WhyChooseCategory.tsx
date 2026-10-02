@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { Cpu, TrendingUp, Globe } from "lucide-react";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
 import TextReveal from "@/components/motion/TextReveal";
@@ -9,12 +8,8 @@ import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import { cn } from "@/lib/utils";
 import type { ProductCategory } from "@/lib/data/manufacturing";
-
-const ICONS = {
-  cpu: Cpu,
-  "trending-up": TrendingUp,
-  globe: Globe,
-} as const;
+import { pageIcon } from "@/lib/page-content/icons";
+import { entries, str } from "@/lib/page-content/read";
 
 const HEADING_DELAY_MS = 80;
 const IMAGE_DELAY_MS = 160;
@@ -23,18 +18,19 @@ const FEATURE_STEP_MS = 80;
 const FEATURE_STAGGER_CAP_MS = 400;
 
 export default async function WhyChooseCategory({ category }: { category: ProductCategory }) {
-  const t = await getTranslations(category.namespace as never);
+  const t = await getTranslations(`${category.namespace}.whyChoose`);
+  const features = entries(t.raw("features" as never));
 
   return (
     <section className="w-full bg-surface-2 py-100">
       <Container className="flex flex-col gap-48">
         <div className="mx-auto flex max-w-702 flex-col items-center gap-12 text-center">
           <Reveal as="div" delay={0}>
-            <SectionEyebrow label={t("whyChoose.eyebrow" as never)} />
+            <SectionEyebrow label={t("eyebrow")} />
           </Reveal>
           <TextReveal delay={HEADING_DELAY_MS}>
             <Heading level={2} size="h2" className="text-balance">
-              {t("whyChoose.heading" as never)}
+              {t("heading")}
             </Heading>
           </TextReveal>
         </div>
@@ -46,7 +42,7 @@ export default async function WhyChooseCategory({ category }: { category: Produc
             className="relative aspect-[1320/500] w-full overflow-hidden rounded-16 xl:h-500 xl:aspect-auto"
           >
             <Image
-              src={category.whyChooseImage}
+              src={t("image")}
               alt=""
               aria-hidden="true"
               fill
@@ -56,12 +52,12 @@ export default async function WhyChooseCategory({ category }: { category: Produc
           </Reveal>
 
           <div className="flex flex-col gap-24 sm:grid sm:grid-cols-2 sm:gap-32 lg:flex lg:flex-row lg:gap-48">
-            {category.features.map((feature, index) => {
-              const Icon = ICONS[feature.icon];
+            {features.map(([id, feature], index) => {
+              const Icon = pageIcon(str(feature, "icon"));
               const delay = FEATURE_BASE_DELAY_MS + Math.min(index * FEATURE_STEP_MS, FEATURE_STAGGER_CAP_MS);
               return (
                 <Reveal
-                  key={feature.titleKey}
+                  key={id}
                   as="div"
                   delay={delay}
                   className={cn(
@@ -74,10 +70,10 @@ export default async function WhyChooseCategory({ category }: { category: Produc
                   <Icon size={24} className="shrink-0 pt-2 text-neutral-1" aria-hidden="true" />
                   <div className="flex flex-col gap-8">
                     <Heading level={3} size="h6">
-                      {t(feature.titleKey as never)}
+                      {str(feature, "title")}
                     </Heading>
                     <Text size="p2" className="text-neutral-3">
-                      {t(feature.descriptionKey as never)}
+                      {str(feature, "description")}
                     </Text>
                   </div>
                 </Reveal>

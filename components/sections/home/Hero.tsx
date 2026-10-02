@@ -1,18 +1,19 @@
 import { getTranslations } from "next-intl/server";
-import { heroSlides } from "@/lib/data/heroSlides";
 import HeroCarousel from "@/components/sections/home/hero/HeroCarousel";
+import { entries, str } from "@/lib/page-content/read";
 
 export default async function Hero() {
   const t = await getTranslations("home.hero");
 
-  const slides = heroSlides.map((slide) => ({
-    id: slide.id,
-    image: slide.image,
-    imagePosition: slide.imagePosition,
-    ctaHref: slide.ctaHref,
-    heading: t(`slides.${slide.messageKey}.heading`),
-    body: t(`slides.${slide.messageKey}.body`),
-    cta: t(`slides.${slide.messageKey}.cta`),
+  // Slides are an editable list (Dashboard → Pages → Homepage → Hero slider).
+  const slides = entries(t.raw("slides" as never)).map(([id, slide]) => ({
+    id,
+    image: str(slide, "image"),
+    imagePosition: str(slide, "imagePosition") || "50% 50%",
+    ctaHref: str(slide, "ctaHref") || "/contact",
+    heading: str(slide, "heading"),
+    body: str(slide, "body"),
+    cta: str(slide, "cta"),
   }));
 
   return (

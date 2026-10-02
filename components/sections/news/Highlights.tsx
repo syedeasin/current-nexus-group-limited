@@ -3,21 +3,26 @@ import Reveal from "@/components/ui/Reveal";
 import NewsCarousel from "@/components/sections/news/NewsCarousel";
 import HighlightCard from "@/components/sections/news/HighlightCard";
 import { getHighlightPosts } from "@/lib/data/news";
+import type { NewsSectionDef } from "@/lib/news-sections";
 
 const CARD_BASE_DELAY_MS = 160;
 const CARD_STEP_MS = 80;
 const CARD_STAGGER_CAP_MS = 400;
 
-export default async function Highlights() {
-  const [t, locale] = await Promise.all([getTranslations("news"), getLocale()]);
-  const posts = await getHighlightPosts(locale);
+export default async function Highlights({ section }: { section: NewsSectionDef }) {
+  const [t, ts, locale] = await Promise.all([
+    getTranslations("news"),
+    getTranslations(`news.sections.${section.messageKey}`),
+    getLocale(),
+  ]);
+  const posts = await getHighlightPosts(locale, section.section);
 
   if (posts.length === 0) return null;
 
   return (
-    <section aria-label={t("highlightsHeading")} className="w-full bg-white py-48 md:py-64 xl:py-100">
+    <section aria-label={ts("highlightsHeading")} className="w-full bg-white py-48 md:py-64 xl:py-100">
       <NewsCarousel
-        heading={t("highlightsHeading")}
+        heading={ts("highlightsHeading")}
         previousLabel={t("previousHighlight")}
         nextLabel={t("nextHighlight")}
       >

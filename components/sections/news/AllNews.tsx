@@ -7,6 +7,7 @@ import Text from "@/components/ui/Text";
 import BlogCard from "@/components/ui/BlogCard";
 import Pagination from "@/components/sections/news/Pagination";
 import { getPosts } from "@/lib/data/news";
+import type { NewsSectionDef } from "@/lib/news-sections";
 
 export const PER_PAGE = 6;
 
@@ -16,26 +17,31 @@ const CARD_STAGGER_CAP_MS = 400;
 
 interface AllNewsProps {
   page: number;
+  section: NewsSectionDef;
 }
 
-export default async function AllNews({ page }: AllNewsProps) {
-  const [t, locale] = await Promise.all([getTranslations("news"), getLocale()]);
-  const { posts, totalPages } = await getPosts(locale, page, PER_PAGE);
+export default async function AllNews({ page, section }: AllNewsProps) {
+  const [t, ts, locale] = await Promise.all([
+    getTranslations("news"),
+    getTranslations(`news.sections.${section.messageKey}`),
+    getLocale(),
+  ]);
+  const { posts, totalPages } = await getPosts(locale, page, PER_PAGE, section.section);
   const currentPage = Math.min(Math.max(1, page), totalPages);
 
   return (
-    <section aria-label={t("allNewsHeading")} className="w-full bg-surface-2 py-48 md:py-64 xl:py-100">
+    <section aria-label={ts("allNewsHeading")} className="w-full bg-surface-2 py-48 md:py-64 xl:py-100">
       <Container className="flex flex-col items-center gap-48">
         <TextReveal className="w-full">
           <Heading level={2} size="h2">
-            {t("allNewsHeading")}
+            {ts("allNewsHeading")}
           </Heading>
         </TextReveal>
 
         {posts.length === 0 ? (
           <Reveal as="div" className="w-full">
             <Text size="p2" className="text-neutral-4">
-              {t("noArticles")}
+              {ts("noArticles")}
             </Text>
           </Reveal>
         ) : (
@@ -66,7 +72,7 @@ export default async function AllNews({ page }: AllNewsProps) {
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
-          basePath="/news"
+          basePath={section.path}
           ariaLabel={t("paginationLabel")}
           previousLabel={t("previousPage")}
           nextLabel={t("nextPage")}
