@@ -78,7 +78,13 @@ function getTransporter(config: SmtpConfig): Transporter {
 
 export type SendResult = { ok: true } | { ok: false; error: string };
 
-export async function sendEmail(message: { to: string; subject: string; text: string; html: string }): Promise<SendResult> {
+export async function sendEmail(message: {
+  to: string;
+  subject: string;
+  text: string;
+  html: string;
+  replyTo?: string;
+}): Promise<SendResult> {
   const config = readConfig();
   if (!config) return { ok: false, error: "Email is not set up on this server." };
 

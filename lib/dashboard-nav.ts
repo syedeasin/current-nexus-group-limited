@@ -9,6 +9,8 @@ export type NavItem = {
   permission?: Permission;
   /** Match the pathname exactly rather than by prefix */
   exact?: boolean;
+  /** Count shown as a pill beside the label (e.g. unread enquiries); filled in per request by the layout. */
+  badge?: number;
 };
 
 export type NavGroup = {
@@ -26,6 +28,7 @@ export function isNavGroup(entry: NavEntry): entry is NavGroup {
 export const NAV_ENTRIES: NavEntry[] = [
   { label: "Overview", href: "/dashboard", icon: "LayoutDashboard", exact: true },
   { label: "Pages", href: "/dashboard/pages", icon: "PanelsTopLeft", permission: "page.manage" },
+  { label: "Inquiries", href: "/dashboard/inquiries", icon: "Inbox", permission: "inquiry.manage" },
   {
     label: "News",
     icon: "Newspaper",

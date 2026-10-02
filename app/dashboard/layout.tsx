@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { requireUser } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 import { can } from "@/lib/permissions";
 import { NAV_ENTRIES, filterNavEntries } from "@/lib/dashboard-nav";
 import Sidebar from "@/components/dashboard/sidebar";
@@ -19,7 +20,12 @@ export default async function DashboardLayout({
 }) {
   const user = await requireUser();
 
-  const items = filterNavEntries(NAV_ENTRIES, (permission) => can(user.role, permission));
+  const newInquiries = can(user.role, "inquiry.manage")
+    ? await prisma.inquiry.count({ where: { kind: "CONTACT", status: "NEW" } }).catch(() => 0)
+    : 0;
+  const items = filterNavEntries(NAV_ENTRIES, (permission) => can(user.role, permission)).map((entry) =>
+    "href" in entry && entry.href === "/dashboard/inquiries" ? { ...entry, badge: newInquiries } : entry
+  );
 
   return (
     <html lang="en" className={`${switzer.variable} h-full antialiased`}>

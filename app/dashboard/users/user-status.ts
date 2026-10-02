@@ -32,7 +32,8 @@ export function formatRelative(date: Date, now = new Date()): string {
 }
 
 export function formatDateTime(date: Date): string {
-  return date.toLocaleString("en-GB", {
+  // en-US so the zone reads "EDT"/"EST" (en-GB prints "GMT-4"), matching the topbar clock.
+  return date.toLocaleString("en-US", {
     day: "numeric",
     month: "short",
     year: "numeric",

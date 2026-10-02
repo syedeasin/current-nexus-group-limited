@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import Container from "@/components/layout/Container";
+import NewsletterForm from "@/components/layout/NewsletterForm";
 import { Facebook, Instagram, LinkedIn } from "@/components/icons/SocialIcons";
 import { siteConfig, socialLinks } from "@/site.config";
 import { manufacturingEntryHref, solutionEntryHref } from "@/config/nav.config";
@@ -159,27 +160,16 @@ export default async function Footer({ solutions, manufacturing }: FooterProps) 
                 </ul>
               </div>
 
-              <div className="flex w-full flex-col gap-16 lg:max-w-480">
-                <label htmlFor="footer-newsletter-email" className="text-p3 font-normal text-neutral-6">
-                  {t("newsletterLabel")}
-                </label>
-                <form className="flex w-full items-center gap-24 rounded-full bg-neutral-2 py-6 pl-32 pr-6">
-                  <input
-                    id="footer-newsletter-email"
-                    type="email"
-                    required
-                    autoComplete="email"
-                    placeholder={t("emailPlaceholder")}
-                    className="min-w-0 flex-1 bg-transparent text-p4 text-white placeholder:text-neutral-7 focus:outline-none"
-                  />
-                  <button
-                    type="submit"
-                    className="shrink-0 rounded-full bg-secondary px-24 py-12 text-btn-sm font-semibold text-neutral-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
-                  >
-                    {t("subscribe")}
-                  </button>
-                </form>
-              </div>
+              <NewsletterForm
+                labels={{
+                  label: t("newsletterLabel"),
+                  placeholder: t("emailPlaceholder"),
+                  subscribe: t("subscribe"),
+                  success: t("newsletterSuccess"),
+                  invalid: t("newsletterInvalid"),
+                  failed: t("newsletterFailed"),
+                }}
+              />
             </div>
           </div>
 

@@ -26,6 +26,18 @@ export const siteSettingsSchema = z.object({
     }),
   /** false: robots.txt disallows everything and every public page gets noindex. */
   allowIndexing: z.boolean(),
+  /**
+   * Where Contact-page messages are emailed. Empty: the public contact email
+   * (Pages → Footer → Contact info).
+   */
+  inquiryEmail: z
+    .string()
+    .trim()
+    .toLowerCase()
+    .max(254)
+    .refine((value) => value === "" || z.email().safeParse(value).success, {
+      message: "Enter a valid email address, or leave it empty.",
+    }),
 });
 
 export type SiteSettings = z.infer<typeof siteSettingsSchema>;
@@ -33,6 +45,7 @@ export type SiteSettings = z.infer<typeof siteSettingsSchema>;
 export const SITE_SETTING_DEFAULTS: SiteSettings = {
   siteUrl: "",
   allowIndexing: true,
+  inquiryEmail: "",
 };
 
 export const getSiteSettings = cache(async (): Promise<SiteSettings> => {

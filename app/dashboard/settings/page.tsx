@@ -5,6 +5,8 @@ import { requireUser } from "@/lib/auth";
 import { can } from "@/lib/permissions";
 import { emailStatus } from "@/lib/email";
 import { getSiteSettings } from "@/lib/site-settings";
+import { getMergedMessages } from "@/lib/page-content/messages";
+import { routing } from "@/i18n/routing";
 import { siteConfig } from "@/site.config";
 import { cardClass, cardTitleClass } from "@/components/dashboard/ui-classes";
 import ProfileForm from "./profile-form";
@@ -128,7 +130,8 @@ async function SecurityTab({ userId }: { userId: string }) {
 }
 
 async function WebsiteTab() {
-  const settings = await getSiteSettings();
+  const [settings, messages] = await Promise.all([getSiteSettings(), getMergedMessages(routing.defaultLocale)]);
+  const contactEmail = (messages.footer as { contact?: { email?: string } } | undefined)?.contact?.email || siteConfig.contact.email;
   const shortcuts = [
     { label: "Contact details & social links", href: "/dashboard/pages/footer?locale=en", hint: "Pages → Footer" },
     { label: "Header menu labels", href: "/dashboard/pages/nav?locale=en", hint: "Pages → Header" },
@@ -136,7 +139,11 @@ async function WebsiteTab() {
   ];
   return (
     <>
-      <SiteSettingsForm settings={settings} fallbackUrl={process.env.APP_URL?.trim() || siteConfig.url} />
+      <SiteSettingsForm
+        settings={settings}
+        fallbackUrl={process.env.APP_URL?.trim() || siteConfig.url}
+        contactEmail={contactEmail}
+      />
       <section className={cardClass} aria-labelledby="elsewhere-title">
         <h2 id="elsewhere-title" className={cardTitleClass}>
           Edited elsewhere

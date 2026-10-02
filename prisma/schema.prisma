@@ -494,3 +494,47 @@ model SiteSetting {
 
   @@map("site_settings")
 }
+
+// ---------------------------------------------------------------------------
+// Website enquiries (Dashboard → Inquiries)
+//
+// Messages from the public Contact page and footer newsletter sign-ups. Stored
+// first, emailed second: a message is never lost because SMTP is down or not
+// configured yet.
+// ---------------------------------------------------------------------------
+
+enum InquiryKind {
+  CONTACT
+  NEWSLETTER
+}
+
+enum InquiryStatus {
+  NEW
+  READ
+  ARCHIVED
+}
+
+model Inquiry {
+  id     String        @id @default(cuid())
+  kind   InquiryKind   @default(CONTACT)
+  status InquiryStatus @default(NEW)
+
+  name    String?
+  email   String
+  company String?
+  phone   String?
+  /// Key of the topic chosen on the form (messages contact.form.topics.<key>).
+  topic   String?
+  message String?
+
+  locale     Locale  @default(EN)
+  /// Public page the form was sent from.
+  sourcePath String? @db.VarChar(300)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([kind, status, createdAt])
+  @@index([kind, email])
+  @@map("inquiries")
+}

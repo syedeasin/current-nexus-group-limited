@@ -1124,6 +1124,63 @@
     "previousPost": "Previous Post",
     "nextPost": "Next Post"
   },
+  "contact": {
+    "meta": {
+      "title": "Contactez-nous",
+      "description": "Parlez à CNX Energy de panneaux solaires, de stockage par batterie et de projets énergétiques complets. Notre équipe répond sous un jour ouvré."
+    },
+    "banner": {
+      "eyebrow": "CONTACTEZ-NOUS",
+      "heading": "Alimentons votre prochain projet",
+      "description": "Parlez-nous de votre projet — nos spécialistes de l'énergie répondent sous un jour ouvré.",
+      "image": "/images/home/CTABackground.webp"
+    },
+    "intro": {
+      "eyebrow": "PRENONS CONTACT",
+      "heading": "Parlez à un spécialiste de l'énergie",
+      "description": "Une question sur nos produits, nos prix, la distribution ou un projet ? Envoyez-nous un message : la bonne personne de notre équipe vous répondra."
+    },
+    "details": {
+      "locationLabel": "Bureau",
+      "emailLabel": "E-mail",
+      "phoneLabel": "Téléphone",
+      "responseNote": "Nous répondons sous un jour ouvré, du lundi au vendredi."
+    },
+    "form": {
+      "heading": "Envoyez-nous un message",
+      "requiredNote": "Les champs marqués * sont obligatoires.",
+      "nameLabel": "Nom complet",
+      "emailLabel": "Adresse e-mail",
+      "companyLabel": "Entreprise",
+      "phoneLabel": "Téléphone",
+      "topicLabel": "Comment pouvons-nous vous aider ?",
+      "topicPlaceholder": "Choisissez un sujet",
+      "topics": {
+        "solarPanels": "Panneaux solaires",
+        "bess": "Stockage par batterie (BESS)",
+        "solutions": "Solutions et projets",
+        "distribution": "Distribution et partenariat",
+        "other": "Autre demande"
+      },
+      "messageLabel": "Message",
+      "messagePlaceholder": "Parlez-nous de votre projet, des quantités ou du calendrier…",
+      "consent": "J'accepte que CNX Energy utilise ces informations pour répondre à ma demande.",
+      "submit": "Envoyer le message",
+      "sending": "Envoi…",
+      "successHeading": "Merci — message bien reçu",
+      "successBody": "Nous répondrons à {email} sous un jour ouvré.",
+      "sendAnother": "Envoyer un autre message",
+      "errors": {
+        "name": "Veuillez indiquer votre nom.",
+        "email": "Veuillez saisir une adresse e-mail valide.",
+        "topic": "Veuillez choisir un sujet.",
+        "message": "Veuillez écrire un message d'au moins 10 caractères.",
+        "consent": "Veuillez confirmer que nous pouvons vous répondre.",
+        "tooMany": "Trop de messages depuis votre connexion. Veuillez réessayer dans quelques minutes.",
+        "generic": "Votre message n'a pas pu être envoyé. Veuillez réessayer ou nous écrire directement."
+      }
+    }
+  },
   "footer": {
     "columns": {
       "quickLinks": {
@@ -1213,6 +1270,9 @@
     "emailLabel": "Email address",
     "emailPlaceholder": "Enter your email...",
     "subscribe": "Subscribe",
+    "newsletterSuccess": "Merci — vous êtes inscrit.",
+    "newsletterInvalid": "Veuillez saisir une adresse e-mail valide.",
+    "newsletterFailed": "Une erreur est survenue. Veuillez réessayer.",
     "copyright": "Copyright © {year} {name}.",
     "rights": "All rights reserved."
   }

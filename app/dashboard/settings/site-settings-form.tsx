@@ -10,12 +10,14 @@ import { cardClass, cardTitleClass, noticeClass, primaryButtonClass } from "@/co
 import { saveSiteSettings, type FormResult } from "./actions";
 
 type Props = {
-  settings: { siteUrl: string; allowIndexing: boolean };
+  settings: { siteUrl: string; allowIndexing: boolean; inquiryEmail: string };
+  /** Where Contact-page messages go when "Send enquiries to" is empty. */
+  contactEmail: string;
   /** What links use when Site address is left empty. */
   fallbackUrl: string;
 };
 
-export default function SiteSettingsForm({ settings, fallbackUrl }: Props) {
+export default function SiteSettingsForm({ settings, fallbackUrl, contactEmail }: Props) {
   const router = useRouter();
   const [pending, setPending] = useState(false);
   const [result, setResult] = useState<FormResult | null>(null);
@@ -65,6 +67,24 @@ export default function SiteSettingsForm({ settings, fallbackUrl }: Props) {
           server&apos;s address (e.g. http://your-server-ip). Leave empty to use {fallbackUrl}.
         </FieldHint>
         <FieldError id="siteUrl-error">{fieldErrors.siteUrl}</FieldError>
+      </div>
+
+      <div className="mt-24 max-w-[560px]">
+        <FieldLabel htmlFor="inquiryEmail">Send Contact-page messages to</FieldLabel>
+        <TextInput
+          id="inquiryEmail"
+          name="inquiryEmail"
+          type="email"
+          placeholder={contactEmail}
+          defaultValue={settings.inquiryEmail}
+          aria-invalid={Boolean(fieldErrors.inquiryEmail)}
+          aria-describedby={["inquiryEmail-hint", fieldErrors.inquiryEmail && "inquiryEmail-error"].filter(Boolean).join(" ")}
+        />
+        <FieldHint id="inquiryEmail-hint">
+          Every message is also kept in Dashboard → Inquiries. Leave empty to use the public contact email ({contactEmail}).
+          Needs email delivery to be set up.
+        </FieldHint>
+        <FieldError id="inquiryEmail-error">{fieldErrors.inquiryEmail}</FieldError>
       </div>
 
       <div className="mt-28 border-t border-neutral-10 pt-24">

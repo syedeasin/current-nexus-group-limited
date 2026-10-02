@@ -54,6 +54,7 @@ export const PERMISSION_GROUPS: { label: string; permissions: { key: Permission;
       { key: "manufacturingPage.manage", label: "Manage manufacturing products" },
       { key: "solutionsPage.manage", label: "Manage solutions & projects" },
       { key: "download.manage", label: "Manage downloads" },
+      { key: "inquiry.manage", label: "Read contact messages & newsletter list" },
     ],
   },
   {

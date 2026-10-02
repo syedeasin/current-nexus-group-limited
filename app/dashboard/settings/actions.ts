@@ -144,6 +144,7 @@ export async function saveSiteSettings(formData: FormData): Promise<FormResult> 
   const parsed = siteSettingsSchema.safeParse({
     siteUrl: String(formData.get("siteUrl") ?? ""),
     allowIndexing: formData.get("allowIndexing") === "on",
+    inquiryEmail: String(formData.get("inquiryEmail") ?? ""),
   });
   if (!parsed.success) return { ok: false, error: "Fix the highlighted field.", fieldErrors: fieldErrorsOf(parsed.error) };
 

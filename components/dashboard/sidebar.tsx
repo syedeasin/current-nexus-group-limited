@@ -17,6 +17,7 @@ import {
   Settings,
   Newspaper,
   PanelsTopLeft,
+  Inbox,
   ChevronDown,
   type LucideIcon,
 } from "lucide-react";
@@ -35,6 +36,7 @@ const ICONS: Record<string, LucideIcon> = {
   Settings,
   Newspaper,
   PanelsTopLeft,
+  Inbox,
 };
 
 function isItemActive(item: NavItem, pathname: string) {
@@ -57,7 +59,13 @@ function NavLink({ item, active }: { item: NavItem; active: boolean }) {
       ].join(" ")}
     >
       <Icon size={17} strokeWidth={1.5} aria-hidden="true" />
-      {item.label}
+      <span className="flex-1">{item.label}</span>
+      {item.badge ? (
+        <span className="rounded-full bg-secondary px-8 text-[11px] font-semibold leading-[18px] text-neutral-1">
+          {item.badge > 99 ? "99+" : item.badge}
+          <span className="sr-only"> new</span>
+        </span>
+      ) : null}
     </Link>
   );
 }

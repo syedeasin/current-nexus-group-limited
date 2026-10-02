@@ -1123,6 +1123,63 @@
     "previousPost": "Previous Post",
     "nextPost": "Next Post"
   },
+  "contact": {
+    "meta": {
+      "title": "Contact us",
+      "description": "Talk to CNX Energy about solar panels, battery storage and complete energy projects. Our team replies within one business day."
+    },
+    "banner": {
+      "eyebrow": "CONTACT US",
+      "heading": "Let's power your next project",
+      "description": "Tell us what you're planning — our energy specialists reply within one business day.",
+      "image": "/images/home/CTABackground.webp"
+    },
+    "intro": {
+      "eyebrow": "GET IN TOUCH",
+      "heading": "Talk to an energy specialist",
+      "description": "Questions about products, pricing, distribution or a project? Send us a message and the right person on our team will get back to you."
+    },
+    "details": {
+      "locationLabel": "Office",
+      "emailLabel": "Email",
+      "phoneLabel": "Phone",
+      "responseNote": "We reply within one business day, Monday to Friday."
+    },
+    "form": {
+      "heading": "Send us a message",
+      "requiredNote": "Fields marked * are required.",
+      "nameLabel": "Full name",
+      "emailLabel": "Email address",
+      "companyLabel": "Company",
+      "phoneLabel": "Phone",
+      "topicLabel": "What can we help with?",
+      "topicPlaceholder": "Choose a topic",
+      "topics": {
+        "solarPanels": "Solar panels",
+        "bess": "Battery storage (BESS)",
+        "solutions": "Solutions & projects",
+        "distribution": "Distribution & partnership",
+        "other": "Something else"
+      },
+      "messageLabel": "Message",
+      "messagePlaceholder": "Tell us about your project, quantities or timeline…",
+      "consent": "I agree that CNX Energy may use these details to reply to my enquiry.",
+      "submit": "Send message",
+      "sending": "Sending…",
+      "successHeading": "Thank you — message received",
+      "successBody": "We'll reply to {email} within one business day.",
+      "sendAnother": "Send another message",
+      "errors": {
+        "name": "Please enter your name.",
+        "email": "Please enter a valid email address.",
+        "topic": "Please choose a topic.",
+        "message": "Please write a message of at least 10 characters.",
+        "consent": "Please confirm we may reply to you.",
+        "tooMany": "Too many messages from your connection. Please try again in a few minutes.",
+        "generic": "Your message could not be sent. Please try again, or email us directly."
+      }
+    }
+  },
   "footer": {
     "columns": {
       "quickLinks": {
@@ -1212,6 +1269,9 @@
     "emailLabel": "Email address",
     "emailPlaceholder": "Enter your email...",
     "subscribe": "Subscribe",
+    "newsletterSuccess": "Thanks — you're on the list.",
+    "newsletterInvalid": "Please enter a valid email address.",
+    "newsletterFailed": "Something went wrong. Please try again.",
     "copyright": "Copyright © {year} {name}.",
     "rights": "All rights reserved."
   }

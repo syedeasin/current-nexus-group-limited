@@ -18,6 +18,7 @@ const STATIC_PATHS = [
   "/manufacturing/bess",
   ...NEWS_SECTION_LIST.map((section) => section.path),
   "/service/downloads",
+  "/contact",
 ];
 
 function entry(locale: string, path: string, lastModified?: Date): MetadataRoute.Sitemap[number] {

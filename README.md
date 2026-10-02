@@ -33,6 +33,10 @@ npm run dev
 
 Without SMTP the dashboard still works: admins copy reset/invitation links from Dashboard → Users and send them themselves.
 
+## Contact page & newsletter
+
+`/contact` and the footer newsletter form store every submission in the `inquiries` table first (Dashboard → Inquiries, with a CSV export of the newsletter list), then email Contact-page messages when SMTP is configured — to Settings → Website → *Send Contact-page messages to*, or the public contact email from Pages → Footer.
+
 ## Dashboard roles
 
 Roles and what each can do are listed in Dashboard → Users → *Roles & permissions* (source: `lib/permissions.ts`). Every page and server action checks the permission, not just the menu.

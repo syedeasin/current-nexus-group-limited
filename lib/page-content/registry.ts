@@ -179,6 +179,21 @@ export const PAGES: PageDef[] = [
       { id: "labels", label: "Search, filter and list labels", path: "service.downloads", exclude: ["meta", "banner"] },
     ],
   },
+  {
+    key: "contact",
+    label: "Contact",
+    group: "Services",
+    href: "/contact",
+    description:
+      "The Contact page. The office, email and phone shown on it are the ones in Pages → Footer → Contact info; messages sent through the form arrive in Dashboard → Inquiries.",
+    sections: [
+      SEO("contact.meta"),
+      { id: "banner", label: "Banner", path: "contact.banner" },
+      { id: "intro", label: "Introduction", path: "contact.intro" },
+      { id: "details", label: "Contact details labels", path: "contact.details" },
+      { id: "form", label: "Form labels & messages", path: "contact.form" },
+    ],
+  },
   ...(
     [
       ["news", "News", "/news"],
