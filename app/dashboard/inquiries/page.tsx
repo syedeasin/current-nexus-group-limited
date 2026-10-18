@@ -16,8 +16,19 @@ const BOXES: { key: "inbox" | "archived"; label: string }[] = [
   { key: "archived", label: "Archived" },
 ];
 
+/** Older enquiries store a topic key; since the form builder they store the label the visitor chose. */
 function topicLabel(topic: string | null): string {
-  return topic && isInquiryTopic(topic) ? INQUIRY_TOPIC_LABELS[topic] : "General";
+  if (!topic) return "General";
+  return isInquiryTopic(topic) ? INQUIRY_TOPIC_LABELS[topic] : topic;
+}
+
+/** Answers to admin-added form fields ([{ label, value }]), ignoring anything malformed. */
+function extraAnswers(raw: unknown): { label: string; value: string }[] {
+  if (!Array.isArray(raw)) return [];
+  return raw.filter(
+    (item): item is { label: string; value: string } =>
+      typeof item === "object" && item !== null && typeof item.label === "string" && typeof item.value === "string"
+  );
 }
 
 export default async function InquiriesPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
@@ -190,7 +201,20 @@ async function Messages({ sp }: { sp: SearchParams }) {
               ))}
           </dl>
 
-          <div className="mt-24 whitespace-pre-wrap break-words text-p3 font-light leading-relaxed text-neutral-2">{selected.message}</div>
+          {extraAnswers(selected.answers).length > 0 && (
+            <dl className="mt-12 grid gap-12 rounded-12 border border-neutral-10 p-16 sm:grid-cols-2">
+              {extraAnswers(selected.answers).map((answer, index) => (
+                <div key={`${answer.label}-${index}`} className="min-w-0">
+                  <dt className="text-[11px] font-semibold uppercase tracking-[1.5px] text-neutral-6">{answer.label}</dt>
+                  <dd className="whitespace-pre-wrap break-words text-p4 text-neutral-2">{answer.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+
+          {selected.message && (
+            <div className="mt-24 whitespace-pre-wrap break-words text-p3 font-light leading-relaxed text-neutral-2">{selected.message}</div>
+          )}
 
           <div className="mt-28 border-t border-neutral-10 pt-20">
             <InquiryActionsBar

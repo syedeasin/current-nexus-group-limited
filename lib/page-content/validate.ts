@@ -6,6 +6,7 @@ import { COLLECTION_PATTERNS } from "@/lib/page-content/registry";
 import {
   ITEM_ID_PATTERN,
   OPTIONAL_LINK_KEYS,
+  CHOICE_FIELDS,
   fieldKind,
   isTree,
   joinPath,
@@ -89,6 +90,9 @@ function validateLeaf(key: string, value: unknown, example: string, path: string
       return;
     case "boolean":
       if (value !== "" && value !== "true" && value !== "false") errors[path] = "Invalid value.";
+      return;
+    case "choice":
+      if (!(CHOICE_FIELDS[key] ?? []).some((choice) => choice.value === value)) errors[path] = "Choose an option from the list.";
       return;
     case "icon":
       if (!PAGE_ICON_KEYS.includes(value)) errors[path] = "Choose an icon from the list.";

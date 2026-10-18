@@ -42,6 +42,7 @@ export const COLLECTION_PATTERNS: CollectionDef[] = [
   { pattern: "footer.menu.*.links", itemLabel: "Link", titleKey: "label" },
   { pattern: "footer.socialLinks", itemLabel: "Social link", titleKey: "label" },
   { pattern: "legal.*.sections", itemLabel: "Section", titleKey: "heading", minItems: 1 },
+  { pattern: "contact.form.fields", itemLabel: "Field", titleKey: "label", minItems: 1 },
 ];
 
 export interface PageSectionDef {
@@ -194,7 +195,14 @@ export const PAGES: PageDef[] = [
       { id: "banner", label: "Banner", path: "contact.banner" },
       { id: "intro", label: "Introduction", path: "contact.intro" },
       { id: "details", label: "Contact details labels", path: "contact.details" },
-      { id: "form", label: "Form labels & messages", path: "contact.form" },
+      {
+        id: "formFields",
+        label: "Form fields",
+        path: "contact.form.fields",
+        description:
+          "Add, remove, reorder or hide fields and choose which are required. The Email field is always shown and required — it is how we reply.",
+      },
+      { id: "form", label: "Form labels & messages", path: "contact.form", exclude: ["fields"] },
     ],
   },
   ...(

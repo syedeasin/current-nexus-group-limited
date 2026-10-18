@@ -183,12 +183,28 @@ export function diffNode(base: MessageNode | undefined, edited: unknown, path = 
 /* a leaf. Decided by the leaf's key so an empty value keeps its kind.  */
 /* ------------------------------------------------------------------ */
 
-export type FieldKind = "image" | "href" | "icon" | "boolean" | "number" | "longText" | "text";
+export type FieldKind = "image" | "href" | "icon" | "boolean" | "number" | "longText" | "choice" | "text";
+
+/** Leaves that must be one of a fixed list — the editor shows a dropdown. */
+export const CHOICE_FIELDS: Record<string, readonly { value: string; label: string }[]> = {
+  /** Contact form field type (Pages → Contact → Form fields). */
+  type: [
+    { value: "text", label: "Short text" },
+    { value: "email", label: "Email" },
+    { value: "tel", label: "Phone" },
+    { value: "number", label: "Number" },
+    { value: "textarea", label: "Long text" },
+    { value: "select", label: "Dropdown" },
+  ],
+};
 
 /** Links that may be left empty (an empty one is simply not shown). */
 export const OPTIONAL_LINK_KEYS = new Set<string>();
 
 export function fieldKind(key: string, defaultValue: string): FieldKind {
+  if (key in CHOICE_FIELDS) return "choice";
+  if (key === "required" || key === "fullWidth" || key === "hidden") return "boolean";
+  if (key === "options") return "longText";
   if (/^(image|logo|photo|avatar)$|(Image|Logo|Photo|Avatar)$/.test(key)) return "image";
   if (key === "href" || key.endsWith("Href") || OPTIONAL_LINK_KEYS.has(key)) return "href";
   if (key === "icon") return "icon";

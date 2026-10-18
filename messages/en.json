@@ -1148,21 +1148,62 @@
     "form": {
       "heading": "Send us a message",
       "requiredNote": "Fields marked * are required.",
-      "nameLabel": "Full name",
-      "emailLabel": "Email address",
-      "companyLabel": "Company",
-      "phoneLabel": "Phone",
-      "topicLabel": "What can we help with?",
-      "topicPlaceholder": "Choose a topic",
-      "topics": {
-        "solarPanels": "Solar panels",
-        "bess": "Battery storage (BESS)",
-        "solutions": "Solutions & projects",
-        "distribution": "Distribution & partnership",
-        "other": "Something else"
+      "fields": {
+        "name": {
+          "label": "Full name",
+          "type": "text",
+          "placeholder": "",
+          "options": "",
+          "required": "true",
+          "hidden": "",
+          "fullWidth": ""
+        },
+        "email": {
+          "label": "Email address",
+          "type": "email",
+          "placeholder": "",
+          "options": "",
+          "required": "true",
+          "hidden": "",
+          "fullWidth": ""
+        },
+        "company": {
+          "label": "Company",
+          "type": "text",
+          "placeholder": "",
+          "options": "",
+          "required": "",
+          "hidden": "",
+          "fullWidth": ""
+        },
+        "phone": {
+          "label": "Phone / WhatsApp",
+          "type": "tel",
+          "placeholder": "",
+          "options": "",
+          "required": "",
+          "hidden": "",
+          "fullWidth": ""
+        },
+        "topic": {
+          "label": "What can we help with?",
+          "type": "select",
+          "placeholder": "Choose a topic",
+          "options": "Solar panels\nBattery storage (BESS)\nSolutions & projects\nDistribution & partnership\nSomething else",
+          "required": "true",
+          "hidden": "",
+          "fullWidth": "true"
+        },
+        "message": {
+          "label": "Message",
+          "type": "textarea",
+          "placeholder": "Tell us about your project, quantities or timeline…",
+          "options": "",
+          "required": "true",
+          "hidden": "",
+          "fullWidth": "true"
+        }
       },
-      "messageLabel": "Message",
-      "messagePlaceholder": "Tell us about your project, quantities or timeline…",
       "consent": "I agree that CNX Energy may use these details to reply to my enquiry.",
       "submit": "Send message",
       "sending": "Sending…",
@@ -1170,10 +1211,11 @@
       "successBody": "We'll reply to {email} within one business day.",
       "sendAnother": "Send another message",
       "errors": {
-        "name": "Please enter your name.",
+        "required": "Please fill in this field.",
         "email": "Please enter a valid email address.",
-        "topic": "Please choose a topic.",
-        "message": "Please write a message of at least 10 characters.",
+        "choice": "Please choose an option.",
+        "number": "Please enter a number.",
+        "tooLong": "This is too long — please shorten it.",
         "consent": "Please confirm we may reply to you.",
         "tooMany": "Too many messages from your connection. Please try again in a few minutes.",
         "generic": "Your message could not be sent. Please try again, or email us directly."

@@ -10,7 +10,7 @@ import { getLinkBaseUrl, getSiteSettings } from "@/lib/site-settings";
 import { getMergedMessages, toPrismaLocale } from "@/lib/page-content/messages";
 import { routing, type Locale } from "@/i18n/routing";
 import { siteConfig } from "@/site.config";
-import { INQUIRY_TOPICS, INQUIRY_TOPIC_LABELS } from "@/lib/inquiries/topics";
+import { FIELD_MAX_LENGTH, isCoreField, readContactFields, type ContactField, type CoreFieldId } from "@/lib/inquiries/form-fields";
 
 /**
  * Public form endpoints (Contact page, footer newsletter). Anyone can call
@@ -20,8 +20,10 @@ import { INQUIRY_TOPICS, INQUIRY_TOPIC_LABELS } from "@/lib/inquiries/topics";
  */
 
 /** Error keys map to messages `contact.form.errors.<key>`. */
-export type ContactErrorKey = "name" | "email" | "topic" | "message" | "consent" | "tooMany" | "generic";
-export type ContactResult = { ok: true } | { ok: false; error: ContactErrorKey; fields?: ContactErrorKey[] };
+export type ContactErrorKey = "required" | "email" | "choice" | "number" | "tooLong" | "consent" | "tooMany" | "generic";
+/** `id` is a form field id (Pages → Contact → Form fields) or "consent". */
+export type ContactFieldError = { id: string; error: ContactErrorKey };
+export type ContactResult = { ok: true } | { ok: false; error: ContactErrorKey; fields?: ContactFieldError[] };
 export type NewsletterResult = { ok: true } | { ok: false; error: "invalid" | "failed" };
 
 const WINDOW_MS = 10 * 60 * 1000;
@@ -54,73 +56,66 @@ function safePath(value: FormDataEntryValue | null): string | null {
   return path.startsWith("/") && !path.startsWith("//") ? path : null;
 }
 
-const optional = (max: number) =>
-  z
-    .string()
-    .trim()
-    .max(max)
-    .transform((v) => (v === "" ? null : v));
-
-const contactSchema = z.object({
-  name: z.string().trim().min(2).max(100),
-  email: z.string().trim().toLowerCase().max(254).pipe(z.email()),
-  company: optional(120),
-  phone: optional(40),
-  topic: z.enum(INQUIRY_TOPICS),
-  message: z.string().trim().min(10).max(5000),
-  consent: z.literal(true),
-});
-
-const FIELD_ERRORS: Record<string, ContactErrorKey> = {
-  name: "name",
-  email: "email",
-  topic: "topic",
-  message: "message",
-  consent: "consent",
-};
+const emailSchema = z.string().max(254).pipe(z.email());
 
 /** One line, no control characters — for the email subject. */
 function oneLine(value: string): string {
   return value.replace(/[\r\n\t\x00-\x1f\x7f]+/g, " ").trim();
 }
 
+/** Problem with one answer, or null when it is acceptable. */
+function checkField(field: ContactField, value: string): ContactErrorKey | null {
+  if (!value) return field.required ? "required" : null;
+  if (value.length > FIELD_MAX_LENGTH[field.type]) return "tooLong";
+  if (field.type === "email" && !emailSchema.safeParse(value).success) return "email";
+  if (field.type === "number" && !/^-?\d+([.,]\d+)?$/.test(value)) return "number";
+  if (field.type === "select" && !field.options.includes(value)) return "choice";
+  return null;
+}
+
 export async function submitContact(localeParam: string, formData: FormData): Promise<ContactResult> {
   // Honeypot: a real visitor never sees or fills this field. Pretend success.
   if (String(formData.get("website") ?? "") !== "") return { ok: true };
 
-  const parsed = contactSchema.safeParse({
-    name: String(formData.get("name") ?? ""),
-    email: String(formData.get("email") ?? ""),
-    company: String(formData.get("company") ?? ""),
-    phone: String(formData.get("phone") ?? ""),
-    topic: String(formData.get("topic") ?? ""),
-    message: String(formData.get("message") ?? ""),
-    consent: formData.get("consent") === "on",
-  });
-  if (!parsed.success) {
-    const fields = [
-      ...new Set(parsed.error.issues.map((issue) => FIELD_ERRORS[String(issue.path[0])]).filter(Boolean)),
-    ];
-    return { ok: false, error: fields[0] ?? "generic", fields };
+  const locale = toLocale(localeParam);
+  const messages = await getMergedMessages(locale);
+  const formMessages = (messages.contact as { form?: { fields?: unknown } } | undefined)?.form;
+  const fields = readContactFields(formMessages?.fields);
+
+  const values = new Map<string, string>();
+  const errors: ContactFieldError[] = [];
+  for (const field of fields) {
+    const raw = String(formData.get(field.id) ?? "").trim();
+    const value = field.type === "email" ? raw.toLowerCase() : raw;
+    const problem = checkField(field, value);
+    if (problem) errors.push({ id: field.id, error: problem });
+    else if (value) values.set(field.id, value);
   }
+  if (formData.get("consent") !== "on") errors.push({ id: "consent", error: "consent" });
+  if (errors.length > 0) return { ok: false, error: errors[0].error, fields: errors };
 
   const ip = await clientKey();
   if (limited(`contact:${ip}`, 5) || limited("contact:all", 200)) return { ok: false, error: "tooMany" };
 
-  const locale = toLocale(localeParam);
-  const data = parsed.data;
+  const core = (id: CoreFieldId) => values.get(id) ?? null;
+  const email = core("email")!;
+  const answers = fields
+    .filter((field) => !isCoreField(field.id) && values.has(field.id))
+    .map((field) => ({ label: field.label, value: values.get(field.id)! }));
+  const topic = core("topic");
 
   let id: string;
   try {
     const inquiry = await prisma.inquiry.create({
       data: {
         kind: "CONTACT",
-        name: data.name,
-        email: data.email,
-        company: data.company,
-        phone: data.phone,
-        topic: data.topic,
-        message: data.message,
+        name: core("name")?.slice(0, 200) ?? null,
+        email,
+        company: core("company"),
+        phone: core("phone"),
+        topic,
+        message: core("message"),
+        answers: answers.length > 0 ? answers : undefined,
         locale: toPrismaLocale(locale),
         sourcePath: safePath(formData.get("sourcePath")),
       },
@@ -137,31 +132,24 @@ export async function submitContact(localeParam: string, formData: FormData): Pr
   if (isEmailConfigured()) {
     after(async () => {
       try {
-        const [settings, messages, base] = await Promise.all([
+        const [settings, defaultMessages, base] = await Promise.all([
           getSiteSettings(),
           getMergedMessages(routing.defaultLocale),
           getLinkBaseUrl(),
         ]);
-        const footer = messages.footer as { contact?: { email?: string } } | undefined;
+        const footer = defaultMessages.footer as { contact?: { email?: string } } | undefined;
         const to = settings.inquiryEmail || footer?.contact?.email || siteConfig.contact.email;
-        const rows: [string, string | null][] = [
-          ["Name", data.name],
-          ["Email", data.email],
-          ["Company", data.company],
-          ["Phone", data.phone],
-          ["Topic", INQUIRY_TOPIC_LABELS[data.topic]],
-          ["Language", locale.toUpperCase()],
-        ];
+        const sender = core("name") ?? email;
+        const rows = fields
+          .filter((field) => field.id !== "message" && values.has(field.id))
+          .map((field) => `${field.label}: ${values.get(field.id)}`);
         await sendEmail({
           to,
-          replyTo: data.email,
-          subject: oneLine(`New website enquiry from ${data.name} — ${INQUIRY_TOPIC_LABELS[data.topic]}`),
+          replyTo: email,
+          subject: oneLine(`New website enquiry from ${sender}${topic ? ` — ${topic}` : ""}`),
           ...renderEmail({
             heading: "New message from the Contact page",
-            paragraphs: [
-              ...rows.filter(([, value]) => value).map(([label, value]) => `${label}: ${value}`),
-              data.message,
-            ],
+            paragraphs: [...rows, `Language: ${locale.toUpperCase()}`, ...(core("message") ? [core("message")!] : [])],
             action: { label: "Open in dashboard", url: `${base}/dashboard/inquiries?id=${id}` },
             footnote: "Reply to this email to answer the sender directly.",
           }),

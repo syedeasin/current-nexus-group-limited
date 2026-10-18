@@ -4,8 +4,54 @@ import { useState, type ReactNode } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { CheckCircle2 } from "lucide-react";
 import { usePathname } from "@/i18n/navigation";
-import { submitContact, type ContactErrorKey } from "@/lib/inquiries/actions";
-import { INQUIRY_TOPICS } from "@/lib/inquiries/topics";
+import { submitContact, type ContactErrorKey, type ContactFieldError } from "@/lib/inquiries/actions";
+import { FIELD_MAX_LENGTH, readContactFields, type ContactField } from "@/lib/inquiries/form-fields";
+
+/** Browser autofill hints for the built-in fields. */
+const AUTOCOMPLETE: Record<string, string> = {
+  name: "name",
+  email: "email",
+  company: "organization",
+  phone: "tel",
+};
+
+function FieldControl({ field, describedBy, invalid }: { field: ContactField; describedBy?: string; invalid: boolean }) {
+  const common = {
+    id: `contact-${field.id}`,
+    name: field.id,
+    required: field.required,
+    maxLength: FIELD_MAX_LENGTH[field.type],
+    "aria-invalid": invalid || undefined,
+    "aria-describedby": describedBy,
+  };
+  if (field.type === "textarea") {
+    return <textarea {...common} rows={6} placeholder={field.placeholder || undefined} className={`${INPUT_CLASS} resize-y`} />;
+  }
+  if (field.type === "select") {
+    return (
+      <select {...common} defaultValue="" className={INPUT_CLASS}>
+        <option value="" disabled={field.required}>
+          {field.placeholder || "—"}
+        </option>
+        {field.options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    );
+  }
+  return (
+    <input
+      {...common}
+      type={field.type === "number" ? "text" : field.type}
+      inputMode={field.type === "number" ? "decimal" : undefined}
+      autoComplete={AUTOCOMPLETE[field.id]}
+      placeholder={field.placeholder || undefined}
+      className={INPUT_CLASS}
+    />
+  );
+}
 
 const INPUT_CLASS =
   "w-full rounded-12 border border-neutral-10 bg-white px-16 py-14 text-p3 text-neutral-1 outline-none transition-colors duration-200 placeholder:text-neutral-7 focus:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary aria-[invalid=true]:border-error";
@@ -51,7 +97,9 @@ export default function ContactForm() {
   const pathname = usePathname();
   const [pending, setPending] = useState(false);
   const [errorKey, setErrorKey] = useState<ContactErrorKey | null>(null);
-  const [fieldErrors, setFieldErrors] = useState<ContactErrorKey[]>([]);
+  const [fieldErrors, setFieldErrors] = useState<ContactFieldError[]>([]);
+  // Edited in Dashboard → Pages → Contact → Form fields.
+  const fields = readContactFields(t.raw("fields" as never));
   const [sentTo, setSentTo] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -71,7 +119,7 @@ export default function ContactForm() {
         setFieldErrors(result.fields ?? []);
         // Move focus to the first field that needs attention.
         const first = result.fields?.[0];
-        if (first) form.querySelector<HTMLElement>(`[name="${first}"]`)?.focus();
+        if (first) form.querySelector<HTMLElement>(`[name="${first.id}"]`)?.focus();
       }
     } catch {
       setErrorKey("generic");
@@ -98,9 +146,11 @@ export default function ContactForm() {
     );
   }
 
-  const err = (key: ContactErrorKey) => (fieldErrors.includes(key) ? t(`errors.${key}`) : undefined);
-  const aria = (key: ContactErrorKey) =>
-    fieldErrors.includes(key) ? { "aria-invalid": true, "aria-describedby": `contact-${key}-error` } : {};
+  const err = (id: string) => {
+    const found = fieldErrors.find((e) => e.id === id);
+    return found ? t(`errors.${found.error}`) : undefined;
+  };
+  const aria = (id: string) => (err(id) ? { "aria-invalid": true, "aria-describedby": `contact-${id}-error` } : {});
   // Field-specific problems show under their fields; the banner covers the rest.
   const bannerError = errorKey && fieldErrors.length === 0 ? t(`errors.${errorKey}`) : null;
 
@@ -123,51 +173,18 @@ export default function ContactForm() {
       )}
 
       <div className="mt-28 grid gap-20 md:grid-cols-2">
-        <Field id="contact-name" label={t("nameLabel")} required error={err("name")}>
-          <input id="contact-name" name="name" autoComplete="name" required maxLength={100} className={INPUT_CLASS} {...aria("name")} />
-        </Field>
-        <Field id="contact-email" label={t("emailLabel")} required error={err("email")}>
-          <input
-            id="contact-email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            maxLength={254}
-            className={INPUT_CLASS}
-            {...aria("email")}
-          />
-        </Field>
-        <Field id="contact-company" label={t("companyLabel")}>
-          <input id="contact-company" name="company" autoComplete="organization" maxLength={120} className={INPUT_CLASS} />
-        </Field>
-        <Field id="contact-phone" label={t("phoneLabel")}>
-          <input id="contact-phone" name="phone" type="tel" autoComplete="tel" maxLength={40} className={INPUT_CLASS} />
-        </Field>
-        <Field id="contact-topic" label={t("topicLabel")} required error={err("topic")} className="md:col-span-2">
-          <select id="contact-topic" name="topic" required defaultValue="" className={INPUT_CLASS} {...aria("topic")}>
-            <option value="" disabled>
-              {t("topicPlaceholder")}
-            </option>
-            {INQUIRY_TOPICS.map((topic) => (
-              <option key={topic} value={topic}>
-                {t(`topics.${topic}`)}
-              </option>
-            ))}
-          </select>
-        </Field>
-        <Field id="contact-message" label={t("messageLabel")} required error={err("message")} className="md:col-span-2">
-          <textarea
-            id="contact-message"
-            name="message"
-            required
-            rows={6}
-            maxLength={5000}
-            placeholder={t("messagePlaceholder")}
-            className={`${INPUT_CLASS} resize-y`}
-            {...aria("message")}
-          />
-        </Field>
+        {fields.map((field) => (
+          <Field
+            key={field.id}
+            id={`contact-${field.id}`}
+            label={field.label}
+            required={field.required}
+            error={err(field.id)}
+            className={field.fullWidth ? "md:col-span-2" : ""}
+          >
+            <FieldControl field={field} invalid={Boolean(err(field.id))} describedBy={err(field.id) ? `contact-${field.id}-error` : undefined} />
+          </Field>
+        ))}
       </div>
 
       {/* Honeypot: hidden from people and assistive tech; bots fill every field. */}

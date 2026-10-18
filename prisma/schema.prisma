@@ -530,9 +530,13 @@ model Inquiry {
   email   String
   company String?
   phone   String?
-  /// Key of the topic chosen on the form (messages contact.form.topics.<key>).
+  /// The topic chosen on the form: its label since the form builder (older
+  /// rows hold a key from lib/inquiries/topics.ts).
   topic   String?
   message String?
+  /// Answers to fields the admin added in Pages → Contact → Form fields,
+  /// as [{ label, value }] in form order.
+  answers Json?
 
   locale     Locale  @default(EN)
   /// Public page the form was sent from.

@@ -17,6 +17,7 @@ import type { CollectionDef } from "@/lib/page-content/registry";
 import {
   collectionTemplate,
   fieldKind,
+  CHOICE_FIELDS,
   isHiddenKey,
   isTree,
   joinPath,
@@ -95,6 +96,13 @@ const LABELS: Record<string, string> = {
   quote: "Quote",
   value: "Value",
   meta: "SEO",
+  type: "Field type",
+  placeholder: "Placeholder (grey example text)",
+  options: "Dropdown options",
+  required: "Required",
+  show: "Show on the website",
+  hidden: "Hide this field (keeps its settings)",
+  fullWidth: "Full width (otherwise half width on desktop)",
 };
 
 function humanize(key: string): string {
@@ -161,6 +169,7 @@ function LeafField({
   else if (key.endsWith("imagePosition") || key.endsWith("ImagePosition"))
     hint = "Which part of the photo stays in view: horizontal then vertical, e.g. 50% 50% (centre), 80% 50% (right).";
   else if (kind === "number") hint = "Numbers only.";
+  else if (key === "options") hint = "Dropdown fields only: one option per line.";
   else if (tokens.length > 0)
     hint = (
       <>
@@ -231,7 +240,16 @@ function LeafField({
         <FieldLabel htmlFor={id}>{label}</FieldLabel>
         {resetButton}
       </div>
-      {kind === "icon" ? (
+      {kind === "choice" ? (
+        <Select id={id} value={value} onChange={(e) => onChange(e.target.value)} aria-invalid={Boolean(error)} aria-describedby={describedBy}>
+          {!(CHOICE_FIELDS[key] ?? []).some((choice) => choice.value === value) && <option value={value}>Choose…</option>}
+          {(CHOICE_FIELDS[key] ?? []).map((choice) => (
+            <option key={choice.value} value={choice.value}>
+              {choice.label}
+            </option>
+          ))}
+        </Select>
+      ) : kind === "icon" ? (
         <Select id={id} value={value} onChange={(e) => onChange(e.target.value)} aria-invalid={Boolean(error)} aria-describedby={describedBy}>
           {!ctx.iconKeys.includes(value) && <option value={value}>{value || "Choose…"}</option>}
           {ctx.iconKeys.map((icon) => (
