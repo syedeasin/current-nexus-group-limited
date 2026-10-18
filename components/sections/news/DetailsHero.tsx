@@ -5,7 +5,7 @@ import Reveal from "@/components/ui/Reveal";
 import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import ShareLinks from "@/components/sections/news/ShareLinks";
-import { formatDate } from "@/lib/formatDate";
+import { postDateLabel } from "@/lib/formatDate";
 import { HERO_HEADER_OFFSET } from "@/src/layout/headerOffset";
 import { cn } from "@/lib/utils";
 import type { NewsPost } from "@/lib/data/news";
@@ -55,7 +55,13 @@ export default async function DetailsHero({ post, postUrl }: DetailsHeroProps) {
                   <span aria-hidden="true" className="h-12 w-px bg-white/40" />
                 </>
               )}
-              <span>{formatDate(post.publishedAt)}</span>
+              <span>{postDateLabel(post)}</span>
+              {post.section === "EVENTS" && post.eventLocation && (
+                <>
+                  <span aria-hidden="true" className="h-12 w-px bg-white/40" />
+                  <span>{post.eventLocation}</span>
+                </>
+              )}
             </div>
           </Reveal>
           <TextReveal delay={80}>

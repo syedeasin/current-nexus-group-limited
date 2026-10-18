@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import Heading from "@/components/ui/Heading";
-import { formatDate } from "@/lib/formatDate";
+import { postDateLabel } from "@/lib/formatDate";
 import type { NewsPost } from "@/lib/data/news";
 
 interface HighlightCardProps {
@@ -31,8 +31,13 @@ export default function HighlightCard({ post, readingMinutesLabel }: HighlightCa
       </div>
       <div className="mt-24 flex flex-col gap-12">
         <div className="flex items-center gap-12 text-p1 font-medium text-neutral-4">
-          <span>{formatDate(post.publishedAt)}</span>
-          {post.readingMinutes > 0 && (
+          <span>{postDateLabel(post)}</span>
+          {post.section === "EVENTS" && post.eventLocation ? (
+            <>
+              <span aria-hidden="true" className="h-14 w-px bg-neutral-10" />
+              <span>{post.eventLocation}</span>
+            </>
+          ) : post.readingMinutes > 0 && (
             <>
               <span aria-hidden="true" className="h-14 w-px bg-neutral-10" />
               <span>{readingMinutesLabel}</span>

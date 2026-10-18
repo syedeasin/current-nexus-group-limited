@@ -93,15 +93,32 @@ export default async function NewsDetailsPage({
 
   const postUrl = postPublicUrl(locale, slug);
 
-  const articleJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: post.title,
-    ...(post.coverImage ? { image: [toAbsolute(post.coverImage)] } : {}),
-    datePublished: post.publishedAt,
-    dateModified: post.updatedAt,
-    author: [{ "@type": "Person", name: post.authorName }],
-  };
+  const isEvent = post.section === "EVENTS" && Boolean(post.eventStartDate);
+  const articleJsonLd = isEvent
+    ? {
+        // Event pages describe the exhibition/meeting itself (eligible for
+        // Google's event results), not the article about it.
+        "@context": "https://schema.org",
+        "@type": "Event",
+        name: post.title,
+        ...(post.excerpt ? { description: post.excerpt } : {}),
+        ...(post.coverImage ? { image: [toAbsolute(post.coverImage)] } : {}),
+        startDate: post.eventStartDate!.slice(0, 10),
+        ...(post.eventEndDate ? { endDate: post.eventEndDate.slice(0, 10) } : {}),
+        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+        ...(post.eventLocation ? { location: { "@type": "Place", name: post.eventLocation } } : {}),
+        organizer: { "@type": "Organization", name: siteConfig.legalName, url: siteConfig.url },
+        url: postUrl,
+      }
+    : {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: post.title,
+        ...(post.coverImage ? { image: [toAbsolute(post.coverImage)] } : {}),
+        datePublished: post.publishedAt,
+        dateModified: post.updatedAt,
+        author: [{ "@type": "Person", name: post.authorName }],
+      };
 
   return (
     <main>

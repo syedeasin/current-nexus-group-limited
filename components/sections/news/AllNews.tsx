@@ -8,6 +8,7 @@ import BlogCard from "@/components/ui/BlogCard";
 import Pagination from "@/components/sections/news/Pagination";
 import { getPosts } from "@/lib/data/news";
 import type { NewsSectionDef } from "@/lib/news-sections";
+import { postDateLabel } from "@/lib/formatDate";
 
 export const PER_PAGE = 6;
 
@@ -56,10 +57,13 @@ export default async function AllNews({ page, section }: AllNewsProps) {
                     imageAlt={post.coverImageAlt}
                     title={post.title}
                     date={post.publishedAt}
+                    dateLabel={postDateLabel(post)}
                     readTime={
-                      post.readingMinutes > 0
-                        ? t("minRead", { count: post.readingMinutes })
-                        : undefined
+                      post.section === "EVENTS"
+                        ? post.eventLocation || undefined
+                        : post.readingMinutes > 0
+                          ? t("minRead", { count: post.readingMinutes })
+                          : undefined
                     }
                     imageSizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   />

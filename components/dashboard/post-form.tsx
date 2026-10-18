@@ -25,6 +25,10 @@ export type PostFormValues = {
   categoryId: string;
   section: "NEWS" | "RE_ANALYSIS" | "KNOWLEDGE_DATABASE" | "EVENTS";
   isHighlight: boolean;
+  /** "YYYY-MM-DD" or "" — Events posts only. */
+  eventStartDate: string;
+  eventEndDate: string;
+  eventLocation: string;
   tags: string;
   featuredImage: string;
   featuredImageAlt: string;
@@ -53,6 +57,9 @@ const DEFAULTS: PostFormValues = {
   categoryId: "",
   section: "NEWS",
   isHighlight: false,
+  eventStartDate: "",
+  eventEndDate: "",
+  eventLocation: "",
   tags: "",
   featuredImage: "",
   featuredImageAlt: "",
@@ -88,6 +95,7 @@ export default function PostForm({ mode, post, categories, canPublish }: PostFor
   const [excerpt, setExcerpt] = useState(initial.excerpt);
   const [locale, setLocale] = useState(initial.locale);
   const [status, setStatus] = useState(initial.status);
+  const [section, setSection] = useState(initial.section);
   const [metaTitle, setMetaTitle] = useState(initial.metaTitle);
   const [metaDescription, setMetaDescription] = useState(initial.metaDescription);
   const [ogImageUrl, setOgImageUrl] = useState(initial.ogImage);
@@ -525,7 +533,8 @@ export default function PostForm({ mode, post, categories, canPublish }: PostFor
               <Select
                 id="section"
                 name="section"
-                defaultValue={initial.section}
+                value={section}
+                onChange={(e) => setSection(e.target.value as PostFormValues["section"])}
                 aria-describedby="section-hint"
               >
                 {NEWS_SECTION_LIST.map((s) => (
@@ -538,6 +547,50 @@ export default function PostForm({ mode, post, categories, canPublish }: PostFor
                 Which News Room page lists this post: News, RE Analysis, Knowledge Database or Events.
               </FieldHint>
             </div>
+
+            {section === "EVENTS" && (
+              <div className="mb-16 rounded-12 border border-neutral-10 bg-surface-2 p-16">
+                <p className="mb-12 text-p4 font-semibold uppercase tracking-[1.5px] text-neutral-5">Event details</p>
+                <div className="mb-12">
+                  <FieldLabel htmlFor="eventStartDate">Start date *</FieldLabel>
+                  <TextInput
+                    id="eventStartDate"
+                    name="eventStartDate"
+                    type="date"
+                    defaultValue={initial.eventStartDate}
+                    aria-invalid={Boolean(fieldErrors.eventStartDate)}
+                    aria-describedby={describedBy("eventDates-hint", fieldErrors.eventStartDate && "eventStartDate-error")}
+                  />
+                  <FieldError id="eventStartDate-error">{fieldErrors.eventStartDate}</FieldError>
+                </div>
+                <div className="mb-12">
+                  <FieldLabel htmlFor="eventEndDate">End date</FieldLabel>
+                  <TextInput
+                    id="eventEndDate"
+                    name="eventEndDate"
+                    type="date"
+                    defaultValue={initial.eventEndDate}
+                    aria-invalid={Boolean(fieldErrors.eventEndDate)}
+                    aria-describedby={describedBy("eventDates-hint", fieldErrors.eventEndDate && "eventEndDate-error")}
+                  />
+                  <FieldError id="eventEndDate-error">{fieldErrors.eventEndDate}</FieldError>
+                </div>
+                <div>
+                  <FieldLabel htmlFor="eventLocation">Location</FieldLabel>
+                  <TextInput
+                    id="eventLocation"
+                    name="eventLocation"
+                    maxLength={200}
+                    placeholder="e.g. Messe München, Munich · Booth B4.410"
+                    defaultValue={initial.eventLocation}
+                  />
+                </div>
+                <FieldHint id="eventDates-hint">
+                  Shown on the Events page and the event article instead of the publish date. Upcoming events are listed
+                  first; past events move below them automatically.
+                </FieldHint>
+              </div>
+            )}
 
             <div className="flex items-start gap-8">
               <input

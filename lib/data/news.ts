@@ -40,6 +40,10 @@ export interface NewsPost {
   section: PostSection;
   /** Editor-picked for its section's Highlights carousel. */
   isHighlight: boolean;
+  /** Events only — ISO dates and venue entered in the dashboard; null/"" otherwise. */
+  eventStartDate: string | null;
+  eventEndDate: string | null;
+  eventLocation: string;
   /** Sanitised HTML. Empty string for list items (content is not fetched for lists). */
   content: string;
   /** Author display name. "" for list items (not fetched for lists). */
@@ -78,6 +82,9 @@ const listSelect = {
   readingTime: true,
   section: true,
   isHighlight: true,
+  eventStartDate: true,
+  eventEndDate: true,
+  eventLocation: true,
   category: { select: { name: true } },
 } satisfies Prisma.PostSelect;
 
@@ -102,6 +109,9 @@ function mapListRow(row: ListRow): NewsPost {
     readingMinutes: row.readingTime,
     section: row.section,
     isHighlight: row.isHighlight,
+    eventStartDate: row.eventStartDate?.toISOString() ?? null,
+    eventEndDate: row.eventEndDate?.toISOString() ?? null,
+    eventLocation: row.eventLocation ?? "",
     content: "",
     authorName: "",
     metaTitle: null,
@@ -125,6 +135,9 @@ function mapDetailRow(row: DetailRow): NewsPost {
     readingMinutes: row.readingTime,
     section: row.section,
     isHighlight: row.isHighlight,
+    eventStartDate: row.eventStartDate?.toISOString() ?? null,
+    eventEndDate: row.eventEndDate?.toISOString() ?? null,
+    eventLocation: row.eventLocation ?? "",
     content: row.content,
     authorName: row.author.name,
     metaTitle: row.metaTitle,
@@ -155,7 +168,14 @@ export async function getHighlightPosts(
     take: HIGHLIGHT_LIMIT,
     select: listSelect,
   });
-  if (picked.length > 0) return picked.map(mapListRow);
+  const isEvents = section === PostSection.EVENTS;
+  if (picked.length > 0) return isEvents ? sortEvents(picked.map(mapListRow)) : picked.map(mapListRow);
+
+  if (isEvents) {
+    // No picks: the next upcoming events (then the most recent past ones).
+    const all = await prisma.post.findMany({ where, orderBy: PUBLISHED_ORDER, select: listSelect });
+    return sortEvents(all.map(mapListRow)).slice(0, HIGHLIGHT_FALLBACK_COUNT);
+  }
 
   const latest = await prisma.post.findMany({
     where,
@@ -180,6 +200,27 @@ export async function getLatestPosts(locale: string, take: number): Promise<News
   return rows.map(mapListRow);
 }
 
+/** An event counts as upcoming until its end date (or start date) has passed. */
+function eventEndTime(post: NewsPost): number | null {
+  const iso = post.eventEndDate ?? post.eventStartDate;
+  return iso ? new Date(iso).getTime() : null;
+}
+
+export function isPastEvent(post: NewsPost, now = Date.now()): boolean {
+  const end = eventEndTime(post);
+  // The whole end day still counts as upcoming.
+  return end !== null && end + 24 * 60 * 60 * 1000 <= now;
+}
+
+function sortEvents(posts: NewsPost[]): NewsPost[] {
+  const now = Date.now();
+  const dated = posts.filter((p) => p.eventStartDate);
+  const upcoming = dated.filter((p) => !isPastEvent(p, now)).sort((a, b) => a.eventStartDate!.localeCompare(b.eventStartDate!));
+  const past = dated.filter((p) => isPastEvent(p, now)).sort((a, b) => b.eventStartDate!.localeCompare(a.eventStartDate!));
+  const undated = posts.filter((p) => !p.eventStartDate);
+  return [...upcoming, ...past, ...undated];
+}
+
 /** Paginated published-post list for a section index. */
 export async function getPosts(
   locale: string,
@@ -194,6 +235,15 @@ export async function getPosts(
   const total = await prisma.post.count({ where });
   const totalPages = Math.max(1, Math.ceil(total / perPage));
   const safePage = Math.min(Math.max(1, page), totalPages);
+
+  if (section === PostSection.EVENTS) {
+    // Events list by their own dates, not by publish date: upcoming first
+    // (soonest at the top), then past events (most recent first), then any
+    // event without a date. There are few enough to sort in memory.
+    const all = (await prisma.post.findMany({ where, orderBy: PUBLISHED_ORDER, select: listSelect })).map(mapListRow);
+    const sorted = sortEvents(all);
+    return { posts: sorted.slice((safePage - 1) * perPage, safePage * perPage), total, totalPages };
+  }
 
   const rows = await prisma.post.findMany({
     where,

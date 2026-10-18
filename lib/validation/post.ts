@@ -21,6 +21,18 @@ function toBoolean(val: unknown) {
   return false;
 }
 
+/** "YYYY-MM-DD" from an <input type="date"> → UTC midnight Date, or null when empty. */
+const dateField = z.preprocess(
+  emptyToNull,
+  z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Choose a date.")
+    .transform((val) => new Date(`${val}T00:00:00.000Z`))
+    .refine((d) => !Number.isNaN(d.getTime()), { message: "Choose a valid date." })
+    .nullable()
+    .default(null)
+);
+
 function urlOrPathField(max: number) {
   return z.preprocess(
     emptyToUndefined,
@@ -61,6 +73,10 @@ export const postSchema = z.object({
   section: z.enum(["NEWS", "RE_ANALYSIS", "KNOWLEDGE_DATABASE", "EVENTS"]).default("NEWS"),
   isHighlight: z.preprocess(toBoolean, z.boolean().default(false)),
 
+  eventStartDate: dateField,
+  eventEndDate: dateField,
+  eventLocation: z.preprocess(emptyToUndefined, z.string().trim().max(200).optional()),
+
   tags: z.preprocess(
     emptyToUndefined,
     z
@@ -91,6 +107,14 @@ export const postSchema = z.object({
 
   noIndex: z.preprocess(toBoolean, z.boolean().default(false)),
 }).superRefine((data, ctx) => {
+  if (data.section === "EVENTS") {
+    if (!data.eventStartDate) {
+      ctx.addIssue({ code: "custom", path: ["eventStartDate"], message: "Events need a start date — it is the date shown on the website." });
+    }
+    if (data.eventStartDate && data.eventEndDate && data.eventEndDate < data.eventStartDate) {
+      ctx.addIssue({ code: "custom", path: ["eventEndDate"], message: "The end date can't be before the start date." });
+    }
+  }
   if (data.featuredImage && !data.featuredImageAlt) {
     ctx.addIssue({
       code: "custom",

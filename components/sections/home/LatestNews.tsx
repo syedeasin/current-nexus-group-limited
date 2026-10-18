@@ -10,6 +10,7 @@ import Button, { BUTTON_ICON_SIZE } from "@/components/ui/Button";
 import { ChevronRight } from "@/components/icons/ChevronRight";
 import { getLatestPosts, type NewsPost } from "@/lib/data/news";
 import { cascade, stagger, CONTENT_BASE_DELAY_MS } from "@/lib/motion/timing";
+import { postDateLabel } from "@/lib/formatDate";
 
 const LATEST_COUNT = 6;
 
@@ -68,7 +69,14 @@ export default async function LatestNews() {
                 imageAlt={post.coverImageAlt}
                 title={post.title}
                 date={post.publishedAt}
-                readTime={post.readingMinutes > 0 ? tn("minRead", { count: post.readingMinutes }) : undefined}
+                dateLabel={postDateLabel(post)}
+                readTime={
+                  post.section === "EVENTS"
+                    ? post.eventLocation || undefined
+                    : post.readingMinutes > 0
+                      ? tn("minRead", { count: post.readingMinutes })
+                      : undefined
+                }
                 imageSizes="(min-width: 1280px) 32vw, (min-width: 1024px) 36vw, (min-width: 481px) 64vw, 85vw"
               />
             </Reveal>

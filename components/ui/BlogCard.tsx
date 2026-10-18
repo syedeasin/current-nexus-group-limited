@@ -15,6 +15,8 @@ interface BlogCardProps {
   title: string;
   /** ISO date (UTC) — rendered through the fixed-locale formatter. */
   date: string;
+  /** Ready-made date text (e.g. an event's date range) shown instead of `date`. */
+  dateLabel?: string;
   /** "X min read" label. Omit (or pass falsy) to hide the chip entirely — never render "0 min read". */
   readTime?: string;
   /** Semantic heading level for the title. Defaults to h3 (post title within an h2 section). */
@@ -29,6 +31,7 @@ export default function BlogCard({
   imageSizes,
   title,
   date,
+  dateLabel,
   readTime,
   headingLevel = 3,
   className,
@@ -58,7 +61,7 @@ export default function BlogCard({
       </div>
       <div className="flex w-full flex-col gap-12">
         <div className="flex items-center gap-12 text-p3 font-medium text-neutral-4">
-          <span>{formatDate(date)}</span>
+          <span>{dateLabel ?? formatDate(date)}</span>
           {readTime && (
             <>
               <span aria-hidden="true" className="h-14 w-px bg-neutral-9" />

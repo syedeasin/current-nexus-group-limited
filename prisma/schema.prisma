@@ -122,6 +122,12 @@ model Post {
   /// Editor-picked for the "Highlights" carousel at the top of the post's section index.
   isHighlight Boolean     @default(false)
 
+  /// Events section only: when and where the exhibition / meeting happens.
+  /// Event cards and the event page show these instead of the publish date.
+  eventStartDate DateTime?
+  eventEndDate   DateTime?
+  eventLocation  String?   @db.VarChar(200)
+
   featuredImage    String? @db.VarChar(500)
   featuredImageAlt String?
 
@@ -151,6 +157,7 @@ model Post {
   @@unique([slug, locale])
   @@index([status, publishedAt])
   @@index([locale, status, section, publishedAt])
+  @@index([section, eventStartDate])
   @@index([categoryId])
   @@index([authorId])
   @@index([translationKey])
