@@ -38,7 +38,10 @@ export const COLLECTION_PATTERNS: CollectionDef[] = [
   { pattern: "about.whyChooseCnx.industryRecognition.items", itemLabel: "Certificate", titleKey: "caption" },
   { pattern: "manufacturing.*.products.items", itemLabel: "Product card", titleKey: "title" },
   { pattern: "manufacturing.*.whyChoose.features", itemLabel: "Feature", titleKey: "title" },
-  { pattern: "footer.columns.*.links", itemLabel: "Link", titleKey: "label" },
+  { pattern: "footer.menu", itemLabel: "Column", titleKey: "heading", minItems: 1 },
+  { pattern: "footer.menu.*.links", itemLabel: "Link", titleKey: "label" },
+  { pattern: "footer.socialLinks", itemLabel: "Social link", titleKey: "label" },
+  { pattern: "legal.*.sections", itemLabel: "Section", titleKey: "heading", minItems: 1 },
 ];
 
 export interface PageSectionDef {
@@ -231,13 +234,64 @@ export const PAGES: PageDef[] = [
     group: "Site-wide",
     href: null,
     description:
-      "Footer columns, contact details, newsletter and social links. The Manufacturing and Solutions columns list your published pages automatically.",
+      "Footer columns, contact details, newsletter and social links. Add, remove, rename or reorder columns and their links. The “Manufacturing” and “Solutions & Projects” columns also list your published pages automatically.",
     sections: [
-      { id: "columns", label: "Link columns", path: "footer.columns" },
+      {
+        id: "columns",
+        label: "Link columns",
+        path: "footer.menu",
+        description: "One column per menu section. Published Manufacturing and Solutions & Projects pages are added under the columns with those ids automatically.",
+      },
       { id: "contact", label: "Contact info", path: "footer.contact" },
-      { id: "social", label: "Social links", path: "footer.social" },
-      { id: "labels", label: "Headings & labels", path: "footer", exclude: ["columns", "contact", "social"] },
+      {
+        id: "social",
+        label: "Social links",
+        path: "footer.socialLinks",
+        description: "Platform sets the icon: facebook, instagram, linkedin, youtube or x (anything else shows a globe). Turn “Show” off to hide a link without deleting it.",
+      },
+      { id: "labels", label: "Headings & labels", path: "footer", exclude: ["menu", "contact", "socialLinks"] },
     ],
+  },
+  {
+    key: "privacy",
+    label: "Privacy Policy",
+    group: "Legal",
+    href: "/privacy-policy",
+    description: "Privacy Policy text. Each section is a heading and its paragraphs (a new line starts a new paragraph).",
+    sections: [
+      SEO("legal.privacy.meta"),
+      { id: "content", label: "Content", path: "legal.privacy", exclude: ["meta"] },
+    ],
+  },
+  {
+    key: "cookies",
+    label: "Cookie Policy",
+    group: "Legal",
+    href: "/cookie-policy",
+    description: "Cookie Policy text, linked from the cookie banner and the footer.",
+    sections: [
+      SEO("legal.cookies.meta"),
+      { id: "content", label: "Content", path: "legal.cookies", exclude: ["meta"] },
+    ],
+  },
+  {
+    key: "terms",
+    label: "Terms of Use",
+    group: "Legal",
+    href: "/terms",
+    description: "Terms of Use text.",
+    sections: [
+      SEO("legal.terms.meta"),
+      { id: "content", label: "Content", path: "legal.terms", exclude: ["meta"] },
+    ],
+  },
+  {
+    key: "cookieBanner",
+    label: "Cookie banner",
+    group: "Legal",
+    href: null,
+    description: "The cookie pop-up shown to visitors until they accept or reject.",
+    sections: [{ id: "banner", label: "Banner text", path: "cookieConsent" }],
   },
 ];
 

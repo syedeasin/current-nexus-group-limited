@@ -31,6 +31,7 @@ import type { SolutionMenuGroup, ManufacturingCategory } from "@prisma/client";
 import type messages from "@/messages/en.json";
 import type { SolutionMenuEntry } from "@/lib/solutions-projects/types";
 import type { ManufacturingMenuEntry } from "@/lib/manufacturing/types";
+import { isHiddenPath } from "@/config/page-visibility";
 
 export type NavLabelKey = keyof typeof messages.nav;
 
@@ -290,6 +291,8 @@ export function manufacturingEntryHref(category: ManufacturingCategory, slug: st
 export interface DynamicMenu {
   solutions?: SolutionMenuEntry[];
   manufacturing?: ManufacturingMenuEntry[];
+  /** Paths switched off in Dashboard → Settings → Page visibility. */
+  hidden?: ReadonlySet<string>;
 }
 
 /**
@@ -298,7 +301,7 @@ export interface DynamicMenu {
  * only the page links become data-driven, so a draft or deleted page is absent
  * and a newly published one appears. Called per request in the marketing layout.
  */
-export function buildNavItems({ solutions = [], manufacturing = [] }: DynamicMenu): NavItem[] {
+export function buildNavItems({ solutions = [], manufacturing = [], hidden = new Set() }: DynamicMenu): NavItem[] {
   const solutionLinks = new Map<NavLabelKey, NavLink[]>();
   for (const e of solutions) {
     const key = SOLUTION_GROUP_LABEL_KEY[e.menuGroup];
@@ -326,10 +329,44 @@ export function buildNavItems({ solutions = [], manufacturing = [] }: DynamicMen
     };
   }
 
-  return NAV_ITEMS.map((item) => {
+  const items = NAV_ITEMS.map((item) => {
     if (item.labelKey === "solutionsProjects") return withDynamicGroups(item, solutionLinks);
     if (item.labelKey === "manufacturing") return withDynamicGroups(item, manufacturingLinks);
     return item;
+  });
+  return withoutHidden(items, hidden);
+}
+
+/**
+ * Drops hidden pages from the menu. A group whose own page is hidden but still
+ * has visible children keeps its header and points at its first visible child;
+ * a group or top-level item left with nothing visible is removed entirely.
+ */
+function withoutHidden(items: NavItem[], hidden: ReadonlySet<string>): NavItem[] {
+  if (hidden.size === 0) return items;
+  const visible = (href: string) => !isHiddenPath(href, hidden);
+
+  return items.flatMap((item): NavItem[] => {
+    const panel = item.panel;
+    let next: NavPanel;
+    if (panel.kind === "groups") {
+      const groups = panel.groups.flatMap((group): NavGroup[] => {
+        const links = (group.links ?? []).filter((link) => visible(link.href));
+        const products = (group.products ?? []).filter((product) => visible(product.href));
+        if (visible(group.href)) return [{ ...group, links, products }];
+        const fallback = links[0]?.href;
+        return fallback ? [{ ...group, href: fallback, links, products }] : [];
+      });
+      next = { ...panel, groups };
+    } else if (panel.kind === "brands") {
+      next = { ...panel, items: panel.items.filter((brand) => visible(brand.href)) };
+    } else {
+      next = { ...panel, items: panel.items.filter((link) => visible(link.href)) };
+    }
+
+    const reachable = navItemHrefs({ ...item, panel: next });
+    if (reachable.length === 0) return [];
+    return [{ ...item, href: visible(item.href) ? item.href : reachable[0], panel: next }];
   });
 }
 

@@ -180,7 +180,7 @@ async function AccountsTable({ sp, meId }: { sp: SearchParams; meId: string }) {
           {isFiltered ? "No users match these filters." : "No users yet."}
         </p>
       ) : (
-        <div className="relative overflow-x-auto">
+        <div className="dash-table-scroll relative">
           <table className="w-full min-w-[900px] border-collapse">
             <thead>
               <tr className="border-b border-neutral-10 bg-surface-2">
@@ -272,7 +272,7 @@ function RolesMatrix({ countByRole }: { countByRole: Partial<Record<Role, number
       </div>
 
       <div className="overflow-hidden rounded-16 border border-neutral-10 bg-white">
-        <div className="relative overflow-x-auto">
+        <div className="dash-table-scroll relative">
           <table className="w-full min-w-[720px] border-collapse">
             <caption className="border-b border-neutral-10 px-24 py-16 text-left text-p4 font-light text-neutral-5">
               What each role can do. Access is enforced on every page and action, not just hidden from the menu.

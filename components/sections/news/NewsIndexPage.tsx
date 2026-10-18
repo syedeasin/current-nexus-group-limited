@@ -5,6 +5,8 @@ import Highlights from "@/components/sections/news/Highlights";
 import AllNews from "@/components/sections/news/AllNews";
 import { NEWS_SECTIONS } from "@/lib/news-sections";
 import type { PostSection } from "@prisma/client";
+import { pageTitle } from "@/lib/seo";
+import { assertPageVisible } from "@/lib/page-visibility";
 
 /**
  * One News Room index (News, RE Analysis, Knowledge Database, Events). The
@@ -15,11 +17,12 @@ import type { PostSection } from "@prisma/client";
  */
 export async function newsSectionMetadata(section: PostSection): Promise<Metadata> {
   const t = await getTranslations(`news.sections.${NEWS_SECTIONS[section].messageKey}.meta`);
-  return { title: t("title"), description: t("description") };
+  return { title: pageTitle(t("title")), description: t("description") };
 }
 
-export default function NewsIndexPage({ section, page }: { section: PostSection; page: number }) {
+export default async function NewsIndexPage({ section, page }: { section: PostSection; page: number }) {
   const def = NEWS_SECTIONS[section];
+  await assertPageVisible(def.path);
   return (
     <>
       <Banner messageKey={def.messageKey} />

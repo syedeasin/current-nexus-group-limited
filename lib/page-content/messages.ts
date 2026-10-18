@@ -24,7 +24,7 @@ export function toPrismaLocale(locale: string): PrismaLocale {
 
 /**
  * The shipped defaults for a locale: the message file plus the site-level
- * values that live in site.config.ts (contact details, social links), so the
+ * values that live in site.config.ts (contact details, social profiles), so the
  * footer reads them through the same editable tree as everything else.
  */
 export function getBaseMessages(locale: Locale): MessageTree {
@@ -34,7 +34,9 @@ export function getBaseMessages(locale: Locale): MessageTree {
     footer: {
       ...(messages.footer as MessageTree),
       contact: { ...siteConfig.contact },
-      social: { ...siteConfig.social },
+      socialLinks: Object.fromEntries(
+        siteConfig.social.map(({ id, platform, label, href, show }) => [id, { platform, label, href, show: String(show) }])
+      ),
     },
   };
 }

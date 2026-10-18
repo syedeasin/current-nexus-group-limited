@@ -1181,37 +1181,42 @@
     }
   },
   "footer": {
-    "columns": {
-      "quickLinks": {
-        "heading": "Quick links",
+    "menu": {
+      "aboutUs": {
+        "heading": "About Us",
         "links": {
           "technology": {
             "label": "Technology",
             "href": "/about/technology"
           },
           "whyChooseCnx": {
-            "label": "Why choose CNX",
+            "label": "Why Choose CNX",
             "href": "/about/why-choose-cnx"
           },
           "pvBessBrands": {
-            "label": "PV and BESS Brands",
+            "label": "PV & BESS Brands",
             "href": "/about/pv-bess-brands"
+          }
+        }
+      },
+      "manufacturing": {
+        "heading": "Manufacturing",
+        "links": {
+          "solarPanels": {
+            "label": "Solar Panels",
+            "href": "/manufacturing/solar-panels"
           },
-          "downloads": {
-            "label": "Downloads",
-            "href": "/service/downloads"
-          },
-          "newsroom": {
-            "label": "Newsroom",
-            "href": "/news"
+          "bess": {
+            "label": "BESS",
+            "href": "/manufacturing/bess"
           }
         }
       },
       "tier1Brands": {
-        "heading": "Tier 1 brands",
+        "heading": "Tier 1 Brands",
         "links": {
           "jaSolar": {
-            "label": "JA solar",
+            "label": "JA Solar",
             "href": "/tier-1-brands/ja-solar"
           },
           "tongwei": {
@@ -1235,10 +1240,14 @@
             "href": "/tier-1-brands/solis"
           },
           "goodwe": {
-            "label": "Goodwe",
+            "label": "GoodWe",
             "href": "/tier-1-brands/goodwe"
           }
         }
+      },
+      "solutions": {
+        "heading": "Solutions & Projects",
+        "links": {}
       },
       "services": {
         "heading": "Services",
@@ -1247,8 +1256,8 @@
             "label": "Downloads",
             "href": "/service/downloads"
           },
-          "globalDistributors": {
-            "label": "Global distributors",
+          "globalDistributor": {
+            "label": "Global Distributor",
             "href": "/service/global-distributor"
           },
           "warranty": {
@@ -1256,14 +1265,33 @@
             "href": "/service/warranty"
           },
           "stockProducts": {
-            "label": "Stock products with discount price",
+            "label": "Stock Products",
             "href": "/service/stock-products"
+          }
+        }
+      },
+      "newsRoom": {
+        "heading": "News Room",
+        "links": {
+          "news": {
+            "label": "News",
+            "href": "/news"
+          },
+          "reAnalysis": {
+            "label": "RE Analysis",
+            "href": "/news/re-analysis"
+          },
+          "knowledgeDatabase": {
+            "label": "Knowledge Database",
+            "href": "/news/knowledge-database"
+          },
+          "events": {
+            "label": "Events",
+            "href": "/news/events"
           }
         }
       }
     },
-    "manufacturingHeading": "Manufacturing",
-    "solutionsHeading": "Solutions",
     "contactInfo": "Contact info",
     "newsletterLabel": "Sign up for our newsletter",
     "emailLabel": "Email address",
@@ -1273,6 +1301,129 @@
     "newsletterInvalid": "Please enter a valid email address.",
     "newsletterFailed": "Something went wrong. Please try again.",
     "copyright": "Copyright © {year} {name}.",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "privacyLabel": "Privacy Policy",
+    "cookiesLabel": "Cookie Policy",
+    "termsLabel": "Terms of Use",
+    "cookieSettingsLabel": "Cookie settings",
+    "legalNavLabel": "Legal"
+  },
+  "legal": {
+    "privacy": {
+      "meta": {
+        "title": "Privacy Policy",
+        "description": "How CNX Energy collects, uses and protects personal data submitted through this website."
+      },
+      "eyebrow": "Legal",
+      "title": "Privacy Policy",
+      "updated": "Last updated: 13 October 2026",
+      "intro": "This policy explains what personal data Current Nexus Group Limited (“CNX”, “we”, “us”) collects through this website, why we collect it and the choices you have.",
+      "sections": {
+        "s1": {
+          "heading": "Who we are",
+          "body": "Current Nexus Group Limited operates this website and is the controller of the personal data described here. You can reach us at the email address shown in the website footer."
+        },
+        "s2": {
+          "heading": "Data we collect",
+          "body": "Information you send us through our forms: name, company, email, phone or WhatsApp number, country, project details and any files you upload.\nNewsletter sign-ups: your email address and language.\nTechnical data: IP address, browser type, device and the pages you visit, collected through strictly necessary cookies and, only with your consent, analytics cookies."
+        },
+        "s3": {
+          "heading": "How we use your data",
+          "body": "To answer inquiries and prepare quotations.\nTo handle warranty and after-sales requests.\nTo send newsletters you have signed up for — you can unsubscribe at any time.\nTo keep the website secure and understand how it is used, so we can improve it.\nTo meet legal and accounting obligations."
+        },
+        "s4": {
+          "heading": "Cookies",
+          "body": "We use strictly necessary cookies to run the website and remember your cookie choice. Analytics or marketing cookies are only used if you accept them in the cookie banner. See our Cookie Policy for details."
+        },
+        "s5": {
+          "heading": "Sharing your data",
+          "body": "We do not sell personal data. We share it only with service providers who help us run the website and our email (hosting, email delivery), with authorised CNX distributors when you ask for local support, and with authorities where the law requires it."
+        },
+        "s6": {
+          "heading": "International transfers",
+          "body": "CNX works with customers and partners worldwide, so your data may be processed outside your country. Where this happens we use appropriate safeguards to protect it."
+        },
+        "s7": {
+          "heading": "How long we keep data",
+          "body": "Inquiry and quotation data is kept for as long as needed to handle your request and our business relationship, and then for the period required by law. Newsletter data is kept until you unsubscribe."
+        },
+        "s8": {
+          "heading": "Your rights",
+          "body": "Depending on where you live, you may have the right to access, correct or delete your data, to object to or restrict its use, and to receive a copy of it. To use these rights, contact us by email. You may also complain to your local data protection authority."
+        },
+        "s9": {
+          "heading": "Changes to this policy",
+          "body": "We may update this policy from time to time. The date at the top of this page shows when it last changed."
+        }
+      }
+    },
+    "cookies": {
+      "meta": {
+        "title": "Cookie Policy",
+        "description": "Which cookies the CNX Energy website uses and how to change your cookie choice."
+      },
+      "eyebrow": "Legal",
+      "title": "Cookie Policy",
+      "updated": "Last updated: 13 October 2026",
+      "intro": "Cookies are small text files stored in your browser. This page explains which cookies this website uses and how you can control them.",
+      "sections": {
+        "s1": {
+          "heading": "Strictly necessary cookies",
+          "body": "These keep the website working — for example remembering your language and your cookie choice, and keeping the dashboard login secure. They cannot be switched off."
+        },
+        "s2": {
+          "heading": "Analytics cookies",
+          "body": "If you accept them, analytics cookies help us understand how visitors use the website (pages visited, time on page) so we can improve it. They are only set after you click “Accept all”."
+        },
+        "s3": {
+          "heading": "Marketing cookies",
+          "body": "We do not currently use marketing or advertising cookies. If this changes, we will update this policy and ask for your consent first."
+        },
+        "s4": {
+          "heading": "Changing your choice",
+          "body": "Use the “Cookie settings” link in the website footer to see the cookie banner again and change your choice. You can also delete cookies at any time in your browser settings."
+        }
+      }
+    },
+    "terms": {
+      "meta": {
+        "title": "Terms of Use",
+        "description": "Terms that apply to using the CNX Energy website."
+      },
+      "eyebrow": "Legal",
+      "title": "Terms of Use",
+      "updated": "Last updated: 13 October 2026",
+      "intro": "By using this website you agree to these terms. If you do not agree, please do not use the website.",
+      "sections": {
+        "s1": {
+          "heading": "Website content",
+          "body": "Product information, specifications and prices on this website are for general information. Final specifications, prices and terms are confirmed in a written quotation or contract."
+        },
+        "s2": {
+          "heading": "Intellectual property",
+          "body": "Text, images, logos and other content on this website belong to Current Nexus Group Limited or its partners. You may not copy or reuse them without permission, except for normal personal or business reference."
+        },
+        "s3": {
+          "heading": "Third-party brands and links",
+          "body": "Tier 1 brand names and logos belong to their owners. Links to other websites are provided for convenience; we are not responsible for their content."
+        },
+        "s4": {
+          "heading": "Liability",
+          "body": "We work to keep this website accurate and available but cannot guarantee it is free of errors or interruptions. To the extent allowed by law, we are not liable for losses arising from use of the website."
+        },
+        "s5": {
+          "heading": "Governing law",
+          "body": "These terms are governed by the laws of the Hong Kong Special Administrative Region."
+        }
+      }
+    }
+  },
+  "cookieConsent": {
+    "title": "We use cookies",
+    "message": "We use necessary cookies to run this website and, with your consent, analytics cookies to improve it.",
+    "policyLabel": "Cookie Policy",
+    "accept": "Accept all",
+    "reject": "Reject non-essential",
+    "dialogLabel": "Cookie consent"
   }
 }

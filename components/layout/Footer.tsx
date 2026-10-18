@@ -1,24 +1,32 @@
-import { MapPin, Mail, Phone } from "lucide-react";
+import { Globe, MapPin, Mail, Phone } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import Container from "@/components/layout/Container";
 import NewsletterForm from "@/components/layout/NewsletterForm";
-import { Facebook, Instagram, LinkedIn } from "@/components/icons/SocialIcons";
-import { siteConfig, socialLinks } from "@/site.config";
+import CookieSettingsButton from "@/components/layout/CookieSettingsButton";
+import { Facebook, Instagram, LinkedIn, XTwitter, YouTube } from "@/components/icons/SocialIcons";
+import { siteConfig } from "@/site.config";
 import { manufacturingEntryHref, solutionEntryHref } from "@/config/nav.config";
-import { entries, str } from "@/lib/page-content/read";
+import { isHiddenPath } from "@/config/page-visibility";
+import { bool, entries, str } from "@/lib/page-content/read";
 import type { SolutionMenuEntry } from "@/lib/solutions-projects/types";
 import type { ManufacturingMenuEntry } from "@/lib/manufacturing/types";
 
-const socialIcons = {
+const socialIcons: Record<string, ({ size }: { size?: number }) => React.ReactElement> = {
   facebook: Facebook,
   instagram: Instagram,
   linkedin: LinkedIn,
-} as const;
+  youtube: YouTube,
+  x: XTwitter,
+  twitter: XTwitter,
+};
 
 const LINK_CLASS =
   "text-p3 font-medium text-white transition-colors duration-150 hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary";
+
+const LEGAL_LINK_CLASS =
+  "text-p4 text-neutral-7 transition-colors duration-150 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary";
 
 type FooterLink = { label: string; href: string };
 type FooterColumn = { id: string; heading: string; links: FooterLink[] };
@@ -32,6 +40,8 @@ interface FooterProps {
   solutions: SolutionMenuEntry[];
   /** Published Manufacturing product pages — the same source as the mega menu. */
   manufacturing: ManufacturingMenuEntry[];
+  /** Paths switched off in Dashboard → Settings → Page visibility. */
+  hidden: ReadonlySet<string>;
 }
 
 /**
@@ -42,61 +52,48 @@ interface FooterProps {
  * columns list the published pages automatically, so they can never drift
  * from the real menu again (they used to repeat the brand list).
  */
-export default async function Footer({ solutions, manufacturing }: FooterProps) {
+export default async function Footer({ solutions, manufacturing, hidden }: FooterProps) {
   const [t, nav] = await Promise.all([getTranslations("footer"), getTranslations("nav")]);
   const year = new Date().getFullYear();
 
-  const editable = Object.fromEntries(
-    entries(t.raw("columns" as never)).map(([id, column]) => [
-      id,
-      {
-        id,
-        heading: str(column, "heading"),
-        links: entries(column.links)
-          .map(([, link]) => ({ label: str(link, "label"), href: str(link, "href") }))
-          .filter((link) => link.label && link.href),
-      } satisfies FooterColumn,
-    ])
-  ) as Record<string, FooterColumn | undefined>;
-
-  const manufacturingColumn: FooterColumn = {
-    id: "manufacturing",
-    heading: t("manufacturingHeading"),
-    links: [
-      { label: nav("solarPanels"), href: "/manufacturing/solar-panels" },
-      { label: nav("bess"), href: "/manufacturing/bess" },
-      ...manufacturing.map((entry) => ({
-        label: entry.menuLabel,
-        href: manufacturingEntryHref(entry.category, entry.slug),
-      })),
-    ],
-  };
-
-  const solutionsColumn: FooterColumn = {
-    id: "solutions",
-    heading: t("solutionsHeading"),
-    links: solutions.map((entry) => ({
+  // Columns are an editable list (Dashboard → Pages → Footer → Link columns),
+  // mirroring the main menu sections. The columns with ids "manufacturing" and
+  // "solutions" also list the published pages, so they never drift from the
+  // mega menu.
+  const autoLinks: Record<string, FooterLink[]> = {
+    manufacturing: manufacturing.map((entry) => ({
+      label: entry.menuLabel,
+      href: manufacturingEntryHref(entry.category, entry.slug),
+    })),
+    solutions: solutions.map((entry) => ({
       label: entry.menuLabel,
       href: solutionEntryHref(entry.menuGroup, entry.slug),
     })),
   };
 
-  const columns = [
-    editable.quickLinks,
-    manufacturingColumn,
-    editable.tier1Brands,
-    solutionsColumn,
-    editable.services,
-  ].filter((column): column is FooterColumn => Boolean(column && column.links.length > 0));
+  const columns = entries(t.raw("menu" as never))
+    .map(([id, column]) => {
+      const links = entries(column.links)
+        .map(([, link]) => ({ label: str(link, "label"), href: str(link, "href") }))
+        .filter((link) => link.label && link.href && !isHiddenPath(link.href, hidden));
+      const extra = (autoLinks[id] ?? []).filter((auto) => !links.some((link) => link.href === auto.href));
+      return { id, heading: str(column, "heading"), links: [...links, ...extra] } satisfies FooterColumn;
+    })
+    .filter((column) => column.links.length > 0);
 
   const contact = {
     location: t("contact.location"),
     email: t("contact.email"),
     phone: t("contact.phone"),
   };
-  const social = socialLinks
-    .map((link) => ({ ...link, href: t(`social.${link.icon}`) }))
-    .filter((link) => link.href);
+  const social = entries(t.raw("socialLinks" as never))
+    .filter(([, item]) => bool(item, "show") && str(item, "href"))
+    .map(([id, item]) => ({
+      id,
+      label: str(item, "label"),
+      href: str(item, "href"),
+      platform: str(item, "platform").toLowerCase(),
+    }));
 
   return (
     <footer
@@ -114,7 +111,10 @@ export default async function Footer({ solutions, manufacturing }: FooterProps) 
       <Container>
         <div className="relative z-10 flex w-full flex-col gap-120 xl:gap-172">
           <div className="flex w-full flex-col gap-48">
-            <div className="grid w-full grid-cols-2 gap-x-24 gap-y-40 sm:grid-cols-3 lg:grid-cols-5 lg:gap-32">
+            <div
+              className="footer-columns grid w-full grid-cols-2 gap-x-24 gap-y-40 sm:grid-cols-3 lg:gap-32"
+              style={{ "--footer-cols": columns.length } as React.CSSProperties}
+            >
               {columns.map((column) => (
                 <div key={column.id} className="flex min-w-0 flex-col gap-16">
                   <span className="text-p3 font-normal text-neutral-6">{column.heading}</span>
@@ -174,16 +174,32 @@ export default async function Footer({ solutions, manufacturing }: FooterProps) 
           </div>
 
           <div className="flex w-full flex-col items-start gap-16 md:flex-row md:items-center md:justify-between">
-            <span className="text-p4 text-neutral-7">
-              {t("copyright", { year, name: siteConfig.name })} {t("rights")}
-            </span>
+            <div className="flex flex-col gap-8 md:flex-row md:flex-wrap md:items-center md:gap-x-24">
+              <span className="text-p4 text-neutral-7">
+                {t("copyright", { year, name: siteConfig.name })} {t("rights")}
+              </span>
+              <nav aria-label={t("legalNavLabel")} className="flex flex-wrap items-center gap-x-16 gap-y-8">
+                {[
+                  { href: "/privacy-policy", label: t("privacyLabel") },
+                  { href: "/cookie-policy", label: t("cookiesLabel") },
+                  { href: "/terms", label: t("termsLabel") },
+                ]
+                  .filter((link) => !isHiddenPath(link.href, hidden))
+                  .map((link) => (
+                    <Link key={link.href} href={link.href} className={LEGAL_LINK_CLASS}>
+                      {link.label}
+                    </Link>
+                  ))}
+                <CookieSettingsButton label={t("cookieSettingsLabel")} className={LEGAL_LINK_CLASS} />
+              </nav>
+            </div>
             {social.length > 0 && (
               <div className="flex items-center gap-16">
                 {social.map((link, index) => {
-                  const Icon = socialIcons[link.icon];
+                  const Icon = socialIcons[link.platform] ?? Globe;
                   const external = isExternal(link.href);
                   return (
-                    <div key={link.label} className="flex items-center gap-16">
+                    <div key={link.id} className="flex items-center gap-16">
                       <a
                         href={link.href}
                         {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}

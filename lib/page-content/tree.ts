@@ -185,14 +185,14 @@ export function diffNode(base: MessageNode | undefined, edited: unknown, path = 
 
 export type FieldKind = "image" | "href" | "icon" | "boolean" | "number" | "longText" | "text";
 
-/** Footer social profiles — links like any other, but empty is allowed (it hides the link). */
-export const OPTIONAL_LINK_KEYS = new Set(["facebook", "instagram", "linkedin"]);
+/** Links that may be left empty (an empty one is simply not shown). */
+export const OPTIONAL_LINK_KEYS = new Set<string>();
 
 export function fieldKind(key: string, defaultValue: string): FieldKind {
   if (/^(image|logo|photo|avatar)$|(Image|Logo|Photo|Avatar)$/.test(key)) return "image";
   if (key === "href" || key.endsWith("Href") || OPTIONAL_LINK_KEYS.has(key)) return "href";
   if (key === "icon") return "icon";
-  if (key === "featured") return "boolean";
+  if (key === "featured" || key === "show") return "boolean";
   if (key === "number" || key === "width") return "number";
   if (defaultValue.length > 90 || defaultValue.includes("\n")) return "longText";
   return "text";

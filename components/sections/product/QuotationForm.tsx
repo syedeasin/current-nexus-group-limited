@@ -289,7 +289,7 @@ export default function QuotationForm({ data }: { data: QuotationFormSection }) 
                 />
                 <span>
                   I agree to the processing of my data in accordance with the{" "}
-                  <Link href="/privacy" className="font-medium text-neutral-1 underline underline-offset-2">
+                  <Link href="/privacy-policy" className="font-medium text-neutral-1 underline underline-offset-2">
                     privacy policy
                   </Link>
                   .

@@ -736,3 +736,41 @@ html.lenis body {
     transform: none;
   }
 }
+/* Dashboard tables (client revision 1008): on a long list the horizontal
+   scrollbar only appeared at the very bottom of the page, so editing the
+   first row meant scrolling down, sideways, then back up. The wrapper now
+   scrolls on its own inside the viewport (scrollbar always on screen), the
+   header row stays put, and the last column (row actions) is pinned right. */
+.dash-table-scroll {
+  overflow: auto;
+  max-height: calc(100dvh - 240px);
+  overscroll-behavior: contain;
+}
+
+.dash-table-scroll thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: var(--color-surface-2);
+}
+
+.dash-table-scroll thead th:last-child,
+.dash-table-scroll tbody td:last-child {
+  position: sticky;
+  right: 0;
+  background-color: var(--color-white);
+  box-shadow: -10px 0 12px -10px rgb(10 13 27 / 0.18);
+}
+
+.dash-table-scroll thead th:last-child {
+  z-index: 3;
+  background-color: var(--color-surface-2);
+}
+
+/* Footer link columns — the count is editable (Dashboard → Pages → Footer),
+   so the desktop grid sizes itself from --footer-cols. */
+@media (width >= 64rem) {
+  .footer-columns {
+    grid-template-columns: repeat(var(--footer-cols, 5), minmax(0, 1fr));
+  }
+}

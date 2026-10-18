@@ -4,6 +4,7 @@ import { routing } from "@/i18n/routing";
 import { siteConfig } from "@/site.config";
 import { manufacturingEntryHref, solutionEntryHref } from "@/config/nav.config";
 import { NEWS_SECTION_LIST } from "@/lib/news-sections";
+import { getHiddenPaths } from "@/lib/page-visibility";
 
 // Built per request so newly published posts and pages appear without a deploy.
 export const dynamic = "force-dynamic";
@@ -19,6 +20,9 @@ const STATIC_PATHS = [
   ...NEWS_SECTION_LIST.map((section) => section.path),
   "/service/downloads",
   "/contact",
+  "/privacy-policy",
+  "/cookie-policy",
+  "/terms",
 ];
 
 function entry(locale: string, path: string, lastModified?: Date): MetadataRoute.Sitemap[number] {
@@ -32,7 +36,9 @@ function entry(locale: string, path: string, lastModified?: Date): MetadataRoute
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const pages: MetadataRoute.Sitemap = routing.locales.flatMap((locale) => STATIC_PATHS.map((path) => entry(locale, path)));
+  const hidden = await getHiddenPaths();
+  const visiblePaths = STATIC_PATHS.filter((path) => !hidden.has(path || "/"));
+  const pages: MetadataRoute.Sitemap = routing.locales.flatMap((locale) => visiblePaths.map((path) => entry(locale, path)));
 
   try {
     const [posts, manufacturing, solutions] = await Promise.all([

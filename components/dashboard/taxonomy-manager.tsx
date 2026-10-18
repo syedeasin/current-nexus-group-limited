@@ -223,7 +223,7 @@ export default function TaxonomyManager({
       {items.length === 0 ? (
         <p className="px-32 py-56 text-center text-p3 font-light text-neutral-5">{emptyText}</p>
       ) : (
-        <div className="relative overflow-x-auto">
+        <div className="dash-table-scroll relative">
           <table className="w-full min-w-[760px] border-collapse">
             <thead>
               <tr className="border-b border-neutral-10 bg-surface-2">

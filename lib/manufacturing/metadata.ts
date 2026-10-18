@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/site.config";
 import type { PublishedManufacturingPage } from "@/lib/data/manufacturing-pages";
+import { pageTitle } from "@/lib/seo";
 
 /** Resolve a stored image path (or absolute URL) to an absolute URL for OG/Twitter tags and JSON-LD. Mirrors news/[slug]'s toAbsolute(). */
 export function toAbsolute(pathOrUrl: string): string {
@@ -44,7 +45,7 @@ export function buildManufacturingMetadata(
   const canonical = seo.canonicalUrl || url;
 
   return {
-    title: metaTitle,
+    title: pageTitle(metaTitle),
     description: metaDescription,
     keywords: seo.keywords || undefined,
     alternates: { canonical },

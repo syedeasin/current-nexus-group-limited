@@ -8,14 +8,17 @@ import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import ContactForm from "@/components/sections/contact/ContactForm";
+import { pageTitle } from "@/lib/seo";
+import { assertPageVisible } from "@/lib/page-visibility";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "contact.meta" });
-  return { title: t("title"), description: t("description") };
+  return { title: pageTitle(t("title")), description: t("description") };
 }
 
 export default async function ContactPage() {
+  await assertPageVisible("/contact");
   const [t, footer] = await Promise.all([getTranslations("contact"), getTranslations("footer")]);
 
   // Office, email and phone are the site-wide contact details edited in

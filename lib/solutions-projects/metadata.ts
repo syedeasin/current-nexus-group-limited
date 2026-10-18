@@ -3,6 +3,7 @@ import type { SolutionMenuGroup } from "@prisma/client";
 import { solutionEntryHref } from "@/config/nav.config";
 import { toAbsolute } from "@/lib/manufacturing/metadata";
 import type { PublishedSolutionPage } from "@/lib/data/solutions-projects";
+import { pageTitle } from "@/lib/seo";
 
 /** Metadata for a page that isn't published (draft, deleted, or wrong group). Explicitly noindex — mirrors lib/manufacturing/metadata.ts's NOT_FOUND_METADATA. */
 export const NOT_FOUND_METADATA: Metadata = {
@@ -34,7 +35,7 @@ export function buildSolutionMetadata(
   const canonical = seo.canonicalUrl || url;
 
   return {
-    title: metaTitle,
+    title: pageTitle(metaTitle),
     description: metaDescription,
     keywords: seo.keywords || undefined,
     alternates: { canonical },

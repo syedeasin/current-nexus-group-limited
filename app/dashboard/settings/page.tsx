@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CircleCheck, CircleAlert, Globe, KeyRound, Mail, Server, UserRound, type LucideIcon } from "lucide-react";
+import { CircleCheck, CircleAlert, Eye, Globe, KeyRound, Mail, Server, UserRound, type LucideIcon } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/auth";
 import { can } from "@/lib/permissions";
@@ -12,17 +12,20 @@ import { cardClass, cardTitleClass } from "@/components/dashboard/ui-classes";
 import ProfileForm from "./profile-form";
 import PasswordForm from "./password-form";
 import SiteSettingsForm from "./site-settings-form";
+import PageVisibilityForm from "./page-visibility-form";
+import { getHiddenPaths } from "@/lib/page-visibility";
 import ActionButton from "./action-button";
 import { refreshSiteCache, sendTestEmail, signOutOtherDevices } from "./actions";
 import { formatBytes, getSystemInfo } from "./system-info";
 import { formatDateTime, formatRelative } from "../users/user-status";
 
-type TabKey = "profile" | "security" | "website" | "email" | "system";
+type TabKey = "profile" | "security" | "website" | "pages" | "email" | "system";
 
 const TABS: { key: TabKey; label: string; icon: LucideIcon; admin: boolean; group: string }[] = [
   { key: "profile", label: "Profile", icon: UserRound, admin: false, group: "Your account" },
   { key: "security", label: "Password & security", icon: KeyRound, admin: false, group: "Your account" },
   { key: "website", label: "Website", icon: Globe, admin: true, group: "Site" },
+  { key: "pages", label: "Page visibility", icon: Eye, admin: true, group: "Site" },
   { key: "email", label: "Email delivery", icon: Mail, admin: true, group: "Site" },
   { key: "system", label: "System", icon: Server, admin: true, group: "Site" },
 ];
@@ -76,6 +79,7 @@ export default async function SettingsPage({ searchParams }: { searchParams: Pro
           {tab === "profile" && <ProfileTab userId={me.id} />}
           {tab === "security" && <SecurityTab userId={me.id} />}
           {tab === "website" && <WebsiteTab />}
+          {tab === "pages" && <PagesTab />}
           {tab === "email" && <EmailTab />}
           {tab === "system" && <SystemTab />}
         </div>
@@ -162,6 +166,11 @@ async function WebsiteTab() {
       </section>
     </>
   );
+}
+
+async function PagesTab() {
+  const hidden = await getHiddenPaths();
+  return <PageVisibilityForm hidden={[...hidden]} />;
 }
 
 function EmailTab() {

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import PageBanner from "@/components/sections/shared/PageBanner";
+import { pageTitle } from "@/lib/seo";
+import { assertPageVisible } from "@/lib/page-visibility";
 
 export async function generateMetadata({
   params,
@@ -11,12 +13,13 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "about.pvBessBrands.meta" });
 
   return {
-    title: t("title"),
+    title: pageTitle(t("title")),
     description: t("description"),
   };
 }
 
 export default async function PvBessBrandsPage() {
+  await assertPageVisible("/about/pv-bess-brands");
   const t = await getTranslations("about.pvBessBrands.banner");
 
   return (

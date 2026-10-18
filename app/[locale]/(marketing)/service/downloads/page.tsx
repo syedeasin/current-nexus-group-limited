@@ -13,12 +13,14 @@ import {
   type FilterGroupView,
 } from "@/lib/data/downloads";
 import { parseDownloadParams, type RawSearchParams } from "@/lib/downloads-params";
+import { pageTitle } from "@/lib/seo";
+import { assertPageVisible } from "@/lib/page-visibility";
 
 const BASE_PATH = "/service/downloads";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("service.downloads.meta");
-  return { title: t("title"), description: t("description") };
+  return { title: pageTitle(t("title")), description: t("description") };
 }
 
 /** next-intl's locale strings are lower case; Prisma's enum is upper. */
@@ -33,6 +35,7 @@ export default async function DownloadsPage({
   params: Promise<{ locale: string }>;
   searchParams: Promise<RawSearchParams>;
 }) {
+  await assertPageVisible("/service/downloads");
   const [{ locale }, rawSearchParams] = await Promise.all([params, searchParams]);
   const t = await getTranslations("service.downloads");
   const prismaLocale = toPrismaLocale(locale);

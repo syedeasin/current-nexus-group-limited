@@ -14,6 +14,8 @@ import { fieldErrorsOf, profileSchema } from "@/lib/validation/user";
 import { emailStatus, renderEmail, sendEmail } from "@/lib/email";
 import { getLinkBaseUrl, siteSettingsSchema, type SiteSettings } from "@/lib/site-settings";
 import { routing } from "@/i18n/routing";
+import { HIDDEN_PATHS_KEY, hiddenPathsSchema } from "@/lib/page-visibility";
+import { VISIBILITY_PAGES } from "@/config/page-visibility";
 
 export type FormResult = { ok: true; message?: string } | { ok: false; error: string; fieldErrors?: Record<string, string> };
 
@@ -163,6 +165,27 @@ export async function saveSiteSettings(formData: FormData): Promise<FormResult> 
   revalidatePath("/robots.txt");
   revalidatePublicSite();
   return { ok: true, message: "Website settings saved." };
+}
+
+/** Dashboard → Settings → Page visibility. Unticked pages are stored as hidden. */
+export async function savePageVisibility(formData: FormData): Promise<FormResult> {
+  const me = await requirePermission("settings.manage");
+
+  const visible = new Set(formData.getAll("visible").map(String));
+  const parsed = hiddenPathsSchema.safeParse(VISIBILITY_PAGES.map((page) => page.path).filter((path) => !visible.has(path)));
+  if (!parsed.success) return { ok: false, error: "Couldn't read the page list. Reload and try again." };
+
+  await prisma.siteSetting.upsert({
+    where: { key: HIDDEN_PATHS_KEY },
+    create: { key: HIDDEN_PATHS_KEY, value: parsed.data, updatedById: me.id },
+    update: { value: parsed.data, updatedById: me.id },
+  });
+
+  revalidatePath("/dashboard/settings");
+  revalidatePath("/sitemap.xml");
+  revalidatePublicSite();
+  const count = parsed.data.length;
+  return { ok: true, message: count ? `Saved. ${count} page${count === 1 ? " is" : "s are"} hidden from the website.` : "Saved. All pages are visible." };
 }
 
 export async function sendTestEmail(): Promise<FormResult> {

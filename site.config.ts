@@ -9,12 +9,18 @@ export const siteConfig = {
     email: "info@CurrentNexus.com",
     phone: "+1 (000) 000-0000",
   },
-  /** Defaults — overridable in Dashboard → Pages → Footer → Social links. Empty hides a link. */
-  social: {
-    facebook: "#",
-    instagram: "#",
-    linkedin: "#",
-  },
+  /**
+   * Default footer social profiles — Dashboard → Pages → Footer → Social links
+   * can add more (YouTube, X, WeChat…), reorder, or switch any off.
+   * `platform` picks the icon (facebook, instagram, linkedin, youtube, x; any
+   * other value shows a generic globe).
+   */
+  social: [
+    { id: "facebook", platform: "facebook", label: "Facebook", href: "#", show: true },
+    { id: "instagram", platform: "instagram", label: "Instagram", href: "#", show: true },
+    { id: "linkedin", platform: "linkedin", label: "LinkedIn", href: "#", show: true },
+    { id: "youtube", platform: "youtube", label: "YouTube", href: "", show: false },
+  ],
 } as const;
 
 export type SiteConfig = typeof siteConfig;
@@ -25,9 +31,3 @@ export type SiteConfig = typeof siteConfig;
 // and are edited in Dashboard → Pages → Footer. `contact` and `social` above
 // stay here as the site-level defaults; lib/page-content/messages.ts feeds
 // them into the same editable tree.
-
-export const socialLinks = [
-  { label: "Facebook", href: siteConfig.social.facebook, icon: "facebook" },
-  { label: "Instagram", href: siteConfig.social.instagram, icon: "instagram" },
-  { label: "LinkedIn", href: siteConfig.social.linkedin, icon: "linkedin" },
-] as const;

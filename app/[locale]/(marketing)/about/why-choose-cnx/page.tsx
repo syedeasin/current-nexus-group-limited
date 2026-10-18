@@ -7,6 +7,8 @@ import BeyondProducts from "@/components/sections/about/why-choose-cnx/BeyondPro
 import GlobalConfidence from "@/components/sections/about/why-choose-cnx/GlobalConfidence";
 import IndustryRecognition from "@/components/sections/about/why-choose-cnx/IndustryRecognition";
 import CaseStudy from "@/components/sections/about/why-choose-cnx/CaseStudy";
+import { pageTitle } from "@/lib/seo";
+import { assertPageVisible } from "@/lib/page-visibility";
 
 export async function generateMetadata({
   params,
@@ -17,12 +19,13 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "about.whyChooseCnx.meta" });
 
   return {
-    title: t("title"),
+    title: pageTitle(t("title")),
     description: t("description"),
   };
 }
 
 export default async function WhyChooseCnxPage() {
+  await assertPageVisible("/about/why-choose-cnx");
   const t = await getTranslations("about.whyChooseCnx.cta");
 
   return (

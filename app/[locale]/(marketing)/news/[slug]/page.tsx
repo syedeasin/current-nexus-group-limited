@@ -8,6 +8,7 @@ import { getAdjacentPosts, getAllSlugs, getPostBySlug } from "@/lib/data/news";
 import { postPublicUrl } from "@/lib/routes";
 import { sanitizePostHtml } from "@/lib/sanitize-html";
 import { siteConfig } from "@/site.config";
+import { pageTitle } from "@/lib/seo";
 
 /** Render posts published after build on demand instead of 404ing. */
 export const dynamicParams = true;
@@ -55,7 +56,7 @@ export async function generateMetadata({
     : undefined;
 
   return {
-    title,
+    title: pageTitle(title),
     description,
     alternates: { canonical },
     robots: post.noIndex ? { index: false, follow: false } : undefined,
