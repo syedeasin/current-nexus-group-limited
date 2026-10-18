@@ -200,14 +200,16 @@ export default function ProductDetailPage({ product }: { product: ProductDetail 
         />
       ) : null}
 
-      <FloatingActionBar
-        requestQuoteLabel="Request Quote"
-        requestQuoteHref="#quotation"
-        downloadLabel="Download Datasheet"
-        downloadHref={product.hero.primaryCta.href}
-        specialistLabel="Talk to ODM Specialist"
-        specialistHref={product.hero.secondaryCta.href}
-      />
+      {product.floatingBar?.hidden ? null : (
+        <FloatingActionBar
+          requestQuoteLabel={product.floatingBar?.requestQuoteLabel || "Request Quote"}
+          requestQuoteHref={product.floatingBar?.requestQuoteHref || "#quotation"}
+          downloadLabel={product.floatingBar?.downloadLabel || "Download Datasheet"}
+          downloadHref={product.floatingBar?.downloadHref || product.documentsCta?.buttonHref || product.hero.primaryCta.href}
+          specialistLabel={product.floatingBar?.specialistLabel || "Talk to ODM Specialist"}
+          specialistHref={product.floatingBar?.specialistHref || product.hero.secondaryCta.href}
+        />
+      )}
     </main>
   );
 }

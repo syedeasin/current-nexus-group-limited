@@ -34,6 +34,10 @@ export default function SmoothScrollProvider({ children }: { children: ReactNode
       easing: EXPO_OUT,
       smoothWheel: true,
       syncTouch: false,
+      // Same-page "#section" links (e.g. "Request Quote" → #quotation). Without
+      // this Lenis swallows the native hash jump and the click appears dead.
+      // Offset clears the sticky header.
+      anchors: { offset: -100 },
     });
 
     setLenis(lenis);

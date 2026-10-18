@@ -142,6 +142,13 @@ const documentsCta = z.object({
   heading: str(300), buttonLabel: str(120), buttonHref: str(400), backgroundImage: str(500), backgroundImageAlt: opt(300),
 }).optional();
 
+const floatingBar = z.object({
+  hidden: z.boolean().optional(),
+  requestQuoteLabel: opt(120), requestQuoteHref: opt(400),
+  downloadLabel: opt(120), downloadHref: opt(400),
+  specialistLabel: opt(120), specialistHref: opt(400),
+}).optional();
+
 export const manufacturingContentSchema = z.object({
   slug: str(200).default(""),
   category: str(80).default(""),
@@ -163,6 +170,7 @@ export const manufacturingContentSchema = z.object({
   faq,
   quotationForm,
   documentsCta,
+  floatingBar,
 });
 
 const seoSchema = z.object({

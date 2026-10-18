@@ -32,20 +32,23 @@ export default function ProductVariants({ data }: { data: ProductVariantsSection
               <Reveal
                 as="div"
                 delay={160 + index * CARD_STEP_MS}
-                className="flex flex-col overflow-hidden rounded-16 border border-neutral-10 bg-surface-2 lg:flex-row lg:items-center lg:justify-between lg:pr-60"
+                className="flex flex-col overflow-hidden rounded-16 border border-neutral-10 bg-surface-2 lg:flex-row lg:items-center lg:gap-48 lg:pr-48 xl:gap-60 xl:pr-60"
               >
-                <Reveal variant="scale" as="div" className="relative h-320 w-full shrink-0 md:h-420 lg:h-656 lg:w-576">
+                {/* Image and copy used fixed 576 + 624px widths, so below ~1300px the copy
+                    ran into the photo (client revision 1008). Image now scales down
+                    with the card and the copy takes the remaining width. */}
+                <Reveal variant="scale" as="div" className="relative h-320 w-full shrink-0 md:h-420 lg:h-656 lg:w-[45%] xl:w-576">
                   <Image
                     src={variant.image}
                     alt={variant.imageAlt ?? ""}
                     aria-hidden={variant.imageAlt ? undefined : "true"}
                     fill
-                    sizes="(min-width: 1024px) 576px, 100vw"
+                    sizes="(min-width: 1280px) 576px, (min-width: 1024px) 45vw, 100vw"
                     className="object-cover lg:rounded-l-16"
                   />
                 </Reveal>
 
-                <div className="flex w-full flex-col gap-32 p-24 md:p-32 lg:w-624 lg:gap-48 lg:p-0">
+                <div className="flex w-full min-w-0 flex-col gap-32 p-24 md:p-32 lg:max-w-624 lg:flex-1 lg:gap-48 lg:px-0 lg:py-48">
                   <div className="flex flex-col gap-16">
                     {/* Figma: Paragraph/Regular P4 (16/24), not P3. */}
                     <div className="flex items-center gap-8 text-p4 text-neutral-3">

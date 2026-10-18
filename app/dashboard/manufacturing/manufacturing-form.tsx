@@ -47,6 +47,7 @@ const SECTION_ORDER = [
   "faq",
   "relatedProducts",
   "documentsCta",
+  "floatingBar",
 ] as const;
 
 /** Which dotted field-error path prefixes belong to which section. */
@@ -63,6 +64,7 @@ const SECTION_ERROR_PREFIXES: Record<(typeof SECTION_ORDER)[number], string[]> =
   faq: ["content.faq"],
   relatedProducts: ["content.relatedProducts"],
   documentsCta: ["content.documentsCta"],
+  floatingBar: ["content.floatingBar"],
 };
 
 function makeClientSlug(input: string) {
@@ -235,6 +237,7 @@ export default function ManufacturingForm({ mode, page }: { mode: "create" | "ed
     faq: Boolean(C.faq && C.faq.items.length > 0),
     relatedProducts: Boolean(C.relatedProducts && C.relatedProducts.items.length > 0),
     documentsCta: Boolean(C.documentsCta && C.documentsCta.heading.trim() && C.documentsCta.buttonLabel.trim()),
+    floatingBar: true,
   };
 
   function submit(overrideStatus?: "DRAFT" | "PUBLISHED") {
@@ -507,6 +510,19 @@ export default function ManufacturingForm({ mode, page }: { mode: "create" | "ed
               <div className="mt-8"><Repeater items={C.faq.items} set={(v) => patch({ faq: { ...C.faq!, items: v } })} empty={{ id: "", question: "", answer: "" }} add="Add question"
                 render={(q, i, u) => (<><TextInput className="mb-8" placeholder="ID (e.g. q1)" value={q.id} onChange={(e) => u({ id: e.target.value })} /><TextInput className="mb-8" placeholder="Question" value={q.question} onChange={(e) => u({ question: e.target.value })} /><Textarea rows={3} placeholder="Answer" value={q.answer} onChange={(e) => u({ answer: e.target.value })} /></>)} /></div>
               <Field label="Default open question ID"><TextInput value={C.faq.defaultOpenId} onChange={(e) => patch({ faq: { ...C.faq!, defaultOpenId: e.target.value } })} /></Field>
+              <FieldLabel>Contact card (beside the questions)</FieldLabel>
+              <FieldHint>Leave name and message empty to hide the card.</FieldHint>
+              <Field label="Label above the card"><TextInput placeholder="Need to ask something else?" value={C.faq.needHelpLabel} onChange={(e) => patch({ faq: { ...C.faq!, needHelpLabel: e.target.value } })} /></Field>
+              <Field label="Photo"><ImageField label="Contact photo" url={C.faq.contact.avatarSrc} onChange={(u) => patch({ faq: { ...C.faq!, contact: { ...C.faq!.contact, avatarSrc: u } } })} onUploading={onUploading} /></Field>
+              <div className="grid gap-12 sm:grid-cols-2">
+                <Field label="Name"><TextInput value={C.faq.contact.name} onChange={(e) => patch({ faq: { ...C.faq!, contact: { ...C.faq!.contact, name: e.target.value } } })} /></Field>
+                <Field label="Role"><TextInput value={C.faq.contact.role} onChange={(e) => patch({ faq: { ...C.faq!, contact: { ...C.faq!.contact, role: e.target.value } } })} /></Field>
+              </div>
+              <Field label="Message"><Textarea rows={2} value={C.faq.contact.message} onChange={(e) => patch({ faq: { ...C.faq!, contact: { ...C.faq!.contact, message: e.target.value } } })} /></Field>
+              <div className="grid gap-12 sm:grid-cols-2">
+                <Field label="Button label"><TextInput value={C.faq.contact.ctaLabel} onChange={(e) => patch({ faq: { ...C.faq!, contact: { ...C.faq!.contact, ctaLabel: e.target.value } } })} /></Field>
+                <Field label="Button link"><TextInput placeholder="/contact" value={C.faq.contact.ctaHref} onChange={(e) => patch({ faq: { ...C.faq!, contact: { ...C.faq!.contact, ctaHref: e.target.value } } })} /></Field>
+              </div>
             </>)}
           </FormAccordion>
 
@@ -540,6 +556,20 @@ export default function ManufacturingForm({ mode, page }: { mode: "create" | "ed
                 <AltField url={C.documentsCta.backgroundImage} value={C.documentsCta.backgroundImageAlt ?? ""} onChange={(v) => patch({ documentsCta: { ...C.documentsCta!, backgroundImageAlt: v } })} />
               </Field>
             </>)}
+          </FormAccordion>
+
+          {/* Floating action bar */}
+          <FormAccordion id="floatingBar" step="13" title="Floating action bar" description="Sticky Request Quote / Download Datasheet / Specialist buttons"
+            open={accordion.open.has("floatingBar")} onToggle={() => accordion.toggle("floatingBar")} registerRef={accordion.registerRef}
+            hasError={erroredSections.has("floatingBar")} isComplete={sectionComplete.floatingBar}
+            headerExtra={<Toggle on={!C.floatingBar?.hidden} set={() => patch({ floatingBar: { ...C.floatingBar, hidden: !C.floatingBar?.hidden } })} />}>
+            <FieldHint>Blank fields use the defaults: Request Quote → the quotation form (#quotation), Download Datasheet → the Documents CTA link, Specialist → the hero secondary link. Links can be a page (/contact), a section (#quotation) or a file from Media.</FieldHint>
+            {([["requestQuote", "Request Quote"], ["download", "Download Datasheet"], ["specialist", "Talk to ODM Specialist"]] as const).map(([key, fallback]) => (
+              <div key={key} className="grid gap-12 sm:grid-cols-2">
+                <Field label={`${fallback} — label`}><TextInput placeholder={fallback} value={C.floatingBar?.[`${key}Label`] ?? ""} onChange={(e) => patch({ floatingBar: { ...C.floatingBar, [`${key}Label`]: e.target.value } })} /></Field>
+                <Field label={`${fallback} — link`}><TextInput value={C.floatingBar?.[`${key}Href`] ?? ""} onChange={(e) => patch({ floatingBar: { ...C.floatingBar, [`${key}Href`]: e.target.value } })} /></Field>
+              </div>
+            ))}
           </FormAccordion>
 
           <p className="text-p4 font-light text-neutral-5">

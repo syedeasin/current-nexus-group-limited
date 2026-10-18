@@ -15,6 +15,9 @@ const ACCORDION_STEP_MS = 80;
 const ACCORDION_STAGGER_CAP_MS = 400;
 
 export default function FaqSection({ data }: { data: FaqSectionData }) {
+  // The contact card is optional in the dashboard — an unfilled one rendered as
+  // an empty grey box with a lone arrow button (client revision 1008).
+  const hasContact = Boolean(data.contact?.name?.trim() || data.contact?.message?.trim());
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -56,25 +59,27 @@ export default function FaqSection({ data }: { data: FaqSectionData }) {
             />
           </div>
 
-          <div className="faq-contact-area flex w-full max-w-400 flex-col items-start gap-14">
-            {/* Figma node 114:99410: "Need to ask something else?" above the card — was
-                missing entirely (the homepage's Faq.tsx already renders its equivalent). */}
-            <Reveal as="div" delay={CONTACT_DELAY_MS}>
-              <Text size="p3" className="text-neutral-3">
-                {data.needHelpLabel}
-              </Text>
-            </Reveal>
-            <Reveal as="div" delay={CONTACT_DELAY_MS} className="w-full">
-              <ContactCard
-                avatarSrc={data.contact.avatarSrc}
-                name={data.contact.name}
-                role={data.contact.role}
-                message={data.contact.message}
-                ctaLabel={data.contact.ctaLabel}
-                ctaHref={data.contact.ctaHref}
-              />
-            </Reveal>
-          </div>
+          {hasContact ? (
+            <div className="faq-contact-area flex w-full max-w-400 flex-col items-start gap-14">
+              {/* Figma node 114:99410: "Need to ask something else?" above the card — was
+                  missing entirely (the homepage's Faq.tsx already renders its equivalent). */}
+              <Reveal as="div" delay={CONTACT_DELAY_MS}>
+                <Text size="p3" className="text-neutral-3">
+                  {data.needHelpLabel}
+                </Text>
+              </Reveal>
+              <Reveal as="div" delay={CONTACT_DELAY_MS} className="w-full">
+                <ContactCard
+                  avatarSrc={data.contact.avatarSrc}
+                  name={data.contact.name}
+                  role={data.contact.role}
+                  message={data.contact.message}
+                  ctaLabel={data.contact.ctaLabel}
+                  ctaHref={data.contact.ctaHref}
+                />
+              </Reveal>
+            </div>
+          ) : null}
         </div>
       </Container>
     </section>

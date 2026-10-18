@@ -292,6 +292,17 @@ export interface DocumentsCtaSection {
   backgroundImageAlt?: string;
 }
 
+/** Sticky "Request Quote / Download Datasheet / Talk to ODM Specialist" bar. Every field optional — blanks fall back to the page's own quotation form, documents CTA and hero secondary link. */
+export interface FloatingBarSection {
+  hidden?: boolean;
+  requestQuoteLabel?: string;
+  requestQuoteHref?: string;
+  downloadLabel?: string;
+  downloadHref?: string;
+  specialistLabel?: string;
+  specialistHref?: string;
+}
+
 export interface ProductDetail {
   slug: string;
   category: string;
@@ -313,4 +324,5 @@ export interface ProductDetail {
   faq?: FaqSection;
   quotationForm?: QuotationFormSection;
   documentsCta?: DocumentsCtaSection;
+  floatingBar?: FloatingBarSection;
 }
