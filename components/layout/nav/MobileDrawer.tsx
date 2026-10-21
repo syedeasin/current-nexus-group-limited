@@ -253,6 +253,9 @@ export default function MobileDrawer({ items, isOpen, onClose, triggerRef }: Mob
                                 {item.panel.items.map((link) => (
                                     <DrawerLink key={link.href} link={link} pathname={pathname} onClose={close} />
                                 ))}
+                                {item.panel.kind === "brands" && item.panel.viewAll ? (
+                                    <DrawerLink link={item.panel.viewAll} pathname={pathname} onClose={close} />
+                                ) : null}
                               </div>
                           )}
                         </div>

@@ -42,6 +42,7 @@ export const NAV_ENTRIES: NavEntry[] = [
   { label: "Downloads", href: "/dashboard/downloads", icon: "Download", permission: "download.manage" },
   { label: "Manufacturing", href: "/dashboard/manufacturing", icon: "Factory", permission: "manufacturingPage.manage" },
   { label: "Solutions & Projects", href: "/dashboard/solutions-projects", icon: "LayoutTemplate", permission: "solutionsPage.manage" },
+  { label: "Tier 1 Brands", href: "/dashboard/brands", icon: "Award", permission: "brandPage.manage" },
   { label: "Users", href: "/dashboard/users", icon: "Users", permission: "user.manage" },
   // Everyone has a profile and password to manage; the site-wide tabs inside
   // are limited to settings.manage (app/dashboard/settings/page.tsx).

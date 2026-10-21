@@ -187,7 +187,7 @@
       "heading": "Premium Energy Solutions from Global Manufacturers",
       "railAriaLabel": "Brand categories",
       "viewAll": "View All",
-      "viewAllHref": "/about/pv-bess-brands",
+      "viewAllHref": "/tier-1-brands",
       "brands": {
         "jaSolar": {
           "label": "JA Solar",
@@ -577,7 +577,8 @@
     "globalDistributor": "Global Distributor",
     "warranty": "Warranty",
     "stockProducts": "Stock Products with Discount Price",
-    "language": "Language"
+    "language": "Language",
+    "allBrands": "Voir toutes les marques"
   },
   "manufacturing": {
     "solarPanels": {
@@ -1219,8 +1220,12 @@
         "tooLong": "This is too long — please shorten it.",
         "consent": "Veuillez confirmer que nous pouvons vous répondre.",
         "tooMany": "Trop de messages depuis votre connexion. Veuillez réessayer dans quelques minutes.",
-        "generic": "Votre message n'a pas pu être envoyé. Veuillez réessayer ou nous écrire directement."
-      }
+        "generic": "Votre message n'a pas pu être envoyé. Veuillez réessayer ou nous écrire directement.",
+        "date": "Veuillez saisir une date valide.",
+        "fileType": "Veuillez joindre un fichier PDF, Word, Excel, PowerPoint ou une image.",
+        "fileSize": "Le fichier est trop volumineux — la limite est de 10 Mo."
+      },
+      "fileHint": "PDF, Word, Excel, PowerPoint ou image, 10 Mo maximum."
     }
   },
   "footer": {
@@ -1258,33 +1263,9 @@
       "tier1Brands": {
         "heading": "Tier 1 Brands",
         "links": {
-          "jaSolar": {
-            "label": "JA Solar",
-            "href": "/tier-1-brands/ja-solar"
-          },
-          "tongwei": {
-            "label": "TONGWEI",
-            "href": "/tier-1-brands/tongwei"
-          },
-          "hithium": {
-            "label": "Hithium",
-            "href": "/tier-1-brands/hithium"
-          },
-          "growatt": {
-            "label": "Growatt",
-            "href": "/tier-1-brands/growatt"
-          },
-          "deye": {
-            "label": "DEYE",
-            "href": "/tier-1-brands/deye"
-          },
-          "solis": {
-            "label": "Solis",
-            "href": "/tier-1-brands/solis"
-          },
-          "goodwe": {
-            "label": "GoodWe",
-            "href": "/tier-1-brands/goodwe"
+          "allBrands": {
+            "label": "Toutes les marques Tier 1",
+            "href": "/tier-1-brands"
           }
         }
       },
@@ -1468,5 +1449,185 @@
     "accept": "Accept all",
     "reject": "Reject non-essential",
     "dialogLabel": "Cookie consent"
+  },
+  "tier1Brands": {
+    "meta": {
+      "title": "Marques PV et BESS Tier 1",
+      "description": "Achetez les modules et BESS CNX avec les marques Tier 1 JA Solar, Tongwei, Hithium, Growatt, Deye, Solis et GoodWe : un devis, un plan de livraison, un partenaire."
+    },
+    "hero": {
+      "eyebrow": "Marques PV et BESS",
+      "heading": "Les marques PV et BESS Tier 1, un partenaire de confiance",
+      "description": "Approvisionnez-vous en modules, onduleurs et stockage auprès des grandes marques Tier 1 et des produits fabriqués par CNX, réunis dans un seul devis et un seul plan de livraison.",
+      "primaryCta": {
+        "label": "Demander un devis multi-marques",
+        "href": "/contact"
+      },
+      "secondaryCta": {
+        "label": "Voir les marques",
+        "href": "#brands"
+      },
+      "image": "/images/about/whyChooseCNX/whyChooseCNXHeroBanner.webp"
+    },
+    "mix": {
+      "eyebrow": "Pourquoi notre offre multi-marques",
+      "heading": "Un approvisionnement hybride, un seul interlocuteur",
+      "items": {
+        "hybrid": {
+          "icon": "blend",
+          "title": "Approvisionnement hybride",
+          "body": "Associez des produits de marques Tier 1 aux modules et BESS CNX dans un seul devis, en équilibrant prix, performance et délai pour chaque projet."
+        },
+        "oneStop": {
+          "icon": "truck",
+          "title": "Guichet unique",
+          "body": "Modules, onduleurs et stockage de différentes marques coordonnés en une commande, un plan d'expédition et un jeu de documents."
+        },
+        "bankability": {
+          "icon": "shield-check",
+          "title": "Marques bancables",
+          "body": "Des fabricants reconnus par les prêteurs, les EPC et les développeurs de projets."
+        },
+        "compatibility": {
+          "icon": "settings",
+          "title": "Compatibilité vérifiée",
+          "body": "Notre équipe technique examine avec vous la compatibilité modules, onduleurs et batteries avant la confirmation de la commande."
+        }
+      }
+    },
+    "portfolio": {
+      "eyebrow": "Notre portefeuille de marques",
+      "heading": "Parcourir les marques par catégorie",
+      "intro": "Chaque page de marque présente les produits disponibles via CNX, leurs paramètres clés et les documents que vous pouvez demander.",
+      "viewBrandLabel": "Voir la marque",
+      "partnerTag": "Partenaire Tier 1",
+      "ownTag": "Notre marque",
+      "ownName": "CNX",
+      "ownModulesSummary": "Modules HJT, TOPCon et BC, et ODM, issus de nos usines",
+      "ownModulesHref": "/manufacturing/solar-panels",
+      "ownBessSummary": "Stockage résidentiel, 112, 261 et 488 kWh",
+      "ownBessHref": "/manufacturing/bess",
+      "emptyLabel": "Les pages de marques sont en préparation. Contactez-nous pour la liste complète."
+    },
+    "comparison": {
+      "eyebrow": "En bref",
+      "heading": "Quelle marque pour quel projet ?",
+      "brandLabel": "Marque",
+      "categoryLabel": "Catégorie",
+      "productsLabel": "Produits clés",
+      "bestForLabel": "Idéal pour",
+      "rows": {
+        "cnx": {
+          "brand": "CNX",
+          "category": "Modules + BESS",
+          "products": "Modules HJT, TOPCon, BC et ODM ; BESS du résidentiel à 488 kWh",
+          "bestFor": "Marque blanche, revamping, offres PV + BESS"
+        },
+        "jaSolar": {
+          "brand": "JA Solar",
+          "category": "Modules",
+          "products": "Modules bifaciaux de type n",
+          "bestFor": "Centrales et C&I"
+        },
+        "tongwei": {
+          "brand": "Tongwei",
+          "category": "Modules",
+          "products": "Modules de type n à haut rendement",
+          "bestFor": "Centrales et C&I"
+        },
+        "hithium": {
+          "brand": "Hithium",
+          "category": "BESS",
+          "products": "Cellules LFP et systèmes de stockage",
+          "bestFor": "Stockage C&I et réseau"
+        },
+        "inverters": {
+          "brand": "Growatt · Deye · Solis · GoodWe",
+          "category": "Onduleurs",
+          "products": "Onduleurs string, hybrides et de stockage",
+          "bestFor": "Du résidentiel au C&I"
+        }
+      }
+    },
+    "partnership": {
+      "eyebrow": "Partenariats mondiaux",
+      "heading": "Des partenariats de marques jusqu'à votre marché",
+      "body": "Nous coordonnons l'approvisionnement de nos marques partenaires et de nos usines pour des projets et des distributeurs sur de nombreux marchés, avec une seule équipe pour la documentation export et la livraison.",
+      "image": "/images/about/whyChooseCNX/globe.webp",
+      "stats": {
+        "brands": {
+          "value": "7+",
+          "label": "Marques partenaires Tier 1"
+        },
+        "countries": {
+          "value": "20+",
+          "label": "Pays desservis"
+        },
+        "factories": {
+          "value": "06",
+          "label": "Sites de production CNX"
+        }
+      }
+    },
+    "products": {
+      "eyebrow": "Produits",
+      "heading": "Produits phares de nos marques",
+      "railAriaLabel": "Marques",
+      "viewAll": "Voir la page de la marque"
+    },
+    "news": {
+      "eyebrow": "Actualités des marques",
+      "heading": "Actualités de nos marques et marchés",
+      "viewAll": "Toutes les actualités"
+    },
+    "manufacturing": {
+      "eyebrow": "Fabriqué par CNX",
+      "heading": "Besoin d'une marque blanche ? Nous fabriquons aussi.",
+      "body": "Modules HJT, TOPCon et BC et stockage par batterie issus de nos usines, avec des options ODM pour votre marque.",
+      "ctaLabel": "Découvrir la fabrication",
+      "ctaHref": "/manufacturing/solar-panels",
+      "image": "/images/manufacturing/bc-solar/Manufacturing-excellence.webp"
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "heading": "Travailler avec plusieurs marques",
+      "items": {
+        "combine": {
+          "question": "Puis-je combiner des produits de plusieurs marques dans une commande ?",
+          "answer": "Oui. CNX peut regrouper modules, onduleurs et stockage de différentes marques dans un seul devis et un seul plan de livraison."
+        },
+        "warranty": {
+          "question": "Quelle garantie s'applique aux produits des marques Tier 1 ?",
+          "answer": "Les conditions de garantie du fabricant pour le modèle choisi s'appliquent. Nous fournissons les documents de garantie avec le devis."
+        },
+        "compatibility": {
+          "question": "Pouvez-vous vérifier la compatibilité entre onduleurs et batteries ?",
+          "answer": "Oui. Indiquez-nous l'équipement prévu et notre équipe technique examinera avec vous les interfaces et exigences de fonctionnement avant la commande."
+        },
+        "stock": {
+          "question": "Avez-vous du stock ?",
+          "answer": "La disponibilité dépend du modèle et du marché. Le stock ou le délai de production est confirmé dans chaque devis."
+        }
+      }
+    },
+    "cta": {
+      "heading": "Construisez votre système multi-marques",
+      "subtext": "Envoyez votre nomenclature ou la taille du projet : nous vous renvoyons un devis consolidé.",
+      "primaryCta": {
+        "label": "Demander un devis",
+        "href": "/contact"
+      },
+      "secondaryCta": {
+        "label": "Voir les téléchargements",
+        "href": "/service/downloads"
+      },
+      "image": "/images/home/CTABackground.webp"
+    },
+    "brandPage": {
+      "breadcrumbHome": "Accueil",
+      "breadcrumbBrands": "Marques Tier 1",
+      "productsTabsLabel": "Catégories de produits",
+      "specsDialogLabel": "Caractéristiques"
+    }
   }
 }

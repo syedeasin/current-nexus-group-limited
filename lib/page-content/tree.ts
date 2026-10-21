@@ -94,7 +94,10 @@ export function mergeNode(base: MessageNode | undefined, override: unknown, path
     for (const [id, item] of items) {
       if (!ITEM_ID_PATTERN.test(id)) continue;
       const itemBase = isTree(base) && id in base ? base[id] : template;
-      const merged = mergeNode(itemBase, item, joinPath(path, id));
+      // A list nested in a newly added item (a product's parameters, a new
+      // homepage brand's products) has no default item to take its shape
+      // from — blankLike starts it empty — so keep its plain strings as stored.
+      const merged = itemBase === undefined ? plainTree(item) : mergeNode(itemBase, item, joinPath(path, id));
       if (merged !== undefined) out[id] = merged;
     }
     return out;
@@ -129,6 +132,20 @@ function collectionEntries(value: unknown): [string, unknown][] | null {
     );
   }
   return isTree(value) ? Object.entries(value) : null;
+}
+
+/** Strings and nested objects only (stored pairs read back as objects), a few levels deep. */
+function plainTree(value: unknown, depth = 0): MessageNode | undefined {
+  if (typeof value === "string") return value;
+  if (depth > 4) return undefined;
+  const pairs = Array.isArray(value) ? collectionEntries(value) : isTree(value) ? Object.entries(value) : null;
+  if (!pairs) return undefined;
+  const out: MessageTree = {};
+  for (const [key, child] of pairs) {
+    const node = plainTree(child, depth + 1);
+    if (node !== undefined) out[key] = node;
+  }
+  return out;
 }
 
 /** Convert a diff tree for writing to `jsonb`: every collection becomes ordered `[id, item]` pairs. */
@@ -195,21 +212,41 @@ export const CHOICE_FIELDS: Record<string, readonly { value: string; label: stri
     { value: "number", label: "Number" },
     { value: "textarea", label: "Long text" },
     { value: "select", label: "Dropdown" },
+    { value: "date", label: "Date" },
+    { value: "file", label: "File upload (PDF, Excel, Word or image)" },
+  ],
+  /** Tier 1 brand page settings (Dashboard → Tier 1 Brands). */
+  brandCategory: [
+    { value: "MODULES", label: "Solar modules" },
+    { value: "INVERTERS", label: "Inverters" },
+    { value: "BESS", label: "Battery storage (BESS)" },
+    { value: "MIXED", label: "Inverters & storage" },
+  ],
+  publishStatus: [
+    { value: "DRAFT", label: "Draft (not on the website)" },
+    { value: "PUBLISHED", label: "Published" },
   ],
 };
 
 /** Links that may be left empty (an empty one is simply not shown). */
-export const OPTIONAL_LINK_KEYS = new Set<string>();
+export const OPTIONAL_LINK_KEYS = new Set<string>(["linkHref", "datasheetHref", "specsHref", "caseHref"]);
+
+/**
+ * Text that may be left empty even when the default has some — the page then
+ * leaves it out. Brand-page keys only, so no existing page loses a required field.
+ */
+export const OPTIONAL_TEXT_KEYS = new Set<string>(["linkLabel", "results", "summary", "placeholder"]);
 
 export function fieldKind(key: string, defaultValue: string): FieldKind {
   if (key in CHOICE_FIELDS) return "choice";
   if (key === "required" || key === "fullWidth" || key === "hidden") return "boolean";
+  if (key === "hideSection" || key === "showInMenu") return "boolean";
   if (key === "options") return "longText";
   if (/^(image|logo|photo|avatar)$|(Image|Logo|Photo|Avatar)$/.test(key)) return "image";
   if (key === "href" || key.endsWith("Href") || OPTIONAL_LINK_KEYS.has(key)) return "href";
   if (key === "icon") return "icon";
   if (key === "featured" || key === "show") return "boolean";
-  if (key === "number" || key === "width") return "number";
+  if (key === "number" || key === "width" || key === "menuOrder") return "number";
   if (defaultValue.length > 90 || defaultValue.includes("\n")) return "longText";
   return "text";
 }

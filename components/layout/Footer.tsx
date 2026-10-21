@@ -7,7 +7,7 @@ import NewsletterForm from "@/components/layout/NewsletterForm";
 import CookieSettingsButton from "@/components/layout/CookieSettingsButton";
 import { Facebook, Instagram, LinkedIn, XTwitter, YouTube } from "@/components/icons/SocialIcons";
 import { siteConfig } from "@/site.config";
-import { manufacturingEntryHref, solutionEntryHref } from "@/config/nav.config";
+import { brandEntryHref, manufacturingEntryHref, solutionEntryHref, type BrandMenuEntry } from "@/config/nav.config";
 import { isHiddenPath } from "@/config/page-visibility";
 import { bool, entries, str } from "@/lib/page-content/read";
 import type { SolutionMenuEntry } from "@/lib/solutions-projects/types";
@@ -40,6 +40,8 @@ interface FooterProps {
   solutions: SolutionMenuEntry[];
   /** Published Manufacturing product pages — the same source as the mega menu. */
   manufacturing: ManufacturingMenuEntry[];
+  /** Published Tier 1 brand pages shown in the menu — the same source as the mega menu. */
+  brands: BrandMenuEntry[];
   /** Paths switched off in Dashboard → Settings → Page visibility. */
   hidden: ReadonlySet<string>;
 }
@@ -52,7 +54,7 @@ interface FooterProps {
  * columns list the published pages automatically, so they can never drift
  * from the real menu again (they used to repeat the brand list).
  */
-export default async function Footer({ solutions, manufacturing, hidden }: FooterProps) {
+export default async function Footer({ solutions, manufacturing, brands, hidden }: FooterProps) {
   const [t, nav] = await Promise.all([getTranslations("footer"), getTranslations("nav")]);
   const year = new Date().getFullYear();
 
@@ -65,6 +67,7 @@ export default async function Footer({ solutions, manufacturing, hidden }: Foote
       label: entry.menuLabel,
       href: manufacturingEntryHref(entry.category, entry.slug),
     })),
+    tier1Brands: brands.map((brand) => ({ label: brand.name, href: brandEntryHref(brand.slug) })),
     solutions: solutions.map((entry) => ({
       label: entry.menuLabel,
       href: solutionEntryHref(entry.menuGroup, entry.slug),

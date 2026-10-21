@@ -1,95 +1,12 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { CheckCircle2 } from "lucide-react";
 import { usePathname } from "@/i18n/navigation";
 import { submitContact, type ContactErrorKey, type ContactFieldError } from "@/lib/inquiries/actions";
-import { FIELD_MAX_LENGTH, readContactFields, type ContactField } from "@/lib/inquiries/form-fields";
-
-/** Browser autofill hints for the built-in fields. */
-const AUTOCOMPLETE: Record<string, string> = {
-  name: "name",
-  email: "email",
-  company: "organization",
-  phone: "tel",
-};
-
-function FieldControl({ field, describedBy, invalid }: { field: ContactField; describedBy?: string; invalid: boolean }) {
-  const common = {
-    id: `contact-${field.id}`,
-    name: field.id,
-    required: field.required,
-    maxLength: FIELD_MAX_LENGTH[field.type],
-    "aria-invalid": invalid || undefined,
-    "aria-describedby": describedBy,
-  };
-  if (field.type === "textarea") {
-    return <textarea {...common} rows={6} placeholder={field.placeholder || undefined} className={`${INPUT_CLASS} resize-y`} />;
-  }
-  if (field.type === "select") {
-    return (
-      <select {...common} defaultValue="" className={INPUT_CLASS}>
-        <option value="" disabled={field.required}>
-          {field.placeholder || "—"}
-        </option>
-        {field.options.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-    );
-  }
-  return (
-    <input
-      {...common}
-      type={field.type === "number" ? "text" : field.type}
-      inputMode={field.type === "number" ? "decimal" : undefined}
-      autoComplete={AUTOCOMPLETE[field.id]}
-      placeholder={field.placeholder || undefined}
-      className={INPUT_CLASS}
-    />
-  );
-}
-
-const INPUT_CLASS =
-  "w-full rounded-12 border border-neutral-10 bg-white px-16 py-14 text-p3 text-neutral-1 outline-none transition-colors duration-200 placeholder:text-neutral-7 focus:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary aria-[invalid=true]:border-error";
-
-function Field({
-  id,
-  label,
-  required,
-  error,
-  children,
-  className = "",
-}: {
-  id: string;
-  label: string;
-  required?: boolean;
-  error?: string;
-  children: ReactNode;
-  className?: string;
-}) {
-  return (
-    <div className={className}>
-      <label htmlFor={id} className="mb-8 block text-p4 font-medium text-neutral-3">
-        {label}
-        {required && (
-          <span aria-hidden="true" className="ml-4 text-error">
-            *
-          </span>
-        )}
-      </label>
-      {children}
-      {error && (
-        <p id={`${id}-error`} className="mt-6 text-p4 text-error">
-          {error}
-        </p>
-      )}
-    </div>
-  );
-}
+import { readContactFields } from "@/lib/inquiries/form-fields";
+import { Field, FieldControl } from "@/components/sections/contact/FormFields";
 
 export default function ContactForm() {
   const t = useTranslations("contact.form");
@@ -179,10 +96,16 @@ export default function ContactForm() {
             id={`contact-${field.id}`}
             label={field.label}
             required={field.required}
+            hint={field.type === "file" ? t("fileHint") : undefined}
             error={err(field.id)}
             className={field.fullWidth ? "md:col-span-2" : ""}
           >
-            <FieldControl field={field} invalid={Boolean(err(field.id))} describedBy={err(field.id) ? `contact-${field.id}-error` : undefined} />
+            <FieldControl
+              field={field}
+              idPrefix="contact"
+              invalid={Boolean(err(field.id))}
+              describedBy={err(field.id) ? `contact-${field.id}-error` : undefined}
+            />
           </Field>
         ))}
       </div>

@@ -14,9 +14,14 @@ import { postDateLabel } from "@/lib/formatDate";
 
 const LATEST_COUNT = 6;
 
-export default async function LatestNews() {
+/**
+ * Latest published posts. Other pages reuse it with their own copy (the Tier 1
+ * Brands page's "Brand news & updates") by passing `namespace`, a message
+ * subtree with the same eyebrow / heading / viewAll keys.
+ */
+export default async function LatestNews({ namespace = "home.latestNews" }: { namespace?: string } = {}) {
   const [t, tn, locale] = await Promise.all([
-    getTranslations("home.latestNews"),
+    getTranslations(namespace as "home.latestNews"),
     getTranslations("news"),
     getLocale(),
   ]);

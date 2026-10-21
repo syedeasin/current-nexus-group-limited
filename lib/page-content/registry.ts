@@ -43,6 +43,22 @@ export const COLLECTION_PATTERNS: CollectionDef[] = [
   { pattern: "footer.socialLinks", itemLabel: "Social link", titleKey: "label" },
   { pattern: "legal.*.sections", itemLabel: "Section", titleKey: "heading", minItems: 1 },
   { pattern: "contact.form.fields", itemLabel: "Field", titleKey: "label", minItems: 1 },
+  // Tier 1 brand pages (Dashboard → Tier 1 Brands; defaults in lib/brands/template.ts).
+  { pattern: "brand.products.items", itemLabel: "Product", titleKey: "series" },
+  { pattern: "brand.products.items.*.specs", itemLabel: "Parameter", titleKey: "label" },
+  { pattern: "brand.advantages.items", itemLabel: "Advantage", titleKey: "title" },
+  { pattern: "brand.buyers.items", itemLabel: "Item", titleKey: "title" },
+  { pattern: "brand.documents.items", itemLabel: "Document type", titleKey: "title" },
+  { pattern: "brand.applications.items", itemLabel: "Scenario", titleKey: "title" },
+  { pattern: "brand.cases.items", itemLabel: "Case study", titleKey: "title" },
+  { pattern: "brand.procurement.steps", itemLabel: "Step", titleKey: "title" },
+  { pattern: "brand.faq.items", itemLabel: "Question", titleKey: "question" },
+  { pattern: "brand.inquiry.fields", itemLabel: "Field", titleKey: "label", minItems: 1 },
+  // Tier 1 brands collection page (/tier-1-brands).
+  { pattern: "tier1Brands.mix.items", itemLabel: "Reason", titleKey: "title" },
+  { pattern: "tier1Brands.comparison.rows", itemLabel: "Row", titleKey: "brand" },
+  { pattern: "tier1Brands.partnership.stats", itemLabel: "Stat", titleKey: "label" },
+  { pattern: "tier1Brands.faq.items", itemLabel: "Question", titleKey: "question" },
 ];
 
 export interface PageSectionDef {
@@ -130,8 +146,30 @@ export const PAGES: PageDef[] = [
     label: "PV & BESS Brands",
     group: "About Us",
     href: "/about/pv-bess-brands",
-    description: "About Us → PV & BESS Brands.",
+    description: "About Us → PV & BESS Brands. When this page is switched on it forwards to the Tier 1 Brands page.",
     sections: [SEO("about.pvBessBrands.meta"), { id: "banner", label: "Banner", path: "about.pvBessBrands.banner" }],
+  },
+  {
+    key: "tier1Brands",
+    label: "Tier 1 Brands (all brands)",
+    group: "Tier 1 Brands",
+    href: "/tier-1-brands",
+    description:
+      "The page that opens from the Tier 1 Brands menu. The brand cards, the product display and the menu logos come from the published brand pages (Dashboard → Tier 1 Brands).",
+    sections: [
+      SEO("tier1Brands.meta"),
+      { id: "hero", label: "Hero", path: "tier1Brands.hero" },
+      { id: "mix", label: "Why our brand mix", path: "tier1Brands.mix" },
+      { id: "portfolio", label: "Brand portfolio", path: "tier1Brands.portfolio", description: "Headings and the CNX own-brand cards. The partner brand cards are your published brand pages." },
+      { id: "comparison", label: "At a glance table", path: "tier1Brands.comparison" },
+      { id: "partnership", label: "Global partnership", path: "tier1Brands.partnership" },
+      { id: "products", label: "Product display", path: "tier1Brands.products", description: "The products shown are the first products on each published brand page." },
+      { id: "news", label: "Brand news", path: "tier1Brands.news", description: "Shows the latest published posts (Dashboard → News → Posts)." },
+      { id: "manufacturing", label: "Made by CNX", path: "tier1Brands.manufacturing" },
+      { id: "faq", label: "FAQ", path: "tier1Brands.faq" },
+      { id: "cta", label: "Bottom call to action", path: "tier1Brands.cta" },
+      { id: "brandPage", label: "Labels on every brand page", path: "tier1Brands.brandPage" },
+    ],
   },
   {
     key: "manufacturing.solarPanels",

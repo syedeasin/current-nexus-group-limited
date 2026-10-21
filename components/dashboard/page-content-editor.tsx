@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState, useTransition, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronDown, ChevronUp, ExternalLink, Plus, RotateCcw, Trash2 } from "lucide-react";
-import { resetPageContent, savePageContent } from "@/app/dashboard/pages/actions";
+import { resetPageContent, savePageContent, type SavePageResult } from "@/app/dashboard/pages/actions";
 import FormAccordion, { useFormAccordion } from "@/components/dashboard/form-accordion";
 import FieldLabel from "@/components/dashboard/form/field-label";
 import TextInput from "@/components/dashboard/form/text-input";
@@ -47,6 +47,17 @@ interface PageContentEditorProps {
   sections: EditorSection[];
   collections: CollectionDef[];
   iconKeys: string[];
+  /**
+   * Save / reset for content that isn't a Dashboard → Pages page (a Tier 1
+   * brand page). Server actions bound to the record; default to the Pages
+   * actions for `pageKey`.
+   */
+  onSave?: (sectionsJson: string) => Promise<SavePageResult>;
+  onReset?: () => Promise<SavePageResult>;
+  /** Sidebar copy under the title, replacing the Pages wording. */
+  statusNote?: string;
+  /** Extra sidebar content under the buttons (e.g. a "Draft" badge). */
+  asideExtra?: ReactNode;
 }
 
 /* ------------------------------------------------------------------ */
@@ -103,6 +114,42 @@ const LABELS: Record<string, string> = {
   show: "Show on the website",
   hidden: "Hide this field (keeps its settings)",
   fullWidth: "Full width (otherwise half width on desktop)",
+  // Tier 1 brand pages
+  slug: "Web address (/tier-1-brands/…)",
+  publishStatus: "Status",
+  brandCategory: "Product category (groups the brand on the Tier 1 Brands page)",
+  summary: "Short line under the logo on the Tier 1 Brands page (optional)",
+  menuOrder: "Order (menu and Tier 1 Brands page)",
+  showInMenu: "Show the logo in the Tier 1 Brands menu",
+  hideSection: "Hide this section on the page",
+  primaryLabel: "Primary button text",
+  primaryHref: "Primary button link",
+  secondaryLabel: "Secondary button text",
+  secondaryHref: "Secondary button link",
+  linkLabel: "Text link under the buttons (optional)",
+  linkHref: "Text link target",
+  metaTitle: "Browser tab / search result title",
+  metaDescription: "Search result description",
+  series: "Product series / model",
+  specsHref: "“View Specifications” link (optional — empty opens the full parameter list)",
+  datasheetHref: "“Download Datasheet” link (a file from Media or /service/downloads)",
+  viewSpecsLabel: "“View Specifications” button text",
+  datasheetLabel: "“Download Datasheet” button text",
+  quoteLabel: "“Request a Quote” button text",
+  allLabel: "“All” filter tab text",
+  closeLabel: "Close button text (screen readers)",
+  application: "Application",
+  results: "Verified project results",
+  caseHref: "“Read Case Study” link (optional)",
+  locationLabel: "“Project location” label",
+  applicationLabel: "“Application” label",
+  productsLabel: "“Products supplied” label",
+  roleLabel: "“CNX's role” label",
+  resultsLabel: "“Verified project results” label",
+  readLabel: "“Read Case Study” link text",
+  submitLabel: "Submit button text",
+  previousLabel: "“Previous” button (screen readers)",
+  nextLabel: "“Next” button (screen readers)",
 };
 
 function humanize(key: string): string {
@@ -493,6 +540,10 @@ export default function PageContentEditor({
   sections,
   collections,
   iconKeys,
+  onSave,
+  onReset,
+  statusNote,
+  asideExtra,
 }: PageContentEditorProps) {
   const router = useRouter();
   const accordion = useFormAccordion(sections.length <= 3 ? sections.map((s) => s.id) : [sections[0]?.id ?? ""]);
@@ -540,7 +591,8 @@ export default function PageContentEditor({
     setFormError(null);
     setSuccess(null);
     startTransition(async () => {
-      const result = await savePageContent(pageKey, locale, JSON.stringify(values));
+      const json = JSON.stringify(values);
+      const result = onSave ? await onSave(json) : await savePageContent(pageKey, locale, json);
       if (!result.ok) {
         setFormError(result.error);
         const fieldErrors = result.fieldErrors ?? {};
@@ -569,7 +621,7 @@ export default function PageContentEditor({
       return;
     }
     startTransition(async () => {
-      const result = await resetPageContent(pageKey, locale);
+      const result = onReset ? await onReset() : await resetPageContent(pageKey, locale);
       setConfirmReset(false);
       if (!result.ok) {
         setFormError(result.error);
@@ -632,7 +684,7 @@ export default function PageContentEditor({
           <p className="text-p4 font-semibold uppercase tracking-[2px] text-neutral-5">{localeLabel}</p>
           <p className="mt-4 text-p2 font-medium text-neutral-1">{pageLabel}</p>
           <p className="mt-8 text-p4 text-neutral-5">
-            {hasEdits ? "This page has saved edits." : "This page shows the default copy."} Changes go live as soon as you save.
+            {statusNote ?? `${hasEdits ? "This page has saved edits." : "This page shows the default copy."} Changes go live as soon as you save.`}
           </p>
           <div className="mt-20 flex flex-col gap-8">
             <button
@@ -655,6 +707,7 @@ export default function PageContentEditor({
               </a>
             )}
           </div>
+          {asideExtra}
           {hasEdits && (
             <div className="mt-20 border-t border-neutral-10 pt-20">
               {!confirmReset ? (

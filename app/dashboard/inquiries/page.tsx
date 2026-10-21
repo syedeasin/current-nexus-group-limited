@@ -1,9 +1,10 @@
 import Link from "next/link";
 import type { InquiryStatus, Prisma } from "@prisma/client";
-import { Download, Inbox, Mail, Phone, Building2, Globe2 } from "lucide-react";
+import { Download, Inbox, Mail, Paperclip, Phone, Building2, Globe2 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { requirePageAccess } from "@/lib/auth";
 import { INQUIRY_TOPIC_LABELS, isInquiryTopic } from "@/lib/inquiries/topics";
+import { attachmentHref } from "@/lib/inquiries/attachments";
 import { cardClass, secondaryButtonClass } from "@/components/dashboard/ui-classes";
 import { formatDateTime, formatRelative } from "../users/user-status";
 import InquiryActionsBar from "./inquiry-actions-bar";
@@ -22,12 +23,19 @@ function topicLabel(topic: string | null): string {
   return isInquiryTopic(topic) ? INQUIRY_TOPIC_LABELS[topic] : topic;
 }
 
-/** Answers to admin-added form fields ([{ label, value }]), ignoring anything malformed. */
-function extraAnswers(raw: unknown): { label: string; value: string }[] {
+/**
+ * Answers to admin-added form fields ([{ label, value }]), ignoring anything
+ * malformed. An uploaded file (BOQ) also carries `file`, its private storage key.
+ */
+function extraAnswers(raw: unknown): { label: string; value: string; file?: string }[] {
   if (!Array.isArray(raw)) return [];
   return raw.filter(
-    (item): item is { label: string; value: string } =>
-      typeof item === "object" && item !== null && typeof item.label === "string" && typeof item.value === "string"
+    (item): item is { label: string; value: string; file?: string } =>
+      typeof item === "object" &&
+      item !== null &&
+      typeof item.label === "string" &&
+      typeof item.value === "string" &&
+      (item.file === undefined || typeof item.file === "string")
   );
 }
 
@@ -206,7 +214,19 @@ async function Messages({ sp }: { sp: SearchParams }) {
               {extraAnswers(selected.answers).map((answer, index) => (
                 <div key={`${answer.label}-${index}`} className="min-w-0">
                   <dt className="text-[11px] font-semibold uppercase tracking-[1.5px] text-neutral-6">{answer.label}</dt>
-                  <dd className="whitespace-pre-wrap break-words text-p4 text-neutral-2">{answer.value}</dd>
+                  <dd className="whitespace-pre-wrap break-words text-p4 text-neutral-2">
+                    {answer.file ? (
+                      <a
+                        href={attachmentHref(answer.file)}
+                        className="inline-flex items-center gap-6 font-medium text-primary hover:underline"
+                      >
+                        <Paperclip size={14} aria-hidden="true" />
+                        {answer.value}
+                      </a>
+                    ) : (
+                      answer.value
+                    )}
+                  </dd>
                 </div>
               ))}
             </dl>

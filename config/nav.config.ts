@@ -53,11 +53,14 @@ export type NavProduct = {
 };
 
 export type NavBrand = {
-  labelKey: NavLabelKey;
+  labelKey?: NavLabelKey;
+  /** Brand name from Dashboard → Tier 1 Brands. */
+  label?: string;
   href: string;
+  /** Empty when the brand has no logo yet — the panel shows the name instead. */
   logo: string;
-  /** Native width at NAV_BRAND_LOGO_HEIGHT px tall. */
-  logoWidth: number;
+  /** Native width at NAV_BRAND_LOGO_HEIGHT px tall; unknown for uploaded logos (rendered at auto width). */
+  logoWidth?: number;
 };
 
 /** A second-level entry that owns a third level. */
@@ -72,7 +75,7 @@ export type NavGroup = {
 
 export type NavPanel =
   | { kind: "flat"; items: NavLink[] }
-  | { kind: "brands"; items: NavBrand[] }
+  | { kind: "brands"; items: NavBrand[]; viewAll?: NavLink }
   | { kind: "groups"; groups: NavGroup[] };
 
 export type NavItem = {
@@ -129,54 +132,10 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     labelKey: "tier1Brands",
-    href: "/tier-1-brands/ja-solar",
-    panel: {
-      kind: "brands",
-      items: [
-        {
-          labelKey: "jaSolar",
-          href: "/tier-1-brands/ja-solar",
-          logo: "/images/trustedLogos/jaSolarLogo.svg",
-          logoWidth: 122,
-        },
-        {
-          labelKey: "tongwei",
-          href: "/tier-1-brands/tongwei",
-          logo: "/images/trustedLogos/twSolarLogo.svg",
-          logoWidth: 140,
-        },
-        {
-          labelKey: "hithium",
-          href: "/tier-1-brands/hithium",
-          logo: "/images/trustedLogos/hthium%20Logo.svg",
-          logoWidth: 101,
-        },
-        {
-          labelKey: "growatt",
-          href: "/tier-1-brands/growatt",
-          logo: "/images/trustedLogos/growatt%20Logo.svg",
-          logoWidth: 143,
-        },
-        {
-          labelKey: "deye",
-          href: "/tier-1-brands/deye",
-          logo: "/images/trustedLogos/deye%20Logo.svg",
-          logoWidth: 53,
-        },
-        {
-          labelKey: "solis",
-          href: "/tier-1-brands/solis",
-          logo: "/images/trustedLogos/solisLogo.svg",
-          logoWidth: 65,
-        },
-        {
-          labelKey: "goodwe",
-          href: "/tier-1-brands/goodwe",
-          logo: "/images/trustedLogos/goodweLogo.svg",
-          logoWidth: 132,
-        },
-      ],
-    },
+    href: "/tier-1-brands",
+    // The brand logos are the published pages in Dashboard → Tier 1 Brands,
+    // filled in per request by buildNavItems.
+    panel: { kind: "brands", items: [], viewAll: { labelKey: "allBrands", href: "/tier-1-brands" } },
   },
   {
     labelKey: "solutionsProjects",
@@ -282,15 +241,47 @@ const MANUFACTURING_GROUP_LABEL_KEY: Record<ManufacturingCategory, NavLabelKey> 
   BESS: "bess",
 };
 
+/** Public path of a Tier 1 brand page. */
+export function brandEntryHref(slug: string): string {
+  return `/tier-1-brands/${slug}`;
+}
+
+/**
+ * Native widths of the brand logos shipped in /public/images/trustedLogos at
+ * NAV_BRAND_LOGO_HEIGHT, so they never distort. Uploaded logos have no entry
+ * and render at their natural aspect ratio instead.
+ */
+const KNOWN_LOGO_WIDTHS: Record<string, number> = {
+  "/images/trustedLogos/jaSolarLogo.svg": 122,
+  "/images/trustedLogos/twSolarLogo.svg": 140,
+  "/images/trustedLogos/hthium%20Logo.svg": 101,
+  "/images/trustedLogos/growatt%20Logo.svg": 143,
+  "/images/trustedLogos/deye%20Logo.svg": 53,
+  "/images/trustedLogos/solisLogo.svg": 65,
+  "/images/trustedLogos/goodweLogo.svg": 132,
+};
+
+export function knownLogoWidth(logo: string): number | undefined {
+  return KNOWN_LOGO_WIDTHS[logo.replace(/ /g, "%20")];
+}
+
 /** Route base for a manufacturing page, by category. */
 export function manufacturingEntryHref(category: ManufacturingCategory, slug: string): string {
   const base = category === "BESS" ? "/manufacturing/bess" : "/manufacturing/solar-panels";
   return `${base}/${slug}`;
 }
 
+/** A published brand page as the mega menu needs it. */
+export interface BrandMenuEntry {
+  name: string;
+  slug: string;
+  logo: string;
+}
+
 export interface DynamicMenu {
   solutions?: SolutionMenuEntry[];
   manufacturing?: ManufacturingMenuEntry[];
+  brands?: BrandMenuEntry[];
   /** Paths switched off in Dashboard → Settings → Page visibility. */
   hidden?: ReadonlySet<string>;
 }
@@ -301,7 +292,7 @@ export interface DynamicMenu {
  * only the page links become data-driven, so a draft or deleted page is absent
  * and a newly published one appears. Called per request in the marketing layout.
  */
-export function buildNavItems({ solutions = [], manufacturing = [], hidden = new Set() }: DynamicMenu): NavItem[] {
+export function buildNavItems({ solutions = [], manufacturing = [], brands = [], hidden = new Set() }: DynamicMenu): NavItem[] {
   const solutionLinks = new Map<NavLabelKey, NavLink[]>();
   for (const e of solutions) {
     const key = SOLUTION_GROUP_LABEL_KEY[e.menuGroup];
@@ -332,6 +323,15 @@ export function buildNavItems({ solutions = [], manufacturing = [], hidden = new
   const items = NAV_ITEMS.map((item) => {
     if (item.labelKey === "solutionsProjects") return withDynamicGroups(item, solutionLinks);
     if (item.labelKey === "manufacturing") return withDynamicGroups(item, manufacturingLinks);
+    if (item.labelKey === "tier1Brands" && item.panel.kind === "brands") {
+      const items = brands.map((brand) => ({
+        label: brand.name,
+        href: brandEntryHref(brand.slug),
+        logo: brand.logo,
+        logoWidth: knownLogoWidth(brand.logo),
+      }));
+      return { ...item, panel: { ...item.panel, items } };
+    }
     return item;
   });
   return withoutHidden(items, hidden);
@@ -359,7 +359,11 @@ function withoutHidden(items: NavItem[], hidden: ReadonlySet<string>): NavItem[]
       });
       next = { ...panel, groups };
     } else if (panel.kind === "brands") {
-      next = { ...panel, items: panel.items.filter((brand) => visible(brand.href)) };
+      next = {
+        ...panel,
+        items: panel.items.filter((brand) => visible(brand.href)),
+        viewAll: panel.viewAll && visible(panel.viewAll.href) ? panel.viewAll : undefined,
+      };
     } else {
       next = { ...panel, items: panel.items.filter((link) => visible(link.href)) };
     }
@@ -379,6 +383,9 @@ export function navItemHrefs(item: NavItem): string[] {
       ...(group.links ?? []).map((link) => link.href),
       ...(group.products ?? []).map((product) => product.href),
     ]);
+  }
+  if (panel.kind === "brands") {
+    return [...panel.items.map((entry) => entry.href), ...(panel.viewAll ? [panel.viewAll.href] : [])];
   }
   return panel.items.map((entry) => entry.href);
 }

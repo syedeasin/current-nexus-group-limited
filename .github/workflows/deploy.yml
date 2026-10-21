@@ -40,6 +40,9 @@ jobs:
             npm ci --no-audit --no-fund
             npx prisma generate
             npx prisma migrate deploy
+            # First deploy with Tier 1 brand pages only: creates them. A no-op
+            # once the table has any rows (see the script's header).
+            npx tsx prisma/seed-brands.ts
             npm run build
             pm2 restart cnx-web --update-env
             # Fail the run if the restarted app does not answer.

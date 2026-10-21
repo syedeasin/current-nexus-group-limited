@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState, type FormEvent } from "react";
+import { useLocale } from "next-intl";
 import { Loader2 } from "lucide-react";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
@@ -8,7 +9,8 @@ import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
+import { submitProductQuote } from "@/lib/inquiries/actions";
 import { ChevronRight } from "@/components/icons/ChevronRight";
 import { cn } from "@/lib/utils";
 import type { QuotationFormSection } from "@/lib/data/products/types";
@@ -53,17 +55,32 @@ type Status = "idle" | "submitting" | "success" | "error";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-/** Phase 1 stub — logs the payload. Real delivery (email/database) is a follow-up task. */
-async function submitInquiryStub(payload: FormValues): Promise<void> {
-  await new Promise((resolve) => setTimeout(resolve, 600));
-  console.info("[QuotationForm] stub submit — payload:", payload);
-}
+/** Form state key → field name the server action expects (lib/inquiries/actions.ts PRODUCT_QUOTE_FIELDS). */
+const SERVER_FIELD: Record<Exclude<keyof FormValues, "consent">, string> = {
+  fullName: "name",
+  email: "email",
+  company: "company",
+  country: "country",
+  phone: "phone",
+  productInterest: "productInterest",
+  targetPowerRange: "targetPowerRange",
+  quantity: "quantity",
+  projectTimeline: "projectTimeline",
+  message: "message",
+};
 
 const inputBaseClass =
   "h-60 w-full rounded-8 border-[1.5px] bg-white px-20 py-18 text-p3 text-neutral-4 outline-none transition-colors duration-150 ease-out placeholder:text-neutral-6 focus-visible:ring-2 focus-visible:ring-secondary";
 
-export default function QuotationForm({ data }: { data: QuotationFormSection }) {
+/**
+ * `productName` labels the enquiry in Dashboard → Inquiries ("Quote request ·
+ * <product>"). Requests are stored and emailed like Contact page messages.
+ */
+export default function QuotationForm({ data, productName }: { data: QuotationFormSection; productName?: string }) {
   const baseId = useId();
+  const locale = useLocale();
+  const pathname = usePathname();
+  const [tooMany, setTooMany] = useState(false);
   const [values, setValues] = useState<FormValues>(INITIAL_VALUES);
   const [errors, setErrors] = useState<Partial<Record<keyof FormValues, string>>>({});
   const [status, setStatus] = useState<Status>("idle");
@@ -90,9 +107,31 @@ export default function QuotationForm({ data }: { data: QuotationFormSection }) 
     if (Object.keys(validationErrors).length > 0) return;
 
     setStatus("submitting");
+    setTooMany(false);
+    const formData = new FormData();
+    for (const [key, name] of Object.entries(SERVER_FIELD)) {
+      formData.set(name, values[key as keyof typeof SERVER_FIELD]);
+    }
+    if (values.consent) formData.set("consent", "on");
+    formData.set("product", productName ?? "");
+    formData.set("sourcePath", pathname);
+    formData.set("website", (event.currentTarget.elements.namedItem("website") as HTMLInputElement | null)?.value ?? "");
     try {
-      await submitInquiryStub(values);
-      setStatus("success");
+      const result = await submitProductQuote(locale, formData);
+      if (result.ok) {
+        setStatus("success");
+        return;
+      }
+      setTooMany(result.error === "tooMany");
+      // Map the server's field names back onto this form's state keys.
+      const serverErrors: Partial<Record<keyof FormValues, string>> = {};
+      for (const fieldError of result.fields ?? []) {
+        const key = (Object.keys(SERVER_FIELD) as (keyof typeof SERVER_FIELD)[]).find((k) => SERVER_FIELD[k] === fieldError.id);
+        if (key) serverErrors[key] = fieldError.error === "email" ? "Enter a valid email address." : "Please check this field.";
+        if (fieldError.id === "consent") serverErrors.consent = "Please accept the privacy policy to continue.";
+      }
+      setErrors(serverErrors);
+      setStatus("error");
     } catch {
       setStatus("error");
     }
@@ -158,10 +197,18 @@ export default function QuotationForm({ data }: { data: QuotationFormSection }) 
             className="flex w-full flex-col gap-32 rounded-16 border border-neutral-10 bg-surface-2 p-24 md:p-32 lg:p-48"
           >
             {status === "error" ? (
-              <div className="rounded-8 border border-error/30 bg-error/5 px-20 py-16 text-p3 text-error">
-                Something went wrong sending your inquiry. Please try again.
+              <div role="alert" className="rounded-8 border border-error/30 bg-error/5 px-20 py-16 text-p3 text-error">
+                {tooMany
+                  ? "Too many requests from your connection. Please try again in a few minutes."
+                  : "Something went wrong sending your inquiry. Please check the form and try again."}
               </div>
             ) : null}
+
+            {/* Honeypot: hidden from people and assistive tech; bots fill every field. */}
+            <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+              <label htmlFor={`${baseId}-website`}>Website</label>
+              <input id={`${baseId}-website`} name="website" type="text" tabIndex={-1} autoComplete="off" />
+            </div>
 
             <div className="flex flex-col gap-16 md:flex-row">
               <Field label="Full Name" required error={fieldError("fullName")} errorId={errorId("fullName")}>
@@ -342,12 +389,16 @@ function Field({
 }) {
   return (
     <div className="flex w-full flex-1 flex-col gap-8">
-      {/* Figma node 114:99537: label tracks 0px, not the shared --text-p3 token's -0.09px. */}
-      <span className="text-p3 tracking-[0px]! text-neutral-1">
-        {label}
-        {required ? <span className="text-secondary"> *</span> : null}
-      </span>
-      {children}
+      {/* A wrapping <label> names the control for screen readers (it had no
+          accessible name). Figma node 114:99537: label tracks 0px, not the
+          shared --text-p3 token's -0.09px. */}
+      <label className="flex flex-col gap-8">
+        <span className="text-p3 tracking-[0px]! text-neutral-1">
+          {label}
+          {required ? <span aria-hidden="true" className="text-secondary"> *</span> : null}
+        </span>
+        {children}
+      </label>
       {error ? (
         <p id={errorId} className="text-p4 text-error">
           {error}

@@ -3,6 +3,7 @@
 import { Fragment, useState } from "react";
 import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -221,6 +222,7 @@ export default function MenuPanel({ item, panelId, isOpen, pathname, onClose }: 
           <ul className="flex flex-wrap items-center gap-y-24">
             {panel.items.map((brand, index) => {
               const active = pathname === brand.href;
+              const name = brand.label ?? (brand.labelKey ? t(brand.labelKey) : "");
               return (
                 <Fragment key={brand.href}>
                   {index > 0 && <Divider className="mx-24 h-32" />}
@@ -229,26 +231,48 @@ export default function MenuPanel({ item, panelId, isOpen, pathname, onClose }: 
                       href={brand.href}
                       onClick={onClose}
                       aria-current={active ? "page" : undefined}
-                      className="flex items-center px-8 py-8"
+                      className={cn("flex items-center px-8 py-8", !brand.logo && PANEL_LINK, !brand.logo && active && "text-secondary")}
                     >
-                      <Image
-                        src={brand.logo}
-                        alt={t(brand.labelKey)}
-                        width={brand.logoWidth}
-                        height={NAV_BRAND_LOGO_HEIGHT}
-                        style={{ height: NAV_BRAND_LOGO_HEIGHT, width: brand.logoWidth }}
-                        className={cn(
-                          "object-contain transition-[filter,opacity] duration-150",
-                          active
-                            ? "opacity-100 grayscale-0"
-                            : "opacity-40 grayscale hover:opacity-100 hover:grayscale-0"
-                        )}
-                      />
+                      {brand.logo ? (
+                        <Image
+                          src={brand.logo}
+                          alt={name}
+                          // Uploaded logos have no known width: let the height fix
+                          // the size and the browser keep the aspect ratio.
+                          width={brand.logoWidth ?? 160}
+                          height={NAV_BRAND_LOGO_HEIGHT}
+                          style={{ height: NAV_BRAND_LOGO_HEIGHT, width: brand.logoWidth ?? "auto" }}
+                          className={cn(
+                            "object-contain transition-[filter,opacity] duration-150",
+                            active
+                              ? "opacity-100 grayscale-0"
+                              : "opacity-40 grayscale hover:opacity-100 hover:grayscale-0"
+                          )}
+                        />
+                      ) : (
+                        name
+                      )}
                     </Link>
                   </li>
                 </Fragment>
               );
             })}
+            {panel.viewAll ? (
+              <>
+                {panel.items.length > 0 && <Divider className="mx-24 h-32" />}
+                <li>
+                  <Link
+                    href={panel.viewAll.href}
+                    onClick={onClose}
+                    aria-current={pathname === panel.viewAll.href ? "page" : undefined}
+                    className={cn(PANEL_LINK, "inline-flex items-center gap-6", pathname === panel.viewAll.href && "text-secondary")}
+                  >
+                    {panel.viewAll.label ?? (panel.viewAll.labelKey ? t(panel.viewAll.labelKey) : "")}
+                    <ArrowRight size={16} aria-hidden="true" />
+                  </Link>
+                </li>
+              </>
+            ) : null}
           </ul>
         )}
 

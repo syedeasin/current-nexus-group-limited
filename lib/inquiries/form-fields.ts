@@ -12,7 +12,7 @@ import { bool, entries, str } from "@/lib/page-content/read";
 export const CORE_FIELD_IDS = ["name", "email", "company", "phone", "topic", "message"] as const;
 export type CoreFieldId = (typeof CORE_FIELD_IDS)[number];
 
-export type ContactFieldType = "text" | "email" | "tel" | "number" | "textarea" | "select";
+export type ContactFieldType = "text" | "email" | "tel" | "number" | "textarea" | "select" | "date" | "file";
 const FIELD_TYPES = new Set((CHOICE_FIELDS.type ?? []).map((choice) => choice.value));
 
 export interface ContactField {
@@ -33,7 +33,16 @@ export const FIELD_MAX_LENGTH: Record<ContactFieldType, number> = {
   number: 40,
   textarea: 5000,
   select: 200,
+  date: 10,
+  /** The stored value is the uploaded file's name; the file itself has its own size cap (MAX_INQUIRY_FILE_BYTES). */
+  file: 200,
 };
+
+/** Largest attachment a visitor may upload with an enquiry (BOQ, specification). */
+export const MAX_INQUIRY_FILE_BYTES = 10 * 1024 * 1024;
+
+/** What the file input offers; the server checks the real content (lib/validation/upload.ts). */
+export const INQUIRY_FILE_ACCEPT = ".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png,.webp";
 
 const EMAIL_FALLBACK: ContactField = {
   id: "email",

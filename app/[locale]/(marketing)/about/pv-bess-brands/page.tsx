@@ -1,33 +1,14 @@
-import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
-import PageBanner from "@/components/sections/shared/PageBanner";
-import { pageTitle } from "@/lib/seo";
+import { permanentRedirect } from "@/i18n/navigation";
 import { assertPageVisible } from "@/lib/page-visibility";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "about.pvBessBrands.meta" });
-
-  return {
-    title: pageTitle(t("title")),
-    description: t("description"),
-  };
-}
-
-export default async function PvBessBrandsPage() {
+/**
+ * The client's "PV & BESS Brands" page and the Tier 1 brands collection page
+ * are the same page (mind map + brief, Oct 2026), which lives at
+ * /tier-1-brands. This About Us entry stays hidden by default; switched on in
+ * Settings → Page visibility, it forwards there instead of duplicating it.
+ */
+export default async function PvBessBrandsPage({ params }: { params: Promise<{ locale: string }> }) {
   await assertPageVisible("/about/pv-bess-brands");
-  const t = await getTranslations("about.pvBessBrands.banner");
-
-  return (
-    <PageBanner
-      eyebrowLabel={t("eyebrow")}
-      heading={t("heading")}
-      description={t("description") || undefined}
-      image={{ src: t("image") }}
-    />
-  );
+  const { locale } = await params;
+  permanentRedirect({ href: "/tier-1-brands", locale });
 }

@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { prisma } from "@/lib/prisma";
 import { routing } from "@/i18n/routing";
 import { siteConfig } from "@/site.config";
-import { manufacturingEntryHref, solutionEntryHref } from "@/config/nav.config";
+import { brandEntryHref, manufacturingEntryHref, solutionEntryHref } from "@/config/nav.config";
 import { NEWS_SECTION_LIST } from "@/lib/news-sections";
 import { getHiddenPaths } from "@/lib/page-visibility";
 
@@ -14,7 +14,7 @@ const STATIC_PATHS = [
   "",
   "/about/why-choose-cnx",
   "/about/technology",
-  "/about/pv-bess-brands",
+  "/tier-1-brands",
   "/manufacturing/solar-panels",
   "/manufacturing/bess",
   ...NEWS_SECTION_LIST.map((section) => section.path),
@@ -41,7 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const pages: MetadataRoute.Sitemap = routing.locales.flatMap((locale) => visiblePaths.map((path) => entry(locale, path)));
 
   try {
-    const [posts, manufacturing, solutions] = await Promise.all([
+    const [posts, manufacturing, solutions, brands] = await Promise.all([
       prisma.post.findMany({
         where: { status: "PUBLISHED", noIndex: false },
         select: { slug: true, locale: true, updatedAt: true },
@@ -54,6 +54,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         where: { status: "PUBLISHED" },
         select: { slug: true, locale: true, menuGroup: true, updatedAt: true },
       }),
+      prisma.brandPage.findMany({
+        where: { status: "PUBLISHED" },
+        select: { slug: true, locale: true, updatedAt: true },
+      }),
     ]);
 
     // Detail pages exist in one language only, so no hreflang alternates.
@@ -64,7 +68,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     pages.push(
       ...posts.map((p) => single(p.locale, `/news/${p.slug}`, p.updatedAt)),
       ...manufacturing.map((p) => single(p.locale, manufacturingEntryHref(p.category, p.slug), p.updatedAt)),
-      ...solutions.map((p) => single(p.locale, solutionEntryHref(p.menuGroup, p.slug), p.updatedAt))
+      ...solutions.map((p) => single(p.locale, solutionEntryHref(p.menuGroup, p.slug), p.updatedAt)),
+      ...brands.map((p) => single(p.locale, brandEntryHref(p.slug), p.updatedAt))
     );
   } catch (error) {
     console.error("[sitemap] database unavailable; listing static pages only", error);

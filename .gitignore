@@ -22,6 +22,8 @@
 
 # uploaded media — not source code
 /public/uploads
+# enquiry attachments (BOQs) — private, served only to signed-in staff
+/private-uploads
 
 # misc
 .DS_Store

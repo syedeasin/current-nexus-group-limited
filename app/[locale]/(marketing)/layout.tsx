@@ -3,10 +3,11 @@ import Navbar from "@/components/layout/nav/Navbar";
 import { getTranslations } from "next-intl/server";
 import Footer from "@/components/layout/Footer";
 import CookieConsent from "@/components/layout/CookieConsent";
-import { buildNavItems, manufacturingEntryHref, solutionEntryHref } from "@/config/nav.config";
+import { brandEntryHref, buildNavItems, manufacturingEntryHref, solutionEntryHref } from "@/config/nav.config";
 import { LinkAvailabilityProvider } from "@/i18n/SafeLink";
 import { getSolutionMenuEntries } from "@/lib/data/solutions-projects";
 import { getManufacturingMenuEntries } from "@/lib/data/manufacturing-pages";
+import { getPublishedBrands } from "@/lib/data/brands";
 import { getHiddenPaths } from "@/lib/page-visibility";
 
 /**
@@ -32,24 +33,29 @@ export default async function MarketingLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const [solutions, manufacturing, hidden] = await Promise.all([
+  const [solutions, manufacturing, publishedBrands, hidden] = await Promise.all([
     orEmpty("solutions", getSolutionMenuEntries(locale)),
     orEmpty("manufacturing", getManufacturingMenuEntries(locale)),
+    orEmpty("brands", getPublishedBrands(locale)),
     getHiddenPaths(),
   ]);
-  const navItems = buildNavItems({ solutions, manufacturing, hidden });
+  const brands = publishedBrands
+    .filter((brand) => brand.showInMegaMenu)
+    .map(({ name, slug, logo }) => ({ name, slug, logo }));
+  const navItems = buildNavItems({ solutions, manufacturing, brands, hidden });
   const consent = await getTranslations("cookieConsent");
 
   const publishedDetailPaths = [
     ...manufacturing.map((entry) => manufacturingEntryHref(entry.category, entry.slug)),
     ...solutions.map((entry) => solutionEntryHref(entry.menuGroup, entry.slug)),
+    ...publishedBrands.map((brand) => brandEntryHref(brand.slug)),
   ];
 
   return (
     <LinkAvailabilityProvider hidden={[...hidden]} publishedDetailPaths={publishedDetailPaths}>
       <Navbar navItems={navItems} />
       <main className="flex-1">{children}</main>
-      <Footer solutions={solutions} manufacturing={manufacturing} hidden={hidden} />
+      <Footer solutions={solutions} manufacturing={manufacturing} brands={brands} hidden={hidden} />
       <CookieConsent
         labels={{
           title: consent("title"),

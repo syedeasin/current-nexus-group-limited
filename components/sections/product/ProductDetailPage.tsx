@@ -188,7 +188,7 @@ export default function ProductDetailPage({ product }: { product: ProductDetail 
 
       {product.faq ? <FaqSection data={product.faq} /> : null}
 
-      {product.quotationForm ? <QuotationForm data={product.quotationForm} /> : null}
+      {product.quotationForm ? <QuotationForm data={product.quotationForm} productName={product.meta.title || product.hero.heading} /> : null}
 
       {product.documentsCta ? (
         <CtaBand

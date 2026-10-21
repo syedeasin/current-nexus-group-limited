@@ -6,6 +6,7 @@ import { COLLECTION_PATTERNS } from "@/lib/page-content/registry";
 import {
   ITEM_ID_PATTERN,
   OPTIONAL_LINK_KEYS,
+  OPTIONAL_TEXT_KEYS,
   CHOICE_FIELDS,
   fieldKind,
   isTree,
@@ -61,7 +62,7 @@ function validateLeaf(key: string, value: unknown, example: string, path: string
     return;
   }
 
-  const required = example.trim() !== "" && !OPTIONAL_LINK_KEYS.has(key);
+  const required = example.trim() !== "" && !OPTIONAL_LINK_KEYS.has(key) && !OPTIONAL_TEXT_KEYS.has(key);
   const kind = fieldKind(key, example);
 
   switch (kind) {

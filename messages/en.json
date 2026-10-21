@@ -186,7 +186,7 @@
       "heading": "Premium Energy Solutions from Global Manufacturers",
       "railAriaLabel": "Brand categories",
       "viewAll": "View All",
-      "viewAllHref": "/about/pv-bess-brands",
+      "viewAllHref": "/tier-1-brands",
       "brands": {
         "jaSolar": {
           "label": "JA Solar",
@@ -576,7 +576,8 @@
     "globalDistributor": "Global Distributor",
     "warranty": "Warranty",
     "stockProducts": "Stock Products with Discount Price",
-    "language": "Language"
+    "language": "Language",
+    "allBrands": "View all brands"
   },
   "manufacturing": {
     "solarPanels": {
@@ -1218,8 +1219,12 @@
         "tooLong": "This is too long — please shorten it.",
         "consent": "Please confirm we may reply to you.",
         "tooMany": "Too many messages from your connection. Please try again in a few minutes.",
-        "generic": "Your message could not be sent. Please try again, or email us directly."
-      }
+        "generic": "Your message could not be sent. Please try again, or email us directly.",
+        "date": "Please enter a valid date.",
+        "fileType": "Please upload a PDF, Word, Excel, PowerPoint or image file.",
+        "fileSize": "The file is too large — the limit is 10 MB."
+      },
+      "fileHint": "PDF, Word, Excel, PowerPoint or image, up to 10 MB."
     }
   },
   "footer": {
@@ -1257,33 +1262,9 @@
       "tier1Brands": {
         "heading": "Tier 1 Brands",
         "links": {
-          "jaSolar": {
-            "label": "JA Solar",
-            "href": "/tier-1-brands/ja-solar"
-          },
-          "tongwei": {
-            "label": "TONGWEI",
-            "href": "/tier-1-brands/tongwei"
-          },
-          "hithium": {
-            "label": "Hithium",
-            "href": "/tier-1-brands/hithium"
-          },
-          "growatt": {
-            "label": "Growatt",
-            "href": "/tier-1-brands/growatt"
-          },
-          "deye": {
-            "label": "DEYE",
-            "href": "/tier-1-brands/deye"
-          },
-          "solis": {
-            "label": "Solis",
-            "href": "/tier-1-brands/solis"
-          },
-          "goodwe": {
-            "label": "GoodWe",
-            "href": "/tier-1-brands/goodwe"
+          "allBrands": {
+            "label": "All Tier 1 brands",
+            "href": "/tier-1-brands"
           }
         }
       },
@@ -1467,5 +1448,185 @@
     "accept": "Accept all",
     "reject": "Reject non-essential",
     "dialogLabel": "Cookie consent"
+  },
+  "tier1Brands": {
+    "meta": {
+      "title": "Tier 1 PV & BESS Brands",
+      "description": "Source CNX modules and BESS together with Tier 1 brands JA Solar, Tongwei, Hithium, Growatt, Deye, Solis and GoodWe: one quotation, one delivery plan, one partner."
+    },
+    "hero": {
+      "eyebrow": "PV & BESS brands",
+      "heading": "Tier 1 PV and BESS brands, one trusted partner",
+      "description": "Source modules, inverters and battery storage from leading Tier 1 brands alongside CNX-manufactured products, coordinated in one quotation and one delivery plan.",
+      "primaryCta": {
+        "label": "Request a multi-brand quote",
+        "href": "/contact"
+      },
+      "secondaryCta": {
+        "label": "Browse brands",
+        "href": "#brands"
+      },
+      "image": "/images/about/whyChooseCNX/whyChooseCNXHeroBanner.webp"
+    },
+    "mix": {
+      "eyebrow": "Why our brand mix",
+      "heading": "Hybrid procurement with one point of contact",
+      "items": {
+        "hybrid": {
+          "icon": "blend",
+          "title": "Hybrid procurement",
+          "body": "Combine Tier 1 brand products with CNX modules and BESS in one quotation, balancing price, performance and lead time for each project."
+        },
+        "oneStop": {
+          "icon": "truck",
+          "title": "One-stop sourcing",
+          "body": "Modules, inverters and storage from different brands coordinated into one order, one shipment plan and one set of documents."
+        },
+        "bankability": {
+          "icon": "shield-check",
+          "title": "Bankable brands",
+          "body": "Manufacturers with the track record that lenders, EPC contractors and project developers look for."
+        },
+        "compatibility": {
+          "icon": "settings",
+          "title": "Reviewed to work together",
+          "body": "Our technical team reviews module, inverter and battery compatibility with you before the order is confirmed."
+        }
+      }
+    },
+    "portfolio": {
+      "eyebrow": "Our brand portfolio",
+      "heading": "Browse brands by product category",
+      "intro": "Each brand page lists the products available through CNX, their key parameters and the documents you can request.",
+      "viewBrandLabel": "View brand",
+      "partnerTag": "Tier 1 partner",
+      "ownTag": "Own brand",
+      "ownName": "CNX",
+      "ownModulesSummary": "HJT, TOPCon and BC modules, plus ODM, from our own factories",
+      "ownModulesHref": "/manufacturing/solar-panels",
+      "ownBessSummary": "Residential, 112, 261 and 488 kWh battery storage",
+      "ownBessHref": "/manufacturing/bess",
+      "emptyLabel": "Brand pages are being prepared. Contact us for the full brand list."
+    },
+    "comparison": {
+      "eyebrow": "At a glance",
+      "heading": "Which brand for which project?",
+      "brandLabel": "Brand",
+      "categoryLabel": "Category",
+      "productsLabel": "Key products",
+      "bestForLabel": "Best for",
+      "rows": {
+        "cnx": {
+          "brand": "CNX",
+          "category": "Modules + BESS",
+          "products": "HJT, TOPCon, BC and ODM modules; residential to 488 kWh BESS",
+          "bestFor": "Private label, revamping, PV + BESS bundles"
+        },
+        "jaSolar": {
+          "brand": "JA Solar",
+          "category": "Modules",
+          "products": "n-type bifacial modules",
+          "bestFor": "Utility and C&I"
+        },
+        "tongwei": {
+          "brand": "Tongwei",
+          "category": "Modules",
+          "products": "High-efficiency n-type modules",
+          "bestFor": "Utility and C&I"
+        },
+        "hithium": {
+          "brand": "Hithium",
+          "category": "BESS",
+          "products": "LFP cells and storage systems",
+          "bestFor": "C&I and grid-scale storage"
+        },
+        "inverters": {
+          "brand": "Growatt · Deye · Solis · GoodWe",
+          "category": "Inverters",
+          "products": "String, hybrid and storage inverters",
+          "bestFor": "Residential to C&I"
+        }
+      }
+    },
+    "partnership": {
+      "eyebrow": "Global partnership",
+      "heading": "Brand partnerships that reach your market",
+      "body": "We coordinate supply from our partner brands and our own factories to projects and distributors in many markets, with export documentation and delivery planning handled by one team.",
+      "image": "/images/about/whyChooseCNX/globe.webp",
+      "stats": {
+        "brands": {
+          "value": "7+",
+          "label": "Tier 1 partner brands"
+        },
+        "countries": {
+          "value": "20+",
+          "label": "Countries served"
+        },
+        "factories": {
+          "value": "06",
+          "label": "CNX manufacturing facilities"
+        }
+      }
+    },
+    "products": {
+      "eyebrow": "Product display",
+      "heading": "Featured products from our brands",
+      "railAriaLabel": "Brands",
+      "viewAll": "View brand page"
+    },
+    "news": {
+      "eyebrow": "Brand news & updates",
+      "heading": "News from our brands and markets",
+      "viewAll": "View all news"
+    },
+    "manufacturing": {
+      "eyebrow": "Made by CNX",
+      "heading": "Need private label? We manufacture too.",
+      "body": "HJT, TOPCon and BC modules plus battery storage from our own factories, with ODM options for your brand.",
+      "ctaLabel": "Explore manufacturing",
+      "ctaHref": "/manufacturing/solar-panels",
+      "image": "/images/manufacturing/bc-solar/Manufacturing-excellence.webp"
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "heading": "Working with multiple brands",
+      "items": {
+        "combine": {
+          "question": "Can I combine products from different brands in one order?",
+          "answer": "Yes. CNX can consolidate modules, inverters and battery storage from different brands into one quotation and one delivery plan."
+        },
+        "warranty": {
+          "question": "Which warranty applies to Tier 1 brand products?",
+          "answer": "The manufacturer's warranty terms for the selected model apply. We provide the applicable warranty documents with the quotation."
+        },
+        "compatibility": {
+          "question": "Can you check compatibility between inverter and battery brands?",
+          "answer": "Yes. Share your planned equipment and our technical team will review the relevant interfaces and operating requirements with you before you order."
+        },
+        "stock": {
+          "question": "Do you hold stock?",
+          "answer": "Availability depends on the model and market. Stock or production lead time is confirmed in each quotation."
+        }
+      }
+    },
+    "cta": {
+      "heading": "Build your multi-brand system",
+      "subtext": "Send your BOM or project size and we will return one consolidated quotation.",
+      "primaryCta": {
+        "label": "Request a quote",
+        "href": "/contact"
+      },
+      "secondaryCta": {
+        "label": "View downloads",
+        "href": "/service/downloads"
+      },
+      "image": "/images/home/CTABackground.webp"
+    },
+    "brandPage": {
+      "breadcrumbHome": "Home",
+      "breadcrumbBrands": "Tier 1 Brands",
+      "productsTabsLabel": "Product categories",
+      "specsDialogLabel": "Specifications"
+    }
   }
 }

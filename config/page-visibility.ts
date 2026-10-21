@@ -6,7 +6,8 @@ import { routing } from "@/i18n/routing";
  *
  * A hidden page disappears from the header menu, the footer and the sitemap,
  * and its URL returns 404. Manufacturing and Solutions & Projects detail
- * pages are not listed here — they already have Draft / Published.
+ * pages and the Tier 1 brand pages are not listed here — they have Draft /
+ * Published in their own editors.
  */
 export interface VisibilityPage {
   path: string;
@@ -20,13 +21,7 @@ export const VISIBILITY_PAGES: VisibilityPage[] = [
   { path: "/about/pv-bess-brands", label: "PV & BESS Brands", group: "About Us" },
   { path: "/manufacturing/solar-panels", label: "Solar Panels", group: "Manufacturing" },
   { path: "/manufacturing/bess", label: "BESS", group: "Manufacturing" },
-  { path: "/tier-1-brands/ja-solar", label: "JA Solar", group: "Tier 1 Brands" },
-  { path: "/tier-1-brands/tongwei", label: "TONGWEI", group: "Tier 1 Brands" },
-  { path: "/tier-1-brands/hithium", label: "Hithium", group: "Tier 1 Brands" },
-  { path: "/tier-1-brands/growatt", label: "Growatt", group: "Tier 1 Brands" },
-  { path: "/tier-1-brands/deye", label: "DEYE", group: "Tier 1 Brands" },
-  { path: "/tier-1-brands/solis", label: "Solis", group: "Tier 1 Brands" },
-  { path: "/tier-1-brands/goodwe", label: "GoodWe", group: "Tier 1 Brands" },
+  { path: "/tier-1-brands", label: "Tier 1 Brands (all brands page)", group: "Tier 1 Brands" },
   { path: "/solutions-projects/solutions", label: "Solutions (overview)", group: "Solutions & Projects" },
   { path: "/solutions-projects/renewable-projects", label: "Renewable Projects (overview)", group: "Solutions & Projects" },
   { path: "/products/uranus-pro", label: "Uranus Pro (menu card)", group: "Solutions & Projects" },
@@ -53,13 +48,6 @@ export const VISIBILITY_PAGES: VisibilityPage[] = [
 export const DEFAULT_HIDDEN_PATHS: string[] = [
   "/about/technology",
   "/about/pv-bess-brands",
-  "/tier-1-brands/ja-solar",
-  "/tier-1-brands/tongwei",
-  "/tier-1-brands/hithium",
-  "/tier-1-brands/growatt",
-  "/tier-1-brands/deye",
-  "/tier-1-brands/solis",
-  "/tier-1-brands/goodwe",
   "/solutions-projects/solutions",
   "/solutions-projects/renewable-projects",
   "/products/uranus-pro",
@@ -84,7 +72,7 @@ export const ROUTES_WITHOUT_PAGE: { exact?: string[]; prefixes?: string[] } = {
     "/service/warranty",
     "/service/stock-products",
   ],
-  prefixes: ["/tier-1-brands/", "/products/"],
+  prefixes: ["/products/"],
 };
 
 /** CMS-driven detail routes: only the published slugs under these bases exist. */
@@ -93,6 +81,7 @@ export const CMS_DETAIL_BASES = [
   "/manufacturing/bess/",
   "/solutions-projects/solutions/",
   "/solutions-projects/renewable-projects/",
+  "/tier-1-brands/",
 ];
 
 /** "/en/news/?x#y" → "/news". Locale prefix, query, hash and trailing slash removed. */

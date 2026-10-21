@@ -53,6 +53,7 @@ export const PERMISSION_GROUPS: { label: string; permissions: { key: Permission;
       { key: "page.manage", label: "Edit pages (home, about, footer…)" },
       { key: "manufacturingPage.manage", label: "Manage manufacturing products" },
       { key: "solutionsPage.manage", label: "Manage solutions & projects" },
+      { key: "brandPage.manage", label: "Manage Tier 1 brand pages" },
       { key: "download.manage", label: "Manage downloads" },
       { key: "inquiry.manage", label: "Read contact messages & newsletter list" },
     ],

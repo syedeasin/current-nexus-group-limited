@@ -38,18 +38,18 @@ enum PostSection {
 }
 
 model User {
-  id           String    @id @default(cuid())
-  name         String
-  email        String    @unique
+  id                String    @id @default(cuid())
+  name              String
+  email             String    @unique
   /// Optional sign-in alternative to the email address. Stored lower-case.
-  username     String?   @unique
-  passwordHash String
-  role         Role      @default(AUTHOR)
-  avatarUrl    String?
-  bio          String?
-  isActive     Boolean   @default(true)
-  tokenVersion Int       @default(0)
-  lastLoginAt  DateTime?
+  username          String?   @unique
+  passwordHash      String
+  role              Role      @default(AUTHOR)
+  avatarUrl         String?
+  bio               String?
+  isActive          Boolean   @default(true)
+  tokenVersion      Int       @default(0)
+  lastLoginAt       DateTime?
   /// Last time the password was set — by the user, an admin, or a reset link.
   passwordChangedAt DateTime?
 
@@ -58,6 +58,7 @@ model User {
   downloads          DownloadResource[]
   solutionPages      SolutionPage[]
   manufacturingPages ManufacturingPage[]
+  brandPages         BrandPage[]
   pageContents       PageContent[]
   passwordTokens     PasswordToken[]
   siteSettings       SiteSetting[]
@@ -548,4 +549,55 @@ model Inquiry {
   @@index([kind, status, createdAt])
   @@index([kind, email])
   @@map("inquiries")
+}
+
+// ---------------------------------------------------------------------------
+// Tier 1 brand landing pages (/tier-1-brands/<slug>)
+//
+// One shared template (components/brands/BrandPageTemplate). `content` holds
+// only the admin's edits over the template copy (lib/brands/template.ts), in
+// the same message-tree format as Dashboard → Pages, so the brand editor is
+// the Pages editor and unedited fields follow the brand name automatically.
+// `category` groups the brand on the /tier-1-brands collection page.
+// ---------------------------------------------------------------------------
+
+enum BrandCategory {
+  MODULES
+  INVERTERS
+  BESS
+  MIXED
+}
+
+model BrandPage {
+  id       String        @id @default(cuid())
+  name     String
+  slug     String
+  locale   Locale        @default(EN)
+  category BrandCategory @default(MODULES)
+
+  status      DownloadStatus @default(DRAFT)
+  publishedAt DateTime?
+
+  // The JA Solar page every other brand was duplicated from. Server-enforced:
+  // it can never be deleted. Duplicating it does NOT copy this flag.
+  isProtectedTemplate Boolean @default(false)
+
+  /// Logo on the collection page, the mega menu and the hero.
+  logo           String  @default("") @db.VarChar(500)
+  /// One line under the logo on the collection page, e.g. "n-type bifacial modules".
+  summary        String  @default("") @db.VarChar(200)
+  menuOrder      Int     @default(0)
+  showInMegaMenu Boolean @default(true)
+
+  content Json
+
+  createdById String?
+  createdBy   User?   @relation(fields: [createdById], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([slug, locale])
+  @@index([locale, status, menuOrder])
+  @@map("brand_pages")
 }
