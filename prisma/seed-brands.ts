@@ -153,19 +153,18 @@ const BRANDS: SeedBrand[] = [
     ]),
   },
   {
-    // From the brief's H1 list. CNX's own products also have their own
-    // Manufacturing pages, so this stays a draft until the client confirms it.
+    // From the brief's H1 list (published 21 Oct 2026).
     name: "CNX",
     slug: "cnx",
     category: BrandCategory.MODULES,
-    logo: "",
+    logo: "/logos/cnx-logo-dark.svg",
     summary: "HJT, TOPCon & BC modules, ODM",
-    status: DownloadStatus.DRAFT,
+    status: DownloadStatus.PUBLISHED,
     content: {
       brand: {
         ...(products([
-          { series: "G12-0BB Uranus Pro Module 730–765W", category: "PV module", image: "/images/manufacturing/bc-solar/g12-0bb-uranus-pro.webp", specsHref: "/manufacturing/solar-panels/bc", specs: [["Power range", "730–765 W"], ["Cell technology", "Back contact (BC)"], ["Format", "G12"], ["Best for", "Utility & C&I"]] },
-          { series: "G12-0BB Venus Pro Module 530–565W", category: "PV module", image: "/images/manufacturing/bc-solar/g12-0bb-venus-pro.webp", specsHref: "/manufacturing/solar-panels/bc", specs: [["Power range", "530–565 W"], ["Cell technology", "Back contact (BC)"], ["Format", "G12"], ["Best for", "Rooftop & C&I"]] },
+          { series: "G12-0BB Uranus Pro Module 730–765W", category: "PV module", image: "/images/manufacturing/bc-solar/g12-0bb-uranus-pro.webp", specsHref: "/manufacturing/solar-panels/bc", specs: [["Power range", "730–765 W"], ["Cell technology", "HJT (heterojunction)"], ["Format", "G12"], ["Best for", "Utility & C&I"]] },
+          { series: "G12-0BB Venus Pro Module 530–565W", category: "PV module", image: "/images/manufacturing/bc-solar/g12-0bb-venus-pro.webp", specsHref: "/manufacturing/solar-panels/bc", specs: [["Power range", "530–565 W"], ["Cell technology", "HJT (heterojunction)"], ["Format", "G12"], ["Best for", "Rooftop & C&I"]] },
         ]).brand as MessageTree),
         hero: { heading: "CNX Solar Modules & Customized PV Manufacturing Solutions" },
       },
