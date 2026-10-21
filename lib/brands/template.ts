@@ -166,13 +166,11 @@ export function brandTemplate(name: string, category: BrandCategory): MessageTre
       hero: {
         eyebrow: words.eyebrow,
         heading: heroHeading(brand, category),
-        body: `Explore available ${brand} products for your solar and energy storage projects. CNX helps distributors, EPC contractors and project developers review applicable models, technical specifications and supply requirements, with quotation and documentation support based on your project needs.`,
+        body: `Explore available ${brand} products for your solar and energy storage projects, with quotation and documentation support based on your project needs.`,
         primaryLabel: `Request a ${brand} Quote`,
         primaryHref: "#inquiry",
         secondaryLabel: "Explore Available Products",
         secondaryHref: "#products",
-        linkLabel: "Need Help Selecting a Model? Talk to Our Team",
-        linkHref: "/contact",
         backgroundImage: HERO_IMAGE[category],
       },
       overview: {
@@ -180,13 +178,11 @@ export function brandTemplate(name: string, category: BrandCategory): MessageTre
         eyebrow: "Brand overview",
         heading: `${brand} products, sourced with CNX`,
         body: `${brand} is a supplier of ${words.plural} for residential, commercial & industrial and utility-scale solar and energy storage applications. This page helps procurement teams explore the product options available through CNX, review relevant technical information and discuss project-specific requirements.\n\nCNX's role is to support the sourcing process by clarifying product availability, coordinating applicable documentation and aligning the proposed supply scope with your project requirements. Specific product availability, regional supply arrangements and commercial terms are confirmed individually.`,
-        image: "/images/about/whyChooseCNX/beyondProductImage.webp",
       },
       products: {
         hideSection: "false",
         eyebrow: "Product display",
         heading: `${brand} products available through CNX`,
-        intro: "Key procurement parameters for each series. Full specifications are in the datasheet for the selected model.",
         allLabel: "All",
         viewSpecsLabel: "View Specifications",
         datasheetLabel: "Download Datasheet",
@@ -217,7 +213,7 @@ export function brandTemplate(name: string, category: BrandCategory): MessageTre
         hideSection: "false",
         eyebrow: "Technical documents & certifications",
         heading: "Technical Documents & Certifications",
-        body: "Make informed procurement decisions with access to applicable product specifications and supporting documentation. Depending on the selected model and destination market, available resources may include datasheets, installation manuals, warranty terms, test reports and relevant conformity documents.\n\nContact CNX to request the documents applicable to your selected products and intended application.",
+        body: "Depending on the selected model and destination market, available resources include datasheets, installation manuals, warranty terms, test reports and conformity documents. Contact CNX to request the documents for your selected products.",
         ctaLabel: "Request Technical Documents",
         ctaHref: "#inquiry",
         items: list([
@@ -232,7 +228,6 @@ export function brandTemplate(name: string, category: BrandCategory): MessageTre
         hideSection: "false",
         eyebrow: "Application scenarios",
         heading: `Where ${brand} products fit`,
-        intro: `The right product depends on your installation environment, system design and project objectives. Explore the applications relevant to the available ${brand} product range and discuss your specific requirements with CNX before procurement.`,
         previousLabel: "Previous",
         nextLabel: "Next",
         items: list([
@@ -274,7 +269,7 @@ export function brandTemplate(name: string, category: BrandCategory): MessageTre
         hideSection: "false",
         eyebrow: "Procurement & delivery support",
         heading: `How CNX Supports Your ${brand} Procurement`,
-        body: "From initial model selection to order coordination, CNX helps you clarify the practical details that matter before committing to a purchase.\n\nOur team can assist with applicable product information, availability checks, quotation preparation, export documentation coordination and technical clarification within the confirmed service scope.\n\nFor each order, we aim to establish a clear understanding of the product specification, quantity, delivery destination, lead time, commercial terms and required documentation before order confirmation.",
+        body: "From initial model selection to order coordination, CNX helps you clarify the practical details that matter before committing to a purchase.",
         ctaLabel: "Discuss Your Supply Requirements",
         ctaHref: "#inquiry",
         steps: list([

@@ -73,13 +73,10 @@ export interface BrandContent {
     primaryHref: string;
     secondaryLabel: string;
     secondaryHref: string;
-    linkLabel: string;
-    linkHref: string;
     backgroundImage: string;
   };
-  overview: Section & { paragraphs: string[]; image: string };
+  overview: Section & { paragraphs: string[] };
   products: Section & {
-    intro: string;
     allLabel: string;
     viewSpecsLabel: string;
     datasheetLabel: string;
@@ -90,7 +87,7 @@ export interface BrandContent {
   advantages: Section & { items: BrandTextItem[] };
   buyers: Section & { items: BrandTextItem[] };
   documents: Section & { paragraphs: string[]; ctaLabel: string; ctaHref: string; items: BrandTextItem[] };
-  applications: Section & { intro: string; previousLabel: string; nextLabel: string; items: BrandScenario[] };
+  applications: Section & { previousLabel: string; nextLabel: string; items: BrandScenario[] };
   cases: Section & {
     locationLabel: string;
     applicationLabel: string;
@@ -157,14 +154,11 @@ export function readBrandContent(name: string, category: BrandCategory, stored: 
       primaryHref: str(hero, "primaryHref"),
       secondaryLabel: str(hero, "secondaryLabel"),
       secondaryHref: str(hero, "secondaryHref"),
-      linkLabel: str(hero, "linkLabel"),
-      linkHref: str(hero, "linkHref"),
       backgroundImage: str(hero, "backgroundImage"),
     },
-    overview: { ...section(overview), paragraphs: paragraphs(str(overview, "body")), image: str(overview, "image") },
+    overview: { ...section(overview), paragraphs: paragraphs(str(overview, "body")) },
     products: {
       ...section(products),
-      intro: str(products, "intro"),
       allLabel: str(products, "allLabel"),
       viewSpecsLabel: str(products, "viewSpecsLabel"),
       datasheetLabel: str(products, "datasheetLabel"),
@@ -193,7 +187,6 @@ export function readBrandContent(name: string, category: BrandCategory, stored: 
     },
     applications: {
       ...section(applications),
-      intro: str(applications, "intro"),
       previousLabel: str(applications, "previousLabel"),
       nextLabel: str(applications, "nextLabel"),
       items: entries(getAt(applications, "items")).map(([id, item]) => ({

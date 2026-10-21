@@ -56,7 +56,6 @@ export const COLLECTION_PATTERNS: CollectionDef[] = [
   { pattern: "brand.inquiry.fields", itemLabel: "Field", titleKey: "label", minItems: 1 },
   // Tier 1 brands collection page (/tier-1-brands).
   { pattern: "tier1Brands.mix.items", itemLabel: "Reason", titleKey: "title" },
-  { pattern: "tier1Brands.comparison.rows", itemLabel: "Row", titleKey: "brand" },
   { pattern: "tier1Brands.partnership.stats", itemLabel: "Stat", titleKey: "label" },
   { pattern: "tier1Brands.faq.items", itemLabel: "Question", titleKey: "question" },
 ];
@@ -160,12 +159,10 @@ export const PAGES: PageDef[] = [
       SEO("tier1Brands.meta"),
       { id: "hero", label: "Hero", path: "tier1Brands.hero" },
       { id: "mix", label: "Why our brand mix", path: "tier1Brands.mix" },
-      { id: "portfolio", label: "Brand portfolio", path: "tier1Brands.portfolio", description: "Headings and the CNX own-brand cards. The partner brand cards are your published brand pages." },
-      { id: "comparison", label: "At a glance table", path: "tier1Brands.comparison" },
+      { id: "portfolio", label: "Brand portfolio", path: "tier1Brands.portfolio", description: "Heading and the CNX own-brand cards. The partner brand cards are your published brand pages." },
       { id: "partnership", label: "Global partnership", path: "tier1Brands.partnership" },
       { id: "products", label: "Product display", path: "tier1Brands.products", description: "The products shown are the first products on each published brand page." },
       { id: "news", label: "Brand news", path: "tier1Brands.news", description: "Shows the latest published posts (Dashboard → News → Posts)." },
-      { id: "manufacturing", label: "Made by CNX", path: "tier1Brands.manufacturing" },
       { id: "faq", label: "FAQ", path: "tier1Brands.faq" },
       { id: "cta", label: "Bottom call to action", path: "tier1Brands.cta" },
       { id: "brandPage", label: "Labels on every brand page", path: "tier1Brands.brandPage" },

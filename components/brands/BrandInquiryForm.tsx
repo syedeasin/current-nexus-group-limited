@@ -78,7 +78,7 @@ export default function BrandInquiryForm({ slug, data }: { slug: string; data: B
   const bannerError = errorKey && fieldErrors.length === 0 ? t(`errors.${errorKey}`) : null;
 
   return (
-    <section id="inquiry" aria-label={data.heading} className="w-full scroll-mt-96 bg-white">
+    <section id="inquiry" aria-label={data.heading} className="w-full scroll-mt-96 bg-surface-2">
       <Container className="grid gap-40 py-48 md:py-64 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-80 xl:py-100">
         <div className="flex flex-col gap-24 lg:sticky lg:top-120 lg:self-start">
           <Reveal as="div" delay={cascade(0)}>
@@ -97,7 +97,7 @@ export default function BrandInquiryForm({ slug, data }: { slug: string; data: B
         </div>
 
         {sentTo !== null ? (
-          <div role="status" className="flex flex-col items-start gap-16 rounded-24 bg-surface-2 p-32 md:p-48">
+          <div role="status" className="flex flex-col items-start gap-16 rounded-24 bg-white p-32 md:p-48">
             <span className="flex size-56 items-center justify-center rounded-full bg-success/10 text-success">
               <CheckCircle2 size={28} strokeWidth={1.5} aria-hidden="true" />
             </span>
@@ -112,7 +112,7 @@ export default function BrandInquiryForm({ slug, data }: { slug: string; data: B
             </button>
           </div>
         ) : (
-          <form ref={formRef} onSubmit={handleSubmit} noValidate className="relative rounded-24 bg-surface-2 p-24 md:p-40 xl:p-48">
+          <form ref={formRef} onSubmit={handleSubmit} noValidate className="relative rounded-24 border border-neutral-10 bg-white p-24 md:p-40 xl:p-48">
             <p className="text-p4 text-neutral-5">{t("requiredNote")}</p>
 
             {bannerError && (

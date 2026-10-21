@@ -4,11 +4,9 @@ import { getTranslations } from "next-intl/server";
 import BrandHero from "@/components/brands/BrandHero";
 import { BrandAdvantages } from "@/components/brands/BrandSections";
 import {
-  BrandComparison,
   BrandPartnership,
   BrandPortfolio,
   FeaturedProducts,
-  ManufacturingCallout,
   type FeaturedProduct,
   type PortfolioGroup,
 } from "@/components/brands/HubSections";
@@ -29,7 +27,8 @@ const GROUPS: { category: BrandCategory; includes: BrandCategory[] }[] = [
   { category: "INVERTERS", includes: ["INVERTERS", "MIXED"] },
   { category: "BESS", includes: ["BESS"] },
 ];
-const FEATURED_PER_BRAND = 1;
+const FEATURED_COUNT = 4;
+const CNX_LOGO = "/logos/cnx-logo-dark.svg";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -63,41 +62,30 @@ export default async function Tier1BrandsPage({ params }: { params: Promise<{ lo
         : null;
 
   const groups: PortfolioGroup[] = GROUPS.flatMap(({ category, includes }) => {
+    const partners = brands
+      .filter((brand) => includes.includes(brand.category))
+      .map((brand) => ({ key: brand.slug, name: brand.name, logo: brand.logo, summary: brand.summary, href: brandEntryHref(brand.slug) }));
+    // A category with only CNX's own card and no partner brand isn't shown.
+    if (partners.length === 0) return [];
     const ownCard = own(category);
-    const cards = [
-      // CNX's own products lead their category (wireframe note: "CNX own products listed first").
-      ...(ownCard
-        ? [{ key: `cnx-${category}`, name: t("portfolio.ownName"), logo: "", summary: ownCard.summary, href: ownCard.href, tag: t("portfolio.ownTag"), own: true }]
-        : []),
-      ...brands
-        .filter((brand) => includes.includes(brand.category))
-        .map((brand) => ({
-          key: brand.slug,
-          name: brand.name,
-          logo: brand.logo,
-          summary: brand.summary,
-          href: brandEntryHref(brand.slug),
-          tag: t("portfolio.partnerTag"),
-        })),
-    ];
-    // A category with only the CNX card and no partner brand isn't shown on its own.
-    if (!cards.some((card) => !("own" in card))) return [];
+    // CNX's own products lead their category (wireframe note: "CNX own products listed first").
+    const cards = ownCard
+      ? [{ key: `cnx-${category}`, name: t("portfolio.ownName"), logo: CNX_LOGO, summary: ownCard.summary, href: ownCard.href }, ...partners]
+      : partners;
     return [{ category, label: BRAND_CATEGORY_LABELS[category], cards }];
   });
 
-  const featured: FeaturedProduct[] = brands.flatMap((brand) =>
-    readBrandContent(brand.name, brand.category, brand.content)
-      .products.items.slice(0, FEATURED_PER_BRAND)
-      .map((product) => ({
-        key: `${brand.slug}-${product.id}`,
-        brand: brand.name,
-        logo: brand.logo,
-        series: product.series,
-        category: product.category,
-        image: product.image,
-        href: `${brandEntryHref(brand.slug)}#products`,
-      }))
-  );
+  // One product per brand, those with a real photo first.
+  const featured: FeaturedProduct[] = brands
+    .flatMap((brand) => {
+      const items = readBrandContent(brand.name, brand.category, brand.content).products.items;
+      const product = items.find((item) => item.image) ?? items[0];
+      return product
+        ? [{ key: `${brand.slug}-${product.id}`, brand: brand.name, logo: brand.logo, series: product.series, category: product.category, image: product.image, href: `${brandEntryHref(brand.slug)}#products` }]
+        : [];
+    })
+    .sort((a, b) => Number(Boolean(b.image)) - Number(Boolean(a.image)))
+    .slice(0, FEATURED_COUNT);
 
   const faqItems = entries(t.raw("faq.items" as never)).map(([id, item]) => ({
     id,
@@ -108,20 +96,20 @@ export default async function Tier1BrandsPage({ params }: { params: Promise<{ lo
   return (
     <>
       <BrandHero
-        name={t("hero.heading")}
-        hero={{
-          eyebrow: t("hero.eyebrow"),
-          heading: t("hero.heading"),
-          body: t("hero.description"),
-          primaryLabel: t("hero.primaryCta.label"),
-          primaryHref: t("hero.primaryCta.href"),
-          secondaryLabel: t("hero.secondaryCta.label"),
-          secondaryHref: t("hero.secondaryCta.href"),
-          linkLabel: "",
-          linkHref: "",
-          backgroundImage: t("hero.image"),
-        }}
-        crumbs={[{ label: t("brandPage.breadcrumbHome"), href: "/" }, { label: t("brandPage.breadcrumbBrands") }]}
+        eyebrow={t("hero.eyebrow")}
+        heading={t("hero.heading")}
+        body={t("hero.description")}
+        backgroundImage={t("hero.image")}
+        primary={{ label: t("hero.primaryCta.label"), href: t("hero.primaryCta.href") }}
+        secondary={{ label: t("hero.secondaryCta.label"), href: t("hero.secondaryCta.href") }}
+      />
+
+      <BrandPortfolio
+        eyebrow={t("portfolio.eyebrow")}
+        heading={t("portfolio.heading")}
+        viewLabel={t("portfolio.viewBrandLabel")}
+        emptyLabel={t("portfolio.emptyLabel")}
+        groups={groups}
       />
 
       <BrandAdvantages
@@ -138,31 +126,11 @@ export default async function Tier1BrandsPage({ params }: { params: Promise<{ lo
         }}
       />
 
-      <BrandPortfolio
-        eyebrow={t("portfolio.eyebrow")}
-        heading={t("portfolio.heading")}
-        intro={t("portfolio.intro")}
-        viewLabel={t("portfolio.viewBrandLabel")}
-        emptyLabel={t("portfolio.emptyLabel")}
-        groups={groups}
-      />
-
-      <BrandComparison
-        eyebrow={t("comparison.eyebrow")}
-        heading={t("comparison.heading")}
-        labels={{
-          brand: t("comparison.brandLabel"),
-          category: t("comparison.categoryLabel"),
-          products: t("comparison.productsLabel"),
-          bestFor: t("comparison.bestForLabel"),
-        }}
-        rows={entries(t.raw("comparison.rows" as never)).map(([key, row]) => ({
-          key,
-          brand: str(row, "brand"),
-          category: str(row, "category"),
-          products: str(row, "products"),
-          bestFor: str(row, "bestFor"),
-        }))}
+      <FeaturedProducts
+        eyebrow={t("products.eyebrow")}
+        heading={t("products.heading")}
+        viewLabel={t("products.viewAll")}
+        items={featured}
       />
 
       <BrandPartnership
@@ -177,23 +145,7 @@ export default async function Tier1BrandsPage({ params }: { params: Promise<{ lo
         }))}
       />
 
-      <FeaturedProducts
-        eyebrow={t("products.eyebrow")}
-        heading={t("products.heading")}
-        viewLabel={t("products.viewAll")}
-        items={featured}
-      />
-
       <LatestNews namespace="tier1Brands.news" />
-
-      <ManufacturingCallout
-        eyebrow={t("manufacturing.eyebrow")}
-        heading={t("manufacturing.heading")}
-        body={t("manufacturing.body")}
-        ctaLabel={t("manufacturing.ctaLabel")}
-        ctaHref={t("manufacturing.ctaHref")}
-        image={t("manufacturing.image")}
-      />
 
       {faqItems.length > 0 ? (
         <FaqSection

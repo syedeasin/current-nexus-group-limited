@@ -1498,56 +1498,13 @@
     "portfolio": {
       "eyebrow": "Notre portefeuille de marques",
       "heading": "Parcourir les marques par catégorie",
-      "intro": "Chaque page de marque présente les produits disponibles via CNX, leurs paramètres clés et les documents que vous pouvez demander.",
       "viewBrandLabel": "Voir la marque",
-      "partnerTag": "Partenaire Tier 1",
-      "ownTag": "Notre marque",
       "ownName": "CNX",
       "ownModulesSummary": "Modules HJT, TOPCon et BC, et ODM, issus de nos usines",
       "ownModulesHref": "/manufacturing/solar-panels",
       "ownBessSummary": "Stockage résidentiel, 112, 261 et 488 kWh",
       "ownBessHref": "/manufacturing/bess",
       "emptyLabel": "Les pages de marques sont en préparation. Contactez-nous pour la liste complète."
-    },
-    "comparison": {
-      "eyebrow": "En bref",
-      "heading": "Quelle marque pour quel projet ?",
-      "brandLabel": "Marque",
-      "categoryLabel": "Catégorie",
-      "productsLabel": "Produits clés",
-      "bestForLabel": "Idéal pour",
-      "rows": {
-        "cnx": {
-          "brand": "CNX",
-          "category": "Modules + BESS",
-          "products": "Modules HJT, TOPCon, BC et ODM ; BESS du résidentiel à 488 kWh",
-          "bestFor": "Marque blanche, revamping, offres PV + BESS"
-        },
-        "jaSolar": {
-          "brand": "JA Solar",
-          "category": "Modules",
-          "products": "Modules bifaciaux de type n",
-          "bestFor": "Centrales et C&I"
-        },
-        "tongwei": {
-          "brand": "Tongwei",
-          "category": "Modules",
-          "products": "Modules de type n à haut rendement",
-          "bestFor": "Centrales et C&I"
-        },
-        "hithium": {
-          "brand": "Hithium",
-          "category": "BESS",
-          "products": "Cellules LFP et systèmes de stockage",
-          "bestFor": "Stockage C&I et réseau"
-        },
-        "inverters": {
-          "brand": "Growatt · Deye · Solis · GoodWe",
-          "category": "Onduleurs",
-          "products": "Onduleurs string, hybrides et de stockage",
-          "bestFor": "Du résidentiel au C&I"
-        }
-      }
     },
     "partnership": {
       "eyebrow": "Partenariats mondiaux",
@@ -1579,14 +1536,6 @@
       "eyebrow": "Actualités des marques",
       "heading": "Actualités de nos marques et marchés",
       "viewAll": "Toutes les actualités"
-    },
-    "manufacturing": {
-      "eyebrow": "Fabriqué par CNX",
-      "heading": "Besoin d'une marque blanche ? Nous fabriquons aussi.",
-      "body": "Modules HJT, TOPCon et BC et stockage par batterie issus de nos usines, avec des options ODM pour votre marque.",
-      "ctaLabel": "Découvrir la fabrication",
-      "ctaHref": "/manufacturing/solar-panels",
-      "image": "/images/manufacturing/bc-solar/Manufacturing-excellence.webp"
     },
     "faq": {
       "eyebrow": "FAQ",

@@ -2,7 +2,8 @@
 
 import { useId, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import { Download, FileSearch, MessageSquareQuote, X } from "lucide-react";
+import { Download, X } from "lucide-react";
+import { ChevronRight } from "@/components/icons/ChevronRight";
 import { Link } from "@/i18n/navigation";
 import { getLenis } from "@/lib/motion/lenis-instance";
 import { cn } from "@/lib/utils";
@@ -37,7 +38,10 @@ function requestQuote(series: string) {
 }
 
 const ACTION_CLASS =
-  "inline-flex min-h-40 items-center justify-center gap-6 rounded-full px-12 py-8 text-center text-p4 font-semibold leading-tight transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary";
+  "inline-flex h-44 shrink-0 items-center justify-center gap-6 whitespace-nowrap rounded-full px-20 text-p4 font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary";
+
+const SPECS_LINK_CLASS =
+  "text-p4 font-semibold text-primary underline decoration-primary/30 underline-offset-4 transition-colors duration-150 hover:decoration-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary";
 
 /**
  * Product display (brief §3): photo, series, category, the key procurement
@@ -74,7 +78,7 @@ export default function BrandProducts({
   return (
     <div className="flex flex-col gap-32">
       {categories.length > 1 ? (
-        <div role="group" aria-label={tabsLabel} className="flex flex-wrap gap-8">
+        <div role="group" aria-label={tabsLabel} className="flex flex-wrap justify-center gap-8">
           {[null, ...categories].map((category) => (
             <button
               key={category ?? "all"}
@@ -82,7 +86,7 @@ export default function BrandProducts({
               aria-pressed={active === category}
               onClick={() => setActive(category)}
               className={cn(
-                "h-40 rounded-full border px-20 text-p4 font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary",
+                "h-40 whitespace-nowrap rounded-full border-[1.5px] px-20 text-p4 font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary",
                 active === category
                   ? "border-neutral-1 bg-neutral-1 text-white"
                   : "border-neutral-10 bg-white text-neutral-3 hover:border-neutral-6"
@@ -96,79 +100,71 @@ export default function BrandProducts({
 
       <ul className="grid gap-24 sm:grid-cols-2 lg:grid-cols-3">
         {visible.map((item) => (
-          <li key={item.id} className="flex flex-col overflow-hidden rounded-16 border-[1.5px] border-neutral-10 bg-white">
-            <div className="relative flex aspect-[4/3] items-center justify-center bg-surface-2">
+          <li key={item.id} className="flex flex-col overflow-hidden rounded-16 border border-neutral-10 bg-surface-2">
+            <div className="relative flex aspect-[424/280] items-center justify-center overflow-hidden">
               {item.image ? (
                 <Image
                   src={item.image}
                   alt={item.series}
                   fill
-                  sizes="(min-width: 1024px) 420px, (min-width: 640px) 50vw, 100vw"
-                  className="object-contain p-24"
+                  sizes="(min-width: 1024px) 424px, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover"
                 />
               ) : logo ? (
-                <Image src={logo} alt="" aria-hidden="true" width={180} height={48} className="h-40 w-auto opacity-60 grayscale" />
+                <Image src={logo} alt="" aria-hidden="true" width={180} height={48} className="h-28 w-auto max-w-[70%] object-contain opacity-50 grayscale sm:h-36" />
               ) : (
                 <span aria-hidden="true" className="text-h4 font-semibold text-neutral-7">
                   {brandName}
                 </span>
               )}
             </div>
-            <div className="flex flex-1 flex-col gap-20 p-24">
-              <div className="flex flex-col gap-6">
-                {item.category ? (
-                  <span className="text-p4 font-medium uppercase tracking-[1px] text-tertiary">{item.category}</span>
-                ) : null}
-                <h3 className="text-h6 font-semibold text-neutral-1">{item.series}</h3>
+            <div className="flex flex-1 flex-col gap-20 px-24 pt-20 pb-24">
+              <div className="flex flex-col items-center gap-4 text-center">
+                {item.category ? <span className="text-p4 text-tertiary">{item.category}</span> : null}
+                <h3 className="text-h6 font-semibold text-balance text-neutral-1">{item.series}</h3>
               </div>
               {item.specs.length > 0 ? (
-                <dl className="flex flex-col divide-y divide-neutral-10 border-y border-neutral-10">
+                <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-12 border border-neutral-10 bg-neutral-10">
                   {item.specs.slice(0, CARD_SPECS).map((spec) => (
-                    <div key={spec.label} className="flex items-baseline justify-between gap-16 py-10">
-                      <dt className="text-p4 text-neutral-5">{spec.label}</dt>
-                      <dd className="text-right text-p4 font-semibold text-neutral-1">{spec.value}</dd>
+                    <div key={spec.label} className="flex flex-col gap-2 bg-white px-14 py-10">
+                      <dt className="text-[13px] leading-[18px] text-neutral-5">{spec.label}</dt>
+                      <dd className="text-p4 font-semibold text-neutral-1">{spec.value}</dd>
                     </div>
                   ))}
                 </dl>
               ) : null}
-              {/* Two outline actions side by side, the quote full width below them. */}
-              <div className="mt-auto grid grid-cols-2 gap-8">
-                {item.specsHref ? (
-                  <Link
-                    href={item.specsHref}
-                    className={cn(ACTION_CLASS, "border border-neutral-10 text-neutral-1 hover:border-neutral-6", !item.datasheetHref && "col-span-2")}
+              <div className="mt-auto flex flex-col items-center gap-14">
+                <div className="flex w-full flex-col gap-8">
+                  <a
+                    href="#inquiry"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      requestQuote(item.series);
+                    }}
+                    className={cn(ACTION_CLASS, "bg-secondary text-neutral-1 hover:bg-secondary/90")}
                   >
-                    <FileSearch size={16} aria-hidden="true" />
+                    {quoteLabel}
+                    <ChevronRight size={12} />
+                  </a>
+                  {item.datasheetHref ? (
+                    <Link
+                      href={item.datasheetHref}
+                      className={cn(ACTION_CLASS, "border-[1.5px] border-neutral-10 bg-white text-neutral-1 hover:bg-neutral-11")}
+                    >
+                      <Download size={16} aria-hidden="true" />
+                      {datasheetLabel}
+                    </Link>
+                  ) : null}
+                </div>
+                {item.specsHref ? (
+                  <Link href={item.specsHref} className={SPECS_LINK_CLASS}>
                     {viewSpecsLabel}
                   </Link>
                 ) : (
-                  <button
-                    type="button"
-                    onClick={() => showSpecs(item.id)}
-                    aria-haspopup="dialog"
-                    className={cn(ACTION_CLASS, "border border-neutral-10 text-neutral-1 hover:border-neutral-6", !item.datasheetHref && "col-span-2")}
-                  >
-                    <FileSearch size={16} aria-hidden="true" />
+                  <button type="button" onClick={() => showSpecs(item.id)} aria-haspopup="dialog" className={SPECS_LINK_CLASS}>
                     {viewSpecsLabel}
                   </button>
                 )}
-                {item.datasheetHref ? (
-                  <Link href={item.datasheetHref} className={cn(ACTION_CLASS, "border border-neutral-10 text-neutral-1 hover:border-neutral-6")}>
-                    <Download size={16} aria-hidden="true" />
-                    {datasheetLabel}
-                  </Link>
-                ) : null}
-                <a
-                  href="#inquiry"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    requestQuote(item.series);
-                  }}
-                  className={cn(ACTION_CLASS, "col-span-2 h-48 bg-secondary text-neutral-1 hover:bg-secondary/90")}
-                >
-                  <MessageSquareQuote size={16} aria-hidden="true" />
-                  {quoteLabel}
-                </a>
               </div>
             </div>
           </li>
@@ -212,7 +208,7 @@ export default function BrandProducts({
             </dl>
             <div className="flex flex-wrap gap-8">
               {open.datasheetHref ? (
-                <Link href={open.datasheetHref} className={cn(ACTION_CLASS, "border border-neutral-10 hover:border-neutral-6")}>
+                <Link href={open.datasheetHref} className={cn(ACTION_CLASS, "border-[1.5px] border-neutral-10 hover:bg-neutral-11")}>
                   <Download size={16} aria-hidden="true" />
                   {datasheetLabel}
                 </Link>
@@ -225,8 +221,8 @@ export default function BrandProducts({
                 }}
                 className={cn(ACTION_CLASS, "bg-secondary text-neutral-1 hover:bg-secondary/90")}
               >
-                <MessageSquareQuote size={16} aria-hidden="true" />
                 {quoteLabel}
+                <ChevronRight size={12} />
               </button>
             </div>
           </div>

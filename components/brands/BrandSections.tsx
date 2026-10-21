@@ -12,23 +12,39 @@ import SceneCarousel from "@/components/sections/home/application-scenes/SceneCa
 import { Link } from "@/i18n/navigation";
 import { pageIcon } from "@/lib/page-content/icons";
 import { cascade, stagger } from "@/lib/motion/timing";
+import { cn } from "@/lib/utils";
 import type { BrandContent, BrandTextItem } from "@/lib/brands/content";
 
 /**
- * The brand page sections that have no equivalent elsewhere on the site
- * (brief §5, §6, §8, §9). Built from the same pieces as the existing
- * sections — eyebrow, H2, 16px cards on 1.5px neutral-10 borders, gold
- * primary buttons — so they read as one design system.
+ * Brand page sections with no equivalent elsewhere on the site, built from the
+ * main design's pieces: centred eyebrow + H2 headers, surface-2 / white
+ * alternating bands, 16px cards on neutral-10 hairlines and pill buttons.
  */
 
-function SectionHeader({ eyebrow, heading, align = "center" }: { eyebrow: string; heading: string; align?: "center" | "left" }) {
+const SECTION_Y = "py-48 md:py-64 xl:py-100";
+
+export function SectionHeader({
+  eyebrow,
+  heading,
+  align = "center",
+  tone = "light",
+}: {
+  eyebrow: string;
+  heading: string;
+  align?: "center" | "left";
+  tone?: "light" | "dark";
+}) {
   return (
-    <div className={align === "center" ? "mx-auto flex max-w-720 flex-col items-center gap-12 text-center" : "flex max-w-640 flex-col gap-12"}>
+    <div
+      className={
+        align === "center" ? "mx-auto flex max-w-720 flex-col items-center gap-12 text-center" : "flex max-w-560 flex-col gap-12"
+      }
+    >
       <Reveal as="div" delay={cascade(0)}>
-        <SectionEyebrow label={eyebrow} />
+        <SectionEyebrow label={eyebrow} tone={tone} />
       </Reveal>
       <TextReveal delay={cascade(1)}>
-        <Heading level={2} size="h2" className="text-balance tracking-[-1.2px]!">
+        <Heading level={2} size="h2" className={cn("text-balance tracking-[-1.2px]!", tone === "dark" && "text-white")}>
           {heading}
         </Heading>
       </TextReveal>
@@ -36,222 +52,46 @@ function SectionHeader({ eyebrow, heading, align = "center" }: { eyebrow: string
   );
 }
 
-/** "For the buyers" — six numbered checkpoints (01–06). */
-export function BrandNumberedGrid({ eyebrow, heading, items }: { eyebrow: string; heading: string; items: BrandTextItem[] }) {
+/**
+ * Brand overview: the Solutions "Why choose" header (node 4028:10458) — eyebrow
+ * and H2 on the left, the brief's two short paragraphs on the right.
+ */
+export function BrandOverview({ data }: { data: BrandContent["overview"] }) {
   return (
-    <section aria-label={heading} className="w-full bg-surface-2">
-      <Container className="flex flex-col gap-48 py-48 md:py-64 xl:py-100">
-        <SectionHeader eyebrow={eyebrow} heading={heading} />
-        <ol className="grid gap-24 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((item, index) => (
-            <Reveal
-              key={item.id}
-              as="li"
-              delay={stagger(index, cascade(2))}
-              className="flex flex-col gap-20 rounded-16 border-[1.5px] border-neutral-10 bg-white p-32"
-            >
-              <span aria-hidden="true" className="text-h3 font-semibold text-secondary">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <div className="flex flex-col gap-12">
-                <Heading level={3} size="h6">
-                  {item.title}
-                </Heading>
-                <Text size="p3" className="text-neutral-3">
-                  {item.body}
-                </Text>
-              </div>
-            </Reveal>
-          ))}
-        </ol>
-      </Container>
-    </section>
-  );
-}
-
-/** Technical Documents & Certifications: copy and CTA left, document types right. */
-export function BrandDocuments({ data }: { data: BrandContent["documents"] }) {
-  return (
-    <section id="documents" aria-label={data.heading} className="w-full scroll-mt-96 bg-white">
-      <Container className="grid gap-40 py-48 md:py-64 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-80 xl:py-100">
-        <div className="flex flex-col gap-24">
-          <SectionHeader eyebrow={data.eyebrow} heading={data.heading} align="left" />
-          <div className="flex flex-col gap-16">
-            {data.paragraphs.map((paragraph, index) => (
-              <Reveal key={index} as="div" delay={cascade(2 + index)}>
-                <Text size="p2" className="text-neutral-3">
-                  {paragraph}
-                </Text>
-              </Reveal>
-            ))}
-          </div>
-          {data.ctaLabel && data.ctaHref ? (
-            <Reveal as="div" delay={cascade(3)}>
-              <Button href={data.ctaHref} size="xl" className="w-full min-[481px]:w-auto">
-                {data.ctaLabel}
-                <ChevronRight size={BUTTON_ICON_SIZE} />
-              </Button>
-            </Reveal>
-          ) : null}
+    <section aria-label={data.heading} className="w-full bg-white">
+      {/* No bottom padding: the product display follows on the same white, as one block. */}
+      <Container className="flex flex-col gap-24 pt-48 md:pt-64 lg:flex-row lg:items-start lg:justify-between lg:gap-80 xl:pt-100">
+        <div className="flex flex-col gap-12 lg:max-w-520">
+          <Reveal as="div" delay={cascade(0)}>
+            <SectionEyebrow label={data.eyebrow} />
+          </Reveal>
+          <TextReveal delay={cascade(1)}>
+            <Heading level={2} size="h2" className="text-balance tracking-[-1.2px]!">
+              {data.heading}
+            </Heading>
+          </TextReveal>
         </div>
-        <ul className="flex flex-col divide-y divide-neutral-10 self-start rounded-16 border-[1.5px] border-neutral-10">
-          {data.items.map((item, index) => {
-            const Icon = pageIcon(item.icon);
-            return (
-              <Reveal key={item.id} as="li" delay={stagger(index, cascade(2))} className="flex items-start gap-20 p-24">
-                <span className="flex size-48 shrink-0 items-center justify-center rounded-12 bg-surface-1 text-primary">
-                  <Icon size={24} strokeWidth={1.5} aria-hidden="true" />
-                </span>
-                <div className="flex flex-col gap-4">
-                  <Heading level={3} size="h6">
-                    {item.title}
-                  </Heading>
-                  {item.body ? (
-                    <Text size="p4" className="text-neutral-4">
-                      {item.body}
-                    </Text>
-                  ) : null}
-                </div>
-              </Reveal>
-            );
-          })}
-        </ul>
-      </Container>
-    </section>
-  );
-}
-
-/** Case studies as cards: location, application, products, CNX's role, verified results. */
-export function BrandCaseStudies({ data }: { data: BrandContent["cases"] }) {
-  const rows = (item: BrandContent["cases"]["items"][number]) =>
-    [
-      [data.applicationLabel, item.application],
-      [data.productsLabel, item.products],
-      [data.roleLabel, item.role],
-      [data.resultsLabel, item.results],
-    ].filter(([, value]) => value);
-
-  return (
-    <section aria-label={data.heading} className="w-full bg-surface-2">
-      <Container className="flex flex-col gap-48 py-48 md:py-64 xl:py-100">
-        <SectionHeader eyebrow={data.eyebrow} heading={data.heading} />
-        <ul className="grid gap-24 md:grid-cols-2 lg:grid-cols-3">
-          {data.items.map((item, index) => (
-            <Reveal
-              key={item.id}
-              as="li"
-              delay={stagger(index, cascade(2))}
-              className="flex flex-col overflow-hidden rounded-16 border-[1.5px] border-neutral-10 bg-white"
-            >
-              {item.image ? (
-                <div className="relative aspect-[16/10]">
-                  <Image src={item.image} alt="" aria-hidden="true" fill sizes="(min-width: 1024px) 420px, 100vw" className="object-cover" />
-                </div>
-              ) : null}
-              <div className="flex flex-1 flex-col gap-16 p-24">
-                {item.location ? (
-                  <span className="inline-flex items-center gap-6 text-p4 font-medium text-tertiary">
-                    <MapPin size={16} aria-hidden="true" />
-                    <span className="sr-only">{data.locationLabel}: </span>
-                    {item.location}
-                  </span>
-                ) : null}
-                <Heading level={3} size="h5">
-                  {item.title}
-                </Heading>
-                <dl className="flex flex-col gap-10">
-                  {rows(item).map(([label, value]) => (
-                    <div key={label} className="flex flex-col gap-2">
-                      <dt className="text-p4 text-neutral-5">{label}</dt>
-                      <dd className="text-p4 font-medium text-neutral-1">{value}</dd>
-                    </div>
-                  ))}
-                </dl>
-                {item.caseHref ? (
-                  <Link
-                    href={item.caseHref}
-                    className="group mt-auto inline-flex w-fit items-center gap-8 pt-8 text-p3 font-semibold text-primary hover:underline"
-                  >
-                    {data.readLabel}
-                    <ArrowRight size={16} aria-hidden="true" className="transition-transform duration-150 group-hover:translate-x-2" />
-                  </Link>
-                ) : null}
-              </div>
-            </Reveal>
-          ))}
-        </ul>
-      </Container>
-    </section>
-  );
-}
-
-/** Procurement & Delivery Support: dark band, copy + CTA left, four numbered steps right. */
-export function BrandProcurement({ data }: { data: BrandContent["procurement"] }) {
-  return (
-    <section aria-label={data.heading} className="w-full bg-neutral-1">
-      <Container className="grid gap-48 py-48 md:py-64 lg:grid-cols-2 lg:gap-80 xl:py-100">
-        <div className="flex flex-col gap-24">
-          <div className="flex flex-col gap-12">
-            <Reveal as="div" delay={cascade(0)}>
-              <SectionEyebrow label={data.eyebrow} tone="dark" />
-            </Reveal>
-            <TextReveal delay={cascade(1)}>
-              <Heading level={2} size="h2" className="text-balance text-white tracking-[-1.2px]!">
-                {data.heading}
-              </Heading>
-            </TextReveal>
-          </div>
-          <div className="flex flex-col gap-16">
-            {data.paragraphs.map((paragraph, index) => (
-              <Reveal key={index} as="div" delay={cascade(2 + index)}>
-                <Text size="p3" className="text-neutral-8">
-                  {paragraph}
-                </Text>
-              </Reveal>
-            ))}
-          </div>
-          {data.ctaLabel && data.ctaHref ? (
-            <Reveal as="div" delay={cascade(4)}>
-              <Button href={data.ctaHref} size="xl" className="w-full min-[481px]:w-auto">
-                {data.ctaLabel}
-                <ChevronRight size={BUTTON_ICON_SIZE} />
-              </Button>
-            </Reveal>
-          ) : null}
-        </div>
-        <ol className="grid gap-16 self-start sm:grid-cols-2">
-          {data.steps.map((step, index) => (
-            <Reveal
-              key={step.id}
-              as="li"
-              delay={stagger(index, cascade(2))}
-              className="flex flex-col gap-16 rounded-16 border border-white/10 bg-white/5 p-24"
-            >
-              <span aria-hidden="true" className="flex items-center gap-12 text-p4 font-semibold text-secondary">
-                {String(index + 1).padStart(2, "0")}
-                <span className="h-[1.5px] flex-1 bg-secondary/40" />
-              </span>
-              <Heading level={3} size="h6" className="text-white">
-                {step.title}
-              </Heading>
-              <Text size="p4" className="text-neutral-8">
-                {step.body}
+        <div className="flex max-w-600 flex-col gap-16 lg:pt-36">
+          {data.paragraphs.map((paragraph, index) => (
+            <Reveal key={index} as="div" delay={cascade(2 + index)}>
+              <Text size={index === 0 ? "p2" : "p3"} className={index === 0 ? "text-neutral-2" : "text-neutral-4"}>
+                {paragraph}
               </Text>
             </Reveal>
           ))}
-        </ol>
+        </div>
       </Container>
     </section>
   );
 }
 
-/** Product Advantages: the category's key parameters as icon cards. */
-export function BrandAdvantages({ data }: { data: BrandContent["advantages"] }) {
+/** Product Advantages: the category's key parameters, four light cards in a row. */
+export function BrandAdvantages({ data, className = "bg-surface-2" }: { data: BrandContent["advantages"]; className?: string }) {
   return (
-    <section aria-label={data.heading} className="w-full bg-white">
-      <Container className="flex flex-col gap-48 py-48 md:py-64 xl:py-100">
+    <section aria-label={data.heading} className={cn("w-full", className)}>
+      <Container className={cn("flex flex-col gap-48", SECTION_Y)}>
         <SectionHeader eyebrow={data.eyebrow} heading={data.heading} />
-        <ul className="grid gap-24 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="grid gap-16 sm:grid-cols-2 lg:grid-cols-4 lg:gap-24">
           {data.items.map((item, index) => {
             const Icon = pageIcon(item.icon);
             return (
@@ -259,9 +99,11 @@ export function BrandAdvantages({ data }: { data: BrandContent["advantages"] }) 
                 key={item.id}
                 as="li"
                 delay={stagger(index, cascade(2))}
-                className="flex flex-col gap-20 rounded-16 border-[1.5px] border-neutral-10 bg-white p-28"
+                className="flex gap-16 rounded-16 border border-neutral-10 bg-white p-20 sm:flex-col sm:p-24"
               >
-                <Icon size={36} strokeWidth={1.25} className="text-primary" aria-hidden="true" />
+                <span className="flex size-44 shrink-0 items-center justify-center rounded-12 bg-surface-1 text-primary">
+                  <Icon size={22} strokeWidth={1.5} aria-hidden="true" />
+                </span>
                 <div className="flex flex-col gap-8">
                   <Heading level={3} size="h6">
                     {item.title}
@@ -279,28 +121,82 @@ export function BrandAdvantages({ data }: { data: BrandContent["advantages"] }) 
   );
 }
 
-/** Application Scenarios: intro + the homepage's scene carousel (image + text cards). */
-export function BrandApplications({ data }: { data: BrandContent["applications"] }) {
+/** "For the buyers" — six checkpoints, numbered, on hairlines rather than heavy cards. */
+export function BrandNumberedGrid({ eyebrow, heading, items }: { eyebrow: string; heading: string; items: BrandTextItem[] }) {
   return (
-    <section aria-label={data.heading} className="w-full bg-white py-48 md:py-64 xl:py-100">
-      <Container>
-        <div className="mx-auto flex max-w-760 flex-col items-center gap-12 text-center">
-          <Reveal as="div" delay={cascade(0)}>
-            <SectionEyebrow label={data.eyebrow} />
-          </Reveal>
-          <TextReveal delay={cascade(1)}>
-            <Heading level={2} size="h2" className="text-balance tracking-[-1.2px]!">
-              {data.heading}
-            </Heading>
-          </TextReveal>
-          {data.intro ? (
+    <section aria-label={heading} className="w-full bg-white">
+      <Container className={cn("flex flex-col gap-48", SECTION_Y)}>
+        <SectionHeader eyebrow={eyebrow} heading={heading} />
+        <ol className="grid gap-x-48 gap-y-32 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((item, index) => (
+            <Reveal key={item.id} as="li" delay={stagger(index, cascade(2))} className="flex gap-16 border-t border-neutral-10 pt-24">
+              <span aria-hidden="true" className="w-28 shrink-0 text-p3 font-semibold text-secondary">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <div className="flex flex-col gap-8">
+                <Heading level={3} size="h6">
+                  {item.title}
+                </Heading>
+                <Text size="p4" className="text-neutral-4">
+                  {item.body}
+                </Text>
+              </div>
+            </Reveal>
+          ))}
+        </ol>
+      </Container>
+    </section>
+  );
+}
+
+/** Technical Documents & Certifications: copy and CTA left, the document types right. */
+export function BrandDocuments({ data }: { data: BrandContent["documents"] }) {
+  return (
+    <section id="documents" aria-label={data.heading} className="w-full scroll-mt-96 bg-surface-2">
+      <Container className={cn("grid items-center gap-40 lg:grid-cols-2 lg:gap-80", SECTION_Y)}>
+        <div className="flex flex-col gap-24">
+          <SectionHeader eyebrow={data.eyebrow} heading={data.heading} align="left" />
+          {data.paragraphs[0] ? (
             <Reveal as="div" delay={cascade(2)}>
-              <Text size="p3" className="text-neutral-4">
-                {data.intro}
+              <Text size="p3" className="text-neutral-3">
+                {data.paragraphs[0]}
               </Text>
             </Reveal>
           ) : null}
+          {data.ctaLabel && data.ctaHref ? (
+            <Reveal as="div" delay={cascade(3)}>
+              <Button href={data.ctaHref} size="lg" className="whitespace-nowrap">
+                {data.ctaLabel}
+                <ChevronRight size={BUTTON_ICON_SIZE} />
+              </Button>
+            </Reveal>
+          ) : null}
         </div>
+        <ul className="flex flex-col divide-y divide-neutral-10 rounded-16 border border-neutral-10 bg-white px-24">
+          {data.items.map((item, index) => {
+            const Icon = pageIcon(item.icon);
+            return (
+              <Reveal key={item.id} as="li" delay={stagger(index, cascade(2))} className="flex items-center gap-16 py-18">
+                <Icon size={22} strokeWidth={1.5} className="shrink-0 text-primary" aria-hidden="true" />
+                <div className="flex min-w-0 flex-col">
+                  <span className="text-p3 font-semibold text-neutral-1">{item.title}</span>
+                  {item.body ? <span className="text-p4 text-neutral-5">{item.body}</span> : null}
+                </div>
+              </Reveal>
+            );
+          })}
+        </ul>
+      </Container>
+    </section>
+  );
+}
+
+/** Application Scenarios: the homepage scene carousel. */
+export function BrandApplications({ data }: { data: BrandContent["applications"] }) {
+  return (
+    <section aria-label={data.heading} className={cn("w-full bg-white", SECTION_Y)}>
+      <Container>
+        <SectionHeader eyebrow={data.eyebrow} heading={data.heading} />
       </Container>
       <Container className="mt-48">
         <SceneCarousel
@@ -309,6 +205,122 @@ export function BrandApplications({ data }: { data: BrandContent["applications"]
           previousLabel={data.previousLabel}
           nextLabel={data.nextLabel}
         />
+      </Container>
+    </section>
+  );
+}
+
+/** Case studies as cards: location, application, products, CNX's role, verified results. */
+export function BrandCaseStudies({ data }: { data: BrandContent["cases"] }) {
+  const rows = (item: BrandContent["cases"]["items"][number]) =>
+    [
+      [data.applicationLabel, item.application],
+      [data.productsLabel, item.products],
+      [data.roleLabel, item.role],
+      [data.resultsLabel, item.results],
+    ].filter(([, value]) => value);
+
+  return (
+    <section aria-label={data.heading} className="w-full bg-surface-2">
+      <Container className={cn("flex flex-col gap-48", SECTION_Y)}>
+        <SectionHeader eyebrow={data.eyebrow} heading={data.heading} />
+        <ul className="grid gap-24 md:grid-cols-2 lg:grid-cols-3">
+          {data.items.map((item, index) => (
+            <Reveal
+              key={item.id}
+              as="li"
+              delay={stagger(index, cascade(2))}
+              className="flex flex-col overflow-hidden rounded-16 border border-neutral-10 bg-white"
+            >
+              {item.image ? (
+                <div className="relative aspect-[16/10]">
+                  <Image src={item.image} alt="" aria-hidden="true" fill sizes="(min-width: 1024px) 420px, 100vw" className="object-cover" />
+                </div>
+              ) : null}
+              <div className="flex flex-1 flex-col gap-16 p-24">
+                {item.location ? (
+                  <span className="inline-flex items-center gap-6 text-p4 font-medium text-tertiary">
+                    <MapPin size={16} aria-hidden="true" />
+                    <span className="sr-only">{data.locationLabel}: </span>
+                    {item.location}
+                  </span>
+                ) : null}
+                <Heading level={3} size="h6">
+                  {item.title}
+                </Heading>
+                <dl className="flex flex-col gap-10">
+                  {rows(item).map(([label, value]) => (
+                    <div key={label} className="flex flex-col gap-2">
+                      <dt className="text-p4 text-neutral-5">{label}</dt>
+                      <dd className="text-p4 font-medium text-neutral-1">{value}</dd>
+                    </div>
+                  ))}
+                </dl>
+                {item.caseHref ? (
+                  <Link href={item.caseHref} className="group mt-auto inline-flex w-fit items-center gap-8 pt-8 text-p4 font-semibold text-primary hover:underline">
+                    {data.readLabel}
+                    <ArrowRight size={16} aria-hidden="true" className="transition-transform duration-150 group-hover:translate-x-2" />
+                  </Link>
+                ) : null}
+              </div>
+            </Reveal>
+          ))}
+        </ul>
+      </Container>
+    </section>
+  );
+}
+
+/** Procurement & Delivery Support: dark band, header with CTA, then the four steps in one row. */
+export function BrandProcurement({ data }: { data: BrandContent["procurement"] }) {
+  return (
+    <section aria-label={data.heading} className="w-full bg-neutral-1">
+      <Container className={cn("flex flex-col gap-48", SECTION_Y)}>
+        <div className="flex flex-col gap-24 lg:flex-row lg:items-end lg:justify-between lg:gap-80">
+          <SectionHeader eyebrow={data.eyebrow} heading={data.heading} align="left" tone="dark" />
+          <div className="flex max-w-480 flex-col items-start gap-24">
+            {data.paragraphs[0] ? (
+              <Reveal as="div" delay={cascade(2)}>
+                <Text size="p3" className="text-neutral-8">
+                  {data.paragraphs[0]}
+                </Text>
+              </Reveal>
+            ) : null}
+            {data.ctaLabel && data.ctaHref ? (
+              <Reveal as="div" delay={cascade(3)}>
+                <Button href={data.ctaHref} size="lg" className="whitespace-nowrap">
+                  {data.ctaLabel}
+                  <ChevronRight size={BUTTON_ICON_SIZE} />
+                </Button>
+              </Reveal>
+            ) : null}
+          </div>
+        </div>
+        <ol className="grid gap-16 sm:grid-cols-2 lg:grid-cols-4 lg:gap-24">
+          {data.steps.map((step, index) => (
+            <Reveal
+              key={step.id}
+              as="li"
+              delay={stagger(index, cascade(2))}
+              className="flex gap-16 rounded-16 border border-white/10 bg-white/5 p-20 sm:flex-col sm:p-24"
+            >
+              <span
+                aria-hidden="true"
+                className="flex size-40 shrink-0 items-center justify-center rounded-full border border-secondary/60 text-p4 font-semibold text-secondary"
+              >
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <div className="flex flex-col gap-8">
+                <Heading level={3} size="h6" className="text-white">
+                  {step.title}
+                </Heading>
+                <Text size="p4" className="text-neutral-8">
+                  {step.body}
+                </Text>
+              </div>
+            </Reveal>
+          ))}
+        </ol>
       </Container>
     </section>
   );

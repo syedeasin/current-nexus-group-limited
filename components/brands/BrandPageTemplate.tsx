@@ -1,12 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
-import Reveal from "@/components/ui/Reveal";
-import TextReveal from "@/components/motion/TextReveal";
-import Heading from "@/components/ui/Heading";
-import Text from "@/components/ui/Text";
-import SectionEyebrow from "@/components/ui/SectionEyebrow";
-import ProductIntroduction from "@/components/sections/product/ProductIntroduction";
 import FaqSection from "@/components/sections/product/FaqSection";
+import CtaBand from "@/components/sections/shared/CtaBand";
 import BrandHero from "@/components/brands/BrandHero";
 import BrandProducts from "@/components/brands/BrandProducts";
 import BrandInquiryForm from "@/components/brands/BrandInquiryForm";
@@ -16,11 +11,12 @@ import {
   BrandCaseStudies,
   BrandDocuments,
   BrandNumberedGrid,
+  BrandOverview,
   BrandProcurement,
+  SectionHeader,
 } from "@/components/brands/BrandSections";
 import { brandEntryHref } from "@/config/nav.config";
 import { toAbsolute } from "@/lib/manufacturing/metadata";
-import { cascade } from "@/lib/motion/timing";
 import type { BrandContent } from "@/lib/brands/content";
 
 interface BrandPageTemplateProps {
@@ -79,38 +75,20 @@ export default async function BrandPageTemplate({ name, slug, logo, locale, cont
       ) : null}
 
       <BrandHero
-        name={name}
-        logo={logo}
-        hero={content.hero}
-        crumbs={[{ label: t("breadcrumbHome"), href: "/" }, { label: t("breadcrumbBrands"), href: "/tier-1-brands" }, { label: name }]}
+        eyebrow={content.hero.eyebrow}
+        heading={content.hero.heading}
+        body={content.hero.body}
+        backgroundImage={content.hero.backgroundImage}
+        primary={{ label: content.hero.primaryLabel, href: content.hero.primaryHref }}
+        secondary={{ label: content.hero.secondaryLabel, href: content.hero.secondaryHref }}
       />
 
-      {!overview.hidden && overview.paragraphs.length > 0 ? (
-        <ProductIntroduction
-          data={{ eyebrow: overview.eyebrow, heading: overview.heading, paragraphs: overview.paragraphs, image: overview.image }}
-        />
-      ) : null}
+      {!overview.hidden && overview.paragraphs.length > 0 ? <BrandOverview data={overview} /> : null}
 
       {!products.hidden && products.items.length > 0 ? (
         <section id="products" aria-label={products.heading} className="w-full scroll-mt-96 bg-white">
-          <Container className="flex flex-col gap-40 py-48 md:py-64 xl:py-100">
-            <div className="flex max-w-720 flex-col gap-12">
-              <Reveal as="div" delay={cascade(0)}>
-                <SectionEyebrow label={products.eyebrow} />
-              </Reveal>
-              <TextReveal delay={cascade(1)}>
-                <Heading level={2} size="h2" className="text-balance tracking-[-1.2px]!">
-                  {products.heading}
-                </Heading>
-              </TextReveal>
-              {products.intro ? (
-                <Reveal as="div" delay={cascade(2)}>
-                  <Text size="p3" className="text-neutral-4">
-                    {products.intro}
-                  </Text>
-                </Reveal>
-              ) : null}
-            </div>
+          <Container className="flex flex-col gap-48 py-48 md:py-64 xl:py-100">
+            <SectionHeader eyebrow={products.eyebrow} heading={products.heading} />
             <BrandProducts
               brandName={name}
               logo={logo}
@@ -156,6 +134,9 @@ export default async function BrandPageTemplate({ name, slug, logo, locale, cont
       ) : null}
 
       <BrandInquiryForm slug={slug} data={content.inquiry} />
+
+      {/* The site-wide closing CTA every main-design page ends with (Pages → Homepage → Bottom call to action). */}
+      <CtaBand />
     </>
   );
 }

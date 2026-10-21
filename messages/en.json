@@ -1497,56 +1497,13 @@
     "portfolio": {
       "eyebrow": "Our brand portfolio",
       "heading": "Browse brands by product category",
-      "intro": "Each brand page lists the products available through CNX, their key parameters and the documents you can request.",
       "viewBrandLabel": "View brand",
-      "partnerTag": "Tier 1 partner",
-      "ownTag": "Own brand",
       "ownName": "CNX",
       "ownModulesSummary": "HJT, TOPCon and BC modules, plus ODM, from our own factories",
       "ownModulesHref": "/manufacturing/solar-panels",
       "ownBessSummary": "Residential, 112, 261 and 488 kWh battery storage",
       "ownBessHref": "/manufacturing/bess",
       "emptyLabel": "Brand pages are being prepared. Contact us for the full brand list."
-    },
-    "comparison": {
-      "eyebrow": "At a glance",
-      "heading": "Which brand for which project?",
-      "brandLabel": "Brand",
-      "categoryLabel": "Category",
-      "productsLabel": "Key products",
-      "bestForLabel": "Best for",
-      "rows": {
-        "cnx": {
-          "brand": "CNX",
-          "category": "Modules + BESS",
-          "products": "HJT, TOPCon, BC and ODM modules; residential to 488 kWh BESS",
-          "bestFor": "Private label, revamping, PV + BESS bundles"
-        },
-        "jaSolar": {
-          "brand": "JA Solar",
-          "category": "Modules",
-          "products": "n-type bifacial modules",
-          "bestFor": "Utility and C&I"
-        },
-        "tongwei": {
-          "brand": "Tongwei",
-          "category": "Modules",
-          "products": "High-efficiency n-type modules",
-          "bestFor": "Utility and C&I"
-        },
-        "hithium": {
-          "brand": "Hithium",
-          "category": "BESS",
-          "products": "LFP cells and storage systems",
-          "bestFor": "C&I and grid-scale storage"
-        },
-        "inverters": {
-          "brand": "Growatt · Deye · Solis · GoodWe",
-          "category": "Inverters",
-          "products": "String, hybrid and storage inverters",
-          "bestFor": "Residential to C&I"
-        }
-      }
     },
     "partnership": {
       "eyebrow": "Global partnership",
@@ -1578,14 +1535,6 @@
       "eyebrow": "Brand news & updates",
       "heading": "News from our brands and markets",
       "viewAll": "View all news"
-    },
-    "manufacturing": {
-      "eyebrow": "Made by CNX",
-      "heading": "Need private label? We manufacture too.",
-      "body": "HJT, TOPCon and BC modules plus battery storage from our own factories, with ODM options for your brand.",
-      "ctaLabel": "Explore manufacturing",
-      "ctaHref": "/manufacturing/solar-panels",
-      "image": "/images/manufacturing/bc-solar/Manufacturing-excellence.webp"
     },
     "faq": {
       "eyebrow": "FAQ",
