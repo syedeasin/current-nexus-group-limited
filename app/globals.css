@@ -77,6 +77,8 @@
   --text-h6--line-height: 26px;
   --text-h6--letter-spacing: -0.09px;
 
+  /* Body text is one fixed scale on every screen (client, 24 Oct 2026):
+     p1 20 · p2 18 · p3 16 (regular body) · p4 14. No breakpoint bumps. */
   --text-p1: 20px;
   --text-p1--line-height: 32px;
   --text-p1--letter-spacing: -0.1px;
@@ -90,9 +92,10 @@
   --text-p4--line-height: 20px;
   --text-p4--letter-spacing: 0px;
 
-  --text-btn-lg: 20px;
+  /* Buttons: 18px text at every size, 8px text-icon gap, 20px icons (client, 24 Oct 2026). */
+  --text-btn-lg: 18px;
   --text-btn-lg--line-height: 24px;
-  --text-btn-lg--letter-spacing: -0.2px;
+  --text-btn-lg--letter-spacing: -0.09px;
   --text-btn-sm: 18px;
   --text-btn-sm--line-height: 24px;
   --text-btn-sm--letter-spacing: -0.09px;
@@ -101,7 +104,7 @@
   --text-badge--letter-spacing: -0.08px;
 }
 
-/* Tablet type scale: intermediate step, plus h5/h6/p2/p3/p4 desktop values (small enough to not need a further step). */
+/* Tablet type scale: intermediate heading step, plus the h5/h6 desktop values. Body text (p1-p4) does not change by breakpoint. */
 @media (width >= 48rem) {
   :root {
     --text-h1: 48px;
@@ -123,18 +126,6 @@
     --text-h6--line-height: 28px;
     --text-h6--letter-spacing: -0.1px;
 
-    --text-p1: 22px;
-    --text-p1--line-height: 34px;
-    --text-p1--letter-spacing: -0.11px;
-    --text-p2: 20px;
-    --text-p2--line-height: 32px;
-    --text-p2--letter-spacing: -0.1px;
-    --text-p3: 18px;
-    --text-p3--line-height: 28px;
-    --text-p3--letter-spacing: -0.09px;
-    --text-p4: 16px;
-    --text-p4--line-height: 24px;
-    --text-p4--letter-spacing: 0px;
   }
 }
 
@@ -154,9 +145,6 @@
     --text-h4--line-height: 40px;
     --text-h4--letter-spacing: -0.32px;
 
-    --text-p1: 24px;
-    --text-p1--line-height: 36px;
-    --text-p1--letter-spacing: -0.12px;
   }
 }
 
@@ -367,6 +355,17 @@ html.lenis body {
   animation-play-state: paused;
 }
 
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @keyframes ticker-scroll {
   from {
     transform: translateX(0);
@@ -469,39 +468,6 @@ html.lenis body {
   background-size: 100% 100%;
 }
 
-/* Why Choose CNX: grid-template-areas reorders the accordion above the photo on
-   mobile (spec explicitly wants this — the accordion is the section's value and
-   must not sit under a tall image on a phone) without duplicating any markup.
-   Desktop split matches Figma exactly: two 600px columns, 120px gap (node 2283:8649). */
-.why-choose-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-areas: "textblock" "accordion" "photo";
-  row-gap: 32px;
-}
-
-@media (width >= 64rem) {
-  .why-choose-grid {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 1fr;
-    column-gap: 120px;
-    row-gap: 0;
-    grid-template-areas: "textblock accordion" "photo accordion";
-    align-items: start;
-  }
-}
-
-.why-choose-textblock {
-  grid-area: textblock;
-}
-.why-choose-accordion {
-  grid-area: accordion;
-}
-.why-choose-photo {
-  grid-area: photo;
-  align-self: end;
-}
-
 /* Energy Ecosystem: gradient over the full-bleed photo, exact stops from Figma (node 2283:8390). */
 .energy-ecosystem-overlay {
   background: linear-gradient(
@@ -513,7 +479,7 @@ html.lenis body {
   );
 }
 
-/* FAQ: same grid-template-areas reorder technique as .why-choose-grid. Mobile
+/* FAQ: grid-template-areas reorder. Mobile
    order (header, accordion, contact) matches the spec exactly and reads
    sensibly at every width, so it's the base case rather than a mobile-only
    override. Desktop split matches Figma: 460fr/760fr columns, 100px gap
@@ -524,17 +490,37 @@ html.lenis body {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-areas: "header" "accordion" "contact";
-  row-gap: 48px;
+  row-gap: 40px;
+}
+
+/* Phones/tablets: the aside dissolves so the order is heading → questions →
+   inquiry card. Desktop: heading + card form one sticky column beside the
+   questions, so a long FAQ never leaves the left side blank (revision 1022). */
+.faq-aside {
+  display: contents;
 }
 
 @media (width >= 64rem) {
   .faq-grid {
-    grid-template-columns: 460fr 760fr;
-    grid-template-rows: auto 1fr;
-    column-gap: 100px;
+    grid-template-columns: 420fr 760fr;
+    grid-template-areas: "aside accordion";
+    column-gap: 80px;
     row-gap: 0;
-    grid-template-areas: "header accordion" "contact accordion";
     align-items: start;
+  }
+  .faq-aside {
+    grid-area: aside;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    position: sticky;
+    top: 136px;
+  }
+}
+
+@media (width >= 80rem) {
+  .faq-grid {
+    column-gap: 120px;
   }
 }
 
@@ -546,12 +532,6 @@ html.lenis body {
 }
 .faq-contact-area {
   grid-area: contact;
-}
-
-@media (width >= 80rem) {
-  .faq-contact-area {
-    align-self: end;
-  }
 }
 
 /* Rich text editor surface (Phase D2-B). The design system's --color-*: initial

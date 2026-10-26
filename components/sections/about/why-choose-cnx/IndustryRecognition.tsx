@@ -4,6 +4,8 @@ import { entries, str } from "@/lib/page-content/read";
 
 export default async function IndustryRecognition() {
   const t = await getTranslations("about.whyChooseCnx.industryRecognition");
+  // Hidden by default (revision 1022); Pages → Why Choose CNX → Show on the website.
+  if (t("show") !== "true") return null;
 
   return (
     <AwardsSection

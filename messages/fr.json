@@ -149,9 +149,9 @@
               "href": "/manufacturing/solar-panels/topcon"
             },
             "odmVerticalSolarModules": {
-              "title": "ODM-Vertical solar modules",
+              "title": "Revamping",
               "image": "/images/energyEcosystem/solarpaelTabImage01.webp",
-              "href": "/manufacturing/solar-panels/odm-vertical-solar-modules"
+              "href": "/manufacturing/solar-panels/revamping"
             }
           }
         },
@@ -380,13 +380,19 @@
       "eyebrow": "CLIENT SUCCESS STORY",
       "heading": "Trusted by industrial clients",
       "cta": "View Case Study",
-      "ctaHref": "/projects",
+      "ctaHref": "",
       "clientWordmark": "Lux&Enecore",
       "logo": "/icons/clients/luxEnecoreLogomark.svg",
       "photo": "/images/home/clientTestimonialsBackground.webp",
-      "clientName": "Client name: xyz",
-      "location": "Location: abc city, usa",
-      "quote": "\"A 5MW solar farm in Italy, commissioned in 2025, uses high-bifaciality HJT solar panels from China with a locally made tracking system. Lux & Enecore was highly satisfied with our products, which delivered much higher performance than standard N-type products.\""
+      "clientName": "Lux & Enecore",
+      "location": "Puglia, Italy",
+      "quote": "The high-bifaciality HJT modules from CNX, paired with a locally made tracking system, delivered noticeably higher yield than the standard N-type products we had compared them with.",
+      "capacity": "5 MWp",
+      "capacityLabel": "Capacity",
+      "locationLabel": "Location",
+      "clientLabel": "Client",
+      "caseSlug": "5mw-hjt-tracker-solar-farm-italy",
+      "quoteLabel": "What the client says"
     },
     "whyChoose": {
       "eyebrow": "WHY CHOOSE US",
@@ -399,37 +405,44 @@
       "items": {
         "verticalManufacturing": {
           "title": "Vertical Manufacturing & Quality Control",
-          "body": "",
-          "iconImage": "/icons/why-choose/building-06.svg"
+          "body": "We control every stage from cell to finished module in our own facilities, so quality, lead times and consistency stay in our hands, not a third party's.",
+          "iconImage": "/icons/why-choose/building-06.svg",
+          "image": "/images/manufacturing/bc-solar/Manufacturing-excellence.webp"
         },
         "bankableTier1": {
           "title": "Bankable Tier-1 Brand Portfolio",
-          "body": "",
-          "iconImage": "/icons/why-choose/shield-energy.svg"
+          "body": "Our lineup is built around bankable Tier 1 manufacturers, giving your projects the certifications, warranties and financing acceptance that lenders and EPCs expect.",
+          "iconImage": "/icons/why-choose/shield-energy.svg",
+          "image": "/images/news/news-solar-modules.webp"
         },
         "epcfCreditFinancing": {
           "title": "EPC+F Credit Financing Support",
           "body": "Exclusive 2-year long-term credit financing for qualified ODM partners. Ease your project cash flow pressure and scale your pipeline without tying up working capital.",
-          "iconImage": "/icons/why-choose/card.svg"
+          "iconImage": "/icons/why-choose/card.svg",
+          "image": "/images/news/news-epc-financing.webp"
         },
         "hybridProcurement": {
           "title": "Hybrid Procurement Synergy",
-          "body": "",
-          "iconImage": "/icons/why-choose/blend.svg"
+          "body": "Source modules, storage and balance-of-system parts through one partner, so you cut coordination overhead, align delivery schedules and get stronger bundled pricing.",
+          "iconImage": "/icons/why-choose/blend.svg",
+          "image": "/images/hero/hero-488kwh-bess.webp"
         },
         "technicalAfterSales": {
           "title": "Technical & After sales Engineering",
-          "body": "",
-          "iconImage": "/icons/why-choose/customer-support.svg"
+          "body": "Our engineers support you from system design and product selection to installation guidance, warranty handling and long-term performance monitoring.",
+          "iconImage": "/icons/why-choose/customer-support.svg",
+          "image": "/images/news/news-smart-monitoring.webp"
         },
         "globalLogistics": {
           "title": "Global Logistics & Tariff Compliance",
-          "body": "",
-          "iconImage": "/icons/why-choose/shipping-truck-02.svg"
+          "body": "We manage shipping, documentation and tariff compliance across markets, so your orders clear customs smoothly and arrive on schedule wherever your projects are.",
+          "iconImage": "/icons/why-choose/shipping-truck-02.svg",
+          "image": "/images/home/supplyChainFinancing.webp"
         }
       }
     },
     "awards": {
+      "show": "false",
       "eyebrow": "INDUSTRY RECOGNITION",
       "heading": "Recognized for excellence in manufacturing & innovation",
       "backgroundImage": "/images/home/Awards.webp",
@@ -469,14 +482,24 @@
     "faq": {
       "eyebrow": "FREQUENTLY ASKED QUESTION",
       "heading": "Do you have any\nquestions for me?",
-      "needHelp": "Need to ask something else?",
-      "contact": {
-        "name": "Emma Collins",
-        "role": "Customer care",
-        "message": "Hi, I'm Emma from the CNX team.\nHave a question? I'm here to help anytime.",
-        "cta": "Contact now",
+      "inquiry": {
+        "title": "Planning a Solar or Energy\nStorage Project?",
+        "subtitle": "CNX Project Inquiry",
+        "description": "Looking for solar modules, inverters, or energy storage solutions? Share your product requirements or project details with our team.",
+        "points": {
+          "selection": {
+            "text": "Product selection and technical matching"
+          },
+          "quotation": {
+            "text": "Quotation and supply coordination"
+          },
+          "projects": {
+            "text": "Commercial and utility-scale project support"
+          }
+        },
+        "cta": "Discuss Your Project",
         "ctaHref": "/contact",
-        "avatar": "/images/home/emmaDP.png"
+        "note": "Have a product list or technical specification?\nShare it with us."
       },
       "items": {
         "productsProvided": {
@@ -572,6 +595,7 @@
     "reAnalysis": "RE Analysis",
     "knowledgeDatabase": "Knowledge Database",
     "events": "Events",
+    "caseStudies": "Case Studies",
     "service": "Services",
     "downloads": "Downloads",
     "globalDistributor": "Global Distributor",
@@ -625,26 +649,37 @@
         }
       },
       "whyChoose": {
-        "eyebrow": "WHY CHOOSE CNX ENERGY",
-        "heading": "Your manufacturing partner for long-term success",
+        "show": "true",
+        "eyebrow": "WHY CHOOSE CNX?",
+        "heading": "More Than Solar Modules — A Partner for Your Sourcing Needs",
+        "intro": "CNX combines a diverse solar module portfolio, customized manufacturing capabilities, and project-oriented supply support. Whether you need standard modules for solar installations, customized products for specific requirements, or replacement modules for aging PV plants, we help you identify suitable options for your business.",
         "image": "/images/manufacturing/manufacturing-why-choose-us.webp",
         "features": {
-          "advancedTechnology": {
-            "icon": "cpu",
-            "title": "Advanced HJT technology",
-            "description": "Higher efficiency and greater energy generation through solar innovation."
+          "portfolio": {
+            "icon": "layers",
+            "title": "Flexible Product Portfolio",
+            "description": "Explore solar modules across different technologies and applications, including HJT, BC, and TOPCon, to match your project requirements, performance targets, and procurement priorities."
           },
-          "lowerLcoe": {
-            "icon": "trending-up",
-            "title": "Lower LCOE. Higher ROI.",
-            "description": "Reduce lifetime energy costs while maximizing long-term project returns."
+          "customized": {
+            "icon": "settings",
+            "title": "Customized Manufacturing Solutions",
+            "description": "From product specifications to private-label requirements, CNX supports customized solar module sourcing for customers with specific technical, dimensional, or business needs."
           },
-          "globalSupply": {
-            "icon": "globe",
-            "title": "Global supply capability",
-            "description": "Reliable manufacturing and worldwide delivery for projects of every scale."
+          "revamping": {
+            "icon": "refresh",
+            "title": "PV Revamping & Repowering Expertise",
+            "description": "For aging photovoltaic plants, we offer customized solar panel replacement solutions designed around existing module dimensions and project requirements, helping address challenges that standard replacement modules may not resolve."
+          },
+          "coordination": {
+            "icon": "truck",
+            "title": "Quality & Supply Coordination",
+            "description": "From product selection and technical documentation to order coordination and delivery planning, CNX helps streamline the sourcing process for distributors, EPC contractors, and project developers."
           }
-        }
+        },
+        "primaryCta": "Explore Our Solar Panels",
+        "primaryCtaHref": "#products",
+        "secondaryCta": "Discuss Your Requirements",
+        "secondaryCtaHref": "/contact"
       },
       "ctaImage": "/images/home/CTABackground.webp"
     },
@@ -692,26 +727,37 @@
         }
       },
       "whyChoose": {
-        "eyebrow": "WHY CHOOSE CNX ENERGY",
-        "heading": "Your manufacturing partner for long-term success",
+        "show": "false",
+        "eyebrow": "WHY CHOOSE CNX?",
+        "heading": "Flexible Energy Storage Solutions for Different Applications",
+        "intro": "CNX connects a range of battery energy storage products with sourcing coordination and project-oriented support. From residential energy storage to commercial and industrial applications, we help customers explore suitable options based on their capacity requirements, operating needs, system configuration, and project objectives.",
         "image": "/images/manufacturing/manufacturing-why-choose-us.webp",
         "features": {
-          "advancedTechnology": {
-            "icon": "cpu",
-            "title": "Advanced HJT technology",
-            "description": "Higher efficiency and greater energy generation through solar innovation."
+          "applications": {
+            "icon": "building",
+            "title": "Solutions for Different Applications",
+            "description": "Explore energy storage options for residential, commercial and industrial (C&I), and larger-scale projects, with product selection guided by your application and requirements."
           },
-          "lowerLcoe": {
-            "icon": "trending-up",
-            "title": "Lower LCOE. Higher ROI.",
-            "description": "Reduce lifetime energy costs while maximizing long-term project returns."
+          "portfolio": {
+            "icon": "battery",
+            "title": "A Flexible BESS Product Portfolio",
+            "description": "Compare available storage capacities and product configurations to identify options aligned with your energy needs, installation conditions, and commercial priorities."
           },
-          "globalSupply": {
-            "icon": "globe",
-            "title": "Global supply capability",
-            "description": "Reliable manufacturing and worldwide delivery for projects of every scale."
+          "integrated": {
+            "icon": "plug",
+            "title": "Integrated PV & BESS Sourcing",
+            "description": "Coordinate battery energy storage procurement with relevant solar modules, inverters, and other system components through CNX's broader PV and BESS sourcing network."
+          },
+          "coordination": {
+            "icon": "clipboard-list",
+            "title": "Technical & Project Coordination",
+            "description": "From initial product selection and technical documentation to supply planning and after-sales communication, CNX helps coordinate key requirements throughout the procurement process."
           }
-        }
+        },
+        "primaryCta": "Explore Our BESS Solutions",
+        "primaryCtaHref": "#products",
+        "secondaryCta": "Discuss Your Project",
+        "secondaryCtaHref": "/contact"
       },
       "ctaImage": "/images/home/CTABackground.webp"
     }
@@ -873,52 +919,159 @@
   "about": {
     "whyChooseCnx": {
       "meta": {
-        "title": "Why Choose CNX",
-        "description": "Learn why CNX Energy is a trusted partner for solar and BESS manufacturing."
+        "title": "About Us",
+        "description": "CNX Energy connects solar module manufacturing, trusted Tier 1 PV and BESS brands, and project-oriented supply chain services for ODM customers, EPC contractors, distributors and project developers.",
+        "keywords": "Solar Manufacturer, Solar Manufacturing Partner, ODM Solar Partner, Global PV Supplier, BESS Solution Provider, Solar Supply Chain Partner, Renewable Energy Partner, Global Solar Supply Chain Partner, Solar Energy Solution Provider, Solar Supplier for EPC Companies"
       },
       "hero": {
-        "eyebrow": "WHY CHOOSE CNX",
-        "heading": "Your trusted partner for smarter energy solutions",
-        "subtext": "CNX delivers innovative solar, energy storage, and trusted global renewable solutions.",
-        "cta": "Explore Products",
-        "ctaHref": "/products",
+        "eyebrow": "ABOUT US",
+        "heading": "Global Solar Energy & BESS Solutions Partner",
+        "subtext": "CNX Energy connects solar module manufacturing, trusted Tier 1 PV and BESS brands, and project-oriented supply chain services to help businesses source solar and energy storage solutions with greater confidence.",
+        "tagline": "One partner. Flexible sourcing. Connected energy solutions.",
+        "taglineLabel": "Our promise",
+        "cta": "Explore Our Capabilities",
+        "ctaHref": "/manufacturing/solar-panels",
+        "secondaryCta": "Discuss Your Project",
+        "secondaryCtaHref": "/contact",
         "backgroundImage": "/images/about/whyChooseCNX/whyChooseCNXHeroBanner.webp"
       },
+      "whoWeAre": {
+        "eyebrow": "WHO WE ARE",
+        "heading": "A solar energy solution provider for global PV and BESS markets",
+        "lead": "CNX Energy is a solar energy solution provider serving the evolving needs of the global photovoltaic and battery energy storage markets.",
+        "body": "Our business combines solar module manufacturing, partnerships with established PV and BESS brands, and coordinated supply chain services. This approach gives customers more flexibility in sourcing products for different applications, procurement models, and project requirements.\n\nWhether you are looking for a reliable solar manufacturing partner, a source for established PV and BESS brands, or coordinated product supply for a renewable energy project, CNX works to connect the right capabilities with your business needs.",
+        "glanceTitle": "Our Business at a Glance",
+        "stats": {
+          "years": {
+            "value": "18",
+            "suffix": "Years",
+            "label": "Industry experience"
+          },
+          "factories": {
+            "value": "6",
+            "suffix": "Factories",
+            "label": "Manufacturing network"
+          },
+          "countries": {
+            "value": "50+",
+            "suffix": "Countries",
+            "label": "Export reach"
+          },
+          "customers": {
+            "value": "200+",
+            "suffix": "Customers",
+            "label": "Customers served"
+          }
+        },
+        "cta": "Discover Our Manufacturing Capabilities",
+        "ctaHref": "/manufacturing/solar-panels"
+      },
       "competitiveAdvantage": {
-        "eyebrow": "OUR COMPETITIVE ADVANTAGE",
-        "heading": "Everything you need from one reliable partner",
+        "eyebrow": "WHY CHOOSE US",
+        "heading": "Six reasons businesses source with CNX",
         "items": {
-          "advancedTechnologies": {
-            "icon": "cpu",
-            "title": "Advanced Technologies",
-            "body": "Industry-leading HJT, TOPCon, and Back Contact innovations for higher efficiency and long-term performance."
-          },
-          "integratedManufacturing": {
+          "verticalManufacturing": {
             "icon": "factory",
-            "title": "Integrated Manufacturing",
-            "body": "End-to-end production of cells, modules, and BESS with strict quality control and dependable supply."
+            "title": "Vertical Manufacturing & Quality Control",
+            "body": "CNX connects solar module manufacturing with product selection and supply coordination. Our manufacturing capabilities support customized module requirements and private-label projects, with quality control and traceability processes designed to promote product consistency.",
+            "cta": "Explore Our Manufacturing",
+            "ctaHref": "/manufacturing/solar-panels",
+            "image": "/images/manufacturing/bc-solar/Manufacturing-excellence.webp",
+            "imageAlt": "Solar module production line in a CNX factory"
           },
-          "oemOdmSolutions": {
-            "icon": "blend",
-            "title": "OEM & ODM Solutions",
-            "body": "Custom products and flexible private-label manufacturing designed specifically for your unique business needs."
+          "brandPortfolio": {
+            "icon": "badge-check",
+            "title": "Trusted Tier 1 PV & BESS Brand Portfolio",
+            "body": "Through our relationships with established PV and BESS brands, CNX helps customers source products across different technology categories and project requirements. Our brand portfolio supports a more flexible procurement process without limiting customers to a single product source.",
+            "cta": "Explore Our Partner Brands",
+            "ctaHref": "/tier-1-brands",
+            "image": "/images/news/news-solar-modules.webp",
+            "imageAlt": "Tier 1 solar modules ready for a project"
           },
-          "provenQuality": {
-            "icon": "shield-check",
-            "title": "Proven Quality",
-            "body": "We provide complete traceability, rigorous testing, and international certifications for every product we offer."
+          "financing": {
+            "icon": "wallet",
+            "title": "EPC+F Credit Financing Support",
+            "body": "For eligible customers and qualifying projects, CNX offers EPC+F credit financing support designed to help manage procurement cash flow and project funding requirements. Availability, credit terms, and eligibility are assessed on a case-by-case basis.",
+            "cta": "Discuss Financing Options",
+            "ctaHref": "/contact",
+            "image": "/images/news/news-epc-financing.webp",
+            "imageAlt": "Project team reviewing EPC financing plans"
           },
-          "globalSupplyNetwork": {
-            "icon": "globe",
-            "title": "Global Supply Network",
-            "body": "Reliable logistics and consistent manufacturing support projects worldwide with efficiency and effectiveness."
+          "procurement": {
+            "icon": "network",
+            "title": "Flexible, Integrated Procurement",
+            "body": "CNX can coordinate self-manufactured solar modules with selected partner-brand inverters and battery energy storage products. By consolidating sourcing requirements through one partner, customers can simplify supplier coordination and improve visibility across their procurement process.",
+            "cta": "Explore PV & BESS Solutions",
+            "ctaHref": "/manufacturing/bess",
+            "image": "/images/hero/hero-488kwh-bess.webp",
+            "imageAlt": "Solar array with a battery energy storage system"
           },
-          "technicalPartnership": {
-            "icon": "handshake",
-            "title": "Technical Partnership",
-            "body": "We provide reliable engineering support, prompt communication, and excellent after-sales service throughout your project."
+          "technicalSupport": {
+            "icon": "headset",
+            "title": "Technical Sales & Engineering Support",
+            "body": "From technical product selection and system design coordination to documentation and after-sales communication, CNX helps customers address technical questions throughout the procurement process. Support scope is aligned with the products supplied and the requirements of each project.",
+            "cta": "Contact Our Technical Team",
+            "ctaHref": "/contact",
+            "image": "/images/news/news-smart-monitoring.webp",
+            "imageAlt": "Engineer checking system monitoring data"
+          },
+          "logistics": {
+            "icon": "ship",
+            "title": "Global Logistics & Export Coordination",
+            "body": "CNX supports international customers with export coordination, shipment planning, and relevant product documentation. We work with customers to identify applicable logistics and import requirements early, helping reduce avoidable delays and improve supply planning.",
+            "cta": "Discuss Supply Requirements",
+            "ctaHref": "/contact",
+            "image": "/images/home/supplyChainFinancing.webp",
+            "imageAlt": "Large solar installation across a hillside"
           }
         }
+      },
+      "sourcingRoutes": {
+        "eyebrow": "SOURCING ROUTES",
+        "heading": "One Partner. Multiple Sourcing Routes.",
+        "subheading": "Flexible Solar & Energy Storage Solutions for Your Business",
+        "body": "CNX combines solar module manufacturing, Tier 1 PV and BESS brands, and customized sourcing solutions. Beyond standard product supply, we provide custom solar panel replacement solutions for aging PV plants, helping customers address legacy module dimensions through tailored manufacturing for PV revamping and repowering projects.",
+        "cards": {
+          "odm": {
+            "icon": "factory",
+            "title": "ODM Customers",
+            "body": "Customized solar modules and private-label manufacturing.",
+            "featured": "false",
+            "linkLabel": "",
+            "linkHref": ""
+          },
+          "epc": {
+            "icon": "building",
+            "title": "EPC Contractors",
+            "body": "Coordinated PV and BESS sourcing with technical support.",
+            "featured": "false",
+            "linkLabel": "",
+            "linkHref": ""
+          },
+          "distributors": {
+            "icon": "truck",
+            "title": "Distributors",
+            "body": "Access to selected Tier 1 PV and BESS brands.",
+            "featured": "false",
+            "linkLabel": "",
+            "linkHref": ""
+          },
+          "developers": {
+            "icon": "refresh",
+            "title": "Project Developers & Asset Owners",
+            "body": "Customized replacement modules for existing PV plants, including PV revamping and repowering projects.",
+            "featured": "true",
+            "featuredLabel": "PV Revamping & Repowering",
+            "image": "/images/news/news-hjt-tracker.webp",
+            "imageAlt": "Technicians servicing an operating solar plant",
+            "linkLabel": "Explore PV Revamping",
+            "linkHref": "/manufacturing/solar-panels/revamping"
+          }
+        },
+        "primaryCta": "Discuss Your Project",
+        "primaryCtaHref": "/contact",
+        "secondaryCta": "Explore Our Products & Brands",
+        "secondaryCtaHref": "/tier-1-brands"
       },
       "beyondProducts": {
         "eyebrow": "BEYOND PRODUCTS",
@@ -988,6 +1141,7 @@
         }
       },
       "industryRecognition": {
+        "show": "false",
         "eyebrow": "RECONNAISSANCE DU SECTEUR",
         "heading": "Reconnu pour son excellence en fabrication et en innovation",
         "backgroundImage": "/images/home/Awards.webp",
@@ -1010,8 +1164,8 @@
         }
       },
       "caseStudy": {
-        "eyebrow": "CLIENT SUCCESS STORY",
-        "heading": "Real world HJT project success stories",
+        "eyebrow": "PROJECT CASE",
+        "heading": "Proven Capabilities. Global Reach",
         "backgroundImage": "/images/home/clientTestimonialsBackground.webp",
         "title": "5MW HJT tracker project designed for higher yield",
         "body": "A European ground-mounted solar project used high-bifaciality HJT modules with local tracker systems to improve power generation and efficiency compared with previous standard N-type module layouts. CNX supported module selection, export coordination, technical documents, and after-sales communication.",
@@ -1022,16 +1176,18 @@
         }
       },
       "cta": {
-        "heading": "Power your next project with CNX",
-        "subtext": "From sourcing top solar modules to launching private-label products, CNX offers the technology and expertise your business needs.",
+        "heading": "Let's Build the Right Sourcing Strategy for Your Business",
+        "lead": "Looking for a reliable solar manufacturing partner, a source for established PV and BESS brands, or coordinated supply for your next renewable energy project?",
+        "subtext": "Share your requirements with CNX. We will review your needs and discuss suitable sourcing options based on your product specifications, project scope, and commercial priorities.",
         "primaryCta": {
-          "label": "Contact Sales",
+          "label": "Discuss Your Project",
           "href": "/contact"
         },
         "secondaryCta": {
-          "label": "Explore Products",
-          "href": "/products"
-        }
+          "label": "Explore Our Products & Brands",
+          "href": "/tier-1-brands"
+        },
+        "image": "/images/home/CTABackground.webp"
       }
     },
     "technology": {
@@ -1112,6 +1268,19 @@
         "highlightsHeading": "Highlight events",
         "allNewsHeading": "All events",
         "noArticles": "No events published yet."
+      },
+      "caseStudies": {
+        "meta": {
+          "title": "Case Studies",
+          "description": "Solar and energy storage projects supplied and supported by CNX Energy."
+        },
+        "bannerEyebrow": "Case Studies",
+        "bannerHeading": "Proven capabilities in real projects",
+        "bannerImage": "/images/home/clientTestimonialsBackground.webp",
+        "bannerImagePosition": "center",
+        "highlightsHeading": "Featured cases",
+        "allNewsHeading": "All case studies",
+        "noArticles": "No case studies published yet."
       }
     },
     "previousHighlight": "Previous highlight",
@@ -1123,7 +1292,24 @@
     "shareLabel": "Share on social:",
     "shareAriaLabel": "Share on {network}",
     "previousPost": "Previous Post",
-    "nextPost": "Next Post"
+    "nextPost": "Next Post",
+    "caseStudy": {
+      "eyebrow": "Case study",
+      "facts": {
+        "client": "Client",
+        "location": "Location",
+        "capacity": "Capacity",
+        "application": "Application",
+        "products": "Products supplied",
+        "completed": "Completed"
+      },
+      "storyEyebrow": "The project",
+      "resultsEyebrow": "Results",
+      "resultsHeading": "What the project delivered",
+      "moreHeading": "More case studies",
+      "viewAll": "All case studies",
+      "viewAllHref": "/news/case-studies"
+    }
   },
   "contact": {
     "meta": {
@@ -1140,6 +1326,18 @@
       "eyebrow": "PRENONS CONTACT",
       "heading": "Parlez à un spécialiste de l'énergie",
       "description": "Une question sur nos produits, nos prix, la distribution ou un projet ? Envoyez-nous un message : la bonne personne de notre équipe vous répondra."
+    },
+    "offices": {
+      "factory": {
+        "label": "Factory",
+        "name": "CurrentNexus Energy (Wuxi) Co., Ltd",
+        "address": "No. 888 Qinghong Road, Ehu Town, Xishan District, Wuxi City (within the Dilin Enterprise)"
+      },
+      "office": {
+        "label": "Office",
+        "name": "CurrentNexus Group Limited",
+        "address": "Flat/Rm A, 12/F, ZJ 300, 300 Lockhart Road, Wan Chai, Hong Kong"
+      }
     },
     "details": {
       "locationLabel": "Bureau",
@@ -1257,6 +1455,10 @@
           "bess": {
             "label": "BESS",
             "href": "/manufacturing/bess"
+          },
+          "revamping": {
+            "label": "Revamping",
+            "href": "/manufacturing/solar-panels/revamping"
           }
         }
       },
@@ -1312,6 +1514,10 @@
           "events": {
             "label": "Events",
             "href": "/news/events"
+          },
+          "caseStudies": {
+            "label": "Case Studies",
+            "href": "/news/case-studies"
           }
         }
       }
@@ -1336,50 +1542,77 @@
     "privacy": {
       "meta": {
         "title": "Privacy Policy",
-        "description": "How CNX Energy collects, uses and protects personal data submitted through this website."
+        "description": "How CNX Energy collects, uses, shares and protects personal data submitted through this website, and the rights you have."
       },
       "eyebrow": "Legal",
       "title": "Privacy Policy",
-      "updated": "Last updated: 13 October 2026",
-      "intro": "This policy explains what personal data Current Nexus Group Limited (“CNX”, “we”, “us”) collects through this website, why we collect it and the choices you have.",
+      "updated": "Last updated: 26 October 2026",
+      "bannerImage": "/images/home/CTABackground.webp",
+      "intro": "This Privacy Policy explains what personal data Current Nexus Group Limited (“CNX”) collects through this website, how we use and protect it, and the choices and rights you have.",
       "sections": {
         "s1": {
-          "heading": "Who we are",
-          "body": "Current Nexus Group Limited operates this website and is the controller of the personal data described here. You can reach us at the email address shown in the website footer."
+          "heading": "1. Who We Are",
+          "body": "This website is operated by Current Nexus Group Limited (“CNX”, “we”, “us” or “our”), a company registered in the Hong Kong Special Administrative Region that manufactures and supplies solar modules, battery energy storage systems and related products.\nCNX is the controller of the personal data described in this policy. You can contact us using the details on our Contact page."
         },
         "s2": {
-          "heading": "Data we collect",
-          "body": "Information you send us through our forms: name, company, email, phone or WhatsApp number, country, project details and any files you upload.\nNewsletter sign-ups: your email address and language.\nTechnical data: IP address, browser type, device and the pages you visit, collected through strictly necessary cookies and, only with your consent, analytics cookies."
+          "heading": "2. Scope of This Policy",
+          "body": "This policy applies to personal data we collect through this website, including our contact, quotation, warranty and newsletter forms, and through related email and messaging conversations that start from the website.\nIt does not cover websites run by other companies that we link to, including the websites of Tier 1 brands we represent. Those websites have their own privacy policies."
         },
         "s3": {
-          "heading": "How we use your data",
-          "body": "To answer inquiries and prepare quotations.\nTo handle warranty and after-sales requests.\nTo send newsletters you have signed up for — you can unsubscribe at any time.\nTo keep the website secure and understand how it is used, so we can improve it.\nTo meet legal and accounting obligations."
+          "heading": "3. Personal Data We Collect",
+          "body": "Depending on how you use the website, we may collect:\n- Contact details: your name, job title, company name, business email address, phone or WhatsApp number and country.\n- Project information: the products you are interested in, project size, location, timelines and any technical requirements you share.\n- Files you upload: drawings, product lists, specifications or photos attached to an inquiry or warranty request.\n- Communications: the content of messages you send us and our replies.\n- Newsletter data: your email address and preferred language.\n- Technical data: IP address, browser type, device information, referring pages and the pages you visit.\nPlease do not send us sensitive personal data, such as health information or government identification numbers, through the website."
         },
         "s4": {
-          "heading": "Cookies",
-          "body": "We use strictly necessary cookies to run the website and remember your cookie choice. Analytics or marketing cookies are only used if you accept them in the cookie banner. See our Cookie Policy for details."
+          "heading": "4. How We Collect Your Data",
+          "body": "We collect personal data directly from you when you complete a form, request a quotation, subscribe to our newsletter or contact us by email or messaging apps.\nWe collect technical data automatically through strictly necessary cookies and, only if you consent, analytics cookies. We may also receive business contact details from our authorised distributors and partners when you ask them to involve CNX in your project."
         },
         "s5": {
-          "heading": "Sharing your data",
-          "body": "We do not sell personal data. We share it only with service providers who help us run the website and our email (hosting, email delivery), with authorised CNX distributors when you ask for local support, and with authorities where the law requires it."
+          "heading": "5. Why We Use Your Data",
+          "body": "We use personal data for the following purposes:\n- To respond to inquiries and prepare quotations, based on the steps you ask us to take before entering into a contract.\n- To supply products and provide technical, warranty and after-sales support, to perform our contract with you or your company.\n- To send newsletters and product updates you have signed up for, based on your consent.\n- To keep the website secure, prevent misuse and understand how it is used, based on our legitimate interest in running a reliable website.\n- To meet legal, tax, accounting and export obligations.\nWe do not use your personal data for automated decision-making that has legal or similarly significant effects on you."
         },
         "s6": {
-          "heading": "International transfers",
-          "body": "CNX works with customers and partners worldwide, so your data may be processed outside your country. Where this happens we use appropriate safeguards to protect it."
+          "heading": "6. Cookies and Analytics",
+          "body": "We use strictly necessary cookies to operate the website and remember your cookie choice. Analytics cookies are only activated after you accept them in our cookie banner, and you can change your choice at any time through the “Cookie Settings” link in the footer.\nFor full details, please read our Cookie Policy."
         },
         "s7": {
-          "heading": "How long we keep data",
-          "body": "Inquiry and quotation data is kept for as long as needed to handle your request and our business relationship, and then for the period required by law. Newsletter data is kept until you unsubscribe."
+          "heading": "7. Who We Share Your Data With",
+          "body": "We do not sell or rent personal data. We share it only where needed, with:\n- Service providers who host the website, deliver email and store data on our behalf, under contracts that require them to protect it.\n- Authorised CNX distributors or installation partners in your region, when you ask for local support or a local quotation.\n- Logistics and freight partners, when needed to deliver products you have ordered.\n- Professional advisers, such as auditors and lawyers, under duties of confidentiality.\n- Public authorities, courts or regulators, where the law requires it or to protect our legal rights."
         },
         "s8": {
-          "heading": "Your rights",
-          "body": "Depending on where you live, you may have the right to access, correct or delete your data, to object to or restrict its use, and to receive a copy of it. To use these rights, contact us by email. You may also complain to your local data protection authority."
+          "heading": "8. International Transfers",
+          "body": "CNX serves customers and partners in many countries, and our team and service providers are located in more than one region. As a result, your personal data may be transferred to and processed in countries other than your own, including Hong Kong and mainland China.\nWhere we transfer data internationally, we take steps to make sure it receives an appropriate level of protection, such as contractual safeguards with our service providers."
         },
         "s9": {
-          "heading": "Changes to this policy",
-          "body": "We may update this policy from time to time. The date at the top of this page shows when it last changed."
+          "heading": "9. How Long We Keep Your Data",
+          "body": "We keep personal data only for as long as we need it for the purposes described in this policy:\n- Inquiry and quotation data: for the duration of our discussions and business relationship, and then for up to seven years to meet legal and accounting requirements.\n- Warranty records: for the length of the product warranty, plus any period required by law.\n- Newsletter data: until you unsubscribe.\n- Technical and analytics data: for the period set out in our Cookie Policy.\nWhen data is no longer needed, we delete it or make it anonymous."
+        },
+        "s10": {
+          "heading": "10. How We Protect Your Data",
+          "body": "We use technical and organisational measures to protect personal data against loss, misuse and unauthorised access, including encrypted connections (HTTPS), access controls and limited staff access on a need-to-know basis.\nNo method of transmission over the internet is completely secure, but we work to protect your data and review our safeguards regularly."
+        },
+        "s11": {
+          "heading": "11. Your Rights",
+          "body": "Depending on the laws that apply to you, you may have the right to:\n- Access the personal data we hold about you and receive a copy of it.\n- Ask us to correct data that is inaccurate or incomplete.\n- Ask us to delete your data, where we no longer need it.\n- Object to or ask us to restrict certain uses of your data.\n- Withdraw your consent at any time, where we rely on consent, without affecting earlier processing.\n- Complain to the data protection authority in your country.\nTo use any of these rights, contact us using the details on our Contact page. We may ask you to confirm your identity before we respond."
+        },
+        "s12": {
+          "heading": "12. Marketing Communications",
+          "body": "We only send newsletters and marketing emails if you have signed up for them or where the law otherwise allows. Every email includes an unsubscribe link, and you can also ask us to stop at any time."
+        },
+        "s13": {
+          "heading": "13. Children’s Privacy",
+          "body": "This website is intended for business customers and is not directed at children under 16. We do not knowingly collect personal data from children. If you believe a child has sent us personal data, please contact us and we will delete it."
+        },
+        "s14": {
+          "heading": "14. Changes to This Policy",
+          "body": "We may update this policy to reflect changes to our website, services or legal requirements. The date at the top of this page shows when it was last changed. Where changes are significant, we will make that clear on the website."
+        },
+        "s15": {
+          "heading": "15. Contact Us",
+          "body": "If you have questions about this policy or how CNX handles personal data, please contact us using the details on our Contact page.\nFor information about cookies, please see our Cookie Policy."
         }
-      }
+      },
+      "summaryHeading": "At a glance",
+      "summary": "- We collect the details you send us through our forms, plus basic technical data needed to run the website.\n- We use them to answer inquiries, prepare quotations, support your projects and, if you sign up, send our newsletter.\n- We never sell personal data. We share it only with service providers, authorised partners you ask us to involve, or authorities where the law requires.\n- You can ask to access, correct or delete your data at any time."
     },
     "cookies": {
       "meta": {
@@ -1388,58 +1621,132 @@
       },
       "eyebrow": "Legal",
       "title": "Cookie Policy",
-      "updated": "Last updated: 13 October 2026",
-      "intro": "Cookies are small text files stored in your browser. This page explains which cookies this website uses and how you can control them.",
+      "updated": "Last updated: 22 October 2026",
+      "bannerImage": "/images/home/CTABackground.webp",
+      "intro": "This Cookie Policy explains how CNX uses cookies and similar technologies on this website, why we use them, and how you can manage your preferences.",
       "sections": {
         "s1": {
-          "heading": "Strictly necessary cookies",
-          "body": "These keep the website working — for example remembering your language and your cookie choice, and keeping the dashboard login secure. They cannot be switched off."
+          "heading": "1. What Are Cookies?",
+          "body": "Cookies are small text files that websites may store on your computer, tablet, or mobile device when you visit a website. They help websites function properly, remember your preferences, and, where permitted, understand how visitors interact with the website."
         },
         "s2": {
-          "heading": "Analytics cookies",
-          "body": "If you accept them, analytics cookies help us understand how visitors use the website (pages visited, time on page) so we can improve it. They are only set after you click “Accept all”."
+          "heading": "2. How We Use Cookies",
+          "body": "We use cookies to support the essential operation of our website and, where you have given your consent, to understand website usage and improve our content and user experience.\nCookies may be set by CNX directly (first-party cookies) or by third-party service providers whose tools are integrated into our website (third-party cookies).\nWe classify cookies into the following categories."
         },
         "s3": {
-          "heading": "Marketing cookies",
-          "body": "We do not currently use marketing or advertising cookies. If this changes, we will update this policy and ask for your consent first."
+          "heading": "2.1 Strictly Necessary Cookies",
+          "body": "Strictly necessary cookies are required for the website to operate securely and function as intended. Depending on the features you use, they may be used to:\n- Remember your cookie consent preferences.\n- Support essential website functions and maintain secure sessions.\n- Protect the website against certain security risks.\n- Maintain the technical stability and performance of the website.\nThese cookies do not require consent where they are strictly necessary to provide a service you have requested. They cannot be disabled through our cookie preference tool, although you may be able to block them through your browser settings. Doing so may affect certain website functions."
         },
         "s4": {
-          "heading": "Changing your choice",
-          "body": "Use the “Cookie settings” link in the website footer to see the cookie banner again and change your choice. You can also delete cookies at any time in your browser settings."
+          "heading": "2.2 Analytics Cookies",
+          "body": "Analytics cookies help us understand how visitors use our website, such as which pages are visited, how visitors navigate between pages, and how long they spend on particular pages.\nWe use this information to evaluate website performance, identify areas for improvement, and make our content more relevant to visitors, including customers and business partners exploring our solar energy and energy storage solutions.\nAnalytics cookies are only activated after you provide consent through our cookie banner or cookie settings. If you reject these cookies, they will not be activated."
+        },
+        "s5": {
+          "heading": "2.3 Marketing and Advertising Cookies",
+          "body": "We do not currently use marketing or advertising cookies on this website.\nIf we introduce marketing or advertising cookies in the future, we will update this Cookie Policy and, where required, request your consent before activating them."
+        },
+        "s6": {
+          "heading": "2.4 Third-Party Cookies",
+          "body": "Certain website features or integrated services may use third-party technologies that set cookies or collect information through similar technologies.\nIf third-party cookies are introduced, we will review their purposes and applicable consent requirements and update this policy and our cookie preference tool as appropriate. Third-party providers may process information in accordance with their own privacy policies and terms."
+        },
+        "s7": {
+          "heading": "3. How to Manage Your Cookie Preferences",
+          "body": "When you first visit our website, the cookie banner allows you to choose whether to accept or reject non-essential cookies.\nYou can change or withdraw your consent at any time by selecting the “Cookie Settings” link in the website footer. Your updated preferences will apply going forward.\nYou can also delete or block cookies through your browser settings. Please note that blocking strictly necessary cookies may affect the availability or functionality of certain parts of the website.\nRejecting non-essential cookies will not prevent you from accessing the website's core content."
+        },
+        "s8": {
+          "heading": "4. How Long Do Cookies Remain on Your Device?",
+          "body": "Cookies may be session cookies, which expire when you close your browser, or persistent cookies, which remain on your device for a specified period or until you delete them.\nThe duration of each cookie depends on its purpose and configuration. Where applicable, information about individual cookies, including their provider, purpose, and duration, will be available through our cookie settings or cookie declaration."
+        },
+        "s9": {
+          "heading": "5. Updates to This Cookie Policy",
+          "body": "We may update this Cookie Policy from time to time to reflect changes in our website, technologies, services, or applicable legal requirements.\nAny revised version will be published on this page with an updated revision date. Where required, we will obtain your consent before using new categories of non-essential cookies."
+        },
+        "s10": {
+          "heading": "6. Contact Us",
+          "body": "If you have any questions about this Cookie Policy or how cookies are used on our website, please contact us through the contact information provided on our website.\nFor more information about how CNX handles personal information, please refer to our Privacy Policy."
         }
-      }
+      },
+      "summaryHeading": "At a glance",
+      "summary": "- We use strictly necessary cookies to run the website and remember your cookie choice.\n- Analytics cookies are only switched on if you accept them.\n- We do not currently use marketing or advertising cookies.\n- You can change your choice at any time through “Cookie Settings” in the footer."
     },
     "terms": {
       "meta": {
         "title": "Terms of Use",
-        "description": "Terms that apply to using the CNX Energy website."
+        "description": "The terms that apply to using the CNX Energy website, its content and product information."
       },
       "eyebrow": "Legal",
       "title": "Terms of Use",
-      "updated": "Last updated: 13 October 2026",
-      "intro": "By using this website you agree to these terms. If you do not agree, please do not use the website.",
+      "updated": "Last updated: 26 October 2026",
+      "bannerImage": "/images/home/CTABackground.webp",
+      "intro": "These Terms of Use set out the rules for using the CNX website, including how you may use our content and the limits of our responsibility. Please read them carefully.",
       "sections": {
         "s1": {
-          "heading": "Website content",
-          "body": "Product information, specifications and prices on this website are for general information. Final specifications, prices and terms are confirmed in a written quotation or contract."
+          "heading": "1. About These Terms",
+          "body": "These Terms of Use apply to your use of this website. By accessing or using the website, you agree to these terms. If you do not agree, please do not use the website.\nIf you use the website on behalf of a company, you confirm that you are authorised to accept these terms on its behalf."
         },
         "s2": {
-          "heading": "Intellectual property",
-          "body": "Text, images, logos and other content on this website belong to Current Nexus Group Limited or its partners. You may not copy or reuse them without permission, except for normal personal or business reference."
+          "heading": "2. Who We Are",
+          "body": "This website is operated by Current Nexus Group Limited (“CNX”, “we”, “us” or “our”), a company registered in the Hong Kong Special Administrative Region. You can contact us using the details on our Contact page."
         },
         "s3": {
-          "heading": "Third-party brands and links",
-          "body": "Tier 1 brand names and logos belong to their owners. Links to other websites are provided for convenience; we are not responsible for their content."
+          "heading": "3. Using the Website",
+          "body": "You may use the website to learn about CNX, our products and services, and to contact us. When using the website, you agree not to:\n- Use it in any way that breaks applicable laws or regulations.\n- Attempt to gain unauthorised access to the website, its servers or connected systems.\n- Introduce viruses, malicious code or anything that may harm the website or other users.\n- Use automated tools to copy, scrape or collect content or data without our written permission.\n- Submit false, misleading or unlawful information through our forms.\nWe may suspend or restrict access to the website if we believe these terms have been breached."
         },
         "s4": {
-          "heading": "Liability",
-          "body": "We work to keep this website accurate and available but cannot guarantee it is free of errors or interruptions. To the extent allowed by law, we are not liable for losses arising from use of the website."
+          "heading": "4. Product Information and Specifications",
+          "body": "We aim to keep product descriptions, datasheets, specifications and images accurate and up to date. However, they are provided for general information only and may change without notice as products are developed and improved.\nImages may be for illustration only. Final product specifications, certifications and availability are confirmed in a written quotation, datasheet version or contract."
         },
         "s5": {
-          "heading": "Governing law",
-          "body": "These terms are governed by the laws of the Hong Kong Special Administrative Region."
+          "heading": "5. Quotations, Orders and Contracts",
+          "body": "Submitting an inquiry or quotation request through the website does not create a contract. Any sale of products or services is governed by a separate written quotation, sales contract or purchase order agreed between you and CNX.\nIf there is any conflict between these terms and a signed contract, the signed contract will prevail."
+        },
+        "s6": {
+          "heading": "6. Intellectual Property",
+          "body": "The website and its content, including text, graphics, photos, videos, datasheets, logos and the CNX name, are owned by or licensed to Current Nexus Group Limited and are protected by intellectual property laws.\nYou may view, download and print content for your own business reference, such as evaluating our products. You may not copy, modify, republish or use our content or trademarks for any other purpose without our prior written permission."
+        },
+        "s7": {
+          "heading": "7. Third-Party Brands, Products and Links",
+          "body": "Tier 1 brand names, logos and product names shown on this website belong to their respective owners and are used to identify the products we supply. Their use does not imply that those owners endorse this website.\nThe website may link to websites run by other companies. These links are provided for convenience; we do not control and are not responsible for their content, availability or privacy practices."
+        },
+        "s8": {
+          "heading": "8. Information and Files You Send Us",
+          "body": "When you submit information or upload files through the website, you confirm that you have the right to share them and that they do not infringe the rights of others.\nWe will use the information you provide to respond to your request, as described in our Privacy Policy. Please do not send confidential technical information unless we have agreed how it will be handled."
+        },
+        "s9": {
+          "heading": "9. Website Availability and Disclaimer",
+          "body": "We work to keep the website accurate, secure and available, but we cannot guarantee that it will always be free of errors, interruptions or harmful components.\nThe website and its content are provided “as is”. To the extent permitted by law, we make no warranties, express or implied, about the website or its content. Product warranties are set out separately in the warranty terms that come with each product."
+        },
+        "s10": {
+          "heading": "10. Limitation of Liability",
+          "body": "To the extent permitted by law, CNX will not be liable for any indirect or consequential loss, or for loss of profits, revenue, business or data, arising from your use of, or inability to use, the website or its content.\nNothing in these terms limits liability that cannot be limited by law, including liability for death or personal injury caused by negligence, or for fraud."
+        },
+        "s11": {
+          "heading": "11. Privacy and Cookies",
+          "body": "Our Privacy Policy explains how we collect and use personal data through the website, and our Cookie Policy explains how we use cookies. Both form part of these terms."
+        },
+        "s12": {
+          "heading": "12. Changes to the Website and These Terms",
+          "body": "We may update the website and these terms from time to time. The date at the top of this page shows when the terms were last changed. By continuing to use the website after a change, you accept the updated terms."
+        },
+        "s13": {
+          "heading": "13. Governing Law and Jurisdiction",
+          "body": "These terms, and any dispute arising from them or from your use of the website, are governed by the laws of the Hong Kong Special Administrative Region. The courts of Hong Kong will have exclusive jurisdiction, unless the law of your country requires otherwise."
+        },
+        "s14": {
+          "heading": "14. Contact Us",
+          "body": "If you have any questions about these Terms of Use, please contact us using the details on our Contact page."
         }
-      }
+      },
+      "summaryHeading": "At a glance",
+      "summary": "- Information on this website is general. Final specifications, prices and terms are confirmed in a written quotation or contract.\n- Website content and the CNX brand belong to Current Nexus Group Limited. Tier 1 brand names and logos belong to their owners.\n- Please use the website lawfully and do not try to disrupt or misuse it.\n- These terms are governed by the laws of Hong Kong."
+    },
+    "ui": {
+      "toc": "On this page",
+      "helpTitle": "Questions about this policy?",
+      "helpBody": "Our team can explain how we handle your data or answer any question about these terms.",
+      "helpCta": "Contact us",
+      "helpCtaHref": "/contact",
+      "related": "Related policies"
     }
   },
   "cookieConsent": {
@@ -1504,7 +1811,13 @@
       "ownModulesHref": "/manufacturing/solar-panels",
       "ownBessSummary": "Stockage résidentiel, 112, 261 et 488 kWh",
       "ownBessHref": "/manufacturing/bess",
-      "emptyLabel": "Les pages de marques sont en préparation. Contactez-nous pour la liste complète."
+      "emptyLabel": "Les pages de marques sont en préparation. Contactez-nous pour la liste complète.",
+      "tabs": {
+        "all": "All Brands",
+        "MODULES": "Solar Modules",
+        "INVERTERS": "Solar Inverters",
+        "BESS": "Battery Energy Storage"
+      }
     },
     "partnership": {
       "eyebrow": "Partenariats mondiaux",

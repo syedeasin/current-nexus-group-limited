@@ -11,70 +11,66 @@ const ITEM_BASE_DELAY_MS = 240;
 const ITEM_STEP_MS = 80;
 const ITEM_STAGGER_CAP_MS = 400;
 
+const pad = (n: number) => String(n).padStart(2, "0");
+
+/**
+ * Product page → Manufacturing excellence. Same layout as the About page's
+ * "Six reasons" section: left column spaced between (heading and intro level
+ * with the photo's top, numbered list level with its bottom), photo right.
+ */
 export default function ManufacturingReliability({ data }: { data: ManufacturingReliabilityData }) {
   return (
-    <section className="w-full bg-white py-80 md:py-100 xl:py-120">
-      <Container className="flex flex-col gap-48">
-        {/* Figma node 2254:9003: this header is centered (unlike Product Introduction's
-            left-aligned one above it) — badge row justify-center, heading text-center. */}
-        <div className="mx-auto flex max-w-810 flex-col items-center gap-12">
-          <Reveal as="div" delay={0} className="w-full">
-            <SectionEyebrow label={data.eyebrow} className="justify-center" />
-          </Reveal>
-          <TextReveal delay={80}>
-            <Heading level={2} size="h2" className="text-balance text-center">
-              {data.heading}
-            </Heading>
-          </TextReveal>
-        </div>
-
-        <div className="flex flex-col gap-48 lg:flex-row lg:justify-between">
-          <div className="flex w-full flex-col gap-48 lg:w-620">
+    <section className="w-full bg-white py-64 md:py-80 xl:py-120">
+      <Container className="grid gap-48 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-stretch lg:gap-64 xl:gap-96">
+        <div className="flex flex-col justify-between gap-40">
+          <div className="flex flex-col gap-20">
+            <div className="flex flex-col gap-12">
+              <Reveal as="div" delay={0}>
+                <SectionEyebrow label={data.eyebrow} />
+              </Reveal>
+              <TextReveal delay={80}>
+                <Heading level={2} size="h2" className="text-balance">
+                  {data.heading}
+                </Heading>
+              </TextReveal>
+            </div>
             <Reveal as="div" delay={160}>
-              {/* Figma: Paragraph/Regular P2 (20/32), not P1. */}
-              <Text size="p2" className="text-neutral-3">
+              <Text size="p3" className="max-w-[560px] text-neutral-3">
                 {data.intro}
               </Text>
             </Reveal>
-
-            {/* Figma node 2254:9015: a divider before every item AND one closing the
-                list after the last item — not just between items. */}
-            <div className="flex flex-col gap-16 border-t border-neutral-10 pt-16">
-              {data.items.map((item, index) => {
-                const delay = ITEM_BASE_DELAY_MS + Math.min(index * ITEM_STEP_MS, ITEM_STAGGER_CAP_MS);
-                return (
-                  <Reveal
-                    key={item}
-                    as="div"
-                    delay={delay}
-                    className="flex items-center gap-12 border-b border-neutral-10 pb-16"
-                  >
-                    <span className="size-8 shrink-0 rounded-full bg-secondary" aria-hidden="true" />
-                    {/* Figma: Paragraph/Medium P2 (20/32), not P1. */}
-                    <Text size="p2" weight="medium" className="text-neutral-3">
-                      {item}
-                    </Text>
-                  </Reveal>
-                );
-              })}
-            </div>
           </div>
 
-          <Reveal
-            variant="scale"
-            as="div"
-            className="relative h-280 w-full shrink-0 md:h-360 lg:h-560 lg:w-620"
-          >
-            <Image
-              src={data.image}
-              alt={data.imageAlt ?? ""}
-              aria-hidden={data.imageAlt ? undefined : "true"}
-              fill
-              sizes="(min-width: 1024px) 620px, 100vw"
-              className="rounded-16 object-cover"
-            />
-          </Reveal>
+          <ol className="flex flex-col border-t border-neutral-10">
+            {data.items.map((item, index) => {
+              const delay = ITEM_BASE_DELAY_MS + Math.min(index * ITEM_STEP_MS, ITEM_STAGGER_CAP_MS);
+              return (
+                <Reveal
+                  key={item}
+                  as="li"
+                  delay={delay}
+                  className="flex items-baseline gap-16 border-b border-neutral-10 py-18"
+                >
+                  <span className="w-24 shrink-0 text-p3 font-semibold tabular-nums text-secondary">{pad(index + 1)}</span>
+                  <span className="text-h6 font-semibold text-neutral-1">{item}</span>
+                </Reveal>
+              );
+            })}
+          </ol>
         </div>
+
+        {/* Stretches to the left column's height on desktop, so its top and
+            bottom line up with the heading and the list's last rule. */}
+        <Reveal variant="scale" as="div" className="relative h-280 w-full overflow-hidden rounded-16 md:h-400 lg:h-auto lg:min-h-[560px]">
+          <Image
+            src={data.image}
+            alt={data.imageAlt ?? ""}
+            aria-hidden={data.imageAlt ? undefined : "true"}
+            fill
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="object-cover"
+          />
+        </Reveal>
       </Container>
     </section>
   );

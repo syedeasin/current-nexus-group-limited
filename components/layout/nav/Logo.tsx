@@ -12,7 +12,9 @@ interface LogoProps {
 }
 
 // Both logo lockups are stacked absolutely and crossfaded with opacity so the
-// transparent <-> white header transition never shifts layout.
+// transparent <-> white header transition never shifts layout. `unoptimized`:
+// SVGs are served as-is, not through /_next/image (the live site showed a
+// black box in place of the logo, revision 1022).
 export default function Logo({ isTransparent, width, height, className }: LogoProps) {
   return (
     <span className={cn("relative inline-block shrink-0", className)} style={{ width, height }}>
@@ -21,6 +23,7 @@ export default function Logo({ isTransparent, width, height, className }: LogoPr
         alt="CNX Energy"
         fill
         priority
+        unoptimized
         sizes={`${width}px`}
         className={cn(
           "object-contain transition-opacity duration-300 ease-out motion-reduce:transition-none",
@@ -32,6 +35,7 @@ export default function Logo({ isTransparent, width, height, className }: LogoPr
         alt="CNX Energy"
         fill
         priority
+        unoptimized
         sizes={`${width}px`}
         className={cn(
           "object-contain transition-opacity duration-300 ease-out motion-reduce:transition-none",

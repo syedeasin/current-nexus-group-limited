@@ -43,7 +43,9 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} className={`${switzer.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
+      {/* Browser extensions (Grammarly, ColorZilla…) add attributes to <body> before
+          React hydrates; that mismatch is not ours, so it is not reported. */}
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <NextIntlClientProvider>
           <SmoothScrollProvider>{children}</SmoothScrollProvider>
         </NextIntlClientProvider>

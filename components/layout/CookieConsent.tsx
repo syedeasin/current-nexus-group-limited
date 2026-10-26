@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Link } from "@/i18n/navigation";
+import { useHydrated } from "@/lib/hooks/useMediaQuery";
 
 /** Bump the version to ask everyone again (e.g. after adding analytics). */
 const CONSENT_KEY = "cnx-cookie-consent-v1";
@@ -43,11 +44,14 @@ interface CookieConsentProps {
  * "Reject" get equal weight, as GDPR guidance expects.
  */
 export default function CookieConsent({ labels }: CookieConsentProps) {
-  const [open, setOpen] = useState(false);
+  // "auto" = show only if no saved choice. Read after hydration (localStorage
+  // doesn't exist on the server), so server and first client render agree.
+  const hydrated = useHydrated();
+  const [mode, setMode] = useState<"auto" | "open" | "closed">("auto");
+  const open = mode === "open" || (mode === "auto" && hydrated && readCookieChoice() === null);
 
   useEffect(() => {
-    if (readCookieChoice() === null) setOpen(true);
-    const reopen = () => setOpen(true);
+    const reopen = () => setMode("open");
     window.addEventListener(OPEN_COOKIE_SETTINGS_EVENT, reopen);
     return () => window.removeEventListener(OPEN_COOKIE_SETTINGS_EVENT, reopen);
   }, []);
@@ -58,7 +62,7 @@ export default function CookieConsent({ labels }: CookieConsentProps) {
     } catch {
       // Storage blocked (private mode): the banner simply shows again next visit.
     }
-    setOpen(false);
+    setMode("closed");
   }
 
   if (!open) return null;

@@ -70,7 +70,7 @@ export const postSchema = z.object({
 
   categoryId: z.preprocess(emptyToNull, z.string().nullable().optional().default(null)),
 
-  section: z.enum(["NEWS", "RE_ANALYSIS", "KNOWLEDGE_DATABASE", "EVENTS"]).default("NEWS"),
+  section: z.enum(["NEWS", "RE_ANALYSIS", "KNOWLEDGE_DATABASE", "EVENTS", "CASE_STUDIES"]).default("NEWS"),
   isHighlight: z.preprocess(toBoolean, z.boolean().default(false)),
 
   eventStartDate: dateField,

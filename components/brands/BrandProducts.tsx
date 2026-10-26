@@ -127,7 +127,7 @@ export default function BrandProducts({
                 <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-12 border border-neutral-10 bg-neutral-10">
                   {item.specs.slice(0, CARD_SPECS).map((spec) => (
                     <div key={spec.label} className="flex flex-col gap-2 bg-white px-14 py-10">
-                      <dt className="text-[13px] leading-[18px] text-neutral-5">{spec.label}</dt>
+                      <dt className="text-p4 text-neutral-5">{spec.label}</dt>
                       <dd className="text-p4 font-semibold text-neutral-1">{spec.value}</dd>
                     </div>
                   ))}

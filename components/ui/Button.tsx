@@ -41,13 +41,13 @@ const variantStyles: Record<ButtonVariant, string> = {
 };
 
 /**
- * Figma button sizes: large is 32/18 padding at 20px text (60px tall), medium
- * is 24/12 at 18px text (48px tall). Both use an 8px gap and a pill radius.
+ * Button sizes: large is 32px side padding (60px tall), medium 24px (48px
+ * tall). All use 18px text, an 8px text-icon gap, 20px icons and a pill radius.
  */
 const sizeStyles: Record<ButtonSize, string> = {
   xl: "h-60 gap-8 px-32 text-btn-lg",
   lg: "h-48 gap-8 px-24 text-btn-sm",
-  sm: "h-40 gap-6 px-20 text-btn-sm",
+  sm: "h-40 gap-8 px-20 text-btn-sm",
 };
 
 // Hover is a colour shift only and press is a 2% squeeze — deliberately small,
@@ -55,7 +55,7 @@ const sizeStyles: Record<ButtonSize, string> = {
 // focus uses an outline (not a ring) so it stays visible on light and dark
 // surfaces alike.
 const baseStyles = [
-  "inline-flex shrink-0 items-center justify-center rounded-full font-semibold",
+  "inline-flex shrink-0 items-center justify-center rounded-full font-semibold [&_svg]:shrink-0",
   "transition-[background-color,border-color,color,transform] duration-[var(--dur-base)] ease-[var(--ease-out)]",
   "active:scale-[0.98]",
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary",

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import DatePicker from "@/components/sections/contact/DatePicker";
 import { FIELD_MAX_LENGTH, INQUIRY_FILE_ACCEPT, type ContactField } from "@/lib/inquiries/form-fields";
 
 /**
@@ -46,6 +47,16 @@ export function FieldControl({
         type="file"
         accept={INQUIRY_FILE_ACCEPT}
         className={`${INPUT_CLASS} cursor-pointer file:mr-16 file:cursor-pointer file:rounded-full file:border-0 file:bg-surface-2 file:px-16 file:py-8 file:text-p4 file:font-semibold file:text-neutral-1 hover:file:bg-neutral-10`}
+      />
+    );
+  }
+  if (field.type === "date") {
+    return (
+      <DatePicker
+        {...common}
+        defaultValue={defaultValue}
+        placeholder={field.placeholder || undefined}
+        className={INPUT_CLASS}
       />
     );
   }

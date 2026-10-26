@@ -39,12 +39,12 @@ export default async function AboutCnx() {
               </div>
               <div className="flex flex-col gap-12">
                 <Reveal as="div" delay={cascade(2)}>
-                  <Text size="p2" className="text-neutral-3">
+                  <Text size="p3" className="text-neutral-3">
                     {t("paragraph1")}
                   </Text>
                 </Reveal>
                 <Reveal as="div" delay={cascade(3)}>
-                  <Text size="p2" className="text-neutral-3">
+                  <Text size="p3" className="text-neutral-3">
                     {t("paragraph2")}
                   </Text>
                 </Reveal>
@@ -53,7 +53,7 @@ export default async function AboutCnx() {
             <Reveal as="div" delay={cascade(4)}>
               <Button href={t("ctaHref")} size="xl" className="w-full min-[481px]:w-fit">
                 {t("cta")}
-                <ChevronRight size={BUTTON_ICON_SIZE} />
+                <ChevronRight size={BUTTON_ICON_SIZE} boxed />
               </Button>
             </Reveal>
           </div>

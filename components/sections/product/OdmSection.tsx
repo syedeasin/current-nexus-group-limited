@@ -45,7 +45,7 @@ export default function OdmSection({ data }: { data: OdmSectionData }) {
           </div>
           <Reveal as="div" delay={160} className="max-w-476">
             {/* Figma: Paragraph/Regular P2 (20/32), not P1. */}
-            <Text size="p2" className="text-neutral-3">
+            <Text size="p3" className="text-neutral-3">
               {data.intro}
             </Text>
           </Reveal>
@@ -156,7 +156,7 @@ export default function OdmSection({ data }: { data: OdmSectionData }) {
                 token's -0.09px, and its icon is 18px, not 20px. */}
             <Button href={data.ctaHref} size="sm" className="h-auto px-24 py-12 tracking-[0px]!">
               {data.ctaLabel}
-              <ChevronRight size={18} />
+              <ChevronRight size={20} boxed />
             </Button>
           </Reveal>
         </div>

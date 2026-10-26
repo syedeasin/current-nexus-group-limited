@@ -7,7 +7,7 @@ import NewsletterForm from "@/components/layout/NewsletterForm";
 import CookieSettingsButton from "@/components/layout/CookieSettingsButton";
 import { Facebook, Instagram, LinkedIn, XTwitter, YouTube } from "@/components/icons/SocialIcons";
 import { siteConfig } from "@/site.config";
-import { brandEntryHref, manufacturingEntryHref, solutionEntryHref, type BrandMenuEntry } from "@/config/nav.config";
+import { brandEntryHref, solutionsMenuLinks, type BrandMenuEntry } from "@/config/nav.config";
 import { isHiddenPath } from "@/config/page-visibility";
 import { bool, entries, str } from "@/lib/page-content/read";
 import type { SolutionMenuEntry } from "@/lib/solutions-projects/types";
@@ -23,7 +23,7 @@ const socialIcons: Record<string, ({ size }: { size?: number }) => React.ReactEl
 };
 
 const LINK_CLASS =
-  "text-p3 font-medium text-white transition-colors duration-150 hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary";
+  "text-p3 font-medium text-white transition-colors duration-150 hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary aria-disabled:text-neutral-6 aria-disabled:hover:text-neutral-6";
 
 const LEGAL_LINK_CLASS =
   "text-p4 text-neutral-7 transition-colors duration-150 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary";
@@ -38,7 +38,7 @@ function isExternal(href: string) {
 interface FooterProps {
   /** Published Solutions & Projects pages — the same source as the mega menu. */
   solutions: SolutionMenuEntry[];
-  /** Published Manufacturing product pages — the same source as the mega menu. */
+  /** Unused since revision 1022 (the column is a fixed editable list); kept so callers need no change. */
   manufacturing: ManufacturingMenuEntry[];
   /** Published Tier 1 brand pages shown in the menu — the same source as the mega menu. */
   brands: BrandMenuEntry[];
@@ -54,23 +54,22 @@ interface FooterProps {
  * columns list the published pages automatically, so they can never drift
  * from the real menu again (they used to repeat the brand list).
  */
-export default async function Footer({ solutions, manufacturing, brands, hidden }: FooterProps) {
+export default async function Footer({ solutions, brands, hidden }: FooterProps) {
   const [t, nav] = await Promise.all([getTranslations("footer"), getTranslations("nav")]);
   const year = new Date().getFullYear();
 
   // Columns are an editable list (Dashboard → Pages → Footer → Link columns),
-  // mirroring the main menu sections. The columns with ids "manufacturing" and
+  // mirroring the main menu sections. The columns with ids "tier1Brands" and
   // "solutions" also list the published pages, so they never drift from the
   // mega menu.
+  // Manufacturing lists only its editable links (client revision 1022: Solar
+  // Panels, BESS, Revamping); Solutions lists the full planned page set, the
+  // unpublished ones as plain text until they go live.
   const autoLinks: Record<string, FooterLink[]> = {
-    manufacturing: manufacturing.map((entry) => ({
-      label: entry.menuLabel,
-      href: manufacturingEntryHref(entry.category, entry.slug),
-    })),
     tier1Brands: brands.map((brand) => ({ label: brand.name, href: brandEntryHref(brand.slug) })),
-    solutions: solutions.map((entry) => ({
-      label: entry.menuLabel,
-      href: solutionEntryHref(entry.menuGroup, entry.slug),
+    solutions: solutionsMenuLinks(solutions, hidden).map((link) => ({
+      label: link.label ?? (link.labelKey ? nav(link.labelKey) : ""),
+      href: link.href,
     })),
   };
 
@@ -112,10 +111,13 @@ export default async function Footer({ solutions, manufacturing, brands, hidden 
         className="pointer-events-none absolute inset-x-0 z-0 h-auto w-full select-none bottom-[var(--footer-wordmark-offset)]"
       />
       <Container>
-        <div className="relative z-10 flex w-full flex-col gap-120 xl:gap-172">
+        <div className="relative z-10 flex w-full flex-col gap-64 sm:gap-120 xl:gap-172">
           <div className="flex w-full flex-col gap-48">
+            {/* Phones: one column, each menu column stacked under the last with
+                the same gap (a two-column grid left big holes beside Tier 1
+                Brands, revision 1022). */}
             <div
-              className="footer-columns grid w-full grid-cols-2 gap-x-24 gap-y-40 sm:grid-cols-3 lg:gap-32"
+              className="footer-columns grid w-full grid-cols-1 gap-y-40 sm:grid-cols-3 sm:gap-x-24 lg:gap-32"
               style={{ "--footer-cols": columns.length } as React.CSSProperties}
             >
               {columns.map((column) => (

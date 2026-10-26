@@ -52,7 +52,7 @@ export default function FeatureGrid({ eyebrowLabel, heading, items, className }:
                 key={item.title}
                 as="div"
                 delay={delay}
-                className="flex flex-col gap-24 rounded-16 border-[1.5px] border-neutral-10 bg-white p-32"
+                className="flex flex-col gap-24 rounded-16 border-[1.5px] border-neutral-10 bg-white p-24 md:p-32"
               >
                 {item.icon}
                 <div className="flex flex-col gap-12">

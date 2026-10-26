@@ -193,8 +193,8 @@ export default function SolutionForm({
   const [menuLabel, setMenuLabel] = useState(init?.menuLabel ?? "");
   const [menuOrder, setMenuOrder] = useState(String(init?.menuOrder ?? 0));
   const [showInMenu, setShowInMenu] = useState(init?.showInMegaMenu ?? true);
-  const [metaTitle, setMetaTitle] = useState(init?.metaTitle ?? "");
-  const [metaDescription, setMetaDescription] = useState(init?.metaDescription ?? "");
+  const [metaTitle] = useState(init?.metaTitle ?? "");
+  const [metaDescription] = useState(init?.metaDescription ?? "");
   const [seo, setSeo] = useState<SolutionSeo>(init?.seo ?? {});
 
   // content

@@ -72,7 +72,8 @@ export default async function Tier1BrandsPage({ params }: { params: Promise<{ lo
     const cards = ownCard
       ? [{ key: `cnx-${category}`, name: t("portfolio.ownName"), logo: CNX_LOGO, summary: ownCard.summary, href: ownCard.href }, ...partners]
       : partners;
-    return [{ category, label: BRAND_CATEGORY_LABELS[category], cards }];
+    const tabLabel = t.has(`portfolio.tabs.${category}` as never) ? t(`portfolio.tabs.${category}` as never) : "";
+    return [{ category, label: tabLabel || BRAND_CATEGORY_LABELS[category], cards }];
   });
 
   // One product per brand, those with a real photo first.
@@ -109,6 +110,7 @@ export default async function Tier1BrandsPage({ params }: { params: Promise<{ lo
         heading={t("portfolio.heading")}
         viewLabel={t("portfolio.viewBrandLabel")}
         emptyLabel={t("portfolio.emptyLabel")}
+        allLabel={t("portfolio.tabs.all")}
         groups={groups}
       />
 

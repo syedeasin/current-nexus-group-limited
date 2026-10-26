@@ -106,7 +106,7 @@ export default function FloatingActionBar({
             tabIndex={visible ? 0 : -1}
             className="flex shrink-0 items-center justify-center gap-8 whitespace-nowrap rounded-full bg-secondary px-32 py-18 text-btn-lg font-semibold tracking-[-1px]! text-neutral-1 outline-none transition-colors duration-150 ease-out hover:bg-secondary/90 focus-visible:ring-2 focus-visible:ring-secondary"
           >
-            <Download size={20} />
+            <Download size={20} className="shrink-0" />
             {downloadLabel}
           </ActionLink>
           <ActionLink
@@ -136,7 +136,7 @@ export default function FloatingActionBar({
             tabIndex={visible ? 0 : -1}
             className="flex flex-1 items-center justify-center gap-8 rounded-full bg-secondary px-20 py-14 text-btn-sm font-semibold text-neutral-1 outline-none focus-visible:ring-2 focus-visible:ring-secondary"
           >
-            <Download size={18} />
+            <Download size={20} className="shrink-0" />
             {downloadLabel}
           </ActionLink>
         </nav>

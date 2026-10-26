@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { notFound } from "next/navigation";
-import type { Locale, PostStatus } from "@prisma/client";
+import { Prisma, type Locale, type PostStatus } from "@prisma/client";
 import type { ZodError } from "zod";
 import { prisma } from "@/lib/prisma";
 import { requirePermission } from "@/lib/auth";
@@ -10,6 +10,7 @@ import { can, canEditPost, canDeletePost } from "@/lib/permissions";
 import { postSchema, type PostFormValues } from "@/lib/validation/post";
 import { makeSlug, uniquePostSlug, readingTimeFromHtml } from "@/lib/slug";
 import { sanitizePostHtml } from "@/lib/sanitize-html";
+import { caseStudyFromForm } from "@/lib/case-study";
 
 export type ActionResult =
   | { ok: true; id: string; note?: string }
@@ -82,7 +83,7 @@ function resolveStatus(
   return { status: requested };
 }
 
-function sharedPostData(data: PostFormValues) {
+function sharedPostData(data: PostFormValues, formData: FormData) {
   return {
     title: data.title,
     locale: data.locale,
@@ -95,6 +96,11 @@ function sharedPostData(data: PostFormValues) {
     eventStartDate: data.section === "EVENTS" ? data.eventStartDate : null,
     eventEndDate: data.section === "EVENTS" ? data.eventEndDate : null,
     eventLocation: data.section === "EVENTS" ? (data.eventLocation ?? null) : null,
+    // Case details only mean something for Case Studies posts.
+    caseStudy:
+      data.section === "CASE_STUDIES"
+        ? ((caseStudyFromForm((name) => formValue(formData, name)) as Prisma.InputJsonObject | null) ?? Prisma.DbNull)
+        : Prisma.DbNull,
     featuredImage: data.featuredImage ?? null,
     featuredImageAlt: data.featuredImageAlt ?? null,
     metaTitle: data.metaTitle ?? null,
@@ -155,7 +161,7 @@ export async function createPost(formData: FormData): Promise<ActionResult> {
 
   const post = await prisma.post.create({
     data: {
-      ...sharedPostData(data),
+      ...sharedPostData(data, formData),
       slug,
       status,
       publishedAt: status === "PUBLISHED" ? new Date() : null,
@@ -210,7 +216,7 @@ export async function updatePost(id: string, formData: FormData): Promise<Action
   await prisma.post.update({
     where: { id },
     data: {
-      ...sharedPostData(data),
+      ...sharedPostData(data, formData),
       slug,
       status,
       publishedAt,

@@ -8,6 +8,7 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import TextReveal from "@/components/motion/TextReveal";
 import { ChevronRight } from "@/components/icons/ChevronRight";
 import { SectionHeader } from "@/components/brands/BrandSections";
+import PortfolioTabs from "@/components/brands/PortfolioTabs";
 import { Link } from "@/i18n/navigation";
 import { cascade, stagger } from "@/lib/motion/timing";
 import { cn } from "@/lib/utils";
@@ -20,7 +21,7 @@ import { cn } from "@/lib/utils";
  */
 
 const PILL =
-  "inline-flex h-36 items-center gap-6 whitespace-nowrap rounded-full border-[1.5px] border-neutral-10 bg-white px-14 text-[14px] font-semibold sm:h-40 sm:px-18 sm:text-p4 text-neutral-1 transition-colors duration-200 group-hover:bg-neutral-11";
+  "inline-flex h-36 items-center gap-6 whitespace-nowrap rounded-full border-[1.5px] border-neutral-10 bg-white px-14 text-p4 font-semibold sm:h-40 sm:px-18 text-neutral-1 transition-colors duration-200 group-hover:bg-neutral-11";
 
 export interface PortfolioCard {
   key: string;
@@ -28,6 +29,8 @@ export interface PortfolioCard {
   logo: string;
   summary: string;
   href: string;
+  /** Category chip, shown on the "All brands" tab. */
+  category?: string;
 }
 
 export interface PortfolioGroup {
@@ -36,68 +39,45 @@ export interface PortfolioGroup {
   cards: PortfolioCard[];
 }
 
-/** Brand wall by category: logos grey until hovered, then full colour. */
+/**
+ * Brand wall: categories as one row of tabs, "All brands" first (client
+ * revision 1022). Logos grey until hovered, then full colour.
+ */
 export function BrandPortfolio({
   eyebrow,
   heading,
   viewLabel,
   emptyLabel,
+  allLabel,
   groups,
 }: {
   eyebrow: string;
   heading: string;
   viewLabel: string;
   emptyLabel: string;
+  allLabel: string;
   groups: PortfolioGroup[];
 }) {
+  // "All" lists each brand once (a brand like CNX can lead two categories).
+  const seen = new Set<string>();
+  const all = groups.flatMap((group) =>
+    group.cards
+      .filter((card) => (seen.has(card.name) ? false : (seen.add(card.name), true)))
+      .map((card) => ({ ...card, category: group.label }))
+  );
+  const tabs = groups.length > 1
+    ? [{ id: "all", label: allLabel, cards: all }, ...groups.map((group) => ({ id: group.category, label: group.label, cards: group.cards }))]
+    : groups.map((group) => ({ id: group.category, label: group.label, cards: group.cards }));
+
   return (
     <section id="brands" aria-label={heading} className="w-full scroll-mt-96 bg-white">
-      <Container className="flex flex-col gap-48 py-48 md:py-64 xl:py-100">
+      <Container className="flex flex-col gap-40 py-48 md:gap-48 md:py-64 xl:py-100">
         <SectionHeader eyebrow={eyebrow} heading={heading} />
-
-        {groups.length === 0 ? <Text size="p3" className="text-center text-neutral-4">{emptyLabel}</Text> : null}
-
-        <div className="flex flex-col gap-40">
-          {groups.map((group) => (
-            <div key={group.category} className="flex flex-col gap-16">
-              <Heading level={3} size="h6" className="text-neutral-3">
-                {group.label}
-              </Heading>
-              <ul className="grid grid-cols-2 gap-12 sm:gap-16 lg:grid-cols-4 lg:gap-24">
-                {group.cards.map((card, index) => (
-                  <Reveal key={card.key} as="li" delay={stagger(index, cascade(2))} className="flex">
-                    <Link
-                      href={card.href}
-                      className="group relative flex w-full flex-col items-center gap-16 rounded-16 border border-transparent bg-surface-2 px-12 pt-24 pb-16 text-center sm:px-24 sm:pt-32 sm:pb-24 transition-colors duration-200 hover:border-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
-                    >
-                      <span className="flex h-40 w-full items-center justify-center sm:h-56">
-                        {card.logo ? (
-                          <Image
-                            src={card.logo}
-                            alt={card.name}
-                            width={180}
-                            height={40}
-                            className="h-24 w-auto max-w-[90%] object-contain opacity-70 sm:h-36 sm:max-w-[80%] grayscale transition-[filter,opacity] duration-200 group-hover:opacity-100 group-hover:grayscale-0"
-                          />
-                        ) : (
-                          <span className="text-h4 font-semibold text-neutral-1">{card.name}</span>
-                        )}
-                      </span>
-                      <span className="flex flex-col gap-4">
-                        <span className="text-p3 font-semibold text-neutral-1 sm:text-h6">{card.name}</span>
-                        {card.summary ? <span className="text-[13px] leading-[18px] text-neutral-4 sm:text-p4">{card.summary}</span> : null}
-                      </span>
-                      <span className={cn(PILL, "mt-auto")}>
-                        {viewLabel}
-                        <ChevronRight size={12} />
-                      </span>
-                    </Link>
-                  </Reveal>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+        {tabs.length === 0 ? (
+          <Text size="p3" className="text-center text-neutral-4">{emptyLabel}</Text>
+        ) : (
+          <PortfolioTabs tabs={tabs} viewLabel={viewLabel} />
+        )}
       </Container>
     </section>
   );

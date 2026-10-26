@@ -7,7 +7,7 @@ import { Link, usePathname } from "@/i18n/navigation";
 import { ChevronDown, X } from "lucide-react";
 import { ArrowRight } from "@/components/icons/ArrowRight";
 import { cn } from "@/lib/utils";
-import { isNavItemActive, type NavItem, type NavLink } from "@/config/nav.config";
+import { directLinkHref, isNavItemActive, type NavItem, type NavLink } from "@/config/nav.config";
 import { useLocaleSwitch } from "@/src/hooks/useLocaleSwitch";
 import type { Locale } from "@/i18n/routing";
 
@@ -151,7 +151,7 @@ export default function MobileDrawer({ items, isOpen, onClose, triggerRef }: Mob
           {/* ড্রয়ার হেডার */}
           <div className="flex h-56 shrink-0 items-center justify-between border-b border-neutral-10 px-20 py-16">
             <Link href="/" className="shrink-0">
-              <Image src="/logos/cnx-logo-dark.svg" alt="CNX Energy" width={98} height={24} className="h-24 w-98" />
+              <Image src="/logos/cnx-logo-dark.svg" alt="CNX Energy" width={98} height={24} className="h-24 w-98" unoptimized />
             </Link>
             {/* p-10 -m-10: see MobileNav.tsx — pads the hit area to ~44px without
                 shifting the icon's visual position or the header row's layout. */}
@@ -172,6 +172,24 @@ export default function MobileDrawer({ items, isOpen, onClose, triggerRef }: Mob
               const isSectionOpen = openSection === item.labelKey;
               const isRouteActive = isNavItemActive(item, pathname);
               const active = isSectionOpen || isRouteActive;
+              const directHref = directLinkHref(item);
+
+              if (directHref) {
+                return (
+                    <Link
+                        key={item.labelKey}
+                        href={directHref}
+                        onClick={close}
+                        aria-current={isRouteActive ? "page" : undefined}
+                        className={cn(
+                            "flex w-full items-center border-b border-neutral-10 px-20 py-16 text-p3 font-medium transition-colors duration-150",
+                            isRouteActive ? "text-secondary" : "text-neutral-1"
+                        )}
+                    >
+                      {t(item.labelKey)}
+                    </Link>
+                );
+              }
 
               return (
                   <div key={item.labelKey}>
@@ -271,10 +289,10 @@ export default function MobileDrawer({ items, isOpen, onClose, triggerRef }: Mob
             <Link
                 href="/contact"
                 onClick={close}
-                className="flex h-48 w-full items-center justify-center gap-8 rounded-full bg-secondary text-p3 font-semibold text-neutral-1 transition-[filter] duration-150 hover:brightness-95"
+                className="flex h-48 w-full items-center justify-center gap-8 rounded-full bg-secondary text-btn-sm font-semibold text-neutral-1 transition-[filter] duration-150 hover:brightness-95"
             >
               {t("contact")}
-              <ArrowRight size={18} />
+              <ArrowRight size={20} />
             </Link>
 
             <div className="mt-16 flex items-center justify-center gap-16 py-4">

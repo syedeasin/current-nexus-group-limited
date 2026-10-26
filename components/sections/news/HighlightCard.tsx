@@ -30,7 +30,7 @@ export default function HighlightCard({ post, readingMinutesLabel }: HighlightCa
         )}
       </div>
       <div className="mt-24 flex flex-col gap-12">
-        <div className="flex items-center gap-12 text-p1 font-medium text-neutral-4">
+        <div className="flex items-center gap-12 text-p3 font-medium text-neutral-4">
           <span>{postDateLabel(post)}</span>
           {post.section === "EVENTS" && post.eventLocation ? (
             <>

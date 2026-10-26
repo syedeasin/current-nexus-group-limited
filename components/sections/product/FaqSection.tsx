@@ -2,10 +2,9 @@ import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
 import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
-import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import FaqAccordion from "@/components/sections/home/faq/FaqAccordion";
-import ContactCard from "@/components/sections/shared/ContactCard";
+import ProjectInquiryCard from "@/components/sections/shared/ProjectInquiryCard";
 import type { FaqSection as FaqSectionData } from "@/lib/data/products/types";
 
 const HEADING_DELAY_MS = 80;
@@ -15,9 +14,6 @@ const ACCORDION_STEP_MS = 80;
 const ACCORDION_STAGGER_CAP_MS = 400;
 
 export default function FaqSection({ data }: { data: FaqSectionData }) {
-  // The contact card is optional in the dashboard — an unfilled one rendered as
-  // an empty grey box with a lone arrow button (client revision 1008).
-  const hasContact = Boolean(data.contact?.name?.trim() || data.contact?.message?.trim());
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -37,16 +33,24 @@ export default function FaqSection({ data }: { data: FaqSectionData }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <Container>
         <div className="faq-grid w-full">
-          <div className="faq-header flex flex-col gap-12">
-            <Reveal as="div" delay={0}>
-              <SectionEyebrow label={data.eyebrow} />
+          {/* Heading + Project Inquiry Card stay in view beside a long FAQ list on
+              desktop (revision 1022: the left side used to sit empty). */}
+          <div className="faq-aside">
+            <div className="faq-header flex flex-col gap-12">
+              <Reveal as="div" delay={0}>
+                <SectionEyebrow label={data.eyebrow} />
+              </Reveal>
+              <TextReveal delay={HEADING_DELAY_MS}>
+                {/* Figma H2 spec here tracks -1.2px, not the shared --text-h2 token's -0.72px. */}
+                <Heading level={2} size="h2" className="whitespace-pre-line tracking-[-1.2px]!">
+                  {data.heading}
+                </Heading>
+              </TextReveal>
+            </div>
+
+            <Reveal as="div" delay={CONTACT_DELAY_MS} className="faq-contact-area w-full">
+              <ProjectInquiryCard />
             </Reveal>
-            <TextReveal delay={HEADING_DELAY_MS}>
-              {/* Figma H2 spec here tracks -1.2px, not the shared --text-h2 token's -0.72px. */}
-              <Heading level={2} size="h2" className="whitespace-pre-line tracking-[-1.2px]!">
-                {data.heading}
-              </Heading>
-            </TextReveal>
           </div>
 
           <div className="faq-accordion-area w-full">
@@ -59,27 +63,6 @@ export default function FaqSection({ data }: { data: FaqSectionData }) {
             />
           </div>
 
-          {hasContact ? (
-            <div className="faq-contact-area flex w-full max-w-400 flex-col items-start gap-14">
-              {/* Figma node 114:99410: "Need to ask something else?" above the card — was
-                  missing entirely (the homepage's Faq.tsx already renders its equivalent). */}
-              <Reveal as="div" delay={CONTACT_DELAY_MS}>
-                <Text size="p3" className="text-neutral-3">
-                  {data.needHelpLabel}
-                </Text>
-              </Reveal>
-              <Reveal as="div" delay={CONTACT_DELAY_MS} className="w-full">
-                <ContactCard
-                  avatarSrc={data.contact.avatarSrc}
-                  name={data.contact.name}
-                  role={data.contact.role}
-                  message={data.contact.message}
-                  ctaLabel={data.contact.ctaLabel}
-                  ctaHref={data.contact.ctaHref}
-                />
-              </Reveal>
-            </div>
-          ) : null}
         </div>
       </Container>
     </section>

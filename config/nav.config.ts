@@ -201,6 +201,7 @@ export const NAV_ITEMS: NavItem[] = [
         { labelKey: "reAnalysis", href: "/news/re-analysis" },
         { labelKey: "knowledgeDatabase", href: "/news/knowledge-database" },
         { labelKey: "events", href: "/news/events" },
+        { labelKey: "caseStudies", href: "/news/case-studies" },
       ],
     },
   },
@@ -265,6 +266,17 @@ export function knownLogoWidth(logo: string): number | undefined {
   return KNOWN_LOGO_WIDTHS[logo.replace(/ /g, "%20")];
 }
 
+function firstSlugWord(href: string): string {
+  return (href.split("/").pop() ?? "").split("-")[0];
+}
+
+/** The planned Solutions & Projects pages (static NAV_ITEMS), merged with the published ones. */
+export function solutionsMenuLinks(solutions: SolutionMenuEntry[], hidden: ReadonlySet<string> = new Set()): NavLink[] {
+  const item = buildNavItems({ solutions, hidden }).find((entry) => entry.labelKey === "solutionsProjects");
+  if (!item || item.panel.kind !== "groups") return [];
+  return item.panel.groups.flatMap((group) => group.links ?? []);
+}
+
 /** Route base for a manufacturing page, by category. */
 export function manufacturingEntryHref(category: ManufacturingCategory, slug: string): string {
   const base = category === "BESS" ? "/manufacturing/bess" : "/manufacturing/solar-panels";
@@ -320,8 +332,35 @@ export function buildNavItems({ solutions = [], manufacturing = [], brands = [],
     };
   }
 
+  // Solutions & Projects always lists the client's full page set (revision
+  // 1022): published pages link and use their dashboard label, the rest show
+  // as plain text until they are published (SafeLink), and any extra
+  // published page is appended.
+  function withFullSolutionGroups(item: NavItem): NavItem {
+    if (item.panel.kind !== "groups") return item;
+    return {
+      ...item,
+      panel: {
+        ...item.panel,
+        groups: item.panel.groups.map((group) => {
+          const live = solutionLinks.get(group.labelKey) ?? [];
+          const used = new Set<string>();
+          // Dashboard slugs vary ("commercial-and-industrial", "residential-solar-solutions"),
+          // so a planned entry matches the published page sharing its first slug word.
+          const planned = (group.links ?? []).map((link) => {
+            const match = live.find((l) => !used.has(l.href) && firstSlugWord(l.href) === firstSlugWord(link.href));
+            if (!match) return link;
+            used.add(match.href);
+            return match;
+          });
+          return { ...group, links: [...planned, ...live.filter((l) => !used.has(l.href))] };
+        }),
+      },
+    };
+  }
+
   const items = NAV_ITEMS.map((item) => {
-    if (item.labelKey === "solutionsProjects") return withDynamicGroups(item, solutionLinks);
+    if (item.labelKey === "solutionsProjects") return withFullSolutionGroups(item);
     if (item.labelKey === "manufacturing") return withDynamicGroups(item, manufacturingLinks);
     if (item.labelKey === "tier1Brands" && item.panel.kind === "brands") {
       const items = brands.map((brand) => ({
@@ -372,6 +411,16 @@ function withoutHidden(items: NavItem[], hidden: ReadonlySet<string>): NavItem[]
     if (reachable.length === 0) return [];
     return [{ ...item, href: visible(item.href) ? item.href : reachable[0], panel: next }];
   });
+}
+
+/**
+ * A top item whose flat panel has at most one visible page is a plain link, not
+ * a dropdown (client revision 1022: "About Us" opens Why Choose CNX directly
+ * while Technology and PV & BESS Brands are hidden). Null when it has a panel.
+ */
+export function directLinkHref(item: NavItem): string | null {
+  if (item.panel.kind !== "flat" || item.panel.items.length > 1) return null;
+  return item.panel.items[0]?.href ?? item.href;
 }
 
 /** Every href a panel can reach — used for active-route matching. */

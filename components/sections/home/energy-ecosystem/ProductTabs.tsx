@@ -157,7 +157,7 @@ export default function ProductTabs({ tabs, learnMoreLabel, ariaLabel }: Product
                 !reducedMotion && !isActive && "translate-y-[6px]"
               )}
             >
-              <div className="grid grid-cols-1 gap-32 min-[480px]:grid-cols-2 min-[480px]:gap-16 lg:grid-cols-3 xl:grid-cols-4">
+              <div className="grid grid-cols-2 gap-x-12 gap-y-28 min-[480px]:gap-16 lg:grid-cols-3 xl:grid-cols-4">
                 {tab.products.map((product, index) => {
                   const card = (
                     <ProductCard
@@ -165,6 +165,7 @@ export default function ProductTabs({ tabs, learnMoreLabel, ariaLabel }: Product
                       image={product.image}
                       title={product.title}
                       learnMoreLabel={learnMoreLabel}
+                      reserveTwoLineTitle
                     />
                   );
 

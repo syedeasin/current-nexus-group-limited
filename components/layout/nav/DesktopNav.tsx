@@ -4,7 +4,8 @@
 import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
-import { isNavItemActive, type NavItem } from "@/config/nav.config";
+import { Link } from "@/i18n/navigation";
+import { directLinkHref, isNavItemActive, type NavItem } from "@/config/nav.config";
 
 interface DesktopNavProps {
   items: NavItem[];
@@ -13,9 +14,11 @@ interface DesktopNavProps {
   openKey: string | null;
   onHover: (key: string) => void;
   onToggle: (key: string) => void;
+  /** Closes any open panel — hovering a plain-link item. */
+  onLeaveAll?: () => void;
 }
 
-export default function DesktopNav({ items, isTransparent, pathname, openKey, onHover, onToggle }: DesktopNavProps) {
+export default function DesktopNav({ items, isTransparent, pathname, openKey, onHover, onToggle, onLeaveAll }: DesktopNavProps) {
   const t = useTranslations("nav");
 
   return (
@@ -25,6 +28,27 @@ export default function DesktopNav({ items, isTransparent, pathname, openKey, on
           const isOpen = openKey === item.labelKey;
           const isRouteActive = isNavItemActive(item, pathname);
           const active = isOpen || isRouteActive;
+
+          const directHref = directLinkHref(item);
+          if (directHref) {
+            return (
+              <li key={item.labelKey}>
+                <Link
+                  href={directHref}
+                  onMouseEnter={onLeaveAll}
+                  aria-current={isRouteActive ? "page" : undefined}
+                  className={cn(
+                    "flex items-center whitespace-nowrap text-p3 transition-colors",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2",
+                    isTransparent ? "text-white hover:text-secondary" : "text-neutral-1 hover:text-secondary",
+                    isRouteActive && "font-medium text-secondary"
+                  )}
+                >
+                  {t(item.labelKey)}
+                </Link>
+              </li>
+            );
+          }
 
           return (
             <li key={item.labelKey}>
@@ -36,7 +60,7 @@ export default function DesktopNav({ items, isTransparent, pathname, openKey, on
                 onClick={() => onToggle(item.labelKey)}
                 onMouseEnter={() => onHover(item.labelKey)}
                 className={cn(
-                  "flex items-center gap-4 whitespace-nowrap text-p4 transition-colors",
+                  "flex items-center gap-4 whitespace-nowrap text-p3 transition-colors",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2",
                   isTransparent ? "text-white hover:text-secondary" : "text-neutral-1 hover:text-secondary",
                   active && "font-medium text-secondary"

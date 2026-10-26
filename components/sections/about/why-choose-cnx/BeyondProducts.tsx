@@ -48,7 +48,7 @@ export default async function BeyondProducts() {
                       <Heading level={3} size="h6">
                         {str(step, "title")}
                       </Heading>
-                      <Text size="p2" className="text-neutral-4">
+                      <Text size="p3" className="text-neutral-4">
                         {str(step, "body")}
                       </Text>
                     </div>

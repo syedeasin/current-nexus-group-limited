@@ -3,10 +3,9 @@ import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
 import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
-import Text from "@/components/ui/Text";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import FaqAccordion from "@/components/sections/home/faq/FaqAccordion";
-import ContactCard from "@/components/sections/shared/ContactCard";
+import ProjectInquiryCard from "@/components/sections/shared/ProjectInquiryCard";
 import { cascade, REVEAL_STEP_MS } from "@/lib/motion/timing";
 import { entries, str } from "@/lib/page-content/read";
 
@@ -18,7 +17,6 @@ const ACCORDION_STAGGER_CAP_MS = 400;
 
 export default async function Faq() {
   const t = await getTranslations("home.faq");
-  const contact = await getTranslations("home.faq.contact");
 
   const questions = entries(t.raw("items" as never)).map(([id, item]) => ({
     id,
@@ -43,7 +41,7 @@ export default async function Faq() {
   };
 
   return (
-    <section aria-label={t("heading")} className="w-full bg-white pt-48 pb-40 md:pt-64 md:pb-56 xl:pt-80 xl:pb-100">
+    <section aria-label={t("heading")} className="w-full bg-white py-64 md:py-80 xl:py-120">
       {/* JSON.stringify only (no HTML) — avoids React's default text-node escaping corrupting the JSON. "<" is escaped so admin-edited copy can never close the script tag. */}
       <script
         type="application/ld+json"
@@ -51,15 +49,23 @@ export default async function Faq() {
       />
       <Container>
         <div className="faq-grid w-full">
-          <div className="faq-header flex flex-col gap-12">
-            <Reveal as="div" delay={cascade(0)}>
-              <SectionEyebrow label={t("eyebrow")} />
+          {/* Heading + inquiry card share one column that stays in view on desktop,
+              so a long FAQ list no longer leaves a blank left side (revision 1022). */}
+          <div className="faq-aside">
+            <div className="faq-header flex flex-col gap-12">
+              <Reveal as="div" delay={cascade(0)}>
+                <SectionEyebrow label={t("eyebrow")} />
+              </Reveal>
+              <TextReveal delay={HEADING_DELAY_MS}>
+                <Heading level={2} size="h2" className="whitespace-pre-line">
+                  {t("heading")}
+                </Heading>
+              </TextReveal>
+            </div>
+
+            <Reveal as="div" delay={CONTACT_DELAY_MS} className="faq-contact-area w-full">
+              <ProjectInquiryCard />
             </Reveal>
-            <TextReveal delay={HEADING_DELAY_MS}>
-              <Heading level={2} size="h2" className="whitespace-pre-line">
-                {t("heading")}
-              </Heading>
-            </TextReveal>
           </div>
 
           <div className="faq-accordion-area w-full">
@@ -70,24 +76,6 @@ export default async function Faq() {
               stepDelay={ACCORDION_STEP_MS}
               staggerCapMs={ACCORDION_STAGGER_CAP_MS}
             />
-          </div>
-
-          <div className="faq-contact-area flex w-full max-w-400 flex-col items-start gap-14">
-            <Reveal as="div" delay={CONTACT_DELAY_MS}>
-              <Text size="p3" className="text-neutral-3">
-                {t("needHelp")}
-              </Text>
-            </Reveal>
-            <Reveal as="div" delay={CONTACT_DELAY_MS} className="w-full">
-              <ContactCard
-                avatarSrc={contact("avatar")}
-                name={contact("name")}
-                role={contact("role")}
-                message={contact("message")}
-                ctaLabel={contact("cta")}
-                ctaHref={contact("ctaHref")}
-              />
-            </Reveal>
           </div>
         </div>
       </Container>

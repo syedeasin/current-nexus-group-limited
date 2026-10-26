@@ -35,6 +35,8 @@ enum PostSection {
   RE_ANALYSIS
   KNOWLEDGE_DATABASE
   EVENTS
+  /// Project case studies: reached from "View Case Study" buttons, detail at /news/<slug>.
+  CASE_STUDIES
 }
 
 model User {
@@ -128,6 +130,10 @@ model Post {
   eventStartDate DateTime?
   eventEndDate   DateTime?
   eventLocation  String?   @db.VarChar(200)
+
+  /// Case Studies section only: project facts, three result figures and the
+  /// client quote shown on the case page (see lib/case-study.ts for the shape).
+  caseStudy      Json?
 
   featuredImage    String? @db.VarChar(500)
   featuredImageAlt String?

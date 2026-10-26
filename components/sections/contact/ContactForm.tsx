@@ -51,7 +51,7 @@ export default function ContactForm() {
           <CheckCircle2 size={28} strokeWidth={1.5} aria-hidden="true" />
         </span>
         <h2 className="text-h4 font-semibold text-neutral-1">{t("successHeading")}</h2>
-        <p className="text-p2 text-neutral-3">{t("successBody", { email: sentTo })}</p>
+        <p className="text-p3 text-neutral-3">{t("successBody", { email: sentTo })}</p>
         <button
           type="button"
           onClick={() => setSentTo(null)}

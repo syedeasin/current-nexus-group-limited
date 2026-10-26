@@ -178,7 +178,7 @@ export default function HeroCarousel({
           <Reveal as="div" delay={HERO_CTA_DELAY_MS}>
             <Button href={active.ctaHref} size="lg" className="mt-27">
               {active.cta}
-              <ChevronRight size={BUTTON_ICON_SIZE} />
+              <ChevronRight size={BUTTON_ICON_SIZE} boxed />
             </Button>
           </Reveal>
         </Container>
@@ -248,7 +248,7 @@ export default function HeroCarousel({
             <Reveal as="div" delay={HERO_CTA_DELAY_MS}>
               <Button href={active.ctaHref} size="xl" className="w-full sm:w-auto">
                 {active.cta}
-                <ChevronRight size={BUTTON_ICON_SIZE} />
+                <ChevronRight size={BUTTON_ICON_SIZE} boxed />
               </Button>
             </Reveal>
           </div>

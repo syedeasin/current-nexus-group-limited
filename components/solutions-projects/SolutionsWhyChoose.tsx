@@ -36,7 +36,7 @@ export default function SolutionsWhyChoose({
             </TextReveal>
           </div>
           <Reveal as="div" delay={cascade(2)} className="max-w-600 lg:max-w-458">
-            <Text size="p2" className="text-neutral-3">
+            <Text size="p3" className="text-neutral-3">
               {description}
             </Text>
           </Reveal>

@@ -1,7 +1,7 @@
 import type { PostSection } from "@prisma/client";
 
 /**
- * The four News Room listings. Each is the same index design (banner,
+ * The News Room listings (plus Case Studies, revision 1022). Each is the same index design (banner,
  * highlights carousel, paginated "all" grid) over the posts whose `section`
  * matches; only the banner and headings differ, and those come from
  * messages `news.sections.<messageKey>` so they are editable under
@@ -14,7 +14,7 @@ export interface NewsSectionDef {
   /** Public index route. */
   path: string;
   /** Key under messages `news.sections`. */
-  messageKey: "news" | "reAnalysis" | "knowledgeDatabase" | "events";
+  messageKey: "news" | "reAnalysis" | "knowledgeDatabase" | "events" | "caseStudies";
   /** Dashboard label. */
   label: string;
 }
@@ -29,6 +29,8 @@ export const NEWS_SECTIONS: Record<PostSection, NewsSectionDef> = {
     label: "Knowledge Database",
   },
   EVENTS: { section: "EVENTS", path: "/news/events", messageKey: "events", label: "Events" },
+  // Revision 1022: "View Case Study" opens a case page laid out like a news post.
+  CASE_STUDIES: { section: "CASE_STUDIES", path: "/news/case-studies", messageKey: "caseStudies", label: "Case Studies" },
 };
 
 export const NEWS_SECTION_LIST: NewsSectionDef[] = Object.values(NEWS_SECTIONS);

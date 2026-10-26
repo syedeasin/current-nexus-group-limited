@@ -106,14 +106,14 @@ export default function ProductCard({
       </div>
       <div
         className={cn(
-          "flex w-full flex-col items-center pt-20",
-          compactInfo ? "gap-4" : "gap-8 px-20"
+          "flex w-full flex-col items-center pt-12 sm:pt-20",
+          compactInfo ? "gap-4" : "gap-8 px-4 sm:px-20"
         )}
       >
         <span
           className={cn(
-            "flex w-full items-center justify-center text-center text-h6 font-semibold text-white",
-            reserveTwoLineTitle && "min-h-56"
+            "flex w-full items-center justify-center text-balance text-center text-p3 font-semibold text-white sm:text-h6",
+            reserveTwoLineTitle && "min-h-48 sm:min-h-56"
           )}
         >
           {title}

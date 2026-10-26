@@ -153,13 +153,13 @@ const BRANDS: SeedBrand[] = [
     ]),
   },
   {
-    // From the brief's H1 list (published 21 Oct 2026).
+    // From the brief's H1 list. Back to draft 24 Oct 2026 (client: not displayed).
     name: "CNX",
     slug: "cnx",
     category: BrandCategory.MODULES,
     logo: "/logos/cnx-logo-dark.svg",
     summary: "HJT, TOPCon & BC modules, ODM",
-    status: DownloadStatus.PUBLISHED,
+    status: DownloadStatus.DRAFT,
     content: {
       brand: {
         ...(products([

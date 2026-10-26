@@ -33,6 +33,8 @@ export const COLLECTION_PATTERNS: CollectionDef[] = [
   { pattern: "home.awards.items", itemLabel: "Award", titleKey: "caption" },
   { pattern: "home.faq.items", itemLabel: "Question", titleKey: "question" },
   { pattern: "about.whyChooseCnx.competitiveAdvantage.items", itemLabel: "Advantage", titleKey: "title" },
+  { pattern: "about.whyChooseCnx.whoWeAre.stats", itemLabel: "Stat", titleKey: "label" },
+  { pattern: "about.whyChooseCnx.sourcingRoutes.cards", itemLabel: "Card", titleKey: "title" },
   { pattern: "about.whyChooseCnx.beyondProducts.steps", itemLabel: "Step", titleKey: "title" },
   { pattern: "about.whyChooseCnx.globalConfidence.stats", itemLabel: "Stat", titleKey: "label" },
   { pattern: "about.whyChooseCnx.industryRecognition.items", itemLabel: "Certificate", titleKey: "caption" },
@@ -43,6 +45,7 @@ export const COLLECTION_PATTERNS: CollectionDef[] = [
   { pattern: "footer.socialLinks", itemLabel: "Social link", titleKey: "label" },
   { pattern: "legal.*.sections", itemLabel: "Section", titleKey: "heading", minItems: 1 },
   { pattern: "contact.form.fields", itemLabel: "Field", titleKey: "label", minItems: 1 },
+  { pattern: "contact.offices", itemLabel: "Address", titleKey: "label" },
   // Tier 1 brand pages (Dashboard → Tier 1 Brands; defaults in lib/brands/template.ts).
   { pattern: "brand.products.items", itemLabel: "Product", titleKey: "series" },
   { pattern: "brand.products.items.*.specs", itemLabel: "Parameter", titleKey: "label" },
@@ -117,19 +120,19 @@ export const PAGES: PageDef[] = [
   },
   {
     key: "about.whyChooseCnx",
-    label: "Why Choose CNX",
+    label: "About Us (Why Choose CNX)",
     group: "About Us",
     href: "/about/why-choose-cnx",
-    description: "About Us → Why Choose CNX.",
+    description: "The About Us page (menu → About Us). Sections from the client's About Us brief, revision 1022.",
     sections: [
       SEO("about.whyChooseCnx.meta"),
       { id: "hero", label: "Hero", path: "about.whyChooseCnx.hero" },
-      { id: "competitiveAdvantage", label: "Competitive advantage", path: "about.whyChooseCnx.competitiveAdvantage" },
-      { id: "beyondProducts", label: "Beyond products", path: "about.whyChooseCnx.beyondProducts" },
-      { id: "globalConfidence", label: "Global confidence", path: "about.whyChooseCnx.globalConfidence" },
+      { id: "whoWeAre", label: "Who we are + business at a glance", path: "about.whyChooseCnx.whoWeAre" },
+      { id: "competitiveAdvantage", label: "Why choose us (6 advantages)", path: "about.whyChooseCnx.competitiveAdvantage" },
+      { id: "sourcingRoutes", label: "One partner, multiple sourcing routes", path: "about.whyChooseCnx.sourcingRoutes" },
       { id: "industryRecognition", label: "Industry recognition", path: "about.whyChooseCnx.industryRecognition" },
-      { id: "caseStudy", label: "Client success story", path: "about.whyChooseCnx.caseStudy" },
-      { id: "cta", label: "Bottom call to action", path: "about.whyChooseCnx.cta" },
+      { id: "caseStudy", label: "Project case (proven capabilities)", path: "about.whyChooseCnx.caseStudy" },
+      { id: "cta", label: "Final inquiry", path: "about.whyChooseCnx.cta" },
     ],
   },
   {
@@ -229,6 +232,7 @@ export const PAGES: PageDef[] = [
       SEO("contact.meta"),
       { id: "banner", label: "Banner", path: "contact.banner" },
       { id: "intro", label: "Introduction", path: "contact.intro" },
+      { id: "offices", label: "Addresses (factory, office)", path: "contact.offices" },
       { id: "details", label: "Contact details labels", path: "contact.details" },
       {
         id: "formFields",
@@ -246,6 +250,7 @@ export const PAGES: PageDef[] = [
       ["reAnalysis", "RE Analysis", "/news/re-analysis"],
       ["knowledgeDatabase", "Knowledge Database", "/news/knowledge-database"],
       ["events", "Events", "/news/events"],
+      ["caseStudies", "Case Studies", "/news/case-studies"],
     ] as const
   ).map(
     ([key, label, href]): PageDef => ({
@@ -300,10 +305,11 @@ export const PAGES: PageDef[] = [
     label: "Privacy Policy",
     group: "Legal",
     href: "/privacy-policy",
-    description: "Privacy Policy text. Each section is a heading and its paragraphs (a new line starts a new paragraph).",
+    description: "Privacy Policy text. Each section is a heading and its paragraphs (a new line starts a new paragraph; \"- \" starts a bullet). \"At a glance\" lines show as the summary box.",
     sections: [
       SEO("legal.privacy.meta"),
       { id: "content", label: "Content", path: "legal.privacy", exclude: ["meta"] },
+      { id: "ui", label: "Sidebar labels (all legal pages)", path: "legal.ui" },
     ],
   },
   {

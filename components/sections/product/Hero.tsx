@@ -153,7 +153,7 @@ export default function Hero({ hero }: { hero: ProductHero }) {
             <Button
               href={hero.primaryCta.href}
               size="lg"
-              className="w-full text-[14px] min-[560px]:h-60 min-[560px]:w-auto min-[560px]:px-32 min-[560px]:text-btn-lg"
+              className="w-full text-btn-sm min-[560px]:h-60 min-[560px]:w-auto min-[560px]:px-32 min-[560px]:text-btn-lg"
             >
               <FileText size={BUTTON_ICON_SIZE} />
               {hero.primaryCta.label}
@@ -162,7 +162,7 @@ export default function Hero({ hero }: { hero: ProductHero }) {
               href={hero.secondaryCta.href}
               size="lg"
               variant="ghost"
-              className="w-full border-[1.5px] border-neutral-6 text-[14px] text-white hover:bg-white hover:text-neutral-1 min-[560px]:h-60 min-[560px]:w-auto min-[560px]:px-32 min-[560px]:text-btn-lg"
+              className="w-full border-[1.5px] border-neutral-6 text-btn-sm text-white hover:bg-white hover:text-neutral-1 min-[560px]:h-60 min-[560px]:w-auto min-[560px]:px-32 min-[560px]:text-btn-lg"
             >
               <PhoneCall size={BUTTON_ICON_SIZE} />
               {hero.secondaryCta.label}

@@ -41,7 +41,7 @@ export default async function AllNews({ page, section }: AllNewsProps) {
 
         {posts.length === 0 ? (
           <Reveal as="div" className="w-full">
-            <Text size="p2" className="text-neutral-4">
+            <Text size="p3" className="text-neutral-4">
               {ts("noArticles")}
             </Text>
           </Reveal>

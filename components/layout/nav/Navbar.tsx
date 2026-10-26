@@ -122,6 +122,7 @@ export default function Navbar({ navItems = NAV_ITEMS }: { navItems?: NavItem[] 
                 openKey={openKey}
                 onHover={handleHoverItem}
                 onToggle={handleToggleItem}
+                onLeaveAll={close}
             />
 
             <div className="flex shrink-0 items-center">

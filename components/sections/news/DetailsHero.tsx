@@ -48,7 +48,7 @@ export default async function DetailsHero({ post, postUrl }: DetailsHeroProps) {
       <Container className="relative z-10 flex flex-col gap-24 py-48 md:py-64 xl:flex-row xl:items-end xl:justify-between xl:gap-40 xl:py-80">
         <div className="flex max-w-900 flex-col gap-8">
           <Reveal as="div" delay={0}>
-            <div className="flex items-center gap-12 text-p1 font-medium text-neutral-9">
+            <div className="flex items-center gap-12 text-p3 font-medium text-neutral-9">
               {post.category && (
                 <>
                   <span>{post.category}</span>

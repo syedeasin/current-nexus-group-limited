@@ -108,7 +108,7 @@ export function BrandAdvantages({ data, className = "bg-surface-2" }: { data: Br
                   <Heading level={3} size="h6">
                     {item.title}
                   </Heading>
-                  <Text size="p4" className="text-neutral-4">
+                  <Text size="p3" className="text-neutral-4">
                     {item.body}
                   </Text>
                 </div>
@@ -137,7 +137,7 @@ export function BrandNumberedGrid({ eyebrow, heading, items }: { eyebrow: string
                 <Heading level={3} size="h6">
                   {item.title}
                 </Heading>
-                <Text size="p4" className="text-neutral-4">
+                <Text size="p3" className="text-neutral-4">
                   {item.body}
                 </Text>
               </div>
@@ -167,7 +167,7 @@ export function BrandDocuments({ data }: { data: BrandContent["documents"] }) {
             <Reveal as="div" delay={cascade(3)}>
               <Button href={data.ctaHref} size="lg" className="whitespace-nowrap">
                 {data.ctaLabel}
-                <ChevronRight size={BUTTON_ICON_SIZE} />
+                <ChevronRight size={BUTTON_ICON_SIZE} boxed />
               </Button>
             </Reveal>
           ) : null}
@@ -290,7 +290,7 @@ export function BrandProcurement({ data }: { data: BrandContent["procurement"] }
               <Reveal as="div" delay={cascade(3)}>
                 <Button href={data.ctaHref} size="lg" className="whitespace-nowrap">
                   {data.ctaLabel}
-                  <ChevronRight size={BUTTON_ICON_SIZE} />
+                  <ChevronRight size={BUTTON_ICON_SIZE} boxed />
                 </Button>
               </Reveal>
             ) : null}
@@ -314,7 +314,7 @@ export function BrandProcurement({ data }: { data: BrandContent["procurement"] }
                 <Heading level={3} size="h6" className="text-white">
                   {step.title}
                 </Heading>
-                <Text size="p4" className="text-neutral-8">
+                <Text size="p3" className="text-neutral-8">
                   {step.body}
                 </Text>
               </div>

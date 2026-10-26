@@ -81,7 +81,9 @@ export default function CaseStudySection({
           </TextReveal>
         </div>
 
-        <div className="relative w-full overflow-hidden rounded-16 lg:h-600">
+        {/* Dark card on every size: on phones the copy sits under the photo
+            (not over it), so it needs its own dark ground for the white text. */}
+        <div className="relative w-full overflow-hidden rounded-16 bg-neutral-1 lg:h-600">
           <ImageReveal
             delay={IMAGE_DELAY_MS}
             className="relative aspect-[4/3] w-full lg:absolute lg:inset-0 lg:aspect-auto"
@@ -109,7 +111,7 @@ export default function CaseStudySection({
 
             <div className={dividerClassName} aria-hidden="true" />
 
-            <ul className="flex max-w-319 flex-col gap-16">
+            <ul className="flex max-w-319 flex-col gap-16 border-t border-white/10 pt-20 lg:border-t-0 lg:pt-0">
               {specs.map((spec) => (
                 <li key={spec.text} className={specItemClassName}>
                   {spec.icon}

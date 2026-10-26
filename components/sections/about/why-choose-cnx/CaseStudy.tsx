@@ -15,6 +15,8 @@ export default async function CaseStudy() {
       backgroundImage={t("backgroundImage")}
       title={t("title")}
       body={t("body")}
+      bodySize="p3"
+      specItemClassName="flex items-center gap-12 text-p3 font-medium text-white"
       specs={SPEC_KEYS.map((key, index) => {
         const Icon = SPEC_ICONS[index];
         return {

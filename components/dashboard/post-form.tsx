@@ -14,6 +14,7 @@ import Select from "@/components/dashboard/form/select";
 import FieldError from "@/components/dashboard/form/field-error";
 import FieldHint from "@/components/dashboard/form/field-hint";
 import { NEWS_SECTION_LIST } from "@/lib/news-sections";
+import { CASE_STAT_COUNT, EMPTY_CASE_STUDY, type CaseStudyDetails } from "@/lib/case-study";
 
 export type PostFormValues = {
   title: string;
@@ -23,12 +24,14 @@ export type PostFormValues = {
   content: string;
   status: "DRAFT" | "PENDING_REVIEW" | "PUBLISHED" | "ARCHIVED";
   categoryId: string;
-  section: "NEWS" | "RE_ANALYSIS" | "KNOWLEDGE_DATABASE" | "EVENTS";
+  section: "NEWS" | "RE_ANALYSIS" | "KNOWLEDGE_DATABASE" | "EVENTS" | "CASE_STUDIES";
   isHighlight: boolean;
   /** "YYYY-MM-DD" or "" — Events posts only. */
   eventStartDate: string;
   eventEndDate: string;
   eventLocation: string;
+  /** Case Studies posts only. */
+  caseStudy: CaseStudyDetails;
   tags: string;
   featuredImage: string;
   featuredImageAlt: string;
@@ -60,6 +63,7 @@ const DEFAULTS: PostFormValues = {
   eventStartDate: "",
   eventEndDate: "",
   eventLocation: "",
+  caseStudy: EMPTY_CASE_STUDY,
   tags: "",
   featuredImage: "",
   featuredImageAlt: "",
@@ -544,7 +548,7 @@ export default function PostForm({ mode, post, categories, canPublish }: PostFor
                 ))}
               </Select>
               <FieldHint id="section-hint">
-                Which News Room page lists this post: News, RE Analysis, Knowledge Database or Events.
+                Which News Room page lists this post: News, RE Analysis, Knowledge Database, Events or Case Studies.
               </FieldHint>
             </div>
 
@@ -589,6 +593,58 @@ export default function PostForm({ mode, post, categories, canPublish }: PostFor
                   Shown on the Events page and the event article instead of the publish date. Upcoming events are listed
                   first; past events move below them automatically.
                 </FieldHint>
+              </div>
+            )}
+
+            {section === "CASE_STUDIES" && (
+              <div className="mb-16 rounded-12 border border-neutral-10 bg-surface-2 p-16">
+                <p className="mb-4 text-p4 font-semibold uppercase tracking-[1.5px] text-neutral-5">Case study details</p>
+                <FieldHint id="case-hint">
+                  Shown on the case page as the project facts bar, the three results and the client quote. Leave any
+                  field empty to hide it. The story itself goes in Content above.
+                </FieldHint>
+                {(
+                  [
+                    ["caseClient", "Client", "client", "e.g. Lux & Enecore", 120],
+                    ["caseLocation", "Location", "location", "e.g. Puglia, Italy", 120],
+                    ["caseCapacity", "Capacity", "capacity", "e.g. 5 MWp", 80],
+                    ["caseApplication", "Application", "application", "e.g. Ground-mounted, single-axis trackers", 160],
+                    ["caseProducts", "Products supplied", "products", "e.g. CNX HJT bifacial modules 720 W", 200],
+                    ["caseCompleted", "Completed", "completed", "e.g. Q2 2025", 60],
+                  ] as const
+                ).map(([name, label, key, placeholder, max]) => (
+                  <div key={name} className="mt-12">
+                    <FieldLabel htmlFor={name}>{label}</FieldLabel>
+                    <TextInput id={name} name={name} maxLength={max} placeholder={placeholder} defaultValue={initial.caseStudy[key]} />
+                  </div>
+                ))}
+                <p className="mt-16 text-p4 font-semibold text-neutral-3">Results (up to {CASE_STAT_COUNT})</p>
+                {Array.from({ length: CASE_STAT_COUNT }, (_, i) => (
+                  <div key={i} className="mt-8 grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-8">
+                    <TextInput
+                      name={`caseStat${i + 1}Value`}
+                      aria-label={`Result ${i + 1} figure`}
+                      maxLength={24}
+                      placeholder="e.g. +11%"
+                      defaultValue={initial.caseStudy.stats[i]?.value ?? ""}
+                    />
+                    <TextInput
+                      name={`caseStat${i + 1}Label`}
+                      aria-label={`Result ${i + 1} label`}
+                      maxLength={80}
+                      placeholder="e.g. Energy yield vs. design"
+                      defaultValue={initial.caseStudy.stats[i]?.label ?? ""}
+                    />
+                  </div>
+                ))}
+                <div className="mt-16">
+                  <FieldLabel htmlFor="caseQuote">Client quote</FieldLabel>
+                  <Textarea id="caseQuote" name="caseQuote" rows={3} maxLength={600} defaultValue={initial.caseStudy.quote} />
+                </div>
+                <div className="mt-8 grid grid-cols-2 gap-8">
+                  <TextInput name="caseQuoteAuthor" aria-label="Quote by" maxLength={120} placeholder="Name" defaultValue={initial.caseStudy.quoteAuthor} />
+                  <TextInput name="caseQuoteRole" aria-label="Role and company" maxLength={120} placeholder="Role, company" defaultValue={initial.caseStudy.quoteRole} />
+                </div>
               </div>
             )}
 

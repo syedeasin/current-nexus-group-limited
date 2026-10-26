@@ -10,9 +10,7 @@ import {
 import Heading from "@/components/ui/Heading";
 import ProductCard from "@/components/ui/ProductCard";
 import Reveal from "@/components/ui/Reveal";
-import { Link } from "@/i18n/navigation";
 import { ArrowRight } from "@/components/icons/ArrowRight";
-import { ChevronRight } from "@/components/icons/ChevronRight";
 import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
 import { cascade } from "@/lib/motion/timing";
 import { cn } from "@/lib/utils";
@@ -34,8 +32,6 @@ interface BrandTabItem {
 interface BrandTabsProps {
   brands: BrandTabItem[];
   railAriaLabel: string;
-  viewAllLabel: string;
-  viewAllHref: string;
 }
 
 /** Matches the lg breakpoint: the rail stays a vertical column through 1024, per spec, and only collapses to a horizontal pill row below it. */
@@ -51,8 +47,6 @@ function prefersReducedMotion() {
 export default function BrandTabs({
   brands,
   railAriaLabel,
-  viewAllLabel,
-  viewAllHref,
 }: BrandTabsProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const isDesktop = useMediaQuery(DESKTOP_QUERY, true);
@@ -169,23 +163,11 @@ export default function BrandTabs({
                       : "z-0 translate-y-[6px] opacity-0 duration-[200ms] pointer-events-none"
                   )}
                 >
-                  <div className="flex flex-col items-start justify-between gap-8 min-[400px]:flex-row min-[400px]:items-end">
-                    <Heading level={3} size="h4" className="text-white">
-                      {brand.title}
-                    </Heading>
-                    <Link
-                      href={viewAllHref}
-                      className="group inline-flex shrink-0 items-center gap-4 text-btn-sm font-semibold tracking-[-0.5px] text-neutral-8 outline-none transition-colors duration-200 ease-out hover:text-secondary focus-visible:text-secondary focus-visible:ring-2 focus-visible:ring-secondary"
-                    >
-                      <span>{viewAllLabel}</span>
-                      <ChevronRight
-                        size={14}
-                        className="shrink-0 -translate-x-[4px] opacity-0 transition-[opacity,transform] duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100 motion-reduce:translate-x-0 motion-reduce:transition-none"
-                      />
-                    </Link>
-                  </div>
+                  <Heading level={3} size="h4" className="text-white">
+                    {brand.title}
+                  </Heading>
 
-                  <div className="grid grid-cols-1 gap-32 min-[480px]:grid-cols-2 min-[480px]:gap-24 lg:grid-cols-3 lg:gap-24">
+                  <div className="grid grid-cols-2 gap-x-12 gap-y-24 min-[480px]:gap-24 lg:grid-cols-3 lg:gap-24">
                     {brand.products.map((product) => (
                       <ProductCard
                         key={product.key}

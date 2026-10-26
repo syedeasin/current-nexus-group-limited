@@ -163,7 +163,7 @@ export default function QuotationForm({ data, productName }: { data: QuotationFo
             <Heading level={3} size="h5">
               Thanks — your inquiry is in.
             </Heading>
-            <Text size="p1" className="text-neutral-3">
+            <Text size="p2" className="text-neutral-3">
               A CNX specialist will follow up shortly at {values.email || "the email you provided"}.
             </Text>
           </div>
@@ -363,7 +363,7 @@ export default function QuotationForm({ data, productName }: { data: QuotationFo
               ) : (
                 <>
                   Submit inquiry
-                  <ChevronRight size={20} />
+                  <ChevronRight size={20} boxed />
                 </>
               )}
             </button>

@@ -66,7 +66,7 @@ export default function BrandHero({ eyebrow, heading, body, backgroundImage, pri
             </Reveal>
             <div className="flex flex-col gap-16">
               <TextReveal delay={80}>
-                <Heading level={1} size="h1" className="text-balance text-white">
+                <Heading level={1} size="h2" className="text-balance text-white">
                   {heading}
                 </Heading>
               </TextReveal>
@@ -82,7 +82,7 @@ export default function BrandHero({ eyebrow, heading, body, backgroundImage, pri
           <Reveal as="div" delay={240} className="flex flex-col gap-12 min-[481px]:flex-row">
             <Button href={primary.href} size="lg" className="whitespace-nowrap">
               {primary.label}
-              <ChevronRight size={BUTTON_ICON_SIZE} />
+              <ChevronRight size={BUTTON_ICON_SIZE} boxed />
             </Button>
             {secondary ? (
               <Button href={secondary.href} size="lg" variant="secondary" className="whitespace-nowrap">

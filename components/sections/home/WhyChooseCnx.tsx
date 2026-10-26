@@ -1,22 +1,22 @@
-import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";
-import ImageReveal from "@/components/motion/ImageReveal";
 import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
-import Button, { BUTTON_ICON_SIZE } from "@/components/ui/Button";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
-import { ChevronRight } from "@/components/icons/ChevronRight";
-import ReasonAccordion from "@/components/sections/home/why-choose-cnx/ReasonAccordion";
-import { cascade, REVEAL_STEP_MS } from "@/lib/motion/timing";
+import { Link } from "@/i18n/navigation";
+import { ArrowRight } from "@/components/icons/ArrowRight";
+import WhyChooseExplorer from "@/components/sections/home/why-choose-cnx/WhyChooseExplorer";
+import { cascade } from "@/lib/motion/timing";
 import { entries, str } from "@/lib/page-content/read";
 
-// Canonical header cascade: eyebrow(0), heading(1), paragraph(2), cta(3) — the
-// photo and accordion pick up right after the CTA instead of colliding with it.
-const ACCORDION_BASE_DELAY_MS = cascade(5);
-
+/**
+ * Homepage → Why choose us. Header and a quiet text link on the left with a
+ * photo per reason; the six reasons on the right step through as the visitor
+ * scrolls (see WhyChooseExplorer). Each reason's photo is set in Pages →
+ * Homepage → Why choose us.
+ */
 export default async function WhyChooseCnx() {
   const t = await getTranslations("home.whyChoose");
 
@@ -25,64 +25,45 @@ export default async function WhyChooseCnx() {
     icon: str(item, "iconImage"),
     title: str(item, "title"),
     body: str(item, "body"),
+    image: str(item, "image"),
   }));
-  // Rows without body copy can't expand, so open the first one that has some.
-  const defaultOpenKey = reasons.find((reason) => reason.body)?.key ?? "";
+
+  const header = (
+    <div className="flex flex-col gap-12">
+      <Reveal as="div" delay={cascade(0)}>
+        <SectionEyebrow label={t("eyebrow")} tone="dark" />
+      </Reveal>
+      <div className="flex flex-col gap-16">
+        <TextReveal delay={cascade(1)}>
+          <Heading level={2} size="h2" className="text-white">
+            {t("heading")}
+          </Heading>
+        </TextReveal>
+        <Reveal as="div" delay={cascade(2)}>
+          <Text size="p3" className="max-w-[520px] text-neutral-9">
+            {t("paragraph")}
+          </Text>
+        </Reveal>
+      </div>
+      {t("cta") && (
+        <Reveal as="div" delay={cascade(3)} className="mt-12">
+          {/* Text link, not a filled button: the section's focus is the reasons. */}
+          <Link
+            href={t("ctaHref")}
+            className="group inline-flex items-center gap-8 text-p3 font-semibold text-white underline decoration-secondary decoration-2 underline-offset-8 transition-colors duration-150 hover:text-secondary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary"
+          >
+            {t("cta")}
+            <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-2 motion-reduce:transition-none" />
+          </Link>
+        </Reveal>
+      )}
+    </div>
+  );
 
   return (
     <section aria-label={t("heading")} className="w-full bg-neutral-1">
-      <Container className="py-48 md:py-64 xl:py-100">
-        {/* Two equal 600px columns with a 120px gutter on desktop (Figma 29:2841),
-            and on mobile the accordion is lifted above the photo — it carries the
-            section's value and must not sit under a tall image on a phone. Both
-            behaviours live in `.why-choose-grid` in globals.css. */}
-        <div className="why-choose-grid">
-          <div className="why-choose-textblock flex flex-col gap-12">
-            <Reveal as="div" delay={cascade(0)}>
-              <SectionEyebrow label={t("eyebrow")} tone="dark" />
-            </Reveal>
-            <div className="flex flex-col gap-16">
-              <TextReveal delay={cascade(1)}>
-                <Heading level={2} size="h2" className="text-white">
-                  {t("heading")}
-                </Heading>
-              </TextReveal>
-              <Reveal as="div" delay={cascade(2)}>
-                <Text size="p2" className="text-neutral-9">
-                  {t("paragraph")}
-                </Text>
-              </Reveal>
-            </div>
-            <Reveal as="div" delay={cascade(3)}>
-              <Button href={t("ctaHref")} size="xl" className="w-full min-[481px]:w-fit">
-                {t("cta")}
-                <ChevronRight size={BUTTON_ICON_SIZE} />
-              </Button>
-            </Reveal>
-          </div>
-
-          <ImageReveal
-            delay={cascade(4)}
-            className="why-choose-photo relative aspect-[600/338] w-full rounded-16"
-          >
-            <Image
-              src={t("image")}
-              alt={t("imageAlt")}
-              fill
-              sizes="(min-width: 1024px) 600px, 100vw"
-              className="object-cover"
-            />
-          </ImageReveal>
-
-          <div className="why-choose-accordion w-full">
-            <ReasonAccordion
-              reasons={reasons}
-              defaultOpenKey={defaultOpenKey}
-              baseDelay={ACCORDION_BASE_DELAY_MS}
-              stepDelay={REVEAL_STEP_MS}
-            />
-          </div>
-        </div>
+      <Container className="py-64 md:py-80 xl:py-120">
+        <WhyChooseExplorer header={header} reasons={reasons} fallbackImage={t("image")} imageAlt={t("imageAlt")} />
       </Container>
     </section>
   );

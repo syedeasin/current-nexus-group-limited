@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { ChevronRight } from "@/components/icons/ChevronRight";
+import { BUTTON_ICON_SIZE } from "@/components/ui/Button";
 
 interface ManufacturingProductCardProps {
   href: string;
@@ -49,15 +50,15 @@ export default function ManufacturingProductCard({
         </div>
         <span
           className={cn(
-            "inline-flex items-center gap-8 rounded-full px-24 py-12 text-btn-sm font-semibold tracking-[0px] transition-colors duration-200 ease-out",
+            "inline-flex h-48 items-center gap-8 rounded-full px-24 text-btn-sm font-semibold transition-colors duration-200 ease-out",
             featured
               ? "bg-secondary text-neutral-1 group-hover:bg-secondary/90"
               : "border-[1.5px] border-neutral-10 bg-white text-neutral-1 group-hover:bg-neutral-11"
           )}
         >
           {learnMoreLabel}
-          {/* Figma: card button icon (node 2247:8045/8055) is size-[18px], not the shared Button's 20px. */}
-          <ChevronRight size={18} />
+          {/* Same text/icon spec as the shared Button: 18px label, 8px gap, 20px boxed icon. */}
+          <ChevronRight size={BUTTON_ICON_SIZE} boxed className="shrink-0" />
         </span>
       </div>
     </Link>

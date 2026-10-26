@@ -90,7 +90,7 @@ export default async function CtaBand({
           </TextReveal>
           {subtext ? (
             <Reveal as="div" delay={BODY_DELAY_MS}>
-              <Text size="p1" className="max-w-736 text-balance text-center text-white">
+              <Text size="p2" className="max-w-736 text-balance text-center text-white">
                 {subtext}
               </Text>
             </Reveal>
@@ -105,7 +105,7 @@ export default async function CtaBand({
           >
             {primaryIcon ?? null}
             {resolvedPrimary.label}
-            {primaryIcon ? null : <ChevronRight size={BUTTON_ICON_SIZE} />}
+            {primaryIcon ? null : <ChevronRight size={BUTTON_ICON_SIZE} boxed />}
           </Button>
           {resolvedSecondary ? (
             <Button

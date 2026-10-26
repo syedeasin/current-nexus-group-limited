@@ -94,7 +94,7 @@ export default async function LatestNews({ namespace = "home.latestNews" }: { na
         <Reveal as="div">
           <Button href="/news" size="lg">
             {t("viewAll")}
-            <ChevronRight size={BUTTON_ICON_SIZE} />
+            <ChevronRight size={BUTTON_ICON_SIZE} boxed />
           </Button>
         </Reveal>
       </Container>

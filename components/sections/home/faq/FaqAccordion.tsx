@@ -50,7 +50,7 @@ export default function FaqAccordion({
   const [openId, setOpenId] = useState<string>(defaultOpenId);
 
   return (
-      <div className="flex w-full flex-col gap-16">
+      <div className="flex w-full flex-col gap-8">
         {questions.map((q, index) => {
           const answer = resolveAnswer(q.question, q.answer);
           const isOpen = openId === q.id;
@@ -70,8 +70,8 @@ export default function FaqAccordion({
                     colour swap, not just a tint, so the selected question reads at a
                     glance. */}
                 <div
-                    className={`w-full rounded-8 border p-16 transition-colors duration-200 ease-out min-[481px]:p-20 lg:p-24 ${
-                        isOpen ? "border-neutral-1 bg-neutral-1" : "border-surface-2 bg-surface-2"
+                    className={`w-full rounded-16 border px-20 py-20 transition-colors duration-200 ease-out min-[481px]:px-24 lg:px-28 lg:py-24 ${
+                        isOpen ? "border-neutral-1 bg-neutral-1" : "border-neutral-10 bg-white hover:border-neutral-8"
                     }`}
                 >
                   <h3 className="m-0">
@@ -91,7 +91,7 @@ export default function FaqAccordion({
                           isOpen ? "text-white" : "text-neutral-1"
                       }`}
                   >
-                    {q.question}
+                    {q.question.replace(/^q\.\s*/i, "")}
                   </span>
                       <span className="flex shrink-0 items-center py-4" aria-hidden>
                     <Indicator isOpen={isOpen} />
@@ -109,7 +109,7 @@ export default function FaqAccordion({
                       }`}
                   >
                     <div className="overflow-hidden">
-                      <p className="pt-12 pr-48 text-p3 text-neutral-9">
+                      <p className="max-w-[600px] pt-12 pr-0 text-p3 text-neutral-8 md:pr-48">
                         {answer}
                       </p>
                     </div>

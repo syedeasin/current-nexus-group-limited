@@ -4,6 +4,7 @@ import { requireUser } from "@/lib/auth";
 import { can, canEditPost } from "@/lib/permissions";
 import { prisma } from "@/lib/prisma";
 import { postPublicUrl } from "@/lib/routes";
+import { readCaseStudy } from "@/lib/case-study";
 import PostForm from "@/components/dashboard/post-form";
 
 export default async function EditPostPage({
@@ -30,6 +31,7 @@ export default async function EditPostPage({
       eventStartDate: true,
       eventEndDate: true,
       eventLocation: true,
+      caseStudy: true,
       featuredImage: true,
       featuredImageAlt: true,
       metaTitle: true,
@@ -64,6 +66,7 @@ export default async function EditPostPage({
     eventStartDate: post.eventStartDate ? post.eventStartDate.toISOString().slice(0, 10) : "",
     eventEndDate: post.eventEndDate ? post.eventEndDate.toISOString().slice(0, 10) : "",
     eventLocation: post.eventLocation ?? "",
+    caseStudy: readCaseStudy(post.caseStudy),
     tags: post.tags.map((t) => t.tag.name).join(", "),
     featuredImage: post.featuredImage ?? "",
     featuredImageAlt: post.featuredImageAlt ?? "",

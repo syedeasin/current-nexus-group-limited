@@ -1,5 +1,6 @@
 import { Prisma, PostStatus, PostSection, type Locale } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
+import { readCaseStudy, type CaseStudyDetails } from "@/lib/case-study";
 
 /**
  * Public news data access. Every news component and the [slug] route read
@@ -44,6 +45,8 @@ export interface NewsPost {
   eventStartDate: string | null;
   eventEndDate: string | null;
   eventLocation: string;
+  /** Case Studies only (detail pages): facts, results and quote; null otherwise. */
+  caseStudy: CaseStudyDetails | null;
   /** Sanitised HTML. Empty string for list items (content is not fetched for lists). */
   content: string;
   /** Author display name. "" for list items (not fetched for lists). */
@@ -112,6 +115,7 @@ function mapListRow(row: ListRow): NewsPost {
     eventStartDate: row.eventStartDate?.toISOString() ?? null,
     eventEndDate: row.eventEndDate?.toISOString() ?? null,
     eventLocation: row.eventLocation ?? "",
+    caseStudy: null,
     content: "",
     authorName: "",
     metaTitle: null,
@@ -138,6 +142,7 @@ function mapDetailRow(row: DetailRow): NewsPost {
     eventStartDate: row.eventStartDate?.toISOString() ?? null,
     eventEndDate: row.eventEndDate?.toISOString() ?? null,
     eventLocation: row.eventLocation ?? "",
+    caseStudy: row.section === PostSection.CASE_STUDIES ? readCaseStudy(row.caseStudy) : null,
     content: row.content,
     authorName: row.author.name,
     metaTitle: row.metaTitle,
@@ -192,7 +197,8 @@ export async function getLatestPosts(locale: string, take: number): Promise<News
   if (!prismaLocale) return [];
 
   const rows = await prisma.post.findMany({
-    where: { status: PostStatus.PUBLISHED, locale: prismaLocale },
+    // Case studies have their own buttons; the "latest news" feeds stay news.
+    where: { status: PostStatus.PUBLISHED, locale: prismaLocale, section: { not: PostSection.CASE_STUDIES } },
     orderBy: PUBLISHED_ORDER,
     take,
     select: listSelect,
@@ -255,7 +261,54 @@ export async function getPosts(
   return { posts: rows.map(mapListRow), total, totalPages };
 }
 
-/** Full published post for the detail page. Returns null so the page can notFound(). */
+/** Other published case studies, newest first — the "More case studies" row. */
+export async function getOtherCaseStudies(locale: string, excludeSlug: string, take = 3): Promise<NewsPost[]> {
+  const prismaLocale = toPrismaLocale(locale);
+  if (!prismaLocale) return [];
+  const rows = await prisma.post.findMany({
+    where: { status: PostStatus.PUBLISHED, locale: prismaLocale, section: PostSection.CASE_STUDIES, slug: { not: excludeSlug } },
+    orderBy: PUBLISHED_ORDER,
+    take,
+    select: listSelect,
+  });
+  return rows.map(mapListRow);
+}
+
+export interface CaseStudyHighlight {
+  href: string;
+  title: string;
+  coverImage: string;
+  details: CaseStudyDetails;
+}
+
+/**
+ * The case study featured on the homepage: the one whose slug is set in Pages
+ * → Homepage → Client success story, else the newest published case.
+ */
+export async function getCaseStudyHighlight(locale: string, slug?: string): Promise<CaseStudyHighlight | null> {
+  const prismaLocale = toPrismaLocale(locale);
+  if (!prismaLocale) return null;
+  const where = { status: PostStatus.PUBLISHED, locale: prismaLocale, section: PostSection.CASE_STUDIES };
+  const select = { slug: true, title: true, featuredImage: true, caseStudy: true } as const;
+  const row =
+    (slug ? await prisma.post.findFirst({ where: { ...where, slug }, select }) : null) ??
+    (await prisma.post.findFirst({ where, orderBy: PUBLISHED_ORDER, select }));
+  if (!row) return null;
+  return { href: `/news/${row.slug}`, title: row.title, coverImage: row.featuredImage ?? "", details: readCaseStudy(row.caseStudy) };
+}
+
+/** Path of the newest published case study ("/news/<slug>"), or null when there is none. */
+export async function getLatestCaseStudyPath(locale: string): Promise<string | null> {
+  const prismaLocale = toPrismaLocale(locale);
+  if (!prismaLocale) return null;
+  const post = await prisma.post.findFirst({
+    where: { status: PostStatus.PUBLISHED, locale: prismaLocale, section: PostSection.CASE_STUDIES },
+    orderBy: [{ publishedAt: "desc" }, { createdAt: "desc" }],
+    select: { slug: true },
+  });
+  return post ? `/news/${post.slug}` : null;
+}
+
 export async function getPostBySlug(
   slug: string,
   locale: string

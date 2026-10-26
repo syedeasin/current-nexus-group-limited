@@ -6,6 +6,7 @@ import Reveal from "@/components/ui/Reveal";
 import TextReveal from "@/components/motion/TextReveal";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
+import TopHeavyText from "@/components/ui/TopHeavyText";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 
 const DESCRIPTION_DELAY_MS = 160;
@@ -27,6 +28,10 @@ interface PageBannerProps {
   };
   /** Tailwind max-width class for the text block. Defaults to the manufacturing category spec (855px). */
   textMaxWidthClassName?: string;
+  /** Extra classes for the description. */
+  descriptionClassName?: string;
+  /** Break the description top heavy (first line 2–3 words longer than the last). */
+  descriptionTopHeavy?: boolean;
   /**
    * Banner height and vertical placement. Defaults to the manufacturing
    * category spec (548px tall at xl, text pinned to the bottom). Solutions
@@ -41,6 +46,8 @@ export default function PageBanner({
   description,
   image,
   textMaxWidthClassName = "max-w-855",
+  descriptionClassName,
+  descriptionTopHeavy = false,
   containerClassName = "h-400 justify-end py-64 md:h-460 xl:h-548 xl:pt-140 xl:pb-120",
 }: PageBannerProps) {
   return (
@@ -84,15 +91,19 @@ export default function PageBanner({
               inside the 12px eyebrow gap, so they group as one block. */}
           <div className="flex flex-col gap-16">
             <TextReveal delay={80}>
-              <Heading level={1} size="h1" className="text-balance text-white">
+              <Heading level={1} size="h2" className="text-balance text-white">
                 {heading}
               </Heading>
             </TextReveal>
             {description ? (
               <Reveal as="div" delay={DESCRIPTION_DELAY_MS}>
-                <Text size="p2" className="text-neutral-9">
-                  {description}
-                </Text>
+                {descriptionTopHeavy ? (
+                  <TopHeavyText className={cn("text-p2 text-neutral-9", descriptionClassName)}>{description}</TopHeavyText>
+                ) : (
+                  <Text size="p2" className={cn("text-neutral-9", descriptionClassName)}>
+                    {description}
+                  </Text>
+                )}
               </Reveal>
             ) : null}
           </div>

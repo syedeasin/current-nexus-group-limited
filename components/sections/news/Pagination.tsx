@@ -53,7 +53,7 @@ export default function Pagination({
             href={pageHref(basePath, page)}
             aria-current={isActive ? "page" : undefined}
             className={cn(
-              "flex size-40 items-center justify-center rounded-full text-p1 font-medium outline-none transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-secondary",
+              "flex size-40 items-center justify-center rounded-full text-p3 font-medium outline-none transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-secondary",
               isActive ? "text-secondary" : "text-neutral-5 hover:text-neutral-1"
             )}
           >

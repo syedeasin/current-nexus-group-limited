@@ -46,7 +46,7 @@ export default function ProductIntroduction({ data }: { data: ProductIntroductio
               {data.paragraphs.map((paragraph, index) => (
                 <Reveal key={paragraph} as="div" delay={160 + index * 80}>
                   {/* Figma: Paragraph/Regular P2 (20/32 desktop), not P1. */}
-                  <Text size="p2" className="text-neutral-3">
+                  <Text size="p3" className="text-neutral-3">
                     {paragraph}
                   </Text>
                 </Reveal>

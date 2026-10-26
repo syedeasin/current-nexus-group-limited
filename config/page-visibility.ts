@@ -34,6 +34,7 @@ export const VISIBILITY_PAGES: VisibilityPage[] = [
   { path: "/news/re-analysis", label: "RE Analysis", group: "News Room" },
   { path: "/news/knowledge-database", label: "Knowledge Database", group: "News Room" },
   { path: "/news/events", label: "Events", group: "News Room" },
+  { path: "/news/case-studies", label: "Case Studies", group: "News Room" },
   { path: "/contact", label: "Contact", group: "Other" },
   { path: "/privacy-policy", label: "Privacy Policy", group: "Other" },
   { path: "/cookie-policy", label: "Cookie Policy", group: "Other" },

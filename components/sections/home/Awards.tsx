@@ -4,6 +4,9 @@ import { entries, str } from "@/lib/page-content/read";
 
 export default async function Awards() {
   const t = await getTranslations("home.awards");
+  // Hidden until the client has real awards (revision 1022); switched on in
+  // Dashboard → Pages → Homepage → Industry recognition → Show on the website.
+  if (t("show") !== "true") return null;
 
   return (
     <AwardsSection

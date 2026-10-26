@@ -62,7 +62,7 @@ export default function ProductVariants({ data }: { data: ProductVariantsSection
                       {variant.name}
                     </Heading>
                     {/* Figma: Paragraph/Regular P2 (20/32), not P1. */}
-                    <Text size="p2" className="text-neutral-4">
+                    <Text size="p3" className="text-neutral-4">
                       {variant.body}
                     </Text>
                   </div>

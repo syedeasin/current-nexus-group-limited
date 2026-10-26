@@ -4,7 +4,8 @@ import { getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
 import DetailsHero from "@/components/sections/news/DetailsHero";
 import PostNav from "@/components/sections/news/PostNav";
-import { getAdjacentPosts, getAllSlugs, getPostBySlug } from "@/lib/data/news";
+import CaseStudyDetail from "@/components/sections/news/CaseStudyDetail";
+import { getAdjacentPosts, getAllSlugs, getOtherCaseStudies, getPostBySlug } from "@/lib/data/news";
 import { postPublicUrl } from "@/lib/routes";
 import { sanitizePostHtml } from "@/lib/sanitize-html";
 import { siteConfig } from "@/site.config";
@@ -119,6 +120,24 @@ export default async function NewsDetailsPage({
         dateModified: post.updatedAt,
         author: [{ "@type": "Person", name: post.authorName }],
       };
+
+  const jsonLd = (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd).replace(/</g, "\\u003c") }}
+    />
+  );
+
+  // Case Studies get their own layout (facts, results, quote, more cases).
+  if (post.section === "CASE_STUDIES" && post.caseStudy) {
+    const related = await getOtherCaseStudies(locale, slug);
+    return (
+      <main>
+        {jsonLd}
+        <CaseStudyDetail post={post} details={post.caseStudy} postUrl={postUrl} related={related} />
+      </main>
+    );
+  }
 
   return (
     <main>

@@ -14,7 +14,7 @@ export default async function ProductGrid({ category }: { category: ProductCateg
   const products = entries(t.raw("items" as never));
 
   return (
-    <section className="w-full bg-white pt-80 pb-100">
+    <section id="products" className="w-full scroll-mt-96 bg-white pt-48 pb-64 md:pt-80 md:pb-100">
       <Container>
         <div className="grid grid-cols-1 gap-24 md:grid-cols-2">
           {products.map(([id, product], index) => {
