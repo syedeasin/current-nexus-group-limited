@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/Picture";
 import { Download } from "lucide-react";
 import Container from "@/components/layout/Container";
 import Button from "@/components/ui/Button";

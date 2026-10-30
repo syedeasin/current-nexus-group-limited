@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/Picture";
 import { Download } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";

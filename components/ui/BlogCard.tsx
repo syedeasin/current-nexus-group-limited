@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/Picture";
 import { Link } from "@/i18n/navigation";
 import Heading from "@/components/ui/Heading";
 import { CARD_IMAGE_ZOOM, CARD_LIFT, CARD_TITLE_TINT } from "@/lib/motion/interactions";

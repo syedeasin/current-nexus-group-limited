@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/Picture";
 import Button, { BUTTON_ICON_SIZE } from "@/components/ui/Button";
 import { ArrowRight } from "@/components/icons/ArrowRight";
 

@@ -449,27 +449,27 @@
       "items": {
         "award1": {
           "caption": "Leading Renewable Energy Manufacturer Award",
-          "image": "/images/home/awardImage01.png",
+          "image": "/images/home/awardImage01.webp",
           "imageAlt": "Finalist, Best Property Management Systems 2025 award badge"
         },
         "award2": {
           "caption": "Leading Renewable Energy Manufacturer Award",
-          "image": "/images/home/awardImage02.png",
+          "image": "/images/home/awardImage02.webp",
           "imageAlt": "Best Places to Work in Hotel Tech 2025 award badge"
         },
         "award3": {
           "caption": "Leading Renewable Energy Manufacturer Award",
-          "image": "/images/home/awardImage03.png",
+          "image": "/images/home/awardImage03.webp",
           "imageAlt": "Best All-in-1 Hotel Management System 2025 award badge"
         },
         "award4": {
           "caption": "Leading Renewable Energy Manufacturer Award",
-          "image": "/images/home/awardImage04.png",
+          "image": "/images/home/awardImage04.webp",
           "imageAlt": "Best All-in-1 Hotel Management System 2025 award badge"
         },
         "award5": {
           "caption": "Leading Renewable Energy Manufacturer Award",
-          "image": "/images/home/awardImage05.png",
+          "image": "/images/home/awardImage05.webp",
           "imageAlt": "Finalist, Best Revenue Management System 2022 award badge"
         }
       }
@@ -866,7 +866,7 @@
         "eyebrow": "TÉLÉCHARGEMENTS",
         "heading": "Ressources techniques",
         "description": "Accédez aux fiches techniques, brochures, certifications, guides d’installation et autres documents techniques pour faciliter le choix des produits, la conception des systèmes et la réalisation des projets.",
-        "image": "/images/service/Downloads/service-downloads-heroBanner.jpg"
+        "image": "/images/service/Downloads/service-downloads-heroBanner.webp"
       },
       "searchPlaceholder": "Rechercher ce que vous voulez…",
       "searchLabel": "Rechercher dans les ressources techniques",

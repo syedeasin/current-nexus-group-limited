@@ -10,6 +10,14 @@ const nextConfig: NextConfig = {
   typescript: { ignoreBuildErrors: true },
   images: {
     remotePatterns: [],
+    // AVIF first, WebP as the fallback for browsers without AVIF (the
+    // <picture> in components/ui/Picture.tsx carries the AVIF <source>).
+    formats: ["image/avif", "image/webp"],
+    // 85 is used for full-width photos (hero, banners) so they stay sharp.
+    qualities: [75, 85],
+    // Optimized files are cached on the server for 31 days; new uploads get
+    // new URLs, so a long cache never serves a stale image.
+    minimumCacheTTL: 2678400,
     // Logo assets (footer wordmark, trusted-brand logos) are local SVGs.
     dangerouslyAllowSVG: true,
     contentDispositionType: "attachment",

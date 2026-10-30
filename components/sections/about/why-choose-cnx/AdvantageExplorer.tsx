@@ -1,7 +1,7 @@
 "use client";
 
 import { createElement, useEffect, useRef, useState, type ReactNode } from "react";
-import Image from "next/image";
+import Image from "@/components/ui/Picture";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight } from "@/components/icons/ArrowRight";
 import { pageIcon } from "@/lib/page-content/icons";
@@ -134,7 +134,7 @@ export default function AdvantageExplorer({ header, items }: { header: ReactNode
         {/* Pins 32px under the header, so the section keeps its normal top and
             bottom padding before and after the pinned stretch. */}
         <div ref={stickyRef} className="sticky top-[88px] xl:top-[120px]">
-          <div className="grid w-full grid-cols-[minmax(0,1fr)_auto] items-stretch gap-64 xl:gap-96">
+          <div className="grid w-full grid-cols-[minmax(0,5fr)_minmax(0,6fr)] items-stretch gap-48 xl:gap-64">
             {/* Left: heading level with the card's top, list level with its bottom. */}
             <div className="flex flex-col justify-between gap-40">
               {header}
@@ -168,10 +168,10 @@ export default function AdvantageExplorer({ header, items }: { header: ReactNode
               </ol>
             </div>
 
-            {/* Right: square photo (sized to fit the screen height) with the step
-                counter in its top-right corner, copy underneath. */}
-            <div className="flex w-[min(600px,max(420px,calc((100svh-460px)*4/3+24px)))] flex-col rounded-32 bg-white p-12 shadow-[0_24px_64px_rgba(10,13,27,0.06)]">
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-24 bg-neutral-1">
+            {/* Right: the card fills its (wider) column; the photo's height follows
+                the screen height so the whole card always fits under the header. */}
+            <div className="flex w-full flex-col rounded-32 bg-white p-12 shadow-[0_24px_64px_rgba(10,13,27,0.06)]">
+              <div className="relative h-[clamp(240px,calc(100svh-500px),480px)] w-full overflow-hidden rounded-24 bg-neutral-1">
                 {items.map((item, index) => (
                   <div
                     key={item.id}
@@ -182,7 +182,7 @@ export default function AdvantageExplorer({ header, items }: { header: ReactNode
                     )}
                   >
                     {isDesktop && item.image && (
-                      <Image src={item.image} alt={item.imageAlt} fill sizes="600px" className="object-cover" />
+                      <Image src={item.image} alt={item.imageAlt} fill sizes="(min-width: 1280px) 720px, 55vw" className="object-cover" />
                     )}
                   </div>
                 ))}

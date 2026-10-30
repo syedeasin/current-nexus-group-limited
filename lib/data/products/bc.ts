@@ -504,7 +504,7 @@ export const bcProductDetail: ProductDetail = {
       {
         title: "Compatible String or Hybrid Inverters",
         body: "Smart hybrid and string inverters engineered for seamless integration with solar PV and battery storage systems.",
-        image: "/images/products/bc/related-inverters.jpg",
+        image: "/images/products/bc/related-inverters.webp",
         // No inverter product page exists yet in the manufacturing data file — points at the closest built hub for now.
         href: "/tier-1-brands",
       },
@@ -592,7 +592,7 @@ export const bcProductDetail: ProductDetail = {
       },
     ],
     contact: {
-      avatarSrc: "/images/home/emmaDP.png",
+      avatarSrc: "/images/home/emmaDP.webp",
       name: "Emma Collins",
       role: "Customer care",
       // Doc warning: wrong company name ("Kelana", not CNX), double space,

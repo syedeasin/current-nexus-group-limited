@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/Picture";
 import { getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";

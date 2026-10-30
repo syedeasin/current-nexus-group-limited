@@ -1,5 +1,5 @@
 import { Building2, Download, Layers, Zap } from "lucide-react";
-import Image from "next/image";
+import Image from "@/components/ui/Picture";
 import Hero from "@/components/sections/product/Hero";
 import ProductIntroduction from "@/components/sections/product/ProductIntroduction";
 import FeatureGrid from "@/components/sections/shared/FeatureGrid";

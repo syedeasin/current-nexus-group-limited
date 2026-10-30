@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/ui/Picture";
 import { useId, useRef, useState, type KeyboardEvent } from "react";
 import Container from "@/components/layout/Container";
 import Reveal from "@/components/ui/Reveal";

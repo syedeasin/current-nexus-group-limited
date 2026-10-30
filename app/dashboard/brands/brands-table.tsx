@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/ui/Picture";
 import { useRouter } from "next/navigation";
 import { Copy, Lock, Trash2 } from "lucide-react";
 import StatusBadge from "@/components/dashboard/status-badge";

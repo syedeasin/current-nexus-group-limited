@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useState, type FormEvent } from "react";
-import Image from "next/image";
+import Image from "@/components/ui/Picture";
 import { ChevronDown } from "lucide-react";
 import { useRouter } from "@/i18n/navigation";
 import type { FilterGroupView, SelectedFilters } from "@/lib/downloads-types";

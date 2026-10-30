@@ -81,6 +81,8 @@ Design polish after the revision (owner feedback, 24–26 Oct), done locally:
 - [x] Product pages: Manufacturing excellence matches the About "Six reasons" layout; Manufacturing workflow pins and draws the gold line step to step on scroll
 - [x] Solar Panels "Why Choose CNX?": sticky intro + numbered list (55/45); product card buttons on the shared button spec
 - [x] Legal pages rebuilt: sticky "On this page", "At a glance" summary, 680px reading column; Privacy Policy and Terms rewritten in full (template wording: client/lawyer to review before live)
+- [x] Client feedback 28 Oct: homepage Why choose back to hover (photo per reason, whole photo visible); nav items spaced out; product workflow pins only when it clears the floating bar (grid on short screens); About six reasons card wider, gap reduced
+- [x] Images: every site image is WebP (JPG/PNG converted) and recompressed (15.7MB → 4.9MB); logo SVGs no longer embed a 3840px PNG (~1.5MB less per page); `components/ui/Picture.tsx` renders `<picture>` with an AVIF source and WebP fallback via the Next optimizer (`images.formats`); full-width photos at quality 85. Hero slides 2 and 3 are only 1600px wide, so they stay soft on retina until the client sends 1920px+ files
 - [x] Wrapping rule: descriptions break top heavy (first line 2–3 words longer) via `TopHeavyText`, not text-balance
 
 ## 1. Finish revision 1008 (this week)

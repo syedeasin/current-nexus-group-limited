@@ -1,6 +1,6 @@
 import { Globe, MapPin, Mail, Phone } from "lucide-react";
 import { getTranslations } from "next-intl/server";
-import Image from "next/image";
+import Image from "@/components/ui/Picture";
 import { Link } from "@/i18n/navigation";
 import Container from "@/components/layout/Container";
 import NewsletterForm from "@/components/layout/NewsletterForm";

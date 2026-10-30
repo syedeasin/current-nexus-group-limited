@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
-import Image from "next/image";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import Image from "@/components/ui/Picture";
 import Heading from "@/components/ui/Heading";
 import TopHeavyText from "@/components/ui/TopHeavyText";
 import { useMediaQuery, usePrefersReducedMotion } from "@/lib/hooks/useMediaQuery";
@@ -12,8 +12,11 @@ import type { WorkflowStep } from "@/lib/data/products/types";
 const SCROLL_PER_PX = 1.6;
 /** Header height the pinned stage must clear (matches the site header). */
 const HEADER_OFFSET = { base: 88, xl: 120 };
-/** Breathing room between the header and the pinned stage. */
+/** Breathing room between the header and the pinned stage (shrinks to the minimum on short screens). */
 const PIN_GAP = 40;
+const MIN_PIN_GAP = 16;
+/** Space kept free at the bottom of the screen for the product page's floating action bar. */
+const BAR_CLEARANCE = 120;
 
 const clamp01 = (n: number) => Math.min(Math.max(n, 0), 1);
 
@@ -23,8 +26,10 @@ const clamp01 = (n: number) => Math.min(Math.max(n, 0), 1);
  * Desktop: the section pins while the visitor scrolls down; the steps slide
  * from right to left and each step's grey connector fills gold left → right,
  * so the line runs from step 01 to the last step as the page scrolls.
- * Phones, tablets and reduced motion: a normal sideways swipe with the lines
- * already gold.
+ * The stage only pins when it fits between the header and the floating
+ * action bar; on a shorter desktop screen the steps show as a grid instead,
+ * so no text is ever hidden. Phones, tablets and reduced motion: a normal
+ * sideways swipe. Outside the pinned mode the lines are already gold.
  */
 export default function WorkflowScroller({ header, steps, ariaLabel }: { header: ReactNode; steps: WorkflowStep[]; ariaLabel: string }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -35,8 +40,32 @@ export default function WorkflowScroller({ header, steps, ariaLabel }: { header:
   const leftFadeRef = useRef<HTMLDivElement>(null);
   const isDesktop = useMediaQuery("(min-width: 1024px)", true);
   const reducedMotion = usePrefersReducedMotion();
-  const pinned = isDesktop && !reducedMotion;
+  const [fits, setFits] = useState(true);
+  const pinnedHeightRef = useRef(0);
+  const pinned = isDesktop && !reducedMotion && fits;
+  const gridded = isDesktop && !pinned;
   const count = steps.length;
+
+  // Does the pinned stage fit between the header and the floating bar? The
+  // height is measured while pinned and remembered, because the grid fallback
+  // is taller and would otherwise never switch back.
+  useEffect(() => {
+    const sticky = stickyRef.current;
+    if (!isDesktop || reducedMotion || !sticky) return;
+    const check = () => {
+      if (!sticky.classList.contains("sticky") && pinnedHeightRef.current === 0) return;
+      if (sticky.classList.contains("sticky")) pinnedHeightRef.current = sticky.offsetHeight;
+      const header = window.innerWidth >= 1280 ? HEADER_OFFSET.xl : HEADER_OFFSET.base;
+      setFits(pinnedHeightRef.current + header + MIN_PIN_GAP + BAR_CLEARANCE <= window.innerHeight);
+    };
+    const observer = new ResizeObserver(check);
+    observer.observe(sticky);
+    window.addEventListener("resize", check);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", check);
+    };
+  }, [isDesktop, reducedMotion]);
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
@@ -75,7 +104,8 @@ export default function WorkflowScroller({ header, steps, ariaLabel }: { header:
       const header = window.innerWidth >= 1280 ? HEADER_OFFSET.xl : HEADER_OFFSET.base;
       // Pin just under the header, leaving the bottom of the screen free for
       // the floating action bar.
-      sticky.style.top = `${header + PIN_GAP}px`;
+      const slack = window.innerHeight - BAR_CLEARANCE - header - sticky.offsetHeight;
+      sticky.style.top = `${header + Math.min(PIN_GAP, Math.max(MIN_PIN_GAP, slack))}px`;
       wrapper.style.height = `${sticky.offsetHeight + shift * SCROLL_PER_PX}px`;
     };
 
@@ -125,10 +155,10 @@ export default function WorkflowScroller({ header, steps, ariaLabel }: { header:
 
   return (
     <div ref={wrapperRef} className="relative">
-      <div ref={stickyRef} className={cn("flex flex-col gap-48", pinned && "sticky")}>
+      <div ref={stickyRef} className={cn("flex flex-col gap-40", pinned && "sticky")}>
         {header}
 
-        <div className="relative overflow-hidden rounded-20 border border-neutral-10 bg-white p-24 md:p-32 lg:p-60">
+        <div className="relative overflow-hidden rounded-20 border border-neutral-10 bg-white p-24 md:p-32 lg:px-60 lg:py-48">
           <div
             ref={viewportRef}
             role="region"
@@ -137,12 +167,14 @@ export default function WorkflowScroller({ header, steps, ariaLabel }: { header:
             className={cn(
               pinned
                 ? "-mx-60 overflow-hidden px-60"
-                : "snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                : gridded
+                  ? ""
+                  : "snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             )}
           >
-            <ol ref={trackRef} className="flex w-max gap-24 will-change-transform">
+            <ol ref={trackRef} className={cn(gridded ? "grid grid-cols-2 gap-x-32 gap-y-48 xl:grid-cols-3" : "flex w-max gap-24 will-change-transform")}>
               {steps.map((step) => (
-                <li key={step.label} className="flex w-[80vw] shrink-0 snap-start flex-col gap-48 sm:w-408 md:gap-64">
+                <li key={step.label} className={cn("flex shrink-0 snap-start flex-col gap-40 md:gap-48", !gridded && "w-[80vw] sm:w-408")}>
                   <div className="flex items-center gap-24">
                     <span className="shrink-0 text-p4 font-semibold uppercase tracking-[1px] text-neutral-1">{step.label}</span>
                     {/* Grey rail, gold fill drawn over it left → right while scrolling. */}
@@ -161,7 +193,7 @@ export default function WorkflowScroller({ header, steps, ariaLabel }: { header:
                       <span data-line-dot className="size-4 shrink-0 rounded-full bg-neutral-10 transition-colors duration-200 data-[on=true]:bg-secondary" />
                     </span>
                   </div>
-                  <div className="flex flex-col gap-32">
+                  <div className="flex flex-col gap-24">
                     <Image src="/images/manufacturing/bc-solar/manufacturing-step-icon.svg" alt="" aria-hidden="true" width={40} height={40} />
                     <div className="flex flex-col gap-12 pr-0 md:pr-48">
                       <Heading level={3} size="h5" className="tracking-[-0.5px] text-neutral-3">
@@ -184,7 +216,7 @@ export default function WorkflowScroller({ header, steps, ariaLabel }: { header:
           <div
             ref={fadeRef}
             aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 right-0 hidden w-126 md:block"
+            className={cn("pointer-events-none absolute inset-y-0 right-0 hidden w-126", !gridded && "md:block")}
             style={{ background: "linear-gradient(to right, rgba(255,255,255,0) 0%, #FFFFFF 100%)" }}
           />
         </div>

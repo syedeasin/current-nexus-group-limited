@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useMemo, useRef, useState } from "react";
-import Image from "next/image";
+import Image from "@/components/ui/Picture";
 import { Download, X } from "lucide-react";
 import { ChevronRight } from "@/components/icons/ChevronRight";
 import { Link } from "@/i18n/navigation";

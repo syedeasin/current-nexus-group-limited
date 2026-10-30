@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/Picture";
 
 export function initialsOf(name: string): string {
   return (

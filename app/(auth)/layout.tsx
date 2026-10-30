@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import Image from "next/image";
+import Image from "@/components/ui/Picture";
 import Link from "next/link";
 import { switzer } from "@/app/fonts";
 import { siteConfig } from "@/site.config";

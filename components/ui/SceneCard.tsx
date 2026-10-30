@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/Picture";
 import type { ElementType } from "react";
 import { Link } from "@/i18n/navigation";
 import { ArrowUpRight } from "@/components/icons/ArrowUpRight";

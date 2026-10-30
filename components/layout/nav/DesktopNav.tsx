@@ -23,7 +23,7 @@ export default function DesktopNav({ items, isTransparent, pathname, openKey, on
 
   return (
     <nav aria-label="Primary" className="hidden shrink-0 xl:flex xl:items-center">
-      <ul className="flex flex-nowrap items-center gap-6 min-[1400px]:gap-8 min-[1500px]:gap-16 min-[1600px]:gap-24">
+      <ul className="flex flex-nowrap items-center gap-12 min-[1400px]:gap-20 min-[1500px]:gap-24 min-[1600px]:gap-32">
         {items.map((item) => {
           const isOpen = openKey === item.labelKey;
           const isRouteActive = isNavItemActive(item, pathname);

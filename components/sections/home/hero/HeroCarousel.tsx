@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { FocusEvent, KeyboardEvent } from "react";
-import Image from "next/image";
+import Image from "@/components/ui/Picture";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Container from "@/components/layout/Container";
 import Heading from "@/components/ui/Heading";

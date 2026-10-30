@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/Picture";
 import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 import Container from "@/components/layout/Container";

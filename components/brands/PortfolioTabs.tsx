@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useRef, useState, type KeyboardEvent } from "react";
-import Image from "next/image";
+import Image from "@/components/ui/Picture";
 import { Link } from "@/i18n/navigation";
 import { ChevronRight } from "@/components/icons/ChevronRight";
 import { cn } from "@/lib/utils";

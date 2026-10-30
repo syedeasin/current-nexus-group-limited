@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/Picture";
 import { Link } from "@/i18n/navigation";
 import Heading from "@/components/ui/Heading";
 import { postDateLabel } from "@/lib/formatDate";

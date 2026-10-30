@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/Picture";
 import Container from "@/components/layout/Container";
 import { HERO_HEADER_OFFSET } from "@/src/layout/headerOffset";
 import { cn } from "@/lib/utils";

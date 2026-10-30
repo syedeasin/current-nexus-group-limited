@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/Picture";
 import type { DownloadItemView } from "@/lib/downloads-types";
 import { formatLabel, type DownloadsLabels } from "./labels";
 
