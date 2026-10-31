@@ -144,7 +144,7 @@ export default async function CaseStudyDetail({ post, details, postUrl, related 
       {/* ── Results ── */}
       {stats.length > 0 && (
         <section aria-label={t("resultsHeading")} className="w-full bg-neutral-1">
-          <Container className="flex flex-col gap-40 py-64 md:py-80 xl:gap-56 xl:py-120">
+          <Container className="flex flex-col gap-48 py-64 md:py-80 xl:py-120">
             <div className="flex flex-col gap-12">
               <SectionEyebrow label={t("resultsEyebrow")} tone="dark" />
               <Heading level={2} size="h2" className="text-balance text-white">
@@ -193,7 +193,7 @@ export default async function CaseStudyDetail({ post, details, postUrl, related 
       {/* ── More case studies ── */}
       {related.length > 0 && (
         <section aria-label={t("moreHeading")} className="w-full bg-white">
-          <Container className="flex flex-col gap-40 py-64 md:py-80 xl:py-120">
+          <Container className="flex flex-col gap-48 py-64 md:py-80 xl:py-120">
             <div className="flex flex-col items-start justify-between gap-16 md:flex-row md:items-end">
               <Heading level={2} size="h2">
                 {t("moreHeading")}

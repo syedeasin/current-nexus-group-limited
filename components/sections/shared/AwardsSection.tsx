@@ -62,7 +62,7 @@ export default function AwardsSection({
         {veilGradient ? <div className="absolute inset-0" style={{ background: veilGradient }} /> : null}
       </div>
       <Container className={containerClassName}>
-        <div className="flex flex-col items-center gap-32 md:gap-40 xl:gap-48">
+        <div className="flex flex-col items-center gap-48">
           <div className={headerClassName}>
             <Reveal as="div">
               <SectionEyebrow label={eyebrowLabel} />

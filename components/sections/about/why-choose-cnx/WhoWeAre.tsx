@@ -30,7 +30,7 @@ export default async function WhoWeAre() {
 
   return (
     <section aria-label={t("heading")} className="w-full bg-white">
-      <Container className="flex flex-col gap-56 py-64 md:gap-72 md:py-80 xl:gap-96 xl:py-120">
+      <Container className="flex flex-col gap-48 py-64 md:py-80 xl:py-120">
         <div className="grid gap-24 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-80">
           <div className="flex flex-col gap-12">
             <Reveal as="div" delay={cascade(0)}>

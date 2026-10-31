@@ -155,7 +155,7 @@ export default function WorkflowScroller({ header, steps, ariaLabel }: { header:
 
   return (
     <div ref={wrapperRef} className="relative">
-      <div ref={stickyRef} className={cn("flex flex-col gap-40", pinned && "sticky")}>
+      <div ref={stickyRef} className={cn("flex flex-col gap-48", pinned && "sticky")}>
         {header}
 
         <div className="relative overflow-hidden rounded-20 border border-neutral-10 bg-white p-24 md:p-32 lg:px-60 lg:py-48">

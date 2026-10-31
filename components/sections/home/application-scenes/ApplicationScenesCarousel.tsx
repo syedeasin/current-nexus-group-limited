@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import Reveal from "@/components/ui/Reveal";
 import SceneCard from "@/components/ui/SceneCard";
-import Carousel, { type CarouselHandle } from "@/components/ui/Carousel";
+import Carousel, { type CarouselHandle, type CarouselScrollState } from "@/components/ui/Carousel";
 import { ArrowLeft } from "@/components/icons/ArrowLeft";
 import { ArrowRight } from "@/components/icons/ArrowRight";
 import { stagger, CONTENT_BASE_DELAY_MS } from "@/lib/motion/timing";
@@ -24,15 +24,16 @@ interface ApplicationScenesCarouselProps {
   nextLabel: string;
 }
 
+const ARROW =
+  "flex size-48 shrink-0 items-center justify-center rounded-full outline-none transition-colors duration-200 ease-out focus-visible:ring-2 focus-visible:ring-secondary";
+
 /**
- * Same track as SceneCarousel (right-bled, snap-scrolling scene cards), but the
- * prev/next buttons sit in their own row right above the cards instead of below
- * them — client revision doc point 12: "left-right buttons should move above,
- * easy to miss below". Driven via the imperative ref, same pattern as
- * RelatedProducts' header-row arrows (Figma node 114:99337). The bottom
- * progress bar stays (it's still a useful scroll affordance) — only the button
- * pair moved; `controls` is intentionally omitted from `Carousel` so it
- * doesn't render its own second pair down there.
+ * Scene of Applications track (right-bled, snap-scrolling scene cards) with
+ * one control row centred under the cards: previous arrow, position dots (the
+ * same gold-pill dots as the homepage hero, each one clickable), next arrow.
+ * The row replaces the old top-right arrows and the bottom progress line, so
+ * the heading sits the standard 48px above the cards. Driven via the
+ * Carousel's imperative ref and scroll state.
  */
 export default function ApplicationScenesCarousel({
   cards,
@@ -41,42 +42,20 @@ export default function ApplicationScenesCarousel({
   nextLabel,
 }: ApplicationScenesCarouselProps) {
   const carouselRef = useRef<CarouselHandle>(null);
-  const [scrollState, setScrollState] = useState({ canScrollPrev: false, canScrollNext: true });
+  const [scroll, setScroll] = useState<CarouselScrollState>({
+    canScrollPrev: false,
+    canScrollNext: true,
+    positions: 1,
+    activeIndex: 0,
+  });
 
   return (
-    <div className="flex w-full flex-col gap-24">
-      <Reveal as="div" className="flex w-full justify-end gap-8">
-        <button
-          type="button"
-          aria-label={previousLabel}
-          aria-disabled={!scrollState.canScrollPrev}
-          onClick={() => scrollState.canScrollPrev && carouselRef.current?.scrollPrev()}
-          className={cn(
-            "flex size-48 items-center justify-center rounded-full border-[1.5px] border-neutral-10 text-neutral-1 outline-none transition-colors duration-200 ease-out focus-visible:ring-2 focus-visible:ring-secondary",
-            scrollState.canScrollPrev ? "hover:bg-neutral-11" : "cursor-not-allowed opacity-40"
-          )}
-        >
-          <ArrowLeft size={24} />
-        </button>
-        <button
-          type="button"
-          aria-label={nextLabel}
-          aria-disabled={!scrollState.canScrollNext}
-          onClick={() => scrollState.canScrollNext && carouselRef.current?.scrollNext()}
-          className={cn(
-            "flex size-48 items-center justify-center rounded-full bg-secondary text-neutral-1 outline-none transition-colors duration-200 ease-out focus-visible:ring-2 focus-visible:ring-secondary",
-            scrollState.canScrollNext ? "hover:bg-secondary/90" : "cursor-not-allowed opacity-40"
-          )}
-        >
-          <ArrowRight size={24} />
-        </button>
-      </Reveal>
-
+    <div className="flex w-full flex-col gap-32 md:gap-40">
       <Carousel
         ref={carouselRef}
         ariaLabel={ariaLabel}
-        progressDelay={stagger(cards.length, CONTENT_BASE_DELAY_MS)}
-        onScrollStateChange={setScrollState}
+        progressVariant="none"
+        onScrollStateChange={setScroll}
         bleedRight
       >
         {cards.map((card, index) => (
@@ -96,6 +75,58 @@ export default function ApplicationScenesCarousel({
           </Reveal>
         ))}
       </Carousel>
+
+      {scroll.positions > 1 && (
+        <Reveal as="div" delay={stagger(cards.length, CONTENT_BASE_DELAY_MS)} className="flex items-center justify-center gap-20">
+          <button
+            type="button"
+            aria-label={previousLabel}
+            aria-disabled={!scroll.canScrollPrev}
+            onClick={() => scroll.canScrollPrev && carouselRef.current?.scrollPrev()}
+            className={cn(
+              ARROW,
+              "border-[1.5px] border-neutral-10 text-neutral-1",
+              scroll.canScrollPrev ? "hover:bg-neutral-11" : "cursor-not-allowed opacity-40"
+            )}
+          >
+            <ArrowLeft size={24} />
+          </button>
+
+          <div className="flex items-center gap-8" role="group" aria-label={ariaLabel}>
+            {Array.from({ length: scroll.positions }, (_, index) => (
+              <button
+                key={index}
+                type="button"
+                onClick={() => carouselRef.current?.scrollTo(index)}
+                aria-label={`${index + 1} / ${scroll.positions}`}
+                aria-current={index === scroll.activeIndex ? "true" : undefined}
+                className="flex h-24 items-center px-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+              >
+                <span
+                  className={cn(
+                    "block h-8 rounded-full transition-[width,background-color] duration-300",
+                    index === scroll.activeIndex ? "w-28 bg-secondary" : "w-8 bg-neutral-9 hover:bg-neutral-7"
+                  )}
+                />
+              </button>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            aria-label={nextLabel}
+            aria-disabled={!scroll.canScrollNext}
+            onClick={() => scroll.canScrollNext && carouselRef.current?.scrollNext()}
+            className={cn(
+              ARROW,
+              "bg-secondary text-neutral-1",
+              scroll.canScrollNext ? "hover:bg-secondary/90" : "cursor-not-allowed opacity-40"
+            )}
+          >
+            <ArrowRight size={24} />
+          </button>
+        </Reveal>
+      )}
     </div>
   );
 }

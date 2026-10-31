@@ -41,7 +41,7 @@ export default async function SourcingRoutes() {
 
   return (
     <section aria-label={t("heading")} className="w-full bg-neutral-1">
-      <Container className="flex flex-col gap-56 py-64 md:gap-72 md:py-80 xl:gap-96 xl:py-120">
+      <Container className="flex flex-col gap-48 py-64 md:py-80 xl:py-120">
         {/* Header: title left; the promise line, intro and buttons right. */}
         <div className="grid gap-32 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:items-start lg:gap-80">
           <div className="flex flex-col gap-12">

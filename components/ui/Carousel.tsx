@@ -24,6 +24,18 @@ import { cn } from "@/lib/utils";
 export interface CarouselHandle {
   scrollPrev: () => void;
   scrollNext: () => void;
+  /** Ease to scroll position `index` (see CarouselScrollState.positions). */
+  scrollTo: (index: number) => void;
+}
+
+/** Scroll state reported to callers that draw their own controls. */
+export interface CarouselScrollState {
+  canScrollPrev: boolean;
+  canScrollNext: boolean;
+  /** Distinct places the track can rest on (card starts the scroll can reach). */
+  positions: number;
+  /** Which of those positions the track is nearest to right now. */
+  activeIndex: number;
 }
 
 interface CarouselProps {
@@ -56,7 +68,7 @@ interface CarouselProps {
   };
   /** Fires whenever scrollability changes — for callers driving external prev/next
    * buttons via the ref, to mirror the same enabled/disabled styling shown here. */
-  onScrollStateChange?: (state: { canScrollPrev: boolean; canScrollNext: boolean }) => void;
+  onScrollStateChange?: (state: CarouselScrollState) => void;
   /**
    * Extends the track (only — controls/progress row stay put) past the parent
    * Container's right gutter so the last card bleeds to the true edge instead
@@ -119,9 +131,27 @@ function Carousel(
   const { scrollByCard, tweenScrollTo, cardOffsets, nearestCardIndex, cancelTween } =
     useCarouselScroll(trackRef, rowRef);
 
+  // Card starts the track can actually rest on: the last few cards share the
+  // final position when they all fit on screen at the end of the scroll.
+  const restingOffsets = useCallback(() => {
+    const el = trackRef.current;
+    if (!el) return [0];
+    const maxScroll = Math.max(el.scrollWidth - el.clientWidth, 0);
+    const unique: number[] = [];
+    for (const offset of cardOffsets()) {
+      const clamped = Math.min(Math.max(offset, 0), maxScroll);
+      if (!unique.some((value) => Math.abs(value - clamped) <= SCROLL_END_EPSILON_PX)) unique.push(clamped);
+    }
+    return unique.length ? unique : [0];
+  }, [cardOffsets]);
+
   useImperativeHandle(ref, () => ({
     scrollPrev: () => scrollByCard(-1),
     scrollNext: () => scrollByCard(1),
+    scrollTo: (index: number) => {
+      const offsets = restingOffsets();
+      tweenScrollTo(offsets[Math.min(Math.max(index, 0), offsets.length - 1)]);
+    },
   }));
 
   const updateScrollState = useCallback(() => {
@@ -135,8 +165,15 @@ function Carousel(
     setCanScrollPrev(nextCanPrev);
     setCanScrollNext(nextCanNext);
     setHasOverflow(maxScroll > SCROLL_END_EPSILON_PX);
-    onScrollStateChange?.({ canScrollPrev: nextCanPrev, canScrollNext: nextCanNext });
-  }, [onScrollStateChange]);
+    if (onScrollStateChange) {
+      const offsets = restingOffsets();
+      let activeIndex = 0;
+      offsets.forEach((offset, index) => {
+        if (Math.abs(offset - el.scrollLeft) < Math.abs(offsets[activeIndex] - el.scrollLeft)) activeIndex = index;
+      });
+      onScrollStateChange({ canScrollPrev: nextCanPrev, canScrollNext: nextCanNext, positions: offsets.length, activeIndex });
+    }
+  }, [onScrollStateChange, restingOffsets]);
 
   useLayoutEffect(() => {
     updateScrollState();
