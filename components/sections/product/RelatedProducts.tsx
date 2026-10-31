@@ -9,8 +9,8 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import Carousel, { type CarouselHandle } from "@/components/ui/Carousel";
 import { ArrowLeft } from "@/components/icons/ArrowLeft";
 import { ArrowRight } from "@/components/icons/ArrowRight";
+import { arrowButtonClass } from "@/components/ui/arrowButton";
 import ManufacturingProductCard from "@/components/sections/manufacturing/ProductCard";
-import { cn } from "@/lib/utils";
 import type { RelatedProductsSection } from "@/lib/data/products/types";
 import { HEADING_DELAY_MS, BODY_DELAY_MS } from "@/lib/motion/timing";
 
@@ -55,10 +55,7 @@ export default function RelatedProducts({
               aria-label={previousLabel}
               aria-disabled={!scrollState.canScrollPrev}
               onClick={() => scrollState.canScrollPrev && carouselRef.current?.scrollPrev()}
-              className={cn(
-                "flex size-48 items-center justify-center rounded-full border-[1.5px] border-neutral-10 text-neutral-1 outline-none transition-colors duration-200 ease-out focus-visible:ring-2 focus-visible:ring-secondary",
-                scrollState.canScrollPrev ? "hover:bg-neutral-11" : "cursor-not-allowed opacity-40"
-              )}
+              className={arrowButtonClass(scrollState.canScrollPrev)}
             >
               <ArrowLeft size={24} />
             </button>
@@ -67,10 +64,7 @@ export default function RelatedProducts({
               aria-label={nextLabel}
               aria-disabled={!scrollState.canScrollNext}
               onClick={() => scrollState.canScrollNext && carouselRef.current?.scrollNext()}
-              className={cn(
-                "flex size-48 items-center justify-center rounded-full bg-secondary text-neutral-1 outline-none transition-colors duration-200 ease-out focus-visible:ring-2 focus-visible:ring-secondary",
-                scrollState.canScrollNext ? "hover:bg-secondary/90" : "cursor-not-allowed opacity-40"
-              )}
+              className={arrowButtonClass(scrollState.canScrollNext)}
             >
               <ArrowRight size={24} />
             </button>

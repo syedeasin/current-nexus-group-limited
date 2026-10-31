@@ -15,6 +15,7 @@ import {
 import Reveal from "@/components/ui/Reveal";
 import { ArrowLeft } from "@/components/icons/ArrowLeft";
 import { ArrowRight } from "@/components/icons/ArrowRight";
+import { arrowButtonClass } from "@/components/ui/arrowButton";
 import { useCarouselScroll } from "@/lib/motion/use-carousel-scroll";
 import { cn } from "@/lib/utils";
 
@@ -344,10 +345,7 @@ function Carousel(
                 aria-label={controls.previousLabel}
                 aria-disabled={!canScrollPrev}
                 onClick={() => canScrollPrev && scrollByCard(-1)}
-                className={cn(
-                  "flex size-48 items-center justify-center rounded-full border border-neutral-10 text-neutral-1 outline-none transition-colors duration-200 ease-out focus-visible:ring-2 focus-visible:ring-secondary",
-                  canScrollPrev ? "hover:bg-neutral-11" : "cursor-not-allowed opacity-40"
-                )}
+                className={arrowButtonClass(canScrollPrev)}
               >
                 <ArrowLeft size={24} />
               </button>
@@ -356,10 +354,7 @@ function Carousel(
                 aria-label={controls.nextLabel}
                 aria-disabled={!canScrollNext}
                 onClick={() => canScrollNext && scrollByCard(1)}
-                className={cn(
-                  "flex size-48 items-center justify-center rounded-full bg-secondary text-neutral-1 outline-none transition-colors duration-200 ease-out focus-visible:ring-2 focus-visible:ring-secondary",
-                  canScrollNext ? "hover:bg-secondary/90" : "cursor-not-allowed opacity-40"
-                )}
+                className={arrowButtonClass(canScrollNext)}
               >
                 <ArrowRight size={24} />
               </button>

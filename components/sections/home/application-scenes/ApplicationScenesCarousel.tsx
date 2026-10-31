@@ -6,6 +6,7 @@ import SceneCard from "@/components/ui/SceneCard";
 import Carousel, { type CarouselHandle, type CarouselScrollState } from "@/components/ui/Carousel";
 import { ArrowLeft } from "@/components/icons/ArrowLeft";
 import { ArrowRight } from "@/components/icons/ArrowRight";
+import { arrowButtonClass } from "@/components/ui/arrowButton";
 import { stagger, CONTENT_BASE_DELAY_MS } from "@/lib/motion/timing";
 import { cn } from "@/lib/utils";
 
@@ -24,8 +25,6 @@ interface ApplicationScenesCarouselProps {
   nextLabel: string;
 }
 
-const ARROW =
-  "flex size-48 shrink-0 items-center justify-center rounded-full outline-none transition-colors duration-200 ease-out focus-visible:ring-2 focus-visible:ring-secondary";
 
 /**
  * Scene of Applications track (right-bled, snap-scrolling scene cards) with
@@ -83,11 +82,7 @@ export default function ApplicationScenesCarousel({
             aria-label={previousLabel}
             aria-disabled={!scroll.canScrollPrev}
             onClick={() => scroll.canScrollPrev && carouselRef.current?.scrollPrev()}
-            className={cn(
-              ARROW,
-              "border-[1.5px] border-neutral-10 text-neutral-1",
-              scroll.canScrollPrev ? "hover:bg-neutral-11" : "cursor-not-allowed opacity-40"
-            )}
+            className={arrowButtonClass(scroll.canScrollPrev)}
           >
             <ArrowLeft size={24} />
           </button>
@@ -117,11 +112,7 @@ export default function ApplicationScenesCarousel({
             aria-label={nextLabel}
             aria-disabled={!scroll.canScrollNext}
             onClick={() => scroll.canScrollNext && carouselRef.current?.scrollNext()}
-            className={cn(
-              ARROW,
-              "bg-secondary text-neutral-1",
-              scroll.canScrollNext ? "hover:bg-secondary/90" : "cursor-not-allowed opacity-40"
-            )}
+            className={arrowButtonClass(scroll.canScrollNext)}
           >
             <ArrowRight size={24} />
           </button>
