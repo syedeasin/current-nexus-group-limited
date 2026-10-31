@@ -316,10 +316,11 @@ export default function HeroCarousel({
           </div>
         ))}
 
-        {/* Same idea as the phone hero: dark under the copy at the bottom,
-            fading to a completely clear photo at the top. */}
+        {/* A shade behind the header so the white logo and menu read on bright
+            skies, a light veil over the middle, and the darkest part at the
+            bottom under the copy. */}
         <div
-          className="absolute inset-0 bg-[linear-gradient(to_top,rgba(10,13,27,0.95)_0%,rgba(10,13,27,0.8)_25%,rgba(10,13,27,0.45)_50%,rgba(10,13,27,0)_75%)]"
+          className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(10,13,27,0.6)_0%,rgba(10,13,27,0.3)_20%,rgba(10,13,27,0.3)_45%,rgba(10,13,27,0.75)_75%,rgba(10,13,27,0.95)_100%)]"
           aria-hidden="true"
         />
 
