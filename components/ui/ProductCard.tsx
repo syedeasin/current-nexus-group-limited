@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import Image from "@/components/ui/Picture";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
-import { ArrowRight } from "@/components/icons/ArrowRight";
 import { CARD_IMAGE_ZOOM, CARD_LIFT } from "@/lib/motion/interactions";
 import { usePrefersReducedMotion, useHydrated } from "@/lib/hooks/useMediaQuery";
 
@@ -104,26 +103,21 @@ export default function ProductCard({
       <div
         className={cn(
           "flex w-full flex-col items-center pt-12 sm:pt-20",
-          compactInfo ? "gap-4" : "gap-8 px-4 sm:px-20"
+          compactInfo ? "gap-4" : "gap-8 sm:px-20"
         )}
       >
-        {/* The whole card is the link (no separate "Learn more"); the arrow after
-            the title says so, and nudges right / turns gold on hover. It sits
-            on the last word so it never wraps onto a line of its own. */}
+        {/* The whole card is the link (no separate "Learn more"). Product titles
+            stay on one line: on phones the size follows the screen width
+            (13px at 360px, 14px from ~390px) so even "Back contact solar
+            panel" fits a two-column card. Premium Solutions' brand
+            products may wrap to two lines (reserveTwoLineTitle). */}
         <span
           className={cn(
-            "w-full text-balance text-center text-h6 font-semibold text-white transition-colors duration-[var(--dur-base)] ease-[var(--ease-out)] group-hover:text-secondary group-focus-visible:text-secondary motion-reduce:transition-none",
-            reserveTwoLineTitle && "min-h-52 sm:min-h-56"
+            "w-full text-center font-semibold text-white transition-colors duration-[var(--dur-base)] ease-[var(--ease-out)] group-hover:text-secondary group-focus-visible:text-secondary motion-reduce:transition-none",
+            reserveTwoLineTitle ? "min-h-48 text-balance text-p3 sm:min-h-56 sm:text-h6" : "truncate text-[clamp(12px,3.6vw,14px)] leading-[20px] sm:text-h6"
           )}
         >
-          {title.split(" ").slice(0, -1).join(" ")}{" "}
-          <span className="whitespace-nowrap">
-            {title.split(" ").slice(-1)}
-            <ArrowRight
-              size={18}
-              className="ml-6 inline-block align-[-3px] transition-transform duration-[var(--dur-base)] ease-[var(--ease-out)] group-hover:translate-x-4 motion-reduce:transition-none"
-            />
-          </span>
+          {title}
         </span>
       </div>
     </Link>

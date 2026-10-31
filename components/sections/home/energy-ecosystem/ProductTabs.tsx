@@ -163,7 +163,6 @@ export default function ProductTabs({ tabs, ariaLabel }: ProductTabsProps) {
                       href={product.href}
                       image={product.image}
                       title={product.title}
-                      reserveTwoLineTitle
                     />
                   );
 
