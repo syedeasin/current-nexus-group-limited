@@ -8,7 +8,7 @@ import {
   PremiumSolutions,
   ApplicationScenes,
   ClientTestimonials,
-  WhyChooseCnx,
+  WhyChooseShowcase,
   Awards,
   LatestNews,
   Faq,
@@ -34,7 +34,9 @@ export default function Home() {
       <PremiumSolutions />
       <ApplicationScenes />
       <ClientTestimonials />
-      <WhyChooseCnx />
+      {/* Why choose us v2 (31 Oct). The previous layout, WhyChooseCnx, is kept
+          in components/sections/home and can be swapped back in here. */}
+      <WhyChooseShowcase />
       <Awards />
       <LatestNews />
       <Faq />

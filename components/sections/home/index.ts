@@ -6,6 +6,7 @@ export { default as PremiumSolutions } from "./PremiumSolutions";
 export { default as ApplicationScenes } from "./ApplicationScenes";
 export { default as ClientTestimonials } from "./ClientTestimonials";
 export { default as WhyChooseCnx } from "./WhyChooseCnx";
+export { default as WhyChooseShowcase } from "./WhyChooseShowcase";
 export { default as Awards } from "./Awards";
 export { default as LatestNews } from "./LatestNews";
 export { default as Faq } from "./Faq";
