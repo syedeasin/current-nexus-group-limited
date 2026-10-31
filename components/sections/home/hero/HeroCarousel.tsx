@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { FocusEvent, KeyboardEvent } from "react";
+import type { FocusEvent, KeyboardEvent, TouchEvent } from "react";
 import Image from "@/components/ui/Picture";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Container from "@/components/layout/Container";
@@ -10,7 +10,7 @@ import Text from "@/components/ui/Text";
 import Button, { BUTTON_ICON_SIZE } from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
 import TextReveal from "@/components/motion/TextReveal";
-import { ChevronRight } from "@/components/icons/ChevronRight";
+import { ArrowRight as ArrowRightIcon } from "@/components/icons/ArrowRight";
 import { usePrefersReducedMotion } from "@/lib/hooks/useMediaQuery";
 import { HERO_HEADER_OFFSET } from "@/src/layout/headerOffset";
 import {
@@ -125,6 +125,16 @@ export default function HeroCarousel({
     }
   }
 
+  // Phones: a horizontal swipe of 40px or more changes slide.
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  function handleTouchEnd(event: TouchEvent<HTMLElement>) {
+    if (touchStartX === null) return;
+    const delta = event.changedTouches[0].clientX - touchStartX;
+    setTouchStartX(null);
+    if (Math.abs(delta) < 40) return;
+    goTo(delta < 0 ? index + 1 : index - 1);
+  }
+
   function handleBlur(event: FocusEvent<HTMLElement>) {
     if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
       setFocused(false);
@@ -149,7 +159,11 @@ export default function HeroCarousel({
       {/* মোবাইল হিরো — Figma exact লেআউট (< lg) */}
       {/* Fills most of the screen (90svh, not 100): the photo takes whatever the
           copy below leaves, never less than 336px. */}
-      <div className="flex min-h-[90svh] flex-col lg:hidden">
+      <div
+        className="flex min-h-[90svh] flex-col lg:hidden"
+        onTouchStart={(event) => setTouchStartX(event.touches[0].clientX)}
+        onTouchEnd={handleTouchEnd}
+      >
         <div className="relative min-h-336 w-full flex-1">
           <Image
             src={active.image}
@@ -159,8 +173,11 @@ export default function HeroCarousel({
             sizes="100vw"
             style={{ objectFit: "cover", objectPosition: active.imagePosition }}
           />
+          {/* Light shade behind the header so the white logo reads on bright
+              skies, clear photo in the middle, solid dark at the foot. The layer
+              runs 1px past the photo so no seam shows above the heading. */}
           <div
-            className="absolute inset-0 bg-gradient-to-b from-transparent via-neutral-1/60 to-neutral-1"
+            className="absolute inset-x-0 top-0 -bottom-px bg-[linear-gradient(to_bottom,rgba(10,13,27,0.55)_0%,rgba(10,13,27,0)_22%,rgba(10,13,27,0)_45%,rgba(10,13,27,0.6)_72%,#0a0d1b_96%)]"
             aria-hidden="true"
           />
         </div>
@@ -168,7 +185,7 @@ export default function HeroCarousel({
         {/* The small-screen hero is its own block, so it needs the same entrance
             as the desktop one rather than arriving flat. Same cascade, and the
             mask tokens already tighten under 768px. */}
-        <Container className="flex flex-col items-center bg-neutral-1 pb-40">
+        <Container className="relative -mt-px flex flex-col items-center bg-neutral-1 pb-80">
           <TextReveal delay={HERO_HEADING_DELAY_MS}>
             <Heading level={1} size="h1" className="text-center font-bold text-white text-balance">
               {active.heading}
@@ -178,11 +195,32 @@ export default function HeroCarousel({
             <p className="mt-12 text-center text-p2 text-neutral-9">{active.body}</p>
           </Reveal>
           <Reveal as="div" delay={HERO_CTA_DELAY_MS}>
-            <Button href={active.ctaHref} size="lg" className="mt-27">
+            <Button href={active.ctaHref} size="lg" className="mt-27 h-56 px-28">
               {active.cta}
-              <ChevronRight size={BUTTON_ICON_SIZE} boxed />
+              <ArrowRightIcon size={BUTTON_ICON_SIZE} />
             </Button>
           </Reveal>
+
+          {/* Swipe the photo, or tap a dot, to change slide. */}
+          <div className="mt-32 flex items-center gap-8" role="group" aria-label={ariaLabel}>
+            {slides.map((slide, slideIndex) => (
+              <button
+                key={slide.id}
+                type="button"
+                onClick={() => goTo(slideIndex)}
+                aria-label={`${slideIndex + 1} / ${slides.length}`}
+                aria-current={slideIndex === index ? "true" : undefined}
+                className="flex h-24 items-center px-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+              >
+                <span
+                  className={cn(
+                    "block h-8 rounded-full transition-[width,background-color] duration-300",
+                    slideIndex === index ? "w-28 bg-secondary" : "w-8 bg-white/35"
+                  )}
+                />
+              </button>
+            ))}
+          </div>
         </Container>
       </div>
 
@@ -242,8 +280,9 @@ export default function HeroCarousel({
                   {active.heading}
                 </Heading>
               </TextReveal>
+              {/* A line break in the copy (Pages editor) is kept on desktop only. */}
               <Reveal as="div" delay={HERO_BODY_DELAY_MS} className="w-full xl:max-w-747">
-                <Text size="p1" className="text-neutral-9">
+                <Text size="p1" className="whitespace-pre-line text-neutral-9">
                   {active.body}
                 </Text>
               </Reveal>
@@ -252,7 +291,7 @@ export default function HeroCarousel({
             <Reveal as="div" delay={HERO_CTA_DELAY_MS}>
               <Button href={active.ctaHref} size="xl" className="w-full sm:w-auto">
                 {active.cta}
-                <ChevronRight size={BUTTON_ICON_SIZE} boxed />
+                <ArrowRightIcon size={BUTTON_ICON_SIZE} />
               </Button>
             </Reveal>
           </div>

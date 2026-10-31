@@ -11,7 +11,7 @@
       "slides": {
         "solar750w": {
           "heading": "Reduce your LCOE, boost your ROI",
-          "body": "Using 750W+ high Bifaciality HJT solar modules reduces BOS and boosts power generation yield, enhancing project returns.",
+          "body": "Using 750W+ high Bifaciality HJT solar modules reduces BOS and boosts\npower generation yield, enhancing project returns.",
           "cta": "Inquiry 750W+",
           "ctaHref": "/contact",
           "image": "/images/hero/hero-750w-solar.webp",
@@ -19,7 +19,7 @@
         },
         "bess488": {
           "heading": "488Kwh BESS system-Reduce your kwh cost on C&I BESS",
-          "body": "More energy. Less space. Lower cost per kWh. The 488kWh BESS, powered by next-generation 587Ah LFP cells.",
+          "body": "More energy. Less space. Lower cost per kWh. The 488kWh BESS,\npowered by next-generation 587Ah LFP cells.",
           "cta": "Inquiry 488kwh BESS",
           "ctaHref": "/contact",
           "image": "/images/hero/hero-488kwh-bess.webp",
