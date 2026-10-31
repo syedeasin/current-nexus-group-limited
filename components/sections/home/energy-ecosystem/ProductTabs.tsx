@@ -22,14 +22,13 @@ interface ProductTabItem {
 
 interface ProductTabsProps {
   tabs: ProductTabItem[];
-  learnMoreLabel: string;
   ariaLabel: string;
 }
 
 /** Header cascade is eyebrow(0), heading(1), toggle(2) — cards pick up from (3). */
 const CARD_REVEAL_BASE_DELAY_MS = cascade(3);
 
-export default function ProductTabs({ tabs, learnMoreLabel, ariaLabel }: ProductTabsProps) {
+export default function ProductTabs({ tabs, ariaLabel }: ProductTabsProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [hasInteracted, setHasInteracted] = useState(false);
   const [indicator, setIndicator] = useState<{ left: number; width: number } | null>(null);
@@ -164,7 +163,6 @@ export default function ProductTabs({ tabs, learnMoreLabel, ariaLabel }: Product
                       href={product.href}
                       image={product.image}
                       title={product.title}
-                      learnMoreLabel={learnMoreLabel}
                       reserveTwoLineTitle
                     />
                   );

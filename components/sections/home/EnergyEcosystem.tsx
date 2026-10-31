@@ -61,7 +61,6 @@ export default async function EnergyEcosystem() {
         <div className="mt-48 w-full">
           <ProductTabs
             tabs={tabs}
-            learnMoreLabel={t("learnMore")}
             ariaLabel={t("tabsAriaLabel")}
           />
         </div>

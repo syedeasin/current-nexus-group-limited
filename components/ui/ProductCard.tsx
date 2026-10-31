@@ -4,16 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import Image from "@/components/ui/Picture";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
-import { ChevronRight } from "@/components/icons/ChevronRight";
-import { CARD_IMAGE_ZOOM, CARD_LIFT, LINK_CHEVRON } from "@/lib/motion/interactions";
+import { ArrowRight } from "@/components/icons/ArrowRight";
+import { CARD_IMAGE_ZOOM, CARD_LIFT } from "@/lib/motion/interactions";
 import { usePrefersReducedMotion, useHydrated } from "@/lib/hooks/useMediaQuery";
 
 interface ProductCardProps {
   href: string;
   image: string;
   title: string;
-  /** Omit to render the card as image + title only, no CTA row (Premium Solutions has no per-card "Learn More"). */
-  learnMoreLabel?: string;
   /** Tailwind aspect-ratio class for the image box. Defaults to the 318:396 card from Energy Ecosystem. */
   imageAspectClassName?: string;
   /** Fill behind the image box, visible where the photo bleeds short of the box edge. */
@@ -31,7 +29,6 @@ export default function ProductCard({
   href,
   image,
   title,
-  learnMoreLabel,
   imageAspectClassName = "aspect-[318/396]",
   imageBgClassName = "bg-white",
   imageBorderClassName = "border-[1.5px] border-neutral-10",
@@ -110,22 +107,24 @@ export default function ProductCard({
           compactInfo ? "gap-4" : "gap-8 px-4 sm:px-20"
         )}
       >
+        {/* The whole card is the link (no separate "Learn more"); the arrow after
+            the title says so, and nudges right / turns gold on hover. It sits
+            on the last word so it never wraps onto a line of its own. */}
         <span
           className={cn(
-            "flex w-full items-center justify-center text-balance text-center text-p3 font-semibold text-white sm:text-h6",
-            reserveTwoLineTitle && "min-h-48 sm:min-h-56"
+            "w-full text-balance text-center text-h6 font-semibold text-white transition-colors duration-[var(--dur-base)] ease-[var(--ease-out)] group-hover:text-secondary group-focus-visible:text-secondary motion-reduce:transition-none",
+            reserveTwoLineTitle && "min-h-52 sm:min-h-56"
           )}
         >
-          {title}
-        </span>
-        {learnMoreLabel ? (
-          <span className="inline-flex items-center justify-center gap-4 text-btn-sm font-semibold text-neutral-9 transition-colors duration-[var(--dur-base)] ease-[var(--ease-out)] group-hover:text-secondary group-focus-visible:text-secondary motion-reduce:transition-none">
-            <span className="underline-offset-2 group-hover:underline group-focus-visible:underline">
-              {learnMoreLabel}
-            </span>
-            <ChevronRight size={16} strokeWidth={1.5} className={LINK_CHEVRON} />
+          {title.split(" ").slice(0, -1).join(" ")}{" "}
+          <span className="whitespace-nowrap">
+            {title.split(" ").slice(-1)}
+            <ArrowRight
+              size={18}
+              className="ml-6 inline-block align-[-3px] transition-transform duration-[var(--dur-base)] ease-[var(--ease-out)] group-hover:translate-x-4 motion-reduce:transition-none"
+            />
           </span>
-        ) : null}
+        </span>
       </div>
     </Link>
   );
