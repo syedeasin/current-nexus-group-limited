@@ -34,8 +34,6 @@ export default function Home() {
       <PremiumSolutions />
       <ApplicationScenes />
       <ClientTestimonials />
-      {/* Why choose us v2 (31 Oct). The previous layout, WhyChooseCnx, is kept
-          in components/sections/home and can be swapped back in here. */}
       <WhyChooseShowcase />
       <Awards />
       <LatestNews />

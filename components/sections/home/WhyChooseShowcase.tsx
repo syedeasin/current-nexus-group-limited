@@ -12,8 +12,7 @@ import { cascade } from "@/lib/motion/timing";
 import { entries, str } from "@/lib/page-content/read";
 
 /**
- * Homepage → Why choose us, version 2 (owner request 31 Oct; the previous
- * WhyChooseCnx section is kept in the codebase but not rendered).
+ * Homepage → Why choose us (owner request 31 Oct).
  *
  * Row 1: eyebrow + heading on the left, intro + "Learn more" on the right.
  * Row 2: a full-height photo on the left that follows the reason hovered on

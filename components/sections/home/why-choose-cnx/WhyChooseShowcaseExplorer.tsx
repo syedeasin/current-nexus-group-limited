@@ -3,7 +3,14 @@
 import Image from "@/components/ui/Picture";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import type { WhyChooseReason } from "@/components/sections/home/why-choose-cnx/WhyChooseExplorer";
+
+export interface WhyChooseReason {
+  key: string;
+  icon: string;
+  title: string;
+  body: string;
+  image: string;
+}
 
 /**
  * Why choose us, row 2 (see WhyChooseShowcase).
@@ -13,8 +20,10 @@ import type { WhyChooseReason } from "@/components/sections/home/why-choose-cnx/
  * the photo to that reason's own image.
  *
  * Phones: an accordion. Tapping a reason opens it and shows its text with its
- * photo right underneath, so the words and the picture are seen together; the
- * other reasons stay closed, so the list stays short. One open at a time.
+ * photo right underneath, so the words and the picture are seen together.
+ * Each reason opens and closes on its own: closing the one above when another
+ * opens would shrink the page above the finger, and iPhone Safari (no scroll
+ * anchoring) then jumps the tapped row off screen, which reads as a dead tap.
  */
 export default function WhyChooseShowcaseExplorer({
   reasons,
@@ -26,7 +35,7 @@ export default function WhyChooseShowcaseExplorer({
   imageAlt: string;
 }) {
   const [active, setActive] = useState(0);
-  const [openOnPhone, setOpenOnPhone] = useState(0);
+  const [openOnPhone, setOpenOnPhone] = useState<number[]>([0]);
 
   if (reasons.length === 0) return null;
 
@@ -35,7 +44,7 @@ export default function WhyChooseShowcaseExplorer({
       {/* ── Phones and tablets: accordion with a photo inside each panel ── */}
       <ol className="flex flex-col border-t border-white/10 lg:hidden">
         {reasons.map((reason, index) => {
-          const open = index === openOnPhone;
+          const open = openOnPhone.includes(index);
           const panelId = `why-choose-mobile-${reason.key}`;
           return (
             <li key={reason.key} className="border-b border-white/10">
@@ -44,7 +53,9 @@ export default function WhyChooseShowcaseExplorer({
                   type="button"
                   aria-expanded={open}
                   aria-controls={panelId}
-                  onClick={() => setOpenOnPhone(open ? -1 : index)}
+                  onClick={() =>
+                    setOpenOnPhone((current) => (open ? current.filter((item) => item !== index) : [...current, index]))
+                  }
                   className="flex w-full items-center gap-16 py-20 text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
                 >
                   <Image src={reason.icon} alt="" aria-hidden width={28} height={28} className="size-28 shrink-0" />
