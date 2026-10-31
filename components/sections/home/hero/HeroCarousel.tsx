@@ -147,8 +147,10 @@ export default function HeroCarousel({
       className={cn("relative w-full overflow-hidden", HERO_HEADER_OFFSET)}
     >
       {/* মোবাইল হিরো — Figma exact লেআউট (< lg) */}
-      <div className="lg:hidden">
-        <div className="relative h-336 w-full">
+      {/* Fills most of the screen (90svh, not 100): the photo takes whatever the
+          copy below leaves, never less than 336px. */}
+      <div className="flex min-h-[90svh] flex-col lg:hidden">
+        <div className="relative min-h-336 w-full flex-1">
           <Image
             src={active.image}
             alt=""
@@ -173,7 +175,7 @@ export default function HeroCarousel({
             </Heading>
           </TextReveal>
           <Reveal as="div" delay={HERO_BODY_DELAY_MS}>
-            <p className="mt-12 text-center text-h4 font-medium text-neutral-9">{active.body}</p>
+            <p className="mt-12 text-center text-p2 text-neutral-9">{active.body}</p>
           </Reveal>
           <Reveal as="div" delay={HERO_CTA_DELAY_MS}>
             <Button href={active.ctaHref} size="lg" className="mt-27">
@@ -225,8 +227,10 @@ export default function HeroCarousel({
           </div>
         ))}
 
+        {/* Same idea as the phone hero: dark under the copy at the bottom,
+            fading to a completely clear photo at the top. */}
         <div
-          className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(10,13,27,0.2)_0%,rgba(10,13,27,0.69)_69.2515%,rgba(10,13,27,0.9)_100%)]"
+          className="absolute inset-0 bg-[linear-gradient(to_top,rgba(10,13,27,0.95)_0%,rgba(10,13,27,0.8)_25%,rgba(10,13,27,0.45)_50%,rgba(10,13,27,0)_75%)]"
           aria-hidden="true"
         />
 
