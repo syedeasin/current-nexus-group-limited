@@ -71,6 +71,52 @@ function ArrowButton({
   );
 }
 
+/** Mouse pointer over the left / right half of the desktop hero: a white
+ * circle with an arrow, like the old slider buttons (48px, hotspot centred). */
+const cursorSvg = (path: string) =>
+  `data:image/svg+xml,${encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#fff" stroke="rgba(10,13,27,0.18)"/><path d="${path}" fill="none" stroke="#0a0d1b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+  )}`;
+const CURSOR_PREV = cursorSvg("M32 24H16M22 18l-6 6 6 6");
+const CURSOR_NEXT = cursorSvg("M16 24h16M26 18l6 6-6 6");
+
+/** Slide position dots (current one is a gold pill); each dot opens its slide. */
+function SlideDots({
+  slides,
+  index,
+  onSelect,
+  label,
+  className,
+}: {
+  slides: HeroCarouselSlide[];
+  index: number;
+  onSelect: (index: number) => void;
+  label: string;
+  className?: string;
+}) {
+  return (
+    <div className={cn("flex items-center gap-8", className)} role="group" aria-label={label}>
+      {slides.map((slide, slideIndex) => (
+        <button
+          key={slide.id}
+          type="button"
+          onClick={() => onSelect(slideIndex)}
+          aria-label={`${slideIndex + 1} / ${slides.length}`}
+          aria-current={slideIndex === index ? "true" : undefined}
+          className="flex h-24 items-center px-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+        >
+          <span
+            className={cn(
+              "block h-8 rounded-full transition-[width,background-color] duration-300",
+              slideIndex === index ? "w-28 bg-secondary" : "w-8 bg-white/40 hover:bg-white/70"
+            )}
+          />
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export default function HeroCarousel({
   slides,
   ariaLabel,
@@ -156,23 +202,36 @@ export default function HeroCarousel({
       onKeyDown={handleKeyDown}
       className={cn("relative w-full overflow-hidden", HERO_HEADER_OFFSET)}
     >
-      {/* মোবাইল হিরো — Figma exact লেআউট (< lg) */}
-      {/* Fills most of the screen (90svh, not 100): the photo takes whatever the
-          copy below leaves, never less than 336px. */}
+      {/* মোবাইল হিরো (< lg) — every slide is rendered in the same grid cell, so
+          the block is always as tall as the longest slide (no jump on change),
+          and slides cross-fade instead of swapping. Fills most of the screen
+          (90svh, not 100): the photo takes whatever the copy leaves, min 336px. */}
       <div
         className="flex min-h-[90svh] flex-col lg:hidden"
         onTouchStart={(event) => setTouchStartX(event.touches[0].clientX)}
         onTouchEnd={handleTouchEnd}
       >
-        <div className="relative min-h-336 w-full flex-1">
-          <Image
-            src={active.image}
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            style={{ objectFit: "cover", objectPosition: active.imagePosition }}
-          />
+        <div className="relative min-h-336 w-full flex-1 overflow-hidden">
+          {slides.map((slide, slideIndex) => (
+            <div
+              key={slide.id}
+              aria-hidden={slideIndex !== index}
+              className={cn(
+                "absolute inset-0 transition-[opacity,transform] ease-out motion-reduce:transition-none",
+                slideIndex === index ? "scale-100 opacity-100" : "scale-[1.06] opacity-0"
+              )}
+              style={{ transitionDuration: `${CROSSFADE_MS}ms`, transitionTimingFunction: CROSSFADE_EASE }}
+            >
+              <Image
+                src={slide.image}
+                alt=""
+                fill
+                priority={slideIndex === 0}
+                sizes="100vw"
+                style={{ objectFit: "cover", objectPosition: slide.imagePosition }}
+              />
+            </div>
+          ))}
           {/* Light shade behind the header so the white logo reads on bright
               skies, clear photo in the middle, solid dark at the foot. The layer
               runs 1px past the photo so no seam shows above the heading. */}
@@ -182,49 +241,40 @@ export default function HeroCarousel({
           />
         </div>
 
-        {/* The small-screen hero is its own block, so it needs the same entrance
-            as the desktop one rather than arriving flat. Same cascade, and the
-            mask tokens already tighten under 768px. */}
         <Container className="relative -mt-px flex flex-col items-center bg-neutral-1 pb-80">
-          <TextReveal delay={HERO_HEADING_DELAY_MS}>
-            <Heading level={1} size="h1" className="text-center font-bold text-white text-balance">
-              {active.heading}
-            </Heading>
-          </TextReveal>
-          <Reveal as="div" delay={HERO_BODY_DELAY_MS}>
-            <p className="mt-12 text-center text-p2 text-neutral-9">{active.body}</p>
-          </Reveal>
-          <Reveal as="div" delay={HERO_CTA_DELAY_MS}>
-            <Button href={active.ctaHref} size="lg" className="mt-27 h-56 px-28">
-              {active.cta}
-              <ArrowRightIcon size={BUTTON_ICON_SIZE} />
-            </Button>
+          <Reveal as="div" delay={HERO_HEADING_DELAY_MS} className="grid w-full">
+            {slides.map((slide, slideIndex) => {
+              const current = slideIndex === index;
+              return (
+                <div
+                  key={slide.id}
+                  inert={!current}
+                  aria-hidden={!current}
+                  className={cn(
+                    "col-start-1 row-start-1 flex flex-col items-center transition-[opacity,transform] duration-500 ease-out motion-reduce:transition-none",
+                    current ? "translate-y-0 opacity-100 delay-200" : "pointer-events-none translate-y-12 opacity-0"
+                  )}
+                >
+                  {/* Only the first slide is the page's h1; the others are h2 at the same size. */}
+                  <Heading level={slideIndex === 0 ? 1 : 2} size="h1" className="text-center font-bold text-white text-balance">
+                    {slide.heading}
+                  </Heading>
+                  <p className="mt-12 text-center text-p2 text-neutral-9">{slide.body}</p>
+                  <Button href={slide.ctaHref} size="lg" className="mt-27 h-56 px-28">
+                    {slide.cta}
+                    <ArrowRightIcon size={BUTTON_ICON_SIZE} />
+                  </Button>
+                </div>
+              );
+            })}
           </Reveal>
 
           {/* Swipe the photo, or tap a dot, to change slide. */}
-          <div className="mt-32 flex items-center gap-8" role="group" aria-label={ariaLabel}>
-            {slides.map((slide, slideIndex) => (
-              <button
-                key={slide.id}
-                type="button"
-                onClick={() => goTo(slideIndex)}
-                aria-label={`${slideIndex + 1} / ${slides.length}`}
-                aria-current={slideIndex === index ? "true" : undefined}
-                className="flex h-24 items-center px-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
-              >
-                <span
-                  className={cn(
-                    "block h-8 rounded-full transition-[width,background-color] duration-300",
-                    slideIndex === index ? "w-28 bg-secondary" : "w-8 bg-white/35"
-                  )}
-                />
-              </button>
-            ))}
-          </div>
+          <SlideDots slides={slides} index={index} onSelect={goTo} label={ariaLabel} className="mt-32" />
         </Container>
       </div>
 
-      {/* ডেস্কটপ হিরো — বিদ্যমান ক্যারোসেল (>= lg) */}
+      {/* ডেস্কটপ হিরো (>= lg) */}
       <div className="hidden lg:block">
         {slides.map((slide, slideIndex) => (
           <div
@@ -272,7 +322,25 @@ export default function HeroCarousel({
           aria-hidden="true"
         />
 
-        <Container className="relative z-10 flex min-h-720 flex-col items-center justify-end gap-40 pt-108 pb-48 xl:min-h-960 xl:pb-110">
+        {/* Click anywhere on the left / right half to go back / forward; the
+            mouse pointer turns into an arrow to say so. Keyboard users get the
+            arrow keys and the (focus-only) buttons below. */}
+        <div
+          aria-hidden="true"
+          onClick={() => goTo(index - 1)}
+          className="absolute inset-y-0 left-0 z-[5] w-1/2"
+          style={{ cursor: `url("${CURSOR_PREV}") 24 24, w-resize` }}
+        />
+        <div
+          aria-hidden="true"
+          onClick={() => goTo(index + 1)}
+          className="absolute inset-y-0 right-0 z-[5] w-1/2"
+          style={{ cursor: `url("${CURSOR_NEXT}") 24 24, e-resize` }}
+        />
+
+        {/* The copy lets clicks fall through to the halves, except on the
+            button and the dots. */}
+        <Container className="pointer-events-none relative z-10 flex min-h-720 flex-col items-center justify-end gap-40 pt-108 pb-48 xl:min-h-960 xl:pb-110">
           <div aria-live="polite" className="flex w-full flex-col items-center gap-40">
             <div className="flex w-full flex-col items-center gap-19 text-center">
               <TextReveal delay={HERO_HEADING_DELAY_MS} className="w-full xl:max-w-888">
@@ -288,18 +356,20 @@ export default function HeroCarousel({
               </Reveal>
             </div>
 
-            <Reveal as="div" delay={HERO_CTA_DELAY_MS}>
+            <Reveal as="div" delay={HERO_CTA_DELAY_MS} className="pointer-events-auto flex flex-col items-center gap-32">
               <Button href={active.ctaHref} size="xl" className="w-full sm:w-auto">
                 {active.cta}
                 <ArrowRightIcon size={BUTTON_ICON_SIZE} />
               </Button>
+              <SlideDots slides={slides} index={index} onSelect={goTo} label={ariaLabel} />
             </Reveal>
           </div>
         </Container>
 
+        {/* Hidden until focused with the keyboard. */}
         <div className="pointer-events-none absolute inset-x-0 top-1/2 z-10 flex -translate-y-1/2">
           <div className="cnx-container-inset flex w-full items-center justify-between">
-            <div className="pointer-events-auto">
+            <div className="pointer-events-none opacity-0 transition-opacity focus-within:pointer-events-auto focus-within:opacity-100">
               <ArrowButton
                 direction="prev"
                 label={previousSlideLabel}
@@ -307,7 +377,7 @@ export default function HeroCarousel({
                 size="edge"
               />
             </div>
-            <div className="pointer-events-auto">
+            <div className="pointer-events-none opacity-0 transition-opacity focus-within:pointer-events-auto focus-within:opacity-100">
               <ArrowButton
                 direction="next"
                 label={nextSlideLabel}
