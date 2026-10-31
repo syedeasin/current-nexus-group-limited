@@ -71,11 +71,12 @@ function ArrowButton({
   );
 }
 
-/** Mouse pointer over the left / right half of the desktop hero: a white
- * circle with an arrow, like the old slider buttons (48px, hotspot centred). */
+/** Mouse pointer over the left / right half of the desktop hero: an outlined
+ * circle and arrow in white, no fill (48px, hotspot centred). A faint dark
+ * halo under the strokes keeps it visible on bright photos. */
 const cursorSvg = (path: string) =>
   `data:image/svg+xml,${encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#fff" stroke="rgba(10,13,27,0.18)"/><path d="${path}" fill="none" stroke="#0a0d1b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+    `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="rgba(10,13,27,0.35)" stroke-width="3"><circle cx="24" cy="24" r="22"/><path d="${path}"/></g><g stroke="#fff" stroke-width="1.5"><circle cx="24" cy="24" r="22"/><path d="${path}"/></g></svg>`
   )}`;
 const CURSOR_PREV = cursorSvg("M32 24H16M22 18l-6 6 6 6");
 const CURSOR_NEXT = cursorSvg("M16 24h16M26 18l6 6-6 6");
