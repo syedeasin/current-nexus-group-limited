@@ -14,10 +14,13 @@ import { FIELD_MAX_LENGTH, isCoreField, readContactFields, type ContactField, ty
 import { attachmentHref, saveInquiryAttachment } from "@/lib/inquiries/attachments";
 import { getPublishedBrandPage } from "@/lib/data/brands";
 import { readBrandContent } from "@/lib/brands/content";
+import { BLOCK_PAGES_NAMESPACE, getBlockPage, inquirySection } from "@/lib/block-pages/config";
+import { getAt } from "@/lib/page-content/tree";
+import { str } from "@/lib/page-content/read";
 
 /**
  * Public form endpoints (Contact page, Tier 1 brand and product quote forms,
- * footer newsletter). Anyone can call
+ * the content-block page forms, footer newsletter). Anyone can call
  * these, so each one: ignores bots that fill the hidden honeypot field,
  * rate-limits per client address, validates everything, and stores before it
  * emails — a message is never lost to an SMTP problem.
@@ -96,6 +99,12 @@ interface FormSource {
   emailHeading: string;
   /** Rate-limit bucket, so one busy form can't lock out another. */
   bucket: string;
+  /**
+   * "implied": no consent checkbox — the form states under its button that
+   * submitting agrees to being contacted about the request (client copy for
+   * the block-page forms). Every other form keeps the required checkbox.
+   */
+  consent?: "checkbox" | "implied";
 }
 
 /**
@@ -129,7 +138,7 @@ async function handleEnquiry(
     if (problem) errors.push({ id: field.id, error: problem });
     else if (value) values.set(field.id, value);
   }
-  if (formData.get("consent") !== "on") errors.push({ id: "consent", error: "consent" });
+  if (source.consent !== "implied" && formData.get("consent") !== "on") errors.push({ id: "consent", error: "consent" });
   if (errors.length > 0) return { ok: false, error: errors[0].error, fields: errors };
 
   const ip = await clientKey();
@@ -247,6 +256,27 @@ export async function submitBrandInquiry(localeParam: string, slug: string, form
     topic: `Quote request · ${brand.name}`,
     emailHeading: `New quote request from the ${brand.name} page`,
     bucket: "quote",
+  });
+}
+
+/**
+ * The form on a content-block page (Revamping plant assessment, Renewable
+ * Projects quick inquiry). Fields come from that page's form section in
+ * Dashboard → Pages; only pages whose config has a form section are accepted.
+ */
+export async function submitBlockInquiry(localeParam: string, pageKey: string, formData: FormData): Promise<ContactResult> {
+  const page = getBlockPage(pageKey);
+  const section = inquirySection(pageKey);
+  if (!page || !section) return { ok: false, error: "generic" };
+  const locale = toLocale(localeParam);
+  const messages = await getMergedMessages(locale);
+  const data = getAt(messages, `${BLOCK_PAGES_NAMESPACE}.${page.key}.${section.id}`);
+  const fields = readContactFields(getAt(data, "fields"));
+  return handleEnquiry(locale, fields, formData, {
+    topic: str(data, "topic") || page.label,
+    emailHeading: `New enquiry from the ${page.label} page`,
+    bucket: `page-${page.key}`,
+    consent: "implied",
   });
 }
 

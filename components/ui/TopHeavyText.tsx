@@ -50,9 +50,18 @@ function measure(el: HTMLElement): { words: number[]; ratio: number } {
  * It tries narrower max-widths (the natural line count, or one more line if
  * nothing fits) and keeps the widest one whose first line leads the last by 2–3 words (falling back to
  * the closest lead, then to a last/first width ratio near TARGET_RATIO).
- * Re-runs when the space around it changes size.
+ * Re-runs when the space around it changes size. `maxExtraLines={0}` keeps
+ * the natural line count (hero intros that must stay at 3–4 lines).
  */
-export default function TopHeavyText({ children, className }: { children: string; className?: string }) {
+export default function TopHeavyText({
+  children,
+  className,
+  maxExtraLines = 1,
+}: {
+  children: string;
+  className?: string;
+  maxExtraLines?: number;
+}) {
   const ref = useRef<HTMLParagraphElement>(null);
 
   useLayoutEffect(() => {
@@ -70,8 +79,8 @@ export default function TopHeavyText({ children, className }: { children: string
       for (let width = full; width >= full * 0.5; width -= STEP_PX) {
         el.style.maxWidth = `${width}px`;
         const { words, ratio } = measure(el);
-        // One extra line is allowed when no layout at the natural count fits the rule.
-        if (words.length > lineCount + 1) break;
+        // One extra line is allowed (by default) when no layout at the natural count fits the rule.
+        if (words.length > lineCount + maxExtraLines) break;
         const key = words.join();
         if (!layouts.some((layout) => layout.words.join() === key)) layouts.push({ width, words, ratio });
       }
@@ -99,7 +108,7 @@ export default function TopHeavyText({ children, className }: { children: string
     observer.observe(parent);
     document.fonts?.ready.then(fit).catch(() => {});
     return () => observer.disconnect();
-  }, [children]);
+  }, [children, maxExtraLines]);
 
   return (
     <p ref={ref} className={cn("text-wrap", className)}>

@@ -297,6 +297,38 @@ export async function getCaseStudyHighlight(locale: string, slug?: string): Prom
   return { href: `/news/${row.slug}`, title: row.title, coverImage: row.featuredImage ?? "", details: readCaseStudy(row.caseStudy) };
 }
 
+/**
+ * Published case studies for the project cards on the Solutions & Projects
+ * pages, newest first. With `match` words, cases whose title or details
+ * mention one of them come first (e.g. "rooftop, warehouse" on C&I).
+ */
+export async function getCaseStudyCards(locale: string, take: number, match: string[] = []): Promise<CaseStudyHighlight[]> {
+  const prismaLocale = toPrismaLocale(locale);
+  if (!prismaLocale) return [];
+  const rows = await prisma.post.findMany({
+    where: { status: PostStatus.PUBLISHED, locale: prismaLocale, section: PostSection.CASE_STUDIES },
+    orderBy: PUBLISHED_ORDER,
+    take: 24,
+    select: { slug: true, title: true, featuredImage: true, caseStudy: true },
+  });
+  const cards = rows.map((row) => ({
+    href: `/news/${row.slug}`,
+    title: row.title,
+    coverImage: row.featuredImage ?? "",
+    details: readCaseStudy(row.caseStudy),
+  }));
+  const words = match.map((word) => word.trim().toLowerCase()).filter(Boolean);
+  if (words.length > 0) {
+    const hits = (card: CaseStudyHighlight) => {
+      const text = [card.title, card.details.application, card.details.products, card.details.capacity].join(" ").toLowerCase();
+      return words.some((word) => text.includes(word)) ? 1 : 0;
+    };
+    // Stable: equal scores keep newest-first order.
+    cards.sort((a, b) => hits(b) - hits(a));
+  }
+  return cards.slice(0, take);
+}
+
 /** Path of the newest published case study ("/news/<slug>"), or null when there is none. */
 export async function getLatestCaseStudyPath(locale: string): Promise<string | null> {
   const prismaLocale = toPrismaLocale(locale);

@@ -21,6 +21,7 @@ export const VISIBILITY_PAGES: VisibilityPage[] = [
   { path: "/about/pv-bess-brands", label: "PV & BESS Brands", group: "About Us" },
   { path: "/manufacturing/solar-panels", label: "Solar Panels", group: "Manufacturing" },
   { path: "/manufacturing/bess", label: "BESS", group: "Manufacturing" },
+  { path: "/manufacturing/solar-panels/revamping", label: "Solar Panel Revamping", group: "Manufacturing" },
   { path: "/tier-1-brands", label: "Tier 1 Brands (all brands page)", group: "Tier 1 Brands" },
   { path: "/solutions-projects/solutions", label: "Solutions (overview)", group: "Solutions & Projects" },
   { path: "/solutions-projects/renewable-projects", label: "Renewable Projects (overview)", group: "Solutions & Projects" },
@@ -49,8 +50,6 @@ export const VISIBILITY_PAGES: VisibilityPage[] = [
 export const DEFAULT_HIDDEN_PATHS: string[] = [
   "/about/technology",
   "/about/pv-bess-brands",
-  "/solutions-projects/solutions",
-  "/solutions-projects/renewable-projects",
   "/products/uranus-pro",
   "/products/venus-pro",
   "/service/global-distributor",
@@ -67,14 +66,15 @@ export const ROUTES_WITHOUT_PAGE: { exact?: string[]; prefixes?: string[] } = {
   exact: [
     "/projects",
     "/solutions",
-    "/solutions-projects/solutions",
-    "/solutions-projects/renewable-projects",
     "/service/global-distributor",
     "/service/warranty",
     "/service/stock-products",
   ],
   prefixes: ["/products/"],
 };
+
+/** Pages in code that sit under a CMS detail base (below), so they exist without a published CMS page. */
+export const CODE_PAGES_UNDER_CMS_BASES = ["/manufacturing/solar-panels/revamping"];
 
 /** CMS-driven detail routes: only the published slugs under these bases exist. */
 export const CMS_DETAIL_BASES = [

@@ -3,11 +3,12 @@
  * subtrees it owns. Client-safe plain data: the editor, the save action and
  * the message merge (i18n/request.ts) all read it.
  *
- * Solutions & Projects and Manufacturing product pages are NOT here — they
- * have their own page builders (Dashboard → Solutions & Projects /
- * Manufacturing). This registry covers the fixed-design pages whose copy
- * lives in messages/<locale>.json.
+ * Manufacturing product pages are NOT here — they have their own page builder
+ * (Dashboard → Manufacturing). This registry covers the fixed-design pages
+ * whose copy lives in messages/<locale>.json, including the content-block
+ * pages (Revamping and Solutions & Projects, lib/block-pages/config.ts).
  */
+import { BLOCK_PAGES, BLOCK_PAGES_NAMESPACE } from "@/lib/block-pages/config";
 
 export interface CollectionDef {
   /** Dotted message path; "*" matches one segment. */
@@ -61,6 +62,22 @@ export const COLLECTION_PATTERNS: CollectionDef[] = [
   { pattern: "tier1Brands.mix.items", itemLabel: "Reason", titleKey: "title" },
   { pattern: "tier1Brands.partnership.stats", itemLabel: "Stat", titleKey: "label" },
   { pattern: "tier1Brands.faq.items", itemLabel: "Question", titleKey: "question" },
+  // Content-block pages (lib/block-pages/config.ts). Specific patterns first:
+  // the editor takes the first match for item labels.
+  { pattern: "blockPages.*.faq.items", itemLabel: "Question", titleKey: "question" },
+  { pattern: "blockPages.*.checklist.items", itemLabel: "Item", titleKey: "text" },
+  { pattern: "blockPages.*.inquiry.items", itemLabel: "Checklist item", titleKey: "text" },
+  { pattern: "blockPages.*.inquiry.fields", itemLabel: "Field", titleKey: "label", minItems: 1 },
+  { pattern: "blockPages.*.comparison.rows", itemLabel: "Comparison row", titleKey: "common" },
+  { pattern: "blockPages.*.hero.chips", itemLabel: "Chip", titleKey: "text" },
+  { pattern: "blockPages.*.*.rows", itemLabel: "Row", titleKey: "title" },
+  { pattern: "blockPages.*.*.cards", itemLabel: "Card", titleKey: "title" },
+  { pattern: "blockPages.*.*.items", itemLabel: "Item", titleKey: "title" },
+  { pattern: "blockPages.*.*.steps", itemLabel: "Step", titleKey: "title" },
+  { pattern: "blockPages.*.*.facets", itemLabel: "Facet", titleKey: "label" },
+  { pattern: "blockPages.*.*.facts", itemLabel: "Fact", titleKey: "label" },
+  { pattern: "blockPages.*.*.stages", itemLabel: "Stage", titleKey: "label" },
+  { pattern: "blockPages.*.*.stats", itemLabel: "Stat", titleKey: "label" },
 ];
 
 export interface PageSectionDef {
@@ -265,6 +282,24 @@ export const PAGES: PageDef[] = [
         ...(key === "news"
           ? [{ id: "shared", label: "Shared News Room labels", path: "news", exclude: ["sections"] }]
           : []),
+      ],
+    })
+  ),
+  ...BLOCK_PAGES.map(
+    (page): PageDef => ({
+      key: `${BLOCK_PAGES_NAMESPACE}.${page.key}`,
+      label: page.label,
+      group: page.group,
+      href: page.href,
+      description: page.description,
+      sections: [
+        SEO(`${BLOCK_PAGES_NAMESPACE}.${page.key}.meta`),
+        ...page.sections.map((section) => ({
+          id: section.id,
+          label: section.label,
+          description: section.description,
+          path: `${BLOCK_PAGES_NAMESPACE}.${page.key}.${section.id}`,
+        })),
       ],
     })
   ),

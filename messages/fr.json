@@ -1891,5 +1891,2378 @@
       "productsTabsLabel": "Catégories de produits",
       "specsDialogLabel": "Caractéristiques"
     }
+  },
+  "blockPages": {
+    "revamping": {
+      "meta": {
+        "title": "Solar Panel Replacement & PV Revamping Solutions",
+        "description": "Replace ageing or discontinued solar modules with a compatibility-led plan. CNX reviews dimensions, mounting, electrical parameters, target power and documentation before you order."
+      },
+      "hero": {
+        "eyebrow": "Solar Panel Replacement | PV Revamping | Repowering",
+        "heading": "Customized Solar Panel Replacement Solutions for Aging PV Systems",
+        "description": "Replace ageing or discontinued modules with a solution designed around your existing plant—not just the latest panel wattage.\nCNX helps solar asset owners, O&M teams and EPC contractors assess replacement options for ageing photovoltaic plants. We coordinate project-specific checks for module dimensions, mounting details, electrical parameters, target power ratings and documentation—so you can identify key compatibility risks before committing to procurement.",
+        "image": "/images/hero/hero-750w-solar.webp",
+        "imageAlt": "Technician inspecting the modules of a ground-mounted solar plant",
+        "primaryLabel": "Get Your Free Plant Assessment",
+        "primaryHref": "#inquiry",
+        "secondaryLabel": "Explore Replacement Solutions",
+        "secondaryHref": "#solutions",
+        "note": "Share your plant location, installation year and existing module details to start a preliminary review."
+      },
+      "routes": {
+        "eyebrow": "Find your replacement route",
+        "heading": "What Do You Need to Solve in Your Existing PV Plant?",
+        "intro": "Every revamping project starts with a different constraint. Choose the closest match to your current challenge and tell us what you know about the original system.",
+        "cards": {
+          "discontinued": {
+            "icon": "package-search",
+            "title": "Replace Discontinued Solar Panels",
+            "description": "Your original module may no longer be available. Start with the model number, datasheet or label photos to identify the key specifications a replacement must meet.",
+            "ctaLabel": "Assess My Replacement Options",
+            "goal": "Discontinued module replacement"
+          },
+          "dimensions": {
+            "icon": "ruler",
+            "title": "Match Existing Module Dimensions",
+            "description": "Compare length, width, frame height, mounting-hole positions and clamp zones before ordering—especially when the existing mounting structure is intended to remain.",
+            "ctaLabel": "Check Physical Compatibility",
+            "goal": "Like-for-like replacement"
+          },
+          "electrical": {
+            "icon": "zap",
+            "title": "Review Electrical Compatibility",
+            "description": "Check module current and voltage characteristics against string configuration, inverter limits and protective devices before finalising a replacement.",
+            "ctaLabel": "Review Electrical Requirements",
+            "goal": "Not sure yet"
+          },
+          "targetPower": {
+            "icon": "sliders",
+            "title": "Control Target Power Rating",
+            "description": "If the plant has a defined capacity or contract constraint, assess like-for-like, target-power and higher-output options separately. Local requirements must be confirmed.",
+            "ctaLabel": "Discuss My Target Rating",
+            "goal": "Target power rating"
+          }
+        }
+      },
+      "solutions": {
+        "eyebrow": "Replacement solution",
+        "heading": "More Than a Panel Swap—A Compatibility-Led Replacement Plan",
+        "intro": "Choosing a replacement module is not only about watts per panel. The new specification needs to be assessed against the physical, electrical, structural and commercial constraints of the existing plant.",
+        "items": {
+          "physical": {
+            "icon": "ruler",
+            "title": "Physical Matching",
+            "description": "Review module length, width, frame profile, mounting-hole pattern, grounding points and clamp zones. The aim is to identify fit issues before procurement and avoid relying on unapproved on-site modifications."
+          },
+          "electrical": {
+            "icon": "zap",
+            "title": "Electrical Matching",
+            "description": "Review Voc, Vmp, Isc and Imp alongside string configuration, inverter MPPT range, maximum input voltage, temperature conditions, connectors and protective-device ratings."
+          },
+          "targetPower": {
+            "icon": "gauge",
+            "title": "Target Power Options",
+            "description": "Assess like-for-like replacement, a defined target wattage or a same-footprint upgrade where technically feasible. Final power tolerance and availability depend on the approved product specification."
+          },
+          "documentation": {
+            "icon": "file-check",
+            "title": "Documentation & Traceability",
+            "description": "Agree the required datasheets, applicable test reports, serial-number lists, flash-test data, EL images, warranty terms and market-specific documents before order confirmation."
+          }
+        },
+        "closing": "Make the replacement specification clearer before purchase—reducing avoidable mismatch risk, repeated clarification and installation surprises.",
+        "ctaLabel": "Discuss My Replacement Project",
+        "ctaHref": "#inquiry"
+      },
+      "comparison": {
+        "eyebrow": "Why choose CNX",
+        "heading": "Why Solar Asset Owners Choose a Compatibility-Led Approach",
+        "intro": "Replacing older modules can involve more than sourcing a new product. CNX helps coordinate the information and supply decisions that need to be resolved before an order is placed.",
+        "commonLabel": "Common Replacement Approach",
+        "cnxLabel": "CNX Approach",
+        "rows": {
+          "modules": {
+            "common": "One-size-fits-all modules",
+            "cnx": "Start with the original module data and site constraints; compare candidate replacements against the plant’s physical and electrical requirements."
+          },
+          "fit": {
+            "common": "Fit problems discovered on site",
+            "cnx": "Review dimensions, frame height, mounting-hole positions, clamp zones and weight before the specification is approved."
+          },
+          "wattage": {
+            "common": "Highest wattage chosen by default",
+            "cnx": "Compare like-for-like, target-rating and higher-output options against technical needs and applicable capacity requirements."
+          },
+          "documents": {
+            "common": "Documents chased after delivery",
+            "cnx": "Confirm the required technical and traceability document pack before order confirmation, subject to product availability."
+          },
+          "handoffs": {
+            "common": "Multiple disconnected supplier handoffs",
+            "cnx": "Coordinate the agreed technical review, product sourcing, documentation and logistics scope through one procurement workflow."
+          }
+        },
+        "benefit": "Clearer specifications, fewer avoidable procurement gaps and a more manageable path from assessment to delivery.",
+        "ctaLabel": "Request a Plant Assessment",
+        "ctaHref": "#inquiry"
+      },
+      "buyers": {
+        "eyebrow": "Solutions for different project needs",
+        "heading": "Replacement Support for Asset Owners, O&M Teams and EPC Contractors",
+        "intro": "Whether you manage a single ageing plant or multiple replacement projects, the first step is to clarify the existing system, target outcome and requirements that cannot change.",
+        "cards": {
+          "owners": {
+            "label": "For Solar Asset Owners & Plant Operators",
+            "title": "Protect the Value of Your Existing PV Asset",
+            "description": "When original modules fail, degrade or become difficult to source, you need a replacement route that accounts for the plant’s existing design and commercial conditions. CNX helps organise the information needed to compare feasible replacement options before procurement.",
+            "image": "/images/news/news-epc-financing.webp",
+            "linkLabel": "Assess My PV Plant",
+            "linkHref": "#inquiry"
+          },
+          "om": {
+            "label": "For O&M Providers",
+            "title": "Make Repeated Module Replacement Easier to Manage",
+            "description": "For maintenance teams handling discontinued modules or recurring replacements, consistent specifications and traceable documentation matter. CNX can help review the original module information and define a repeatable replacement checklist for the agreed project scope.",
+            "image": "/images/hero/hero-750w-solar.webp",
+            "linkLabel": "Discuss O&M Replacement Needs",
+            "linkHref": "#inquiry"
+          },
+          "epc": {
+            "label": "For EPC Contractors & Repowering Developers",
+            "title": "Clarify Technical Requirements Before Ordering",
+            "description": "Replacement and repowering projects can involve module selection, inverter limits, structural checks, documentation and delivery sequencing. CNX coordinates the agreed product and technical information so your engineering team can review the proposed specification before order release.",
+            "image": "/images/hero/hero-smart-pv.webp",
+            "linkLabel": "Share Project Requirements",
+            "linkHref": "#inquiry"
+          }
+        }
+      },
+      "caseExample": {
+        "eyebrow": "Application & project case",
+        "heading": "What a Repowering Project Can Achieve on the Same Site",
+        "intro": "An illustrative revamping scenario: an ageing plant re-equipped with high-efficiency modules while the land, mounting structure and grid connection stay in place.",
+        "image": "/images/hero/hero-smart-pv.webp",
+        "imageAlt": "Aerial view of a ground-mounted solar plant",
+        "badge": "Simulation case",
+        "facts": {
+          "region": {
+            "label": "Region",
+            "value": "Japan"
+          },
+          "original": {
+            "label": "Original plant",
+            "value": "2012 · 3.2 MW"
+          },
+          "replacement": {
+            "label": "Replacement",
+            "value": "2026 · HJT 700 W"
+          },
+          "capacity": {
+            "label": "Capacity on the same land",
+            "value": "3.2 → 5.1 MW"
+          }
+        },
+        "stages": {
+          "before": {
+            "label": "Before",
+            "text": "Installed in 2012 with 3.2 MW of multicrystalline 270 W modules; power generation had decreased by 18%."
+          },
+          "after": {
+            "label": "After",
+            "text": "Replaced in 2026 with HJT 700 W modules: capacity on the same land area rises to 5.1 MW and annual power generation by 42%."
+          },
+          "result": {
+            "label": "Result",
+            "text": "The existing land, mounting structure and grid connection are reused, with an estimated CAPEX saving of 35%."
+          }
+        },
+        "note": "Simulation case based on industry-standard assumptions, not a completed CNX project. Results for a real plant depend on the site, the approved replacement specification and local requirements."
+      },
+      "process": {
+        "eyebrow": "Supply & delivery process",
+        "heading": "From Plant Information to a Confirmed Replacement Specification",
+        "intro": "A clear process helps reduce specification gaps, unnecessary quotation rounds and avoidable delivery delays.",
+        "steps": {
+          "share": {
+            "icon": "clipboard-list",
+            "title": "Share Plant Details",
+            "description": "Provide plant location, installed capacity, installation year, original module model and inverter details if known. Datasheets and label photos are helpful but not mandatory for the first contact.",
+            "deliverable": "You provide basic plant and module information."
+          },
+          "review": {
+            "icon": "search-check",
+            "title": "Preliminary Compatibility Review",
+            "description": "We review the information supplied and identify the main physical, electrical, target-rating and documentation questions that need to be resolved.",
+            "deliverable": "You receive an initial gap list and next steps."
+          },
+          "quotation": {
+            "icon": "file-check",
+            "title": "Specification & Quotation",
+            "description": "Align on dimensions, electrical parameters, target rating, quantity, documentation and delivery destination before finalising the proposed supply scope.",
+            "deliverable": "You receive a proposed specification and quotation."
+          },
+          "approval": {
+            "icon": "check-circle",
+            "title": "Approval & Order Confirmation",
+            "description": "Where applicable, review drawings, samples or final datasheets and confirm commercial terms before the order is released.",
+            "deliverable": "You approve the agreed specification and order terms."
+          },
+          "delivery": {
+            "icon": "truck",
+            "title": "Supply, Documentation & Delivery",
+            "description": "CNX coordinates the confirmed supply scope, available quality records, shipping documents and logistics updates.",
+            "deliverable": "You receive the agreed products and document pack."
+          }
+        },
+        "note": "Lead time depends on specification, quantity, availability, approvals and destination.",
+        "ctaLabel": "Start Your Assessment",
+        "ctaHref": "#inquiry"
+      },
+      "products": {
+        "eyebrow": "Product recommendations",
+        "heading": "Modules, Inverters and Storage for Revamping Projects",
+        "intro": "Explore product options that can be reviewed against your plant’s requirements. The final selection follows the approved replacement specification.",
+        "cards": {
+          "hjt": {
+            "group": "Solar modules",
+            "image": "/images/energyEcosystem/solarpaelTabImage01.webp",
+            "imageAlt": "HJT solar module",
+            "title": "HJT Modules",
+            "description": "High-efficiency heterojunction modules, suitable for high-irradiation areas.",
+            "specs": "Heterojunction, High efficiency",
+            "linkLabel": "View Products",
+            "href": "/manufacturing/solar-panels/hjt",
+            "fallbackHref": "/manufacturing/solar-panels"
+          },
+          "topcon": {
+            "group": "Solar modules",
+            "image": "/images/manufacturing/solar-panels/topcon-solar-panels.webp",
+            "imageAlt": "TOPCon solar module",
+            "title": "TOPCon Modules",
+            "description": "N-type tunnel oxide passivated contact modules with low degradation and a high bifaciality rate.",
+            "specs": "N-type, Low degradation, High bifaciality",
+            "linkLabel": "View Products",
+            "href": "/manufacturing/solar-panels/topcon",
+            "fallbackHref": "/manufacturing/solar-panels"
+          },
+          "bc": {
+            "group": "Solar modules",
+            "image": "/images/manufacturing/bc-solar/g12-0bb-venus-pro.webp",
+            "imageAlt": "Back-contact solar module",
+            "title": "BC Modules",
+            "description": "Back-contact modules: a clean look and high efficiency, suitable for rooftops and limited space.",
+            "specs": "Back contact, Rooftops, Limited space",
+            "linkLabel": "View Products",
+            "href": "/manufacturing/solar-panels/bc",
+            "fallbackHref": "/manufacturing/solar-panels"
+          },
+          "odm": {
+            "group": "Solar modules",
+            "image": "/images/manufacturing/bc-solar/ProductpageHeroProductimage.webp",
+            "imageAlt": "Custom-sized solar modules",
+            "title": "ODM Customization",
+            "description": "Customised size and power to fit the existing bracket holes and the system’s voltage level.",
+            "specs": "Custom size, Custom power, Voltage matching",
+            "linkLabel": "View Products",
+            "href": "/manufacturing/solar-panels/odm-vertical-solar-modules",
+            "fallbackHref": "/manufacturing/solar-panels"
+          },
+          "growatt": {
+            "group": "Inverters",
+            "image": "/images/trustedLogos/growatt%20Logo.svg",
+            "imageAlt": "Growatt",
+            "title": "Growatt Inverters",
+            "description": "Support for voltage adaptation of older systems, intelligent monitoring and energy-storage readiness.",
+            "specs": "Old-system adaptation, Smart monitoring, Storage-ready",
+            "linkLabel": "View Products",
+            "href": "/tier-1-brands/growatt",
+            "fallbackHref": "/tier-1-brands"
+          },
+          "deye": {
+            "group": "Inverters",
+            "image": "/images/trustedLogos/deye%20Logo.svg",
+            "imageAlt": "DEYE",
+            "title": "DEYE Inverters",
+            "description": "Support for voltage adaptation of older systems, intelligent monitoring and energy-storage readiness.",
+            "specs": "Old-system adaptation, Smart monitoring, Storage-ready",
+            "linkLabel": "View Products",
+            "href": "/tier-1-brands/deye",
+            "fallbackHref": "/tier-1-brands"
+          },
+          "solis": {
+            "group": "Inverters",
+            "image": "/images/trustedLogos/solisLogo.svg",
+            "imageAlt": "Solis",
+            "title": "Solis Inverters",
+            "description": "Support for voltage adaptation of older systems, intelligent monitoring and energy-storage readiness.",
+            "specs": "Old-system adaptation, Smart monitoring, Storage-ready",
+            "linkLabel": "View Products",
+            "href": "/tier-1-brands/solis",
+            "fallbackHref": "/tier-1-brands"
+          },
+          "goodwe": {
+            "group": "Inverters",
+            "image": "/images/trustedLogos/goodweLogo.svg",
+            "imageAlt": "GoodWe",
+            "title": "GoodWe Inverters",
+            "description": "Support for voltage adaptation of older systems, intelligent monitoring and energy-storage readiness.",
+            "specs": "Old-system adaptation, Smart monitoring, Storage-ready",
+            "linkLabel": "View Products",
+            "href": "/tier-1-brands/goodwe",
+            "fallbackHref": "/tier-1-brands"
+          },
+          "bessResidential": {
+            "group": "Energy storage (BESS)",
+            "image": "/images/energyEcosystem/bessTabImage01.webp",
+            "imageAlt": "Battery storage cabinet",
+            "title": "Residential BESS",
+            "description": "Household-level battery storage for residential systems.",
+            "specs": "5–20 kWh",
+            "linkLabel": "View Products",
+            "href": "/manufacturing/bess/residential",
+            "fallbackHref": "/manufacturing/bess"
+          },
+          "bessCi": {
+            "group": "Energy storage (BESS)",
+            "image": "/images/premiumSolutions/hithiumEssCabinet.webp",
+            "imageAlt": "Commercial battery storage cabinet",
+            "title": "C&I BESS",
+            "description": "Industrial and commercial battery storage cabinets.",
+            "specs": "112 kWh, 261 kWh",
+            "linkLabel": "View Products",
+            "href": "/manufacturing/bess/261kwh",
+            "fallbackHref": "/manufacturing/bess"
+          },
+          "bessUtility": {
+            "group": "Energy storage (BESS)",
+            "image": "/images/premiumSolutions/hithiumBlock.webp",
+            "imageAlt": "Utility-scale battery storage system",
+            "title": "Utility BESS",
+            "description": "Power-station-level battery storage for utility-scale projects.",
+            "specs": "488 kWh and above",
+            "linkLabel": "View Products",
+            "href": "/manufacturing/bess/488kwh",
+            "fallbackHref": "/manufacturing/bess"
+          }
+        }
+      },
+      "faq": {
+        "eyebrow": "FAQ",
+        "heading": "Solar Panel Replacement FAQs",
+        "cardCtaHref": "#inquiry",
+        "items": {
+          "q1": {
+            "question": "Can I replace old solar panels with a different model?",
+            "answer": "Potentially. Assess the candidate module’s dimensions, mounting details, electrical characteristics, weight and compatibility with the existing system. A qualified engineer should confirm the final design."
+          },
+          "q2": {
+            "question": "Can replacement solar modules match the original dimensions?",
+            "answer": "CNX can review the original module dimensions and mounting details and assess whether a suitable replacement specification is feasible. Exact tolerances, available models and production capability must be confirmed for each project."
+          },
+          "q3": {
+            "question": "Can I use a higher-wattage module during PV repowering?",
+            "answer": "Possibly, but higher wattage does not automatically mean a suitable replacement. Check module format, string current and voltage, inverter limits, structural conditions, registered capacity and local rules."
+          },
+          "q4": {
+            "question": "Can I replace panels without changing the mounting structure?",
+            "answer": "That depends on module dimensions, frame profile, mounting-hole positions, clamp zones, weight and the condition of the existing structure. Reuse should be confirmed by the responsible technical professional."
+          },
+          "q5": {
+            "question": "What information should I send for a solar panel replacement assessment?",
+            "answer": "Start with site location, installed capacity, installation year, original module model or datasheet, inverter model and estimated replacement quantity. Label photos and mounting details are useful if the datasheet is unavailable."
+          },
+          "q6": {
+            "question": "How long does a PV module replacement project take?",
+            "answer": "Timing depends on specification, quantity, availability, approvals, documentation, shipping and whether site work is included. CNX will confirm an expected schedule after reviewing the scope."
+          },
+          "q7": {
+            "question": "Will replacing modules affect my feed-in tariff, subsidy or permit?",
+            "answer": "This depends on the country, scheme, contract and exact changes to the plant. Confirm requirements with the relevant authority, network operator, contract counterparty or qualified local adviser."
+          },
+          "q8": {
+            "question": "Can CNX provide installation and commissioning?",
+            "answer": "Installation and commissioning coordination must be confirmed for each project. The quotation should distinguish module supply from removal, recycling, installation, testing and grid-related work."
+          }
+        }
+      },
+      "inquiry": {
+        "eyebrow": "Free plant assessment",
+        "heading": "Let’s Review Your Solar Panel Replacement Project",
+        "body": "Tell us a little about your existing PV system and what you need to replace. CNX will review the information provided and follow up with the key compatibility questions, possible replacement routes and details needed for a project-specific quotation.",
+        "checklistTitle": "",
+        "checklistNote": "",
+        "formTitle": "",
+        "topic": "Plant assessment · Solar panel revamping",
+        "fields": {
+          "name": {
+            "label": "Full Name",
+            "type": "text",
+            "placeholder": "",
+            "options": "",
+            "required": "true",
+            "hidden": "",
+            "fullWidth": ""
+          },
+          "email": {
+            "label": "Business Email",
+            "type": "email",
+            "placeholder": "",
+            "options": "",
+            "required": "true",
+            "hidden": "",
+            "fullWidth": ""
+          },
+          "company": {
+            "label": "Company Name",
+            "type": "text",
+            "placeholder": "",
+            "options": "",
+            "required": "",
+            "hidden": "",
+            "fullWidth": ""
+          },
+          "country": {
+            "label": "Country / Plant Location",
+            "type": "text",
+            "placeholder": "",
+            "options": "",
+            "required": "true",
+            "hidden": "",
+            "fullWidth": ""
+          },
+          "capacity": {
+            "label": "Installed Capacity",
+            "type": "select",
+            "placeholder": "Choose a range",
+            "options": "Under 1 MW\n1–10 MW\n10–50 MW\nOver 50 MW",
+            "required": "",
+            "hidden": "",
+            "fullWidth": ""
+          },
+          "installationYear": {
+            "label": "Installation Year",
+            "type": "number",
+            "placeholder": "e.g. 2012",
+            "options": "",
+            "required": "",
+            "hidden": "",
+            "fullWidth": ""
+          },
+          "quantity": {
+            "label": "Estimated Replacement Quantity",
+            "type": "text",
+            "placeholder": "e.g. 1,200 modules",
+            "options": "",
+            "required": "",
+            "hidden": "",
+            "fullWidth": ""
+          },
+          "models": {
+            "label": "Original Module Model / Inverter Model",
+            "type": "text",
+            "placeholder": "",
+            "options": "",
+            "required": "",
+            "hidden": "",
+            "fullWidth": ""
+          },
+          "projectGoal": {
+            "label": "Project Goal",
+            "type": "select",
+            "placeholder": "Choose a goal",
+            "options": "Like-for-like replacement\nDiscontinued module replacement\nOutput upgrade\nTarget power rating\nNot sure yet",
+            "required": "",
+            "hidden": "",
+            "fullWidth": "true"
+          },
+          "message": {
+            "label": "Project Details (optional)",
+            "type": "textarea",
+            "placeholder": "",
+            "options": "",
+            "required": "",
+            "hidden": "",
+            "fullWidth": "true"
+          },
+          "attachment": {
+            "label": "Upload Datasheet or Module Photos (optional)",
+            "type": "file",
+            "placeholder": "",
+            "options": "",
+            "required": "",
+            "hidden": "",
+            "fullWidth": "true"
+          }
+        },
+        "submitLabel": "Request My Plant Assessment",
+        "privacy": "By submitting this form, you agree that CNX may contact you about this project. Please see our",
+        "privacyLinkLabel": "Privacy Policy",
+        "privacyHref": "/privacy-policy",
+        "successHeading": "Thank you.",
+        "successBody": "Your project details have been submitted. The CNX team will review the information and contact you about the next steps."
+      },
+      "trust": {
+        "heading": "Technical Clarity for a More Manageable Replacement Process",
+        "intro": "CNX coordinates replacement-module sourcing and project-specific requirements with a focus on physical fit, electrical review, documentation and procurement communication. We help you identify what needs to be confirmed before the replacement specification is approved.",
+        "stats": {
+          "experience": {
+            "value": "18",
+            "label": "Years of experience"
+          },
+          "factories": {
+            "value": "6",
+            "label": "Own factories"
+          },
+          "countries": {
+            "value": "50+",
+            "label": "Countries exported to"
+          },
+          "customers": {
+            "value": "200+",
+            "label": "Satisfied customers"
+          }
+        }
+      }
+    },
+    "solutionsHub": {
+      "meta": {
+        "title": "Solar & Energy Storage Solutions by Application",
+        "description": "CNX supports PV module, inverter and battery storage sourcing for residential, commercial, utility-scale and VPP projects, matched to your requirements and procurement plan."
+      },
+      "hero": {
+        "eyebrow": "Solutions",
+        "heading": "Solar Energy Solutions for Different Applications",
+        "description": "CNX supports solar and energy storage sourcing for a range of applications, from residential and commercial systems to utility-scale projects. We help customers identify suitable PV modules, inverters and battery energy storage products based on project requirements, system configuration and procurement needs.",
+        "image": "/images/hero/hero-smart-pv.webp",
+        "imageAlt": "Aerial view of a large solar plant",
+        "primaryLabel": "Discuss Your Project",
+        "primaryHref": "/contact",
+        "secondaryLabel": "Explore Solutions",
+        "secondaryHref": "#solutions",
+        "note": ""
+      },
+      "solutions": {
+        "eyebrow": "Applications",
+        "heading": "Choose Your Solution",
+        "intro": "",
+        "cards": {
+          "residential": {
+            "image": "/images/solutionsAndProjects/solutions/residential/solutions-residential-hero.webp",
+            "imageAlt": "",
+            "title": "Residential Solar Solutions",
+            "description": "Help residential solar businesses and project buyers source PV modules, inverters and battery storage products for home energy applications. Product selection can be aligned with system capacity, available installation space and backup power requirements.",
+            "href": "/solutions-projects/solutions/residential"
+          },
+          "commercial": {
+            "image": "/images/home/commercialBuildings.webp",
+            "imageAlt": "",
+            "title": "Commercial & Industrial Solar Solutions",
+            "description": "Source solar and energy storage products for commercial buildings, factories and industrial facilities. CNX can help coordinate product selection according to energy demand, installation conditions and project procurement requirements.",
+            "href": "/solutions-projects/solutions/commercial-industrial"
+          },
+          "utilities": {
+            "image": "/images/home/utilityScaleSolar.webp",
+            "imageAlt": "",
+            "title": "Utility-Scale Solar Solutions",
+            "description": "Support utility-scale solar procurement with PV modules and related product sourcing aligned with project specifications, volume requirements and delivery schedules.",
+            "href": "/solutions-projects/solutions/utilities"
+          },
+          "vpp": {
+            "image": "/images/home/virtualPowerPlantSolutions.webp",
+            "imageAlt": "",
+            "title": "Virtual Power Plant Solutions",
+            "description": "Explore the product and energy storage considerations associated with distributed energy resources and virtual power plant applications. The required equipment and integration scope depend on the project architecture and control platform.",
+            "href": "/solutions-projects/solutions/virtual-power-plant"
+          },
+          "supplyChain": {
+            "image": "/images/home/supplyChainFinancing.webp",
+            "imageAlt": "",
+            "title": "Solar Supply Chain & Financing Support",
+            "description": "Explore procurement coordination and supply-chain-related financing arrangements for PV and BESS purchases, subject to the specific commercial structure and available financing partners.",
+            "href": "/solutions-projects/solutions/supply-chain-financing"
+          }
+        }
+      },
+      "support": {
+        "eyebrow": "How CNX supports your project",
+        "heading": "Solutions Built Around Your Project Requirements",
+        "intro": "Every solar and energy storage project has different technical, commercial and procurement requirements. Standard product lists alone may not address differences in system configuration, project scale, delivery planning or existing equipment.\nCNX helps customers evaluate product options and coordinate sourcing based on the actual application, technical specifications and project timeline.",
+        "items": {
+          "configuration": {
+            "icon": "sliders",
+            "title": "Finding the Right Product Configuration",
+            "description": "Different applications require different module technologies, inverter configurations and storage capacities. Product selection should reflect the system design and project specifications.",
+            "linkLabel": "",
+            "linkHref": ""
+          },
+          "procurement": {
+            "icon": "layers",
+            "title": "Coordinating PV and BESS Procurement",
+            "description": "Where projects require both solar and energy storage products, coordinated sourcing can help buyers manage product selection, supplier communication and purchasing requirements.",
+            "linkLabel": "",
+            "linkHref": ""
+          },
+          "requirements": {
+            "icon": "clipboard-list",
+            "title": "Managing Project-Specific Requirements",
+            "description": "Custom specifications, documentation needs, delivery locations and order quantities can affect sourcing decisions. Clear requirements help identify suitable products and supply options.",
+            "linkLabel": "",
+            "linkHref": ""
+          },
+          "upgrades": {
+            "icon": "refresh",
+            "title": "Supporting Existing PV Plant Upgrades",
+            "description": "For selected existing installations, customized replacement modules may be required when legacy dimensions differ from standard products. CNX can assess the supplied module specifications for potential PV revamping or repowering solutions.",
+            "linkLabel": "Explore PV Revamping",
+            "linkHref": "/manufacturing/solar-panels/revamping"
+          }
+        },
+        "closing": ""
+      },
+      "sourcing": {
+        "eyebrow": "Supply coordination",
+        "heading": "From Product Selection to Supply Coordination",
+        "intro": "CNX connects customers with solar and battery energy storage products from its manufacturing capabilities and selected brand portfolio. Our role is to help buyers align product options with their technical specifications, commercial requirements and procurement plans.",
+        "image": "/images/manufacturing/manufacturing-why-choose-us.webp",
+        "items": {
+          "reason1": {
+            "title": "Flexible Product Sourcing",
+            "description": "Explore suitable PV modules, inverters and BESS products based on project specifications and sourcing requirements."
+          },
+          "reason2": {
+            "title": "Application-Based Product Matching",
+            "description": "Compare product options according to system configuration, operating environment, capacity and other relevant requirements."
+          },
+          "reason3": {
+            "title": "Coordinated PV & BESS Procurement",
+            "description": "Coordinate sourcing across solar and energy storage product categories when both are required for a project."
+          },
+          "reason4": {
+            "title": "Project-Oriented Supply Support",
+            "description": "Align product documentation, order requirements and delivery planning with the agreed procurement scope."
+          }
+        }
+      },
+      "cases": {
+        "eyebrow": "Project examples",
+        "heading": "Solutions Across Renewable Energy Applications",
+        "intro": "CNX supports product sourcing for a range of renewable energy applications. Each project has its own technical specifications, procurement priorities and delivery requirements. Explore relevant project examples to understand the application context and the products involved.",
+        "match": "",
+        "requirementsLabel": "Project requirements",
+        "scopeLabel": "CNX supply scope",
+        "cardLinkLabel": "View Project Details",
+        "linkLabel": "Explore Renewable Projects",
+        "linkHref": "/solutions-projects/renewable-projects"
+      },
+      "process": {
+        "eyebrow": "Sourcing process",
+        "heading": "How We Support Your Sourcing Process",
+        "intro": "",
+        "steps": {
+          "share": {
+            "title": "Share Your Project Requirements",
+            "description": "Provide the application, project location, estimated capacity, product specifications and expected purchasing schedule."
+          },
+          "review": {
+            "title": "Review Suitable Product Options",
+            "description": "CNX reviews the available product and sourcing options against the information provided and clarifies any outstanding technical requirements."
+          },
+          "confirm": {
+            "title": "Confirm Specifications and Quotation",
+            "description": "Review the proposed products, specifications, quantities, commercial terms and delivery arrangements before proceeding."
+          },
+          "fulfil": {
+            "title": "Coordinate Order Fulfilment",
+            "description": "Coordinate the agreed order requirements and delivery plan according to the confirmed supply scope."
+          }
+        },
+        "note": "",
+        "ctaLabel": "Discuss Your Project with CNX",
+        "ctaHref": "/contact"
+      },
+      "faq": {
+        "eyebrow": "FAQ",
+        "heading": "Solar Energy Solutions FAQs",
+        "cardCtaHref": "/contact",
+        "items": {
+          "q1": {
+            "question": "What types of solar energy solutions does CNX support?",
+            "answer": "CNX supports product sourcing for different solar and energy storage applications, including residential, commercial and industrial, and utility-scale projects. Product availability and the scope of support depend on the project requirements."
+          },
+          "q2": {
+            "question": "Can CNX source both solar panels and battery energy storage products?",
+            "answer": "CNX can coordinate sourcing across PV and BESS product categories where suitable products are available. The proposed product selection depends on system specifications, application requirements and procurement scope."
+          },
+          "q3": {
+            "question": "Can CNX support customized solar panel requirements?",
+            "answer": "Customized solar module options may be assessed based on technical specifications, dimensions, quantity and manufacturing feasibility. For existing PV plants, customers can provide the original module datasheet or detailed measurements for an initial review."
+          },
+          "q4": {
+            "question": "What information should I provide when requesting a quotation?",
+            "answer": "Please provide the project location, application, estimated capacity, product specifications, required quantities, target delivery date and any relevant technical documentation. More complete information helps CNX evaluate suitable sourcing options."
+          },
+          "q5": {
+            "question": "Does CNX provide installation or EPC services?",
+            "answer": "The scope of support depends on the agreed business arrangement. Customers should confirm whether their requirements concern product supply, procurement coordination, engineering services or installation before proceeding."
+          }
+        }
+      },
+      "cta": {
+        "heading": "Let’s Discuss Your Energy Project",
+        "subtext": "Whether you are sourcing products for a residential installation, a commercial facility or a larger renewable energy project, CNX can review your requirements and help identify suitable supply options.",
+        "primaryLabel": "Discuss Your Project with CNX",
+        "primaryHref": "/contact",
+        "secondaryLabel": "",
+        "secondaryHref": "",
+        "image": "/images/home/CTABackground.webp"
+      }
+    },
+    "projectsHub": {
+      "meta": {
+        "title": "Renewable Energy Projects & PV/BESS Supply",
+        "description": "Grid-tied, off-grid and project-financing support: CNX sources solar modules, inverters and battery storage around your project specifications, procurement plan and delivery schedule."
+      },
+      "hero": {
+        "eyebrow": "Renewable Projects",
+        "heading": "Renewable Energy Projects and Supply Solutions",
+        "description": "Renewable energy projects require more than individual products. They involve technical specifications, application conditions, equipment selection, procurement planning and delivery coordination.\nCNX supports project buyers with solar and battery energy storage product sourcing based on the defined project scope, helping align available products with technical and commercial requirements.",
+        "image": "/images/manufacturing/solar-panels/solar-panels-banner.webp",
+        "imageAlt": "Solar plant on a hillside",
+        "primaryLabel": "Discuss Your Project",
+        "primaryHref": "/contact",
+        "secondaryLabel": "Explore Project Types",
+        "secondaryHref": "#types",
+        "note": ""
+      },
+      "types": {
+        "eyebrow": "Project types",
+        "heading": "Explore Projects by Type",
+        "intro": "",
+        "cards": {
+          "gridTie": {
+            "image": "/images/home/virtualPowerPlantSolutions.webp",
+            "imageAlt": "",
+            "title": "Grid-Tied Solar Projects",
+            "description": "For projects connected to the electricity grid, product sourcing must align with the specified system design, grid connection requirements and project procurement schedule. CNX can support PV module and related product sourcing based on the project’s technical specifications.",
+            "href": "/solutions-projects/renewable-projects/grid-tie"
+          },
+          "offGrid": {
+            "image": "/images/home/supplyChainFinancing.webp",
+            "imageAlt": "",
+            "title": "Off-Grid Solar Projects",
+            "description": "Off-grid projects operate without a direct connection to the public electricity grid and may require coordinated PV, battery storage and power conversion products. Product selection depends on the load profile, autonomy requirements, local conditions and system configuration.",
+            "href": "/solutions-projects/renewable-projects/offgrid"
+          },
+          "financing": {
+            "image": "/images/news/news-epc-financing.webp",
+            "imageAlt": "",
+            "title": "Renewable Energy Project Financing",
+            "description": "Project financing involves evaluating capital requirements, project economics, financing structures and commercial risks. Where relevant financing arrangements or partners are available, the applicable scope, eligibility and approval process must be confirmed for each project.",
+            "href": "/solutions-projects/renewable-projects/project-financing"
+          }
+        }
+      },
+      "considerations": {
+        "eyebrow": "Project requirements",
+        "heading": "Different Projects. Different Supply Requirements.",
+        "intro": "Renewable energy projects vary in scale, operating conditions and system architecture. Understanding the project context helps identify the relevant product categories and clarify sourcing requirements before a quotation is prepared.",
+        "items": {
+          "grid": {
+            "icon": "plug",
+            "title": "Grid Connection & System Specifications",
+            "description": "Grid-connected projects must follow the defined project design and applicable technical requirements. Buyers should provide the relevant module specifications, inverter requirements, project capacity and applicable grid-related documentation."
+          },
+          "storage": {
+            "icon": "battery",
+            "title": "Energy Storage & Operating Requirements",
+            "description": "Off-grid projects may require energy storage sized around load demand, operating hours and backup requirements. Product choices should be evaluated against the system architecture and technical specifications."
+          },
+          "delivery": {
+            "icon": "truck",
+            "title": "Procurement & Delivery Planning",
+            "description": "Project schedules, order quantities, shipping destinations and documentation requirements can affect product sourcing. Early clarification helps identify potential supply constraints and align expectations."
+          }
+        },
+        "closing": ""
+      },
+      "support": {
+        "eyebrow": "How we support projects",
+        "heading": "PV & BESS Sourcing for Project Requirements",
+        "intro": "CNX works with project buyers to identify suitable solar and battery energy storage products based on project specifications and procurement needs. Our support focuses on product sourcing, specification review and coordination within the confirmed supply scope.",
+        "image": "/images/news/news-tariff-outlook.webp",
+        "items": {
+          "reason1": {
+            "title": "Product Sourcing",
+            "description": "Source PV modules, inverters and battery energy storage products according to the project’s specified requirements."
+          },
+          "reason2": {
+            "title": "Specification Review",
+            "description": "Review product datasheets, key parameters and project requirements to identify items that need confirmation before ordering."
+          },
+          "reason3": {
+            "title": "Multi-Category Procurement",
+            "description": "Coordinate sourcing across relevant PV and BESS product categories where required by the project."
+          },
+          "reason4": {
+            "title": "Supply & Delivery Coordination",
+            "description": "Coordinate confirmed quantities, documentation, order milestones and delivery arrangements within the agreed scope."
+          }
+        },
+        "ctaLabel": "Explore Solutions by Application",
+        "ctaHref": "/solutions-projects/solutions"
+      },
+      "cases": {
+        "eyebrow": "Project references",
+        "heading": "Selected Renewable Energy Projects",
+        "intro": "Explore selected renewable energy projects to understand their application context, product requirements and supply scope.",
+        "match": "",
+        "requirementsLabel": "Project requirements",
+        "scopeLabel": "CNX supply scope",
+        "cardLinkLabel": "View Project Details",
+        "linkLabel": "View All Case Studies",
+        "linkHref": "/news/case-studies"
+      },
+      "inquiry": {
+        "eyebrow": "Start your project inquiry",
+        "heading": "How to Start Your Project Inquiry",
+        "body": "Once the initial information is available, CNX can review the sourcing scope, clarify outstanding requirements and determine the next steps for product selection and quotation.",
+        "checklistTitle": "To help CNX review your project, prepare the following where available:",
+        "items": {
+          "type": {
+            "text": "Project type and location"
+          },
+          "capacity": {
+            "text": "Estimated project capacity or required product quantities"
+          },
+          "specs": {
+            "text": "PV module, inverter and battery storage specifications"
+          },
+          "configuration": {
+            "text": "Grid-connected or off-grid configuration"
+          },
+          "delivery": {
+            "text": "Target delivery schedule and destination"
+          },
+          "documents": {
+            "text": "Technical drawings, datasheets or bill of quantities"
+          },
+          "special": {
+            "text": "Any special certification, customization or documentation requirements"
+          }
+        },
+        "checklistNote": "",
+        "formTitle": "Send a quick project inquiry",
+        "topic": "Project inquiry · Renewable Projects",
+        "fields": {
+          "name": {
+            "label": "Full Name",
+            "type": "text",
+            "placeholder": "",
+            "options": "",
+            "required": "true",
+            "hidden": "",
+            "fullWidth": ""
+          },
+          "email": {
+            "label": "Business Email",
+            "type": "email",
+            "placeholder": "",
+            "options": "",
+            "required": "true",
+            "hidden": "",
+            "fullWidth": ""
+          },
+          "company": {
+            "label": "Company Name",
+            "type": "text",
+            "placeholder": "",
+            "options": "",
+            "required": "",
+            "hidden": "",
+            "fullWidth": ""
+          },
+          "projectLocation": {
+            "label": "Project Location",
+            "type": "text",
+            "placeholder": "",
+            "options": "",
+            "required": "true",
+            "hidden": "",
+            "fullWidth": ""
+          },
+          "projectType": {
+            "label": "Project Type",
+            "type": "select",
+            "placeholder": "Choose a type",
+            "options": "Grid-tied\nOff-grid\nProject financing\nNot sure yet",
+            "required": "",
+            "hidden": "",
+            "fullWidth": ""
+          },
+          "capacity": {
+            "label": "Estimated Capacity / Quantities",
+            "type": "text",
+            "placeholder": "",
+            "options": "",
+            "required": "",
+            "hidden": "",
+            "fullWidth": ""
+          },
+          "message": {
+            "label": "Product List & Requirements",
+            "type": "textarea",
+            "placeholder": "Modules, inverters, storage, specifications, delivery schedule…",
+            "options": "",
+            "required": "",
+            "hidden": "",
+            "fullWidth": "true"
+          },
+          "attachment": {
+            "label": "Upload BOQ, Drawings or Datasheets (optional)",
+            "type": "file",
+            "placeholder": "",
+            "options": "",
+            "required": "",
+            "hidden": "",
+            "fullWidth": "true"
+          }
+        },
+        "submitLabel": "Submit Your Project Requirements",
+        "privacy": "By submitting this form, you agree that CNX may contact you about this project. Please see our",
+        "privacyLinkLabel": "Privacy Policy",
+        "privacyHref": "/privacy-policy",
+        "successHeading": "Thank you.",
+        "successBody": "Your project requirements have been submitted. The CNX team will review the requested supply scope and contact you about the next steps."
+      },
+      "faq": {
+        "eyebrow": "FAQ",
+        "heading": "Renewable Energy Project FAQs",
+        "cardCtaHref": "#inquiry",
+        "items": {
+          "q1": {
+            "question": "What is the difference between grid-tied and off-grid solar projects?",
+            "answer": "Grid-tied solar projects connect to the electricity grid and must follow the applicable project design and grid connection requirements. Off-grid projects operate independently of the public grid and may require battery storage to meet electricity demand when solar generation is insufficient."
+          },
+          "q2": {
+            "question": "What products may be required for a renewable energy project?",
+            "answer": "Depending on the project configuration, requirements may include PV modules, inverters, battery energy storage systems and associated equipment. The final product list should follow the project design and technical specifications."
+          },
+          "q3": {
+            "question": "Can CNX support both PV and BESS sourcing for one project?",
+            "answer": "CNX can coordinate sourcing across PV and BESS product categories where suitable products are available and the requested scope has been confirmed. Specific product combinations and supply arrangements depend on the project requirements."
+          },
+          "q4": {
+            "question": "What information is needed for a renewable energy project quotation?",
+            "answer": "Useful information includes the project location, project type, capacity, product specifications, estimated quantities, delivery schedule and technical documentation. A bill of quantities or equipment list can also help clarify the scope."
+          },
+          "q5": {
+            "question": "Does CNX provide renewable energy project financing?",
+            "answer": "Financing support depends on the specific commercial arrangement and the availability of relevant financing partners. Customers should confirm the applicable eligibility criteria, scope and terms directly with CNX. Financing availability and approval should not be assumed."
+          }
+        }
+      },
+      "cta": {
+        "heading": "Planning a Renewable Energy Project?",
+        "subtext": "Share your project specifications, product requirements and target schedule with CNX. We will review the requested supply scope and help identify relevant product sourcing options.",
+        "primaryLabel": "Submit Your Project Requirements",
+        "primaryHref": "#inquiry",
+        "secondaryLabel": "",
+        "secondaryHref": "",
+        "image": "/images/news/news-epc-financing.webp"
+      }
+    },
+    "residential": {
+      "meta": {
+        "title": "Residential Solar Solutions: PV Modules & Home Battery Storage",
+        "description": "Source solar modules, inverters and home battery storage for residential projects. CNX matches products to household energy needs, roof conditions and system configuration."
+      },
+      "hero": {
+        "eyebrow": "Residential Solar Solutions",
+        "heading": "Residential Solar Solutions for Modern Homes",
+        "description": "Residential solar projects require products that match household energy needs, roof conditions and system configuration. CNX supports residential solar businesses and project buyers with sourcing options for solar modules, inverters and home battery storage products based on project specifications.\nFrom individual product procurement to coordinated PV and battery storage sourcing, we help customers evaluate suitable options for their residential energy projects.",
+        "image": "/images/solutionsAndProjects/solutions/residential/solutions-residential-hero.webp",
+        "imageAlt": "Home with rooftop solar panels",
+        "primaryLabel": "Discuss Your Requirements",
+        "primaryHref": "/contact",
+        "secondaryLabel": "Explore Solar Products",
+        "secondaryHref": "/manufacturing/solar-panels",
+        "note": ""
+      },
+      "overview": {
+        "eyebrow": "Residential applications",
+        "heading": "Solar & Battery Storage for Residential Applications",
+        "intro": "Residential solar systems vary according to roof space, household electricity consumption, local conditions and the need for energy storage. Some projects focus on solar generation, while others combine PV modules, inverters and batteries to support greater energy flexibility or backup power.\nCNX helps residential solar businesses identify relevant product options based on the intended system configuration, technical requirements and purchasing plan.",
+        "rows": {
+          "row1": {
+            "image": "/images/solutionsAndProjects/solutions/residential/solutions-residential-whyChooseImage.webp",
+            "imageAlt": "",
+            "title": "Residential Solar PV",
+            "description": "Solar modules and related products for residential rooftop solar installations, selected according to available roof area, system design and project specifications.",
+            "linkHref": ""
+          },
+          "row2": {
+            "image": "/images/hero/hero-488kwh-bess.webp",
+            "imageAlt": "",
+            "title": "Home Battery Storage",
+            "description": "Battery storage products for residential systems where energy storage is part of the project design. Selection depends on capacity, power requirements, inverter compatibility and operating objectives.",
+            "linkHref": ""
+          },
+          "row3": {
+            "image": "/images/about/whyChooseCNX/whyChooseCNXHeroBanner.webp",
+            "imageAlt": "",
+            "title": "Integrated Residential PV & BESS",
+            "description": "Coordinated sourcing of solar and storage products for projects requiring both generation and battery storage, subject to the specified system architecture and product compatibility.",
+            "linkHref": ""
+          }
+        }
+      },
+      "products": {
+        "eyebrow": "Residential products",
+        "heading": "Residential Solar Products for Your Project",
+        "intro": "Selecting products for a residential solar project requires more than comparing rated power. Buyers also need to consider system compatibility, available installation space, operating conditions and the technical specifications of the intended application.\nCNX can help review the requested product categories and identify sourcing options within the confirmed supply scope.",
+        "cards": {
+          "card1": {
+            "group": "",
+            "image": "/images/manufacturing/bc-solar/g12-0bb-venus-pro.webp",
+            "imageAlt": "Back-contact solar module",
+            "title": "Rooftop Solar Modules",
+            "description": "BC, HJT and TOPCon modules for residential rooftops, selected by roof area, system design and project specifications.",
+            "specs": "BC, HJT, TOPCon, Rooftop",
+            "linkLabel": "View Products",
+            "href": "/manufacturing/solar-panels",
+            "fallbackHref": "/manufacturing/solar-panels"
+          },
+          "card2": {
+            "group": "",
+            "image": "/images/energyEcosystem/bessTabImage01.webp",
+            "imageAlt": "Battery storage cabinet",
+            "title": "Home Battery Storage",
+            "description": "Residential battery storage for self-consumption and backup, sized to capacity, power and inverter compatibility.",
+            "specs": "5–20 kWh, LFP",
+            "linkLabel": "View Products",
+            "href": "/manufacturing/bess/residential",
+            "fallbackHref": "/manufacturing/bess"
+          },
+          "card3": {
+            "group": "",
+            "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+            "imageAlt": "Integrated PV and storage unit",
+            "title": "Tier 1 Brand Inverters & Storage",
+            "description": "String and hybrid inverters and storage from selected Tier 1 brands, matched to the PV array and storage design.",
+            "specs": "Growatt, DEYE, Solis, GoodWe",
+            "linkLabel": "View Brands",
+            "href": "/tier-1-brands",
+            "fallbackHref": "/tier-1-brands"
+          }
+        }
+      },
+      "challenges": {
+        "eyebrow": "Procurement challenges",
+        "heading": "Addressing Residential Solar Procurement Challenges",
+        "intro": "Residential solar buyers often need to balance product performance, system compatibility, purchasing costs and supply availability. Clear technical requirements help reduce uncertainty during product selection and quotation.",
+        "items": {
+          "item1": {
+            "title": "Matching Products to Different System Configurations",
+            "description": "Residential systems differ in capacity, roof conditions and whether battery storage is required. CNX can review the specified application and product requirements before suggesting suitable sourcing options."
+          },
+          "item2": {
+            "title": "Coordinating Solar and Storage Procurement",
+            "description": "When a project includes both PV and BESS, buyers may need to coordinate different product categories and suppliers. CNX can help coordinate sourcing within the confirmed product scope."
+          },
+          "item3": {
+            "title": "Managing Product Specifications and Availability",
+            "description": "Model specifications, order quantities and delivery destinations can influence product availability and purchasing decisions. Providing clear requirements early helps the quotation process proceed more efficiently."
+          }
+        },
+        "closing": ""
+      },
+      "whyChoose": {
+        "eyebrow": "Why choose CNX",
+        "heading": "Why Choose CNX for Residential Solar Products?",
+        "intro": "",
+        "image": "/images/solutionsAndProjects/solutions/residential/solutions-residential-whyChooseImage.webp",
+        "items": {
+          "reason1": {
+            "title": "Flexible Solar Product Sourcing",
+            "description": "We offer flexible access to solar panels, inverters and battery storage products to meet your project needs."
+          },
+          "reason2": {
+            "title": "One Partner for PV & BESS",
+            "description": "We simplify sourcing by coordinating solar and energy storage products through one partner."
+          },
+          "reason3": {
+            "title": "Products Matched to Your Needs",
+            "description": "We help identify suitable products based on your specifications, system requirements and budget considerations."
+          },
+          "reason4": {
+            "title": "Smooth Procurement Coordination",
+            "description": "We coordinate product details, documentation and delivery schedules to help keep your purchasing process on track."
+          }
+        }
+      },
+      "faq": {
+        "eyebrow": "FAQ",
+        "heading": "Residential Solar FAQs",
+        "cardCtaHref": "/contact",
+        "items": {
+          "q1": {
+            "question": "What products are typically used in residential solar solutions?",
+            "answer": "Residential solar systems commonly use PV modules and inverters. Battery storage may also be included when required by the system design and project objectives."
+          },
+          "q2": {
+            "question": "Can CNX source both solar panels and home battery storage products?",
+            "answer": "CNX can coordinate sourcing across PV and BESS categories where suitable products are available. Product selection depends on the project specifications, required quantities and commercial scope."
+          },
+          "q3": {
+            "question": "How do I choose the right solar modules for a residential project?",
+            "answer": "Relevant factors include rated power, module dimensions, roof space, electrical specifications, environmental conditions and applicable local requirements. Final selection should follow the project design."
+          },
+          "q4": {
+            "question": "What information is needed for a residential solar quotation?",
+            "answer": "Provide the project destination, module specifications, estimated quantity, storage requirements if applicable, target delivery schedule and any required certifications or documentation."
+          }
+        }
+      },
+      "cta": {
+        "heading": "Planning a Residential Solar Project?",
+        "subtext": "Share your product specifications, quantities and delivery requirements with CNX to explore relevant residential solar and battery storage sourcing options.",
+        "primaryLabel": "Discuss Your Residential Solar Requirements",
+        "primaryHref": "/contact",
+        "secondaryLabel": "",
+        "secondaryHref": "",
+        "image": "/images/solutionsAndProjects/solutions/residential/solutions-residential-whyChooseImage.webp"
+      }
+    },
+    "commercial": {
+      "meta": {
+        "title": "Commercial & Industrial Solar and Storage Solutions",
+        "description": "PV modules, inverters and battery storage for factories, warehouses and commercial buildings. CNX coordinates C&I product sourcing around your specifications, volumes and schedule."
+      },
+      "hero": {
+        "eyebrow": "Commercial & Industrial",
+        "heading": "Commercial & Industrial Solar Solutions",
+        "description": "Commercial and industrial solar projects require product selections that align with facility requirements, energy usage patterns, system design and project schedules. CNX supports C&I project buyers with sourcing options for solar modules, inverters and battery energy storage products.\nWhether the project involves rooftop PV, solar generation combined with storage, or procurement for a portfolio of commercial facilities, CNX can review the required products and coordinate sourcing within the agreed scope.",
+        "image": "/images/home/CTABackground.webp",
+        "imageAlt": "Industrial facility",
+        "primaryLabel": "Discuss Your C&I Project",
+        "primaryHref": "/contact",
+        "secondaryLabel": "Explore PV & BESS",
+        "secondaryHref": "#products",
+        "note": ""
+      },
+      "overview": {
+        "eyebrow": "C&I applications",
+        "heading": "Solar & Energy Storage for Commercial and Industrial Facilities",
+        "intro": "Commercial and industrial projects vary by facility size, electricity demand, operating schedules and installation conditions. Product sourcing should reflect the project’s technical specifications and the intended role of solar generation and energy storage.",
+        "rows": {
+          "row1": {
+            "image": "/images/home/commercialBuildings.webp",
+            "imageAlt": "",
+            "title": "Commercial & Industrial Rooftop Solar",
+            "description": "PV modules and related products for factories, warehouses, commercial buildings and industrial facilities, based on roof conditions and project specifications.",
+            "linkHref": ""
+          },
+          "row2": {
+            "image": "/images/manufacturing/bess/bess-banner.webp",
+            "imageAlt": "",
+            "title": "C&I Battery Energy Storage",
+            "description": "Battery storage products for projects with defined energy management, load support or backup requirements. Product selection depends on the required power, energy capacity and system design.",
+            "linkHref": ""
+          },
+          "row3": {
+            "image": "/images/home/residentialSolar.webp",
+            "imageAlt": "",
+            "title": "Distributed Solar Applications",
+            "description": "Product sourcing for distributed PV installations across commercial properties or multiple facilities, based on the agreed specifications and purchasing plan.",
+            "linkHref": ""
+          }
+        }
+      },
+      "products": {
+        "eyebrow": "C&I products",
+        "heading": "PV & BESS Products for C&I Projects",
+        "intro": "C&I procurement often involves larger quantities, more detailed technical requirements and coordination across several product categories. Product selection should be based on the project design, electrical requirements, installation conditions and delivery plan.",
+        "cards": {
+          "card1": {
+            "group": "",
+            "image": "/images/energyEcosystem/solarpaelTabImage01.webp",
+            "imageAlt": "HJT solar module",
+            "title": "High-Efficiency PV Modules",
+            "description": "HJT, TOPCon and BC modules for commercial and industrial rooftops and carports.",
+            "specs": "HJT, TOPCon, BC, Bifacial",
+            "linkLabel": "View Products",
+            "href": "/manufacturing/solar-panels",
+            "fallbackHref": "/manufacturing/solar-panels"
+          },
+          "card2": {
+            "group": "",
+            "image": "/images/energyEcosystem/bessTabImage01.webp",
+            "imageAlt": "Commercial battery storage cabinet",
+            "title": "112 kWh C&I BESS",
+            "description": "Cabinet battery storage for peak shaving, load support and backup at commercial sites.",
+            "specs": "112 kWh, LFP, Outdoor cabinet",
+            "linkLabel": "View Products",
+            "href": "/manufacturing/bess/112kwh",
+            "fallbackHref": "/manufacturing/bess"
+          },
+          "card3": {
+            "group": "",
+            "image": "/images/premiumSolutions/hithiumEssCabinet.webp",
+            "imageAlt": "Commercial battery storage cabinet",
+            "title": "261 kWh C&I BESS",
+            "description": "Higher-capacity cabinet storage for industrial facilities and solar-plus-storage projects.",
+            "specs": "261 kWh, LFP, Outdoor cabinet",
+            "linkLabel": "View Products",
+            "href": "/manufacturing/bess/261kwh",
+            "fallbackHref": "/manufacturing/bess"
+          },
+          "card4": {
+            "group": "",
+            "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+            "imageAlt": "Integrated PV and storage unit",
+            "title": "Tier 1 Brand Inverters & Storage",
+            "description": "Commercial string and hybrid inverters and storage from selected Tier 1 brands.",
+            "specs": "Growatt, DEYE, Solis, GoodWe",
+            "linkLabel": "View Brands",
+            "href": "/tier-1-brands",
+            "fallbackHref": "/tier-1-brands"
+          }
+        }
+      },
+      "challenges": {
+        "eyebrow": "Procurement challenges",
+        "heading": "Solving Key C&I Solar Procurement Challenges",
+        "intro": "",
+        "items": {
+          "item1": {
+            "title": "Complex Product Specifications",
+            "description": "C&I projects may involve detailed requirements for electrical parameters, certifications, operating conditions and product compatibility. CNX can review the provided specifications and identify items requiring confirmation."
+          },
+          "item2": {
+            "title": "Multiple Product Categories",
+            "description": "Projects that include both PV and BESS may require coordination across modules, inverters and storage products. CNX can support sourcing coordination where the requested categories fall within the agreed scope."
+          },
+          "item3": {
+            "title": "Volume and Delivery Planning",
+            "description": "Order quantities, delivery locations and installation schedules can affect sourcing decisions. Early clarification helps establish realistic purchasing and delivery expectations."
+          },
+          "item4": {
+            "title": "Consistency Across Multiple Sites",
+            "description": "For multi-site or repeat procurement projects, buyers may need consistent product specifications and documentation. Clear product requirements and agreed purchasing arrangements help maintain consistency across orders."
+          }
+        },
+        "closing": ""
+      },
+      "whyChoose": {
+        "eyebrow": "Why choose CNX",
+        "heading": "Why Choose CNX for C&I Solar & Storage?",
+        "intro": "",
+        "image": "/images/manufacturing/manufacturing-why-choose-us.webp",
+        "items": {
+          "reason1": {
+            "title": "Wide PV & BESS Product Selection",
+            "description": "We connect you with solar panels, inverters and battery storage products to meet your project needs."
+          },
+          "reason2": {
+            "title": "Flexible Sourcing Options",
+            "description": "We combine our manufacturing capabilities with selected partner brands to offer flexible sourcing solutions."
+          },
+          "reason3": {
+            "title": "Products Matched to Your Requirements",
+            "description": "We help identify suitable products based on your technical specifications, quantities and project requirements."
+          },
+          "reason4": {
+            "title": "Streamlined Procurement Coordination",
+            "description": "We coordinate quotations, product details, orders and delivery planning to make procurement easier."
+          }
+        }
+      },
+      "applications": {
+        "eyebrow": "Project applications",
+        "heading": "C&I Solar & Storage Project Applications",
+        "intro": "Explore commercial and industrial solar applications involving rooftop PV, battery energy storage and distributed energy systems. Each project profile highlights the procurement requirements, the products supplied and CNX’s confirmed role.",
+        "facets": {
+          "facility": {
+            "label": "Facility type",
+            "values": "Factory / Warehouse / Commercial building"
+          },
+          "configuration": {
+            "label": "Project configuration",
+            "values": "PV only / PV + BESS"
+          },
+          "products": {
+            "label": "Product categories",
+            "values": "Modules / Inverters / BESS"
+          },
+          "requirements": {
+            "label": "Procurement requirements",
+            "values": "Specifications / Quantity / Delivery"
+          }
+        },
+        "match": "rooftop, logistics, warehouse, factory, commercial",
+        "requirementsLabel": "Project requirements",
+        "scopeLabel": "CNX supply scope",
+        "cardLinkLabel": "View Project Details",
+        "linkLabel": "View All Case Studies",
+        "linkHref": "/news/case-studies"
+      },
+      "faq": {
+        "eyebrow": "FAQ",
+        "heading": "C&I Solar FAQs",
+        "cardCtaHref": "/contact",
+        "items": {
+          "q1": {
+            "question": "What is a commercial and industrial solar solution?",
+            "answer": "A C&I solar solution generally refers to a solar power system designed for a commercial or industrial facility. Depending on the project, it may include PV modules, inverters and battery energy storage."
+          },
+          "q2": {
+            "question": "Can C&I solar projects include battery energy storage?",
+            "answer": "Yes. Battery storage may be included where it fits the project’s objectives and system design. The required power, energy capacity and operating configuration should be confirmed during project planning."
+          },
+          "q3": {
+            "question": "What should buyers consider when sourcing C&I solar modules?",
+            "answer": "Buyers should consider rated power, module dimensions, electrical specifications, required certifications, project quantities, operating environment and delivery requirements."
+          },
+          "q4": {
+            "question": "Can CNX coordinate PV and BESS procurement for one project?",
+            "answer": "CNX can coordinate sourcing across PV and BESS product categories when the requested products are available and fall within the confirmed supply scope."
+          },
+          "q5": {
+            "question": "Can CNX support bulk or repeat orders?",
+            "answer": "Bulk and repeat orders can be evaluated according to product availability, specifications, quantities, production or sourcing arrangements and delivery schedules."
+          }
+        }
+      },
+      "cta": {
+        "heading": "Sourcing Products for a Commercial or Industrial Energy Project?",
+        "subtext": "Share your technical specifications, estimated quantities and project schedule with CNX to review relevant PV and BESS sourcing options.",
+        "primaryLabel": "Discuss Your C&I Project",
+        "primaryHref": "/contact",
+        "secondaryLabel": "",
+        "secondaryHref": "",
+        "image": "/images/home/ctabg2.webp"
+      }
+    },
+    "utilities": {
+      "meta": {
+        "title": "Utility-Scale Solar Module Sourcing for Large Projects",
+        "description": "PV module sourcing for utility-scale solar: CNX aligns module specifications, procurement volumes, documentation and delivery schedules with your project requirements."
+      },
+      "hero": {
+        "eyebrow": "Utility-Scale Solar",
+        "heading": "Utility-Scale Solar Solutions for Large-Scale Projects",
+        "description": "Utility-scale solar projects require careful alignment between module specifications, project design, procurement volumes and delivery schedules. CNX supports large-scale solar project buyers with PV module sourcing and related product procurement based on confirmed project requirements.\nFrom reviewing module specifications to coordinating quotation details and supply arrangements, CNX helps buyers clarify sourcing requirements for utility-scale solar developments.",
+        "image": "/images/news/news-epc-financing.webp",
+        "imageAlt": "Aerial view of a utility-scale solar plant",
+        "primaryLabel": "Discuss Your Project",
+        "primaryHref": "/contact",
+        "secondaryLabel": "Explore Solar Panels",
+        "secondaryHref": "/manufacturing/solar-panels",
+        "note": ""
+      },
+      "overview": {
+        "eyebrow": "Utility applications",
+        "heading": "Solar Module Sourcing for Utility-Scale Applications",
+        "intro": "Utility-scale projects typically involve defined technical specifications, substantial order quantities and project-specific delivery requirements. Product sourcing must align with the project’s module selection, electrical design, certification needs and procurement schedule.",
+        "rows": {
+          "row1": {
+            "image": "/images/hero/hero-750w-solar.webp",
+            "imageAlt": "",
+            "title": "PV Module Specifications",
+            "description": "Review module power ratings, dimensions, electrical parameters, technology, applicable certification requirements and other specifications defined by the project.",
+            "linkHref": ""
+          },
+          "row2": {
+            "image": "/images/home/utilityScaleSolar.webp",
+            "imageAlt": "",
+            "title": "Volume-Based Procurement",
+            "description": "Align product availability, required quantities, purchasing arrangements and quotation details with the project’s procurement plan.",
+            "linkHref": ""
+          },
+          "row3": {
+            "image": "/images/home/virtualPowerPlantSolutions.webp",
+            "imageAlt": "",
+            "title": "Delivery & Documentation Planning",
+            "description": "Clarify the delivery destination, required documents, target schedule and other project-specific conditions before order confirmation.",
+            "linkHref": ""
+          }
+        }
+      },
+      "products": {
+        "eyebrow": "Products for utility projects",
+        "heading": "Solar Modules and Related Products for Utility Projects",
+        "intro": "CNX can review PV module sourcing requirements for utility-scale applications and coordinate related product sourcing where included in the project scope. The final product selection should be based on the project’s technical specifications and confirmed availability.",
+        "cards": {
+          "card1": {
+            "group": "",
+            "image": "/images/manufacturing/bc-solar/ProductpageHeroProductimage.webp",
+            "imageAlt": "Utility-scale solar modules",
+            "title": "Utility-Scale Solar Modules",
+            "description": "Screen products based on the specified power, size, electrical parameters and certification requirements for the project.",
+            "specs": "High power, Bifacial, Utility format",
+            "linkLabel": "View Products",
+            "href": "/manufacturing/solar-panels",
+            "fallbackHref": "/manufacturing/solar-panels"
+          },
+          "card2": {
+            "group": "",
+            "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+            "imageAlt": "Integrated PV and storage unit",
+            "title": "Selected Inverter Brands",
+            "description": "If the project’s procurement scope includes inverters, explore the relevant brand and product pages.",
+            "specs": "Growatt, DEYE, Solis, GoodWe",
+            "linkLabel": "View Brands",
+            "href": "/tier-1-brands",
+            "fallbackHref": "/tier-1-brands"
+          },
+          "card3": {
+            "group": "",
+            "image": "/images/premiumSolutions/hithiumBlock.webp",
+            "imageAlt": "Utility-scale battery storage system",
+            "title": "Related BESS Products",
+            "description": "Where a large-scale project includes energy storage, explore the BESS range; the supply scope is confirmed per project.",
+            "specs": "488 kWh and above, LFP",
+            "linkLabel": "View Products",
+            "href": "/manufacturing/bess",
+            "fallbackHref": "/manufacturing/bess"
+          }
+        }
+      },
+      "requirements": {
+        "eyebrow": "Procurement requirements",
+        "heading": "Managing Utility-Scale Solar Procurement Requirements",
+        "intro": "",
+        "items": {
+          "item1": {
+            "title": "Meeting Defined Technical Specifications",
+            "description": "Large-scale projects often specify exact module parameters, certification requirements and documentation. CNX can review the provided requirements and clarify product options for further evaluation."
+          },
+          "item2": {
+            "title": "Managing Large Order Quantities",
+            "description": "Large procurement volumes require clear product specifications, quantity planning and commercial confirmation. CNX can coordinate quotation and sourcing details according to the agreed order scope."
+          },
+          "item3": {
+            "title": "Aligning Procurement with Project Milestones",
+            "description": "Delivery destinations, project schedules and purchasing milestones need to be clarified before order confirmation. Early planning helps identify sourcing and logistics requirements."
+          },
+          "item4": {
+            "title": "Maintaining Product and Documentation Consistency",
+            "description": "For projects requiring consistent specifications across batches or procurement stages, buyers should confirm product models, technical documents and order requirements before proceeding."
+          }
+        },
+        "closing": ""
+      },
+      "whyChoose": {
+        "eyebrow": "Why choose CNX",
+        "heading": "Why Choose CNX for Utility-Scale Solar Procurement?",
+        "intro": "",
+        "image": "/images/manufacturing/solar-panels/solar-panels-banner.webp",
+        "items": {
+          "reason1": {
+            "title": "Flexible Manufacturing & Sourcing",
+            "description": "We offer flexible PV module sourcing options to meet your project specifications and procurement needs."
+          },
+          "reason2": {
+            "title": "Products Matched to Project Requirements",
+            "description": "We help identify suitable products based on technical specifications, documentation and project requirements."
+          },
+          "reason3": {
+            "title": "Access to PV & BESS Products",
+            "description": "We connect you with solar and energy storage products through our available portfolio and selected brand partnerships."
+          },
+          "reason4": {
+            "title": "Coordinated Supply & Delivery",
+            "description": "We coordinate quotations, order details, required documentation and delivery arrangements to keep procurement on track."
+          }
+        }
+      },
+      "projects": {
+        "eyebrow": "Project examples",
+        "heading": "Supporting Utility-Scale Solar Project Procurement",
+        "intro": "Every utility-scale solar project has its own technical specifications, procurement volumes and delivery requirements. Explore relevant project examples and product information to understand the scope of sourcing support available from CNX.",
+        "match": "solar farm, utility, tracker, mw",
+        "requirementsLabel": "Project requirements",
+        "scopeLabel": "CNX supply scope",
+        "cardLinkLabel": "View Project Details",
+        "linkLabel": "View All Case Studies",
+        "linkHref": "/news/case-studies"
+      },
+      "faq": {
+        "eyebrow": "FAQ",
+        "heading": "Utility-Scale Solar FAQs",
+        "cardCtaHref": "/contact",
+        "items": {
+          "q1": {
+            "question": "What is a utility-scale solar project?",
+            "answer": "A utility-scale solar project is a large solar power development intended to generate electricity at scale. The project’s design, capacity, equipment and procurement requirements depend on its technical specifications and development plan."
+          },
+          "q2": {
+            "question": "What should buyers consider when sourcing utility-scale solar modules?",
+            "answer": "Key considerations include module specifications, power rating, electrical parameters, required certifications, quantity, availability, delivery destination and project schedule."
+          },
+          "q3": {
+            "question": "Can CNX review project-specific module requirements?",
+            "answer": "CNX can review the specifications provided by the buyer and identify relevant sourcing options subject to product availability, technical requirements and the confirmed commercial scope."
+          },
+          "q4": {
+            "question": "Can CNX coordinate large-volume PV module procurement?",
+            "answer": "Large-volume sourcing can be evaluated according to the required quantities, product specifications, supply arrangements and delivery plan. Specific volumes and delivery commitments must be confirmed for each order."
+          },
+          "q5": {
+            "question": "Can CNX supply both solar modules and battery storage for a utility-scale project?",
+            "answer": "PV and BESS sourcing can be reviewed where both product categories are required and suitable products are available. The final scope depends on the project specifications and agreed supply arrangement."
+          }
+        }
+      },
+      "cta": {
+        "heading": "Sourcing PV Modules for a Utility-Scale Project?",
+        "subtext": "Share your module specifications, procurement volume and project schedule with CNX to review suitable sourcing options.",
+        "primaryLabel": "Discuss Your Utility-Scale Project",
+        "primaryHref": "/contact",
+        "secondaryLabel": "",
+        "secondaryHref": "",
+        "image": "/images/hero/hero-smart-pv.webp"
+      }
+    },
+    "vpp": {
+      "meta": {
+        "title": "Virtual Power Plant Solutions: PV & BESS Sourcing",
+        "description": "Source PV modules and battery energy storage for virtual power plant and distributed energy projects, matched to your system architecture and integration requirements."
+      },
+      "hero": {
+        "eyebrow": "Virtual Power Plant",
+        "heading": "Virtual Power Plant Solutions for Distributed Energy Resources",
+        "description": "Virtual power plants coordinate distributed energy resources, such as solar generation, battery storage and other controllable assets, to support energy management and grid-related applications.\nCNX supports VPP-related projects through sourcing options for PV modules, battery energy storage systems and related products, based on project specifications and the confirmed procurement scope.",
+        "image": "/images/about/whyChooseCNX/whyChooseCNXHeroBanner.webp",
+        "imageAlt": "Rooftop solar on homes connected to a distributed energy network",
+        "primaryLabel": "Discuss Your VPP Project",
+        "primaryHref": "/contact",
+        "secondaryLabel": "Explore BESS Products",
+        "secondaryHref": "/manufacturing/bess",
+        "note": ""
+      },
+      "overview": {
+        "eyebrow": "Application overview",
+        "heading": "Understanding Virtual Power Plant Applications",
+        "intro": "A virtual power plant brings together distributed energy resources through appropriate monitoring, communication and control arrangements. Depending on the project, these resources may include rooftop solar systems, battery energy storage, commercial facilities and other controllable assets.\nThe required equipment and integration approach vary according to the project’s operating objectives, technical architecture and applicable market requirements.",
+        "items": {
+          "item1": {
+            "icon": "sun",
+            "title": "Distributed Solar Generation",
+            "description": "Rooftop and distributed PV systems can contribute solar generation to a broader distributed energy resource portfolio. Module selection depends on the installation requirements and project specifications."
+          },
+          "item2": {
+            "icon": "battery",
+            "title": "Distributed Battery Energy Storage",
+            "description": "Battery storage may provide flexibility within a VPP architecture, depending on the control strategy, operating requirements and integration design."
+          },
+          "item3": {
+            "icon": "network",
+            "title": "Coordinated Energy Resources",
+            "description": "VPP projects may coordinate multiple distributed assets through a suitable control and communication platform. The required platform and integration services must be defined by the project owner or system integrator."
+          }
+        },
+        "closing": ""
+      },
+      "products": {
+        "eyebrow": "Product solutions",
+        "heading": "PV & BESS Products for Virtual Power Plant Applications",
+        "intro": "VPP projects can involve different combinations of solar generation, battery storage and related electrical equipment. Product selection should follow the system architecture and technical requirements specified by the project team.",
+        "cards": {
+          "card1": {
+            "group": "",
+            "image": "/images/manufacturing/bc-solar/g12-0bb-uranus-pro.webp",
+            "imageAlt": "Solar module",
+            "title": "Solar PV Modules",
+            "description": "Source PV modules for distributed solar installations according to required power ratings, dimensions, electrical parameters and applicable certifications.",
+            "specs": "BC, HJT, TOPCon",
+            "linkLabel": "Explore Solar Panels",
+            "href": "/manufacturing/solar-panels",
+            "fallbackHref": "/manufacturing/solar-panels"
+          },
+          "card2": {
+            "group": "",
+            "image": "/images/premiumSolutions/hithiumEssCabinet.webp",
+            "imageAlt": "Battery storage cabinet",
+            "title": "Battery Energy Storage Systems",
+            "description": "Explore battery storage product options based on rated power, energy capacity, operating environment and the project’s specified integration requirements.",
+            "specs": "Residential, C&I, Utility",
+            "linkLabel": "Explore BESS Products",
+            "href": "/manufacturing/bess",
+            "fallbackHref": "/manufacturing/bess"
+          },
+          "card3": {
+            "group": "",
+            "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+            "imageAlt": "Integrated PV and storage unit",
+            "title": "Inverters & Brand Products",
+            "description": "Hybrid and storage inverters from selected Tier 1 brands, where included in the project scope.",
+            "specs": "Growatt, DEYE, Solis, GoodWe",
+            "linkLabel": "View Brands",
+            "href": "/tier-1-brands",
+            "fallbackHref": "/tier-1-brands"
+          }
+        }
+      },
+      "scenarios": {
+        "eyebrow": "Application scenarios",
+        "heading": "Where Virtual Power Plant Solutions Are Used",
+        "intro": "Virtual power plant applications depend on the available energy resources, the operating objectives and the control capabilities of the project. Common application contexts may include:",
+        "cards": {
+          "residential": {
+            "image": "/images/solutionsAndProjects/solutions/residential/solutions-residential-hero.webp",
+            "imageAlt": "",
+            "title": "Residential Energy Resources",
+            "description": "Aggregated residential PV and battery storage assets, where supported by the applicable platform and operating arrangements.",
+            "href": "/solutions-projects/solutions/residential"
+          },
+          "commercial": {
+            "image": "/images/home/commercialBuildings.webp",
+            "imageAlt": "",
+            "title": "Commercial & Industrial Energy Resources",
+            "description": "Distributed generation and storage across commercial or industrial facilities.",
+            "href": "/solutions-projects/solutions/commercial-industrial"
+          },
+          "storage": {
+            "image": "/images/manufacturing/bess/bess-banner.webp",
+            "imageAlt": "",
+            "title": "Distributed Storage Portfolios",
+            "description": "Multiple battery storage installations coordinated under a defined energy management strategy.",
+            "href": "/solutions-projects/solutions/utilities"
+          },
+          "integration": {
+            "image": "/images/home/utilityScaleSolar.webp",
+            "imageAlt": "",
+            "title": "Renewable Energy Integration",
+            "description": "Projects seeking to coordinate distributed renewable generation and storage resources.",
+            "href": "/solutions-projects/renewable-projects/grid-tie"
+          }
+        }
+      },
+      "considerations": {
+        "eyebrow": "Project requirements",
+        "heading": "Key Considerations for VPP Product Selection",
+        "intro": "VPP projects require coordination between equipment and the control architecture. Product sourcing should therefore consider more than the rated capacity of individual components.",
+        "items": {
+          "item1": {
+            "title": "Power and Energy Requirements",
+            "description": "Confirm the required power output, energy capacity, operating profile and any project-specific performance criteria for the battery storage equipment."
+          },
+          "item2": {
+            "title": "Communication and Control Compatibility",
+            "description": "Clarify the communication interfaces, control requirements and compatibility criteria specified by the system integrator or platform provider. Equipment compatibility must be verified rather than assumed."
+          },
+          "item3": {
+            "title": "Operating Environment",
+            "description": "Consider installation location, ambient conditions, enclosure requirements and any applicable environmental or safety standards."
+          },
+          "item4": {
+            "title": "Technical Documentation and Compliance",
+            "description": "Identify required datasheets, certifications, test reports and other technical documents before product selection and quotation."
+          }
+        },
+        "closing": ""
+      },
+      "whyChoose": {
+        "eyebrow": "Why choose CNX",
+        "heading": "Why Choose CNX for VPP-Related Product Sourcing?",
+        "intro": "",
+        "image": "/images/hero/hero-488kwh-bess.webp",
+        "items": {
+          "reason1": {
+            "title": "Flexible PV & BESS Sourcing",
+            "description": "We connect you with suitable solar panels, battery energy storage systems and related products through our manufacturing and sourcing network."
+          },
+          "reason2": {
+            "title": "Product Options Tailored to Your Project",
+            "description": "We review your specifications and project requirements to help identify suitable products for further technical evaluation."
+          },
+          "reason3": {
+            "title": "One Partner for Multiple Product Categories",
+            "description": "We simplify procurement by coordinating solar, storage and related equipment sourcing within our confirmed supply scope."
+          },
+          "reason4": {
+            "title": "Reliable Documentation & Delivery Coordination",
+            "description": "We help align product datasheets, certification requirements, order quantities and delivery schedules to keep your procurement process organized."
+          }
+        }
+      },
+      "process": {
+        "eyebrow": "Procurement process",
+        "heading": "From VPP Project Requirements to Product Sourcing",
+        "intro": "",
+        "steps": {
+          "step1": {
+            "title": "Share the Project Architecture",
+            "description": "Provide the application, project location and an overview of the intended VPP configuration."
+          },
+          "step2": {
+            "title": "Define Equipment Requirements",
+            "description": "Specify PV modules, battery storage, inverters and any required technical parameters."
+          },
+          "step3": {
+            "title": "Review Product Options",
+            "description": "CNX reviews the requested scope and identifies relevant sourcing options, subject to availability and compatibility requirements."
+          },
+          "step4": {
+            "title": "Confirm the Supply Scope",
+            "description": "Confirm product models, quantities, documentation, commercial terms and delivery arrangements before placing an order."
+          }
+        },
+        "note": "",
+        "ctaLabel": "",
+        "ctaHref": "/contact"
+      },
+      "faq": {
+        "eyebrow": "FAQ",
+        "heading": "Virtual Power Plant FAQs",
+        "cardCtaHref": "/contact",
+        "items": {
+          "q1": {
+            "question": "What is a virtual power plant?",
+            "answer": "A virtual power plant coordinates distributed energy resources, such as solar generation and battery storage, through appropriate monitoring, communication and control arrangements. Its capabilities depend on the project’s technical architecture and operating model."
+          },
+          "q2": {
+            "question": "What products are used in virtual power plant applications?",
+            "answer": "Depending on the project, equipment may include PV modules, battery energy storage systems, inverters and related electrical products. The final equipment list depends on the system design."
+          },
+          "q3": {
+            "question": "Can battery storage be used in a virtual power plant?",
+            "answer": "Yes. Battery storage can be part of a VPP resource portfolio, depending on the control strategy, operating requirements and technical integration."
+          },
+          "q4": {
+            "question": "Does CNX provide VPP software or control platforms?",
+            "answer": "CNX’s role should be confirmed against the actual service scope. Where CNX is engaged for product sourcing, the VPP software, monitoring and control platform should be specified by the project owner or its appointed technology provider unless CNX has separately confirmed those services."
+          },
+          "q5": {
+            "question": "What information is needed to source products for a VPP project?",
+            "answer": "Useful information includes the project architecture, location, product list, power and energy requirements, communication or compatibility criteria, required certifications, quantities and delivery schedule."
+          }
+        }
+      },
+      "cta": {
+        "heading": "Discuss Your Virtual Power Plant Project",
+        "subtext": "Share your project architecture, equipment list and technical requirements with CNX to review relevant PV and battery energy storage sourcing options.",
+        "primaryLabel": "Submit Your VPP Project Requirements",
+        "primaryHref": "/contact",
+        "secondaryLabel": "",
+        "secondaryHref": "",
+        "image": "/images/energyEcosystem/energyEcosystemSectionBackground.webp"
+      }
+    },
+    "supplyChain": {
+      "meta": {
+        "title": "Solar & BESS Supply Chain Financing Support",
+        "description": "Procurement support for PV and BESS buyers: CNX clarifies product requirements, order quantities, payment terms and delivery planning. Any financing is confirmed separately."
+      },
+      "hero": {
+        "eyebrow": "Supply Chain Financing",
+        "heading": "Solar & BESS Supply Chain Financing Support",
+        "description": "Solar and battery energy storage procurement involves product selection, order commitments, payment terms and delivery planning. For distributors, EPC contractors and project buyers, aligning these commercial requirements is an important part of managing purchasing operations.\nCNX works with business buyers to clarify PV and BESS product requirements, procurement quantities and commercial arrangements. Where applicable financing options or financing partners are available, their scope and terms must be confirmed separately.",
+        "image": "/images/manufacturing/bess/bess-banner.webp",
+        "imageAlt": "Battery storage products ready for shipment",
+        "primaryLabel": "Discuss Your Procurement Needs",
+        "primaryHref": "/contact",
+        "secondaryLabel": "Explore PV & BESS Products",
+        "secondaryHref": "#scope",
+        "note": ""
+      },
+      "context": {
+        "eyebrow": "Business context",
+        "heading": "Understanding Financing Needs in Solar Procurement",
+        "intro": "Solar and battery energy storage procurement may involve substantial order values, advance payments, delivery lead times and project-specific purchasing commitments. These factors can affect how distributors, EPC contractors and project buyers plan their working capital.\nThe appropriate commercial arrangement depends on the buyer’s financial position, order structure, supplier terms and any applicable financing arrangements.",
+        "items": {
+          "item1": {
+            "icon": "package-search",
+            "title": "Inventory and Purchasing Commitments",
+            "description": "Distributors may need to plan product inventory, purchase quantities and expected demand while balancing working capital requirements."
+          },
+          "item2": {
+            "icon": "clipboard-list",
+            "title": "Project-Based Procurement",
+            "description": "EPC contractors and project buyers may need to coordinate product orders with project milestones, contractual obligations and delivery schedules."
+          },
+          "item3": {
+            "icon": "wallet",
+            "title": "Payment and Delivery Alignment",
+            "description": "Payment terms, production or sourcing lead times and shipping arrangements need to be reviewed together before purchasing commitments are finalized."
+          }
+        },
+        "closing": ""
+      },
+      "scope": {
+        "eyebrow": "Procurement scope",
+        "heading": "Procurement Requirements for Solar & Battery Storage",
+        "intro": "Supply chain planning begins with a clear understanding of the products being purchased, the order value, delivery requirements and commercial terms.\nCNX supports business buyers in clarifying product and procurement requirements across relevant PV and BESS categories.",
+        "cards": {
+          "modules": {
+            "image": "/images/manufacturing/solar-panels/solar-panels-banner.webp",
+            "imageAlt": "",
+            "title": "Solar Module Procurement",
+            "description": "Clarify module specifications, order quantities, certification requirements and delivery destinations for residential, C&I or utility-scale solar projects.",
+            "href": "/manufacturing/solar-panels"
+          },
+          "bess": {
+            "image": "/images/manufacturing/bess/bess-banner.webp",
+            "imageAlt": "",
+            "title": "Battery Energy Storage Procurement",
+            "description": "Define the required BESS configuration, power and energy capacity, quantities and technical documentation before commercial arrangements are reviewed.",
+            "href": "/manufacturing/bess"
+          },
+          "multi": {
+            "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+            "imageAlt": "",
+            "title": "Multi-Category Product Sourcing",
+            "description": "Coordinate requirements across modules, inverters and storage products when a purchase involves multiple product categories or supplier arrangements.",
+            "href": "/tier-1-brands"
+          }
+        }
+      },
+      "challenges": {
+        "eyebrow": "Commercial challenges",
+        "heading": "Managing Cash Flow and Purchasing Commitments",
+        "intro": "Solar and energy storage businesses may face commercial challenges when purchase commitments, inventory requirements and customer payment schedules do not align.",
+        "items": {
+          "item1": {
+            "title": "Balancing Inventory and Demand",
+            "description": "Distributors need to evaluate purchasing quantities against sales forecasts, inventory levels and expected customer demand."
+          },
+          "item2": {
+            "title": "Aligning Orders with Project Milestones",
+            "description": "EPC contractors and project buyers may need to coordinate purchase orders and delivery dates with the agreed project schedule."
+          },
+          "item3": {
+            "title": "Clarifying Payment Terms",
+            "description": "Payment timing, deposits, balances and applicable credit terms should be clearly defined before a purchase order is confirmed."
+          },
+          "item4": {
+            "title": "Understanding Financing Eligibility",
+            "description": "Where financing options are available, buyers should understand the eligibility criteria, fees, repayment terms and approval requirements before entering into a financing arrangement."
+          }
+        },
+        "closing": ""
+      },
+      "support": {
+        "eyebrow": "Support model",
+        "heading": "Coordinating Procurement Requirements with CNX",
+        "intro": "CNX supports PV and BESS buyers by helping clarify product specifications, order quantities, sourcing options and delivery requirements. This provides a clearer basis for commercial discussions and any applicable financing assessment.",
+        "image": "/images/home/CTABackground.webp",
+        "items": {
+          "reason1": {
+            "title": "Product and Order Review",
+            "description": "Clarify product specifications, required quantities and the requested purchasing scope before quotation."
+          },
+          "reason2": {
+            "title": "Sourcing Coordination",
+            "description": "Review available sourcing routes across CNX’s manufacturing capabilities and selected brand portfolio, subject to availability and commercial arrangements."
+          },
+          "reason3": {
+            "title": "Commercial Requirement Alignment",
+            "description": "Clarify payment terms, order milestones and delivery arrangements within the agreed commercial scope."
+          },
+          "reason4": {
+            "title": "Documentation Preparation",
+            "description": "Coordinate relevant product specifications, quotation documents and order information required for procurement review."
+          }
+        }
+      },
+      "faq": {
+        "eyebrow": "FAQ",
+        "heading": "Supply Chain Financing FAQs",
+        "cardCtaHref": "/contact",
+        "items": {
+          "q1": {
+            "question": "What is solar supply chain financing?",
+            "answer": "Solar supply chain financing refers to financing arrangements associated with transactions across the solar equipment supply chain. Depending on the structure, it may help eligible buyers or suppliers manage payment timing and working capital requirements."
+          },
+          "q2": {
+            "question": "Is supply chain financing the same as solar project financing?",
+            "answer": "No. Supply chain financing generally focuses on payments and working capital associated with commercial transactions. Solar project financing typically focuses on funding the development or operation of a specific energy project."
+          },
+          "q3": {
+            "question": "Can supply chain financing be used for solar panels and battery storage purchases?",
+            "answer": "Potentially, depending on the financing structure, the transaction, the buyer’s eligibility and the participating provider’s terms. Availability should be confirmed for each arrangement."
+          },
+          "q4": {
+            "question": "Does CNX directly provide financing or extended payment terms?",
+            "answer": "This depends on CNX’s actual commercial arrangements. Any available payment terms or financing support must be confirmed directly with CNX and documented in the applicable agreement. Customers should not assume that financing or credit is automatically available."
+          },
+          "q5": {
+            "question": "What information may be required for a procurement financing assessment?",
+            "answer": "Depending on the provider and arrangement, information may include the purchasing entity, order details, product quantities, transaction value, delivery schedule and relevant commercial documents. Additional financial information may be required by the financing provider."
+          },
+          "q6": {
+            "question": "How can I discuss procurement requirements with CNX?",
+            "answer": "Provide your product specifications, estimated order value, quantities, delivery destination and target schedule. CNX can review the sourcing requirements and clarify the applicable commercial process."
+          }
+        }
+      },
+      "cta": {
+        "heading": "Discuss Your PV & BESS Procurement Requirements",
+        "subtext": "Share your product requirements, estimated order quantities and purchasing schedule with CNX. We can review the requested supply scope and clarify the applicable sourcing and commercial arrangements.",
+        "primaryLabel": "Discuss Your Procurement Needs",
+        "primaryHref": "/contact",
+        "secondaryLabel": "",
+        "secondaryHref": "",
+        "image": "/images/manufacturing/manufacturing-why-choose-us.webp"
+      }
+    },
+    "gridTie": {
+      "meta": {
+        "title": "Grid-Tied Solar Project Equipment Sourcing",
+        "description": "Source solar modules, inverters and battery storage for grid-connected projects through one procurement contact, with project-specific product review and delivery coordination."
+      },
+      "hero": {
+        "eyebrow": "Grid-tie Projects",
+        "heading": "Source the Right Solar Equipment for Your Grid-Connected Project",
+        "description": "We help EPC contractors, project developers and procurement teams source solar modules, inverters and battery storage products for grid-connected solar projects. With access to our manufacturing capabilities and selected brand partners, CNX offers flexible sourcing options and project-focused procurement coordination.",
+        "image": "/images/energyEcosystem/energyEcosystemSectionBackground.webp",
+        "imageAlt": "Rows of solar modules at a grid-connected plant",
+        "chips": {
+          "chip1": {
+            "text": "PV Module Sourcing"
+          },
+          "chip2": {
+            "text": "Inverter & BESS Options"
+          },
+          "chip3": {
+            "text": "Project-Based Procurement"
+          }
+        },
+        "primaryLabel": "Request a Project Quote",
+        "primaryHref": "/contact",
+        "secondaryLabel": "Explore Solar & BESS Products",
+        "secondaryHref": "#equipment",
+        "note": ""
+      },
+      "equipment": {
+        "eyebrow": "Equipment sourcing",
+        "heading": "Source Solar and Storage Equipment for Your Project",
+        "intro": "A grid-connected project requires more than individual products. Product specifications, inverter requirements, storage needs and delivery schedules must fit the project scope. CNX helps you review these requirements and coordinate relevant equipment sourcing through one procurement contact.",
+        "rows": {
+          "row1": {
+            "image": "/images/manufacturing/solar-panels/solar-panels-banner.webp",
+            "imageAlt": "",
+            "title": "Solar PV Modules",
+            "description": "We offer access to our manufacturing capabilities and selected module brands, helping you compare available product options against project specifications, required quantities and commercial targets.",
+            "linkHref": "/manufacturing/solar-panels"
+          },
+          "row2": {
+            "image": "/images/hero/hero-488kwh-bess.webp",
+            "imageAlt": "",
+            "title": "Battery Energy Storage Systems (BESS)",
+            "description": "Where storage is part of the project scope, we can coordinate relevant BESS sourcing alongside PV equipment to simplify multi-category procurement.",
+            "linkHref": "/manufacturing/bess"
+          }
+        }
+      },
+      "whyChoose": {
+        "eyebrow": "Why choose CNX",
+        "heading": "Why Choose CNX for Grid-Connected Solar Projects?",
+        "intro": "",
+        "image": "/images/hero/hero-smart-pv.webp",
+        "items": {
+          "reason1": {
+            "title": "More Flexible PV Sourcing",
+            "description": "We combine our manufacturing capabilities with selected brand partnerships, giving you more options when balancing project specifications, availability and commercial requirements."
+          },
+          "reason2": {
+            "title": "PV & BESS Procurement Through One Partner",
+            "description": "We coordinate sourcing across solar modules, inverters and battery storage where required, helping reduce the effort of managing multiple product categories separately."
+          },
+          "reason3": {
+            "title": "Project-Specific Product Review",
+            "description": "We review your requested specifications, quantities and documentation needs before quotation, helping identify gaps and clarify product requirements earlier in the procurement process."
+          },
+          "reason4": {
+            "title": "Clearer Order & Delivery Coordination",
+            "description": "We align quotations, order details, shipping requirements and delivery planning within the confirmed supply scope, helping your team manage procurement milestones more effectively."
+          }
+        }
+      },
+      "requirements": {
+        "eyebrow": "What to share with us",
+        "heading": "Built Around Your Project Requirements",
+        "intro": "Whether you are procuring modules for a utility-scale solar farm or coordinating equipment for a commercial grid-connected installation, CNX starts with the project requirements rather than a fixed product package.",
+        "items": {
+          "item1": {
+            "icon": "maximize",
+            "title": "Project Scale",
+            "description": "Installed capacity or target system size."
+          },
+          "item2": {
+            "icon": "layers",
+            "title": "Equipment Scope",
+            "description": "PV modules, inverters, BESS or other requested categories."
+          },
+          "item3": {
+            "icon": "file-text",
+            "title": "Technical Requirements",
+            "description": "Datasheets, specifications and applicable certifications."
+          },
+          "item4": {
+            "icon": "clipboard-list",
+            "title": "Procurement Plan",
+            "description": "Quantities, destination, target delivery date and quotation requirements."
+          }
+        },
+        "closing": "",
+        "ctaLabel": "Discuss Your Project Requirements",
+        "ctaHref": "/contact"
+      },
+      "process": {
+        "eyebrow": "Procurement process",
+        "heading": "From Project Requirements to Coordinated Supply",
+        "intro": "",
+        "steps": {
+          "step1": {
+            "title": "Share Your Project Scope",
+            "description": "Send us your project size, product list, specifications and delivery destination."
+          },
+          "step2": {
+            "title": "Review Product Options",
+            "description": "We identify potentially suitable sourcing options within our available manufacturing and partner-brand network."
+          },
+          "step3": {
+            "title": "Confirm the Commercial Scope",
+            "description": "We clarify product specifications, quantities, applicable documentation, pricing and delivery terms."
+          },
+          "step4": {
+            "title": "Coordinate the Order",
+            "description": "Once terms are agreed, we coordinate the confirmed supply and delivery arrangements."
+          }
+        },
+        "note": "",
+        "ctaLabel": "",
+        "ctaHref": "/contact"
+      },
+      "faq": {
+        "eyebrow": "FAQ",
+        "heading": "Grid-Connected Solar Project FAQs",
+        "cardCtaHref": "/contact",
+        "items": {
+          "q1": {
+            "question": "What equipment can CNX source for grid-connected solar projects?",
+            "answer": "We can support sourcing for solar PV modules, inverters and battery energy storage products, subject to project requirements, product availability and confirmed supply arrangements."
+          },
+          "q2": {
+            "question": "Can CNX support utility-scale solar projects?",
+            "answer": "We can review utility-scale project requirements and discuss suitable product sourcing and procurement coordination. The final scope depends on project specifications, required quantities, supply availability and commercial terms."
+          },
+          "q3": {
+            "question": "Can CNX coordinate solar modules and BESS in one procurement process?",
+            "answer": "Yes. Where both categories fall within the confirmed supply scope, we can coordinate PV and BESS sourcing through one procurement contact. System compatibility and final technical selection must be verified for the specific project."
+          },
+          "q4": {
+            "question": "What information should I provide to request a project quotation?",
+            "answer": "Please share the project location, capacity, requested equipment, technical specifications, quantities and target delivery schedule. Datasheets or a bill of quantities (BOQ) are helpful if available."
+          }
+        }
+      },
+      "cta": {
+        "heading": "Planning a Grid-Connected Solar Project?",
+        "subtext": "Share your equipment list, technical requirements or BOQ with CNX. We’ll review your sourcing needs and help you identify the next steps for product selection and procurement.",
+        "primaryLabel": "Request a Grid-Connected Project Quote",
+        "primaryHref": "/contact",
+        "secondaryLabel": "",
+        "secondaryHref": "",
+        "image": "/images/news/news-epc-financing.webp"
+      }
+    },
+    "offGrid": {
+      "meta": {
+        "title": "Off-Grid Solar & Storage Project Equipment",
+        "description": "Source solar modules, battery storage and power equipment for off-grid projects, selected around actual loads, autonomy and site conditions, with procurement coordination to delivery."
+      },
+      "hero": {
+        "eyebrow": "Off-grid Projects",
+        "heading": "Build Your Off-Grid Power Project Around the Right Equipment",
+        "description": "Off-grid projects need equipment selected around actual loads, available solar resources, required autonomy and operating conditions. CNX helps project buyers source solar modules, battery storage and relevant power equipment based on their project scope, with procurement coordination from product review to delivery planning.",
+        "image": "/images/hero/hero-488kwh-bess.webp",
+        "imageAlt": "Standalone battery energy storage system",
+        "primaryLabel": "Request an Off-Grid Project Quote",
+        "primaryHref": "/contact",
+        "secondaryLabel": "Explore BESS Products",
+        "secondaryHref": "/manufacturing/bess",
+        "note": ""
+      },
+      "applications": {
+        "eyebrow": "Applications we can help you source for",
+        "heading": "Off-Grid Equipment Sourcing for Different Power Needs",
+        "intro": "From remote facilities to standalone power systems, CNX helps buyers coordinate relevant solar and storage product sourcing around the equipment requirements of each application.",
+        "rows": {
+          "row1": {
+            "image": "/images/home/supplyChainFinancing.webp",
+            "imageAlt": "",
+            "title": "Remote Communities & Mini-Grids",
+            "description": "We help project buyers explore PV and battery storage options for remote power applications, based on expected demand, project scale and required operating hours.",
+            "linkHref": ""
+          },
+          "row2": {
+            "image": "/images/home/commercialBuildings.webp",
+            "imageAlt": "",
+            "title": "Remote Industrial & Commercial Facilities",
+            "description": "For sites with limited grid access, we coordinate sourcing options around the requested load profile, equipment scope and operating environment.",
+            "linkHref": ""
+          },
+          "row3": {
+            "image": "/images/manufacturing/bess/bess-banner.webp",
+            "imageAlt": "",
+            "title": "Telecom & Essential Remote Loads",
+            "description": "We help identify relevant solar and battery products for remote equipment sites, where storage capacity, backup duration and environmental conditions need careful consideration.",
+            "linkHref": ""
+          },
+          "row4": {
+            "image": "/images/home/virtualPowerPlantSolutions.webp",
+            "imageAlt": "",
+            "title": "Agricultural & Water-Pumping Applications",
+            "description": "We can review sourcing needs for solar-powered pumping and similar applications, using load information and operating schedules to guide product discussions.",
+            "linkHref": ""
+          }
+        }
+      },
+      "whyChoose": {
+        "eyebrow": "Why choose CNX",
+        "heading": "Why Choose CNX for Off-Grid Solar & Storage Projects?",
+        "intro": "",
+        "image": "/images/home/ctabg2.webp",
+        "items": {
+          "reason1": {
+            "title": "Solar and Storage Sourcing in One Place",
+            "description": "We help you source PV modules and battery storage through one procurement contact, with relevant inverters and other equipment considered where available within the agreed supply scope."
+          },
+          "reason2": {
+            "title": "Product Selection Starts With Your Load Requirements",
+            "description": "We review the load profile, required operating hours, storage needs and project conditions you provide, helping narrow down product options before detailed technical confirmation."
+          },
+          "reason3": {
+            "title": "Flexible Options for Different Project Scales",
+            "description": "We combine available manufacturing capabilities and selected partner brands to explore product options that fit your requested quantities, specifications and commercial requirements."
+          },
+          "reason4": {
+            "title": "Practical Procurement Coordination",
+            "description": "We coordinate product datasheets, requested certifications, order quantities and delivery planning, helping your team address purchasing details before order confirmation."
+          }
+        }
+      },
+      "requirements": {
+        "eyebrow": "What determines the right off-grid equipment?",
+        "heading": "Start With the Power Requirements, Not Just the Panel Wattage",
+        "intro": "Choosing off-grid equipment involves more than selecting solar panel output. The load profile, peak demand, operating hours, required backup duration and local conditions all influence product selection.",
+        "items": {
+          "item1": {
+            "icon": "activity",
+            "title": "Load Profile & Peak Demand",
+            "description": "We review your estimated daily energy consumption and peak load information to help frame the product sourcing requirements."
+          },
+          "item2": {
+            "icon": "battery",
+            "title": "Battery Capacity & Autonomy",
+            "description": "We consider the requested backup duration and storage requirements when discussing suitable BESS options. Final sizing should be validated by the project’s qualified system designer."
+          },
+          "item3": {
+            "icon": "sun",
+            "title": "Solar Resources & Operating Conditions",
+            "description": "Project location, seasonal solar availability, temperature, dust, humidity and other site conditions can affect equipment selection."
+          },
+          "item4": {
+            "icon": "plug",
+            "title": "Inverter & Equipment Compatibility",
+            "description": "Voltage, power rating, charging requirements and interfaces must be checked against the intended system architecture and manufacturer documentation."
+          }
+        },
+        "closing": "",
+        "ctaLabel": "Discuss Your Off-Grid Equipment Requirements",
+        "ctaHref": "/contact"
+      },
+      "faq": {
+        "eyebrow": "FAQ",
+        "heading": "Off-Grid Solar Project FAQs",
+        "cardCtaHref": "/contact",
+        "items": {
+          "q1": {
+            "question": "What equipment is needed for an off-grid solar project?",
+            "answer": "A typical project may require PV modules, battery storage, inverters or other power conversion equipment, plus system-specific protection and control components. The exact scope depends on the load, system architecture and project design."
+          },
+          "q2": {
+            "question": "Can CNX help source both solar panels and battery storage?",
+            "answer": "Yes. We can coordinate PV and BESS sourcing where both are within our available product and supply scope. The specific products and technical compatibility must be confirmed for each project."
+          },
+          "q3": {
+            "question": "How do I estimate the battery capacity for an off-grid system?",
+            "answer": "Battery requirements depend on energy consumption, peak demand, required autonomy, usable battery capacity, system efficiency and operating conditions. Provide these details to your system designer and procurement team for appropriate sizing and product selection."
+          },
+          "q4": {
+            "question": "Can CNX provide a complete turnkey off-grid installation?",
+            "answer": "CNX’s scope is confirmed for each project. Our support focuses on product sourcing and procurement coordination; engineering, installation, commissioning and other turnkey services apply only where they are specifically available and contractually agreed."
+          }
+        }
+      },
+      "cta": {
+        "heading": "Looking for Equipment for an Off-Grid Project?",
+        "subtext": "Share your load requirements, project location or preliminary equipment list. CNX will help you review the relevant PV and battery storage sourcing options within our available supply scope.",
+        "primaryLabel": "Get an Off-Grid Project Quote",
+        "primaryHref": "/contact",
+        "secondaryLabel": "",
+        "secondaryHref": "",
+        "image": "/images/manufacturing/solar-panels/solar-panels-banner.webp"
+      }
+    },
+    "projectFinancing": {
+      "meta": {
+        "title": "Renewable Energy Project Financing & Procurement Planning",
+        "description": "Align project funding with your solar and BESS procurement plan. CNX clarifies equipment scope, quotations and commercial terms; any financing is subject to provider approval."
+      },
+      "hero": {
+        "eyebrow": "Project Financing",
+        "heading": "Align Project Funding Needs With Your Solar & BESS Procurement Plan",
+        "description": "Financing and equipment procurement need to move together. CNX works with project developers, EPC contractors and commercial buyers to clarify equipment requirements, procurement scope and relevant commercial arrangements. Where applicable financing or credit programs are available, eligibility and terms are subject to the relevant provider’s assessment and approval.",
+        "image": "/images/news/news-tariff-outlook.webp",
+        "imageAlt": "Solar modules at dusk",
+        "primaryLabel": "Discuss Your Project Requirements",
+        "primaryHref": "/contact",
+        "secondaryLabel": "Explore Solar & BESS Products",
+        "secondaryHref": "/manufacturing/solar-panels",
+        "note": ""
+      },
+      "lifecycle": {
+        "eyebrow": "Financing needs across the project lifecycle",
+        "heading": "Connect Project Planning With Equipment Procurement",
+        "intro": "A renewable energy project involves more than securing funding. The equipment scope, procurement milestones, delivery schedule and commercial terms all influence project planning. CNX helps buyers clarify the supply requirements and procurement details that need to be coordinated alongside the project’s funding arrangements.",
+        "items": {
+          "item1": {
+            "icon": "trending-up",
+            "title": "Project Development & Budget Planning",
+            "description": "We help clarify the proposed PV and BESS equipment scope, requested quantities and quotation requirements so the project team can build a more structured procurement budget."
+          },
+          "item2": {
+            "icon": "clipboard-list",
+            "title": "Equipment Procurement Planning",
+            "description": "We coordinate product options, quotation details and expected supply arrangements to help buyers align procurement decisions with their project schedule."
+          },
+          "item3": {
+            "icon": "wallet",
+            "title": "Commercial Terms & Funding Coordination",
+            "description": "We clarify applicable payment, delivery and contractual requirements within our supply scope. Any external financing or credit arrangement must be separately assessed and approved by the relevant provider."
+          }
+        },
+        "closing": ""
+      },
+      "whyChoose": {
+        "eyebrow": "Why choose CNX",
+        "heading": "Why Work With CNX on Solar Project Procurement?",
+        "intro": "",
+        "image": "/images/about/whyChooseCNX/whyChooseCNXHeroBanner.webp",
+        "items": {
+          "reason1": {
+            "title": "Connect Funding Discussions With Real Equipment Requirements",
+            "description": "We help translate your project plan into a clearer procurement scope, including product categories, quantities and technical requirements. This gives your team a more concrete basis for equipment quotations and commercial discussions."
+          },
+          "reason2": {
+            "title": "Flexible Sourcing for Different Project Scopes",
+            "description": "We combine our manufacturing capabilities with selected brand sourcing options to help buyers explore available PV and BESS products against their project specifications and budget considerations."
+          },
+          "reason3": {
+            "title": "Clearer Procurement Costs and Supply Requirements",
+            "description": "We coordinate quotations, product specifications, delivery destinations and applicable commercial terms, helping your team identify key procurement costs and supply requirements earlier."
+          },
+          "reason4": {
+            "title": "Commercial Arrangements Based on Project Eligibility",
+            "description": "Where CNX has a confirmed financing or credit cooperation program applicable to the project, we can discuss the relevant process and requirements. Availability, eligibility, credit approval and final terms must be confirmed before any financing commitment is made."
+          }
+        }
+      },
+      "process": {
+        "eyebrow": "How CNX supports the procurement process",
+        "heading": "From Project Scope to Procurement Planning",
+        "intro": "",
+        "steps": {
+          "step1": {
+            "title": "Understand Your Project",
+            "description": "We review the project type, estimated capacity, location, equipment requirements and target schedule."
+          },
+          "step2": {
+            "title": "Clarify the Equipment Scope",
+            "description": "We identify relevant PV and BESS sourcing options and prepare the product and quotation details within our confirmed supply scope."
+          },
+          "step3": {
+            "title": "Review Commercial Requirements",
+            "description": "We clarify applicable payment terms, delivery arrangements and documentation requirements. If a financing program may apply, its provider and approval process must be confirmed."
+          },
+          "step4": {
+            "title": "Confirm the Agreed Supply Plan",
+            "description": "Once product availability, commercial terms and any required approvals are confirmed, we coordinate the agreed procurement and delivery arrangements."
+          }
+        },
+        "note": "",
+        "ctaLabel": "",
+        "ctaHref": "/contact"
+      },
+      "checklist": {
+        "eyebrow": "What we need to understand your project",
+        "heading": "Discuss Your Project and Procurement Requirements",
+        "intro": "To help us assess the relevant sourcing and commercial options, please share:",
+        "items": {
+          "location": {
+            "text": "Project location, type and estimated capacity."
+          },
+          "stage": {
+            "text": "Project development stage and target construction schedule."
+          },
+          "equipment": {
+            "text": "Required equipment categories, quantities and technical specifications."
+          },
+          "budget": {
+            "text": "Estimated procurement budget or quotation requirements, if available."
+          },
+          "milestones": {
+            "text": "Expected delivery milestones and proposed purchasing arrangements."
+          },
+          "funding": {
+            "text": "Whether you are seeking project-level funding, equipment credit or payment-term flexibility."
+          }
+        },
+        "note": "You do not need to have every detail finalized before contacting CNX. Share your current project brief or preliminary equipment list, and we can clarify the procurement information required for the next discussion.",
+        "ctaLabel": "Discuss Your Project With CNX",
+        "ctaHref": "/contact"
+      },
+      "faq": {
+        "eyebrow": "FAQ",
+        "heading": "Solar & Renewable Energy Project Financing FAQs",
+        "cardCtaHref": "/contact",
+        "items": {
+          "q1": {
+            "question": "Does CNX directly provide project financing?",
+            "answer": "Financing availability depends on the specific commercial arrangements confirmed by CNX and the relevant financing provider. CNX can discuss equipment procurement requirements and applicable arrangements within its confirmed scope, but financing should not be assumed to be available for every project."
+          },
+          "q2": {
+            "question": "What is the difference between project financing and supply chain financing?",
+            "answer": "Project financing focuses on funding a renewable energy project and its associated development or construction costs. Supply chain financing focuses more directly on payment and working-capital arrangements within the procurement and supply process."
+          },
+          "q3": {
+            "question": "Can CNX help prepare equipment quotations for a project financing discussion?",
+            "answer": "We can clarify the requested equipment scope and coordinate relevant product quotations within our supply scope. Whether those quotations meet a lender’s requirements depends on the project and the financing provider."
+          },
+          "q4": {
+            "question": "What information is needed to discuss potential financing arrangements?",
+            "answer": "The initial discussion may require project location, project stage, estimated capacity, equipment requirements, budget and schedule. Additional financial, legal or credit documentation may be required by the relevant financing provider."
+          },
+          "q5": {
+            "question": "Are financing terms guaranteed?",
+            "answer": "No. Any financing or credit arrangement is subject to program availability, eligibility checks, credit assessment, contractual terms and required approvals."
+          }
+        }
+      },
+      "cta": {
+        "heading": "Planning a Solar or Energy Storage Project?",
+        "subtext": "Start with your project scope and equipment requirements. CNX can help clarify the relevant PV and BESS sourcing options and discuss applicable commercial arrangements within our confirmed scope.",
+        "primaryLabel": "Discuss Your Project Requirements",
+        "primaryHref": "/contact",
+        "secondaryLabel": "",
+        "secondaryHref": "",
+        "image": "/images/hero/hero-smart-pv.webp"
+      }
+    }
   }
 }
