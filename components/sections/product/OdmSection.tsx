@@ -100,7 +100,8 @@ export default function OdmSection({ data }: { data: OdmSectionData }) {
                 alt=""
                 aria-hidden="true"
                 fill
-                sizes="(min-width: 1024px) 534px, 100vw"
+                // Square box: a 16:9 photo is drawn ~1.8× the box width.
+                sizes="(min-width: 1024px) 1000px, 180vw"
                 className="rounded-16 object-cover"
               />
             </Reveal>

@@ -2,8 +2,13 @@ import type { Ref } from "react";
 import { preload } from "react-dom";
 import { getImageProps, type ImageProps } from "next/image";
 
-/** Full-width photos (hero, banners) get a higher quality so they stay sharp on retina screens. */
-const FULL_WIDTH_QUALITY = 85;
+/**
+ * Encoding quality of the optimized copies. Full-width photos (hero, banners)
+ * get the most so they stay sharp on large and retina screens; every other
+ * photo still gets 85, so the client's originals never look softened.
+ */
+const FULL_WIDTH_QUALITY = 90;
+const DEFAULT_QUALITY = 85;
 
 type PictureProps = ImageProps & { ref?: Ref<HTMLImageElement> };
 
@@ -22,7 +27,7 @@ export default function Picture({ quality, ref, onLoad, ...props }: PictureProps
   const fullWidth = props.fill && (!props.sizes || props.sizes.includes("100vw"));
   const { props: img } = getImageProps({
     ...props,
-    quality: quality ?? (fullWidth ? FULL_WIDTH_QUALITY : undefined),
+    quality: quality ?? (fullWidth ? FULL_WIDTH_QUALITY : DEFAULT_QUALITY),
   });
 
   if ((props.preload || props.priority) && img.srcSet) {

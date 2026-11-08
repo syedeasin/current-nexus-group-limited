@@ -29,13 +29,16 @@ export default function ManufacturingProductCard({
       href={href}
       className="group relative flex h-auto flex-col overflow-hidden rounded-16 bg-surface-2 p-24 outline-none focus-visible:ring-2 focus-visible:ring-secondary md:p-32 xl:h-694"
     >
-      <div className="relative mx-auto aspect-[363/300] w-full max-w-363 xl:aspect-[363/418]">
+      {/* Product shots are transparent cutouts on a shared 5:4 canvas with the
+          product at the same height share (public/images/client/products/cutout),
+          so every card's product sits on the card colour at one visual height. */}
+      <div className="relative mx-auto aspect-[5/4] w-full max-w-520">
         <Image
           src={image}
           alt={imageAlt ?? ""}
           aria-hidden={imageAlt ? undefined : "true"}
           fill
-          sizes="(min-width: 1280px) 363px, (min-width: 768px) 45vw, 90vw"
+          sizes="(min-width: 1280px) 520px, (min-width: 768px) 45vw, 90vw"
           className="object-contain transition-transform duration-300 ease-out group-hover:scale-[1.03]"
         />
       </div>

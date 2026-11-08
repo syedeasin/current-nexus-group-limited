@@ -67,7 +67,9 @@ export default function ManufacturingReliability({ data }: { data: Manufacturing
             alt={data.imageAlt ?? ""}
             aria-hidden={data.imageAlt ? undefined : "true"}
             fill
-            sizes="(min-width: 1024px) 50vw, 100vw"
+            // Portrait box: a landscape factory photo is drawn about as wide as the
+            // viewport, so ask for that rather than the half-width column.
+            sizes="(min-width: 1024px) 100vw, 150vw"
             className="object-cover"
           />
         </Reveal>

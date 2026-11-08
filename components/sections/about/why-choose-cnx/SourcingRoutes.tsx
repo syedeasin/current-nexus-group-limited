@@ -107,7 +107,7 @@ export default async function SourcingRoutes() {
                     src={featured.image}
                     alt={featured.imageAlt}
                     fill
-                    sizes="(min-width: 1024px) 560px, 100vw"
+                    sizes="(min-width: 1024px) 720px, 100vw"
                     className="scale-[1.08] object-cover"
                   />
                 </div>

@@ -22,6 +22,15 @@ export interface Advantage {
 /** Scroll distance (in viewport heights) each advantage holds the stage for. */
 const STEP_VH = 60;
 
+/**
+ * The photo box is taller than 16:9 at most screen heights, so object-cover
+ * draws the 16:9 photo wider than the box (up to ~1070px at the 600px cap).
+ * Declaring that width makes the browser fetch the 1080w (1x) / 2048w (2x)
+ * copy instead of a 750w one that has to be stretched.
+ */
+const DESKTOP_PHOTO_SIZES = "(min-width: 1024px) 1000px, 100vw";
+const PHOTO_QUALITY = 90;
+
 const pad = (n: number) => String(n).padStart(2, "0");
 
 function CtaLink({ href, label, className }: { href: string; label: string; className?: string }) {
@@ -111,8 +120,8 @@ export default function AdvantageExplorer({ header, items }: { header: ReactNode
           {items.map((item, index) => (
             <li key={item.id} className="flex flex-col gap-20">
               {!isDesktop && item.image && (
-                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-20">
-                  <Image src={item.image} alt={item.imageAlt} fill sizes="100vw" className="object-cover" />
+                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-16">
+                  <Image src={item.image} alt={item.imageAlt} fill sizes="115vw" quality={PHOTO_QUALITY} className="object-cover" />
                   <span className="absolute top-16 left-16 flex size-44 items-center justify-center rounded-12 bg-white text-neutral-1">
                     {createElement(pageIcon(item.icon), { size: 24, strokeWidth: 1.5, "aria-hidden": true })}
                   </span>
@@ -122,7 +131,7 @@ export default function AdvantageExplorer({ header, items }: { header: ReactNode
                 <span className="text-p3 font-semibold text-secondary tabular-nums">{pad(index + 1)}</span>
                 <h3 className="text-h5 font-semibold text-neutral-1">{item.title}</h3>
               </div>
-              <p className="text-p3 text-neutral-4">{item.body}</p>
+              <p className="text-p4 leading-[22px] text-neutral-4">{item.body}</p>
               <CtaLink href={item.ctaHref} label={item.cta} />
             </li>
           ))}
@@ -135,8 +144,8 @@ export default function AdvantageExplorer({ header, items }: { header: ReactNode
             bottom padding before and after the pinned stretch. */}
         <div ref={stickyRef} className="sticky top-[88px] xl:top-[120px]">
           <div className="grid w-full grid-cols-[minmax(0,5fr)_minmax(0,6fr)] items-stretch gap-48 xl:gap-64">
-            {/* Left: heading level with the card's top, list level with its bottom. */}
-            <div className="flex flex-col justify-between gap-40">
+            {/* Left: heading + list as one group, centred against the card. */}
+            <div className="flex flex-col justify-center gap-40">
               {header}
               <ol className="flex flex-col border-t border-neutral-10" aria-label="Advantages">
                 {items.map((item, index) => {
@@ -148,13 +157,13 @@ export default function AdvantageExplorer({ header, items }: { header: ReactNode
                         onClick={() => goTo(index)}
                         aria-current={selected ? "step" : undefined}
                         className={cn(
-                          "flex w-full items-baseline gap-16 py-18 text-left transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary motion-reduce:transition-none",
+                          "flex w-full items-center gap-16 py-16 text-left transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary motion-reduce:transition-none",
                           selected ? "text-neutral-1" : "text-neutral-7 hover:text-neutral-4"
                         )}
                       >
                         <span
                           className={cn(
-                            "w-24 shrink-0 text-p3 font-semibold tabular-nums transition-colors duration-300",
+                            "w-24 shrink-0 text-p4 font-semibold tabular-nums transition-colors duration-300",
                             selected ? "text-secondary" : "text-neutral-8"
                           )}
                         >
@@ -170,8 +179,8 @@ export default function AdvantageExplorer({ header, items }: { header: ReactNode
 
             {/* Right: the card fills its (wider) column; the photo's height follows
                 the screen height so the whole card always fits under the header. */}
-            <div className="flex w-full flex-col rounded-32 bg-white p-12 shadow-[0_24px_64px_rgba(10,13,27,0.06)]">
-              <div className="relative h-[clamp(240px,calc(100svh-500px),480px)] w-full overflow-hidden rounded-24 bg-neutral-1">
+            <div className="flex w-full flex-col rounded-20 border border-neutral-10 bg-white p-8 shadow-[0_24px_64px_rgba(10,13,27,0.06)]">
+              <div className="relative h-[clamp(280px,calc(100svh-400px),600px)] w-full overflow-hidden rounded-12 bg-neutral-1">
                 {items.map((item, index) => (
                   <div
                     key={item.id}
@@ -182,7 +191,7 @@ export default function AdvantageExplorer({ header, items }: { header: ReactNode
                     )}
                   >
                     {isDesktop && item.image && (
-                      <Image src={item.image} alt={item.imageAlt} fill sizes="(min-width: 1280px) 720px, 55vw" className="object-cover" />
+                      <Image src={item.image} alt={item.imageAlt} fill sizes={DESKTOP_PHOTO_SIZES} quality={PHOTO_QUALITY} className="object-cover" />
                     )}
                   </div>
                 ))}
@@ -195,15 +204,15 @@ export default function AdvantageExplorer({ header, items }: { header: ReactNode
                 </div>
               </div>
 
-              <div key={current.id} className="flex animate-[fade-up_450ms_ease-out] flex-col gap-12 px-20 pt-24 pb-20 motion-reduce:animate-none xl:px-24 xl:pt-28 xl:pb-24">
-                <div className="flex items-center gap-12">
-                  <span aria-hidden="true" className="flex size-40 shrink-0 items-center justify-center rounded-12 border border-neutral-10 text-neutral-1">
-                    {createElement(pageIcon(current.icon), { size: 20, strokeWidth: 1.5 })}
-                  </span>
+              <div key={current.id} className="flex animate-[fade-up_450ms_ease-out] items-start gap-16 px-16 pt-20 pb-16 motion-reduce:animate-none xl:px-20 xl:pt-24 xl:pb-20">
+                <span aria-hidden="true" className="flex size-40 shrink-0 items-center justify-center rounded-8 bg-surface-1 text-primary">
+                  {createElement(pageIcon(current.icon), { size: 20, strokeWidth: 1.5 })}
+                </span>
+                <div className="flex min-w-0 flex-col gap-8">
                   <h3 className="text-h6 font-semibold text-neutral-1">{current.title}</h3>
+                  <p className="max-w-[560px] text-p4 leading-[22px] text-neutral-4">{current.body}</p>
+                  <CtaLink href={current.ctaHref} label={current.cta} className="mt-4 text-p4" />
                 </div>
-                <p className="text-p3 text-neutral-4">{current.body}</p>
-                <CtaLink href={current.ctaHref} label={current.cta} className="mt-8" />
               </div>
             </div>
           </div>

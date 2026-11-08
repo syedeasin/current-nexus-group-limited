@@ -16,7 +16,7 @@ import { BODY_DELAY_MS, CTA_DELAY_MS } from "@/lib/motion/timing";
  */
 export default async function FinalInquiry() {
   const t = await getTranslations("about.whyChooseCnx.cta");
-  const image = (t.has("image") && t("image")) || "/images/home/CTABackground.webp";
+  const image = (t.has("image") && t("image")) || "/images/client/cta/cta-2.webp";
   const lead = t.has("lead") ? t("lead") : "";
 
   return (

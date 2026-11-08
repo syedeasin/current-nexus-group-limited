@@ -52,10 +52,10 @@ function heroHeading(name: string, category: BrandCategory): string {
 }
 
 const HERO_IMAGE: Record<BrandCategory, string> = {
-  MODULES: "/images/home/utilityScaleSolar.webp",
-  INVERTERS: "/images/home/commercialBuildings.webp",
-  BESS: "/images/home/virtualPowerPlantSolutions.webp",
-  MIXED: "/images/home/residentialSolar.webp",
+  MODULES: "/images/client/home/scene-utility.webp",
+  INVERTERS: "/images/client/home/scene-commercial-industrial.webp",
+  BESS: "/images/client/home/scene-supply-chain-financing.webp",
+  MIXED: "/images/client/home/scene-residential.webp",
 };
 
 /** Ordered `{ id: item }` — collection key order is display order. */
@@ -231,10 +231,10 @@ export function brandTemplate(name: string, category: BrandCategory): MessageTre
         previousLabel: "Previous",
         nextLabel: "Next",
         items: list([
-          ["residential", { title: "Residential Solar", description: "Explore applicable products for residential PV installations and, where supported, solar-plus-storage systems.", image: "/images/home/residentialSolar.webp" }],
-          ["commercial", { title: "Commercial & Industrial", description: "Review product options against facility loads, system capacity, installation conditions and project specifications.", image: "/images/home/commercialBuildings.webp" }],
-          ["utility", { title: "Utility-Scale Projects", description: "Assess applicable product models, project quantities, technical documentation and delivery requirements for large-scale deployments.", image: "/images/home/utilityScaleSolar.webp" }],
-          ["storage", { title: "Energy Storage Applications", description: "Explore applicable products, evaluate storage requirements for renewable integration, load management and other defined energy use cases.", image: "/images/home/virtualPowerPlantSolutions.webp" }],
+          ["residential", { title: "Residential Solar", description: "Explore applicable products for residential PV installations and, where supported, solar-plus-storage systems.", image: "/images/client/home/scene-residential.webp" }],
+          ["commercial", { title: "Commercial & Industrial", description: "Review product options against facility loads, system capacity, installation conditions and project specifications.", image: "/images/client/home/scene-commercial-industrial.webp" }],
+          ["utility", { title: "Utility-Scale Projects", description: "Assess applicable product models, project quantities, technical documentation and delivery requirements for large-scale deployments.", image: "/images/client/home/scene-utility.webp" }],
+          ["storage", { title: "Energy Storage Applications", description: "Explore applicable products, evaluate storage requirements for renewable integration, load management and other defined energy use cases.", image: "/images/client/home/scene-supply-chain-financing.webp" }],
         ]),
       },
       cases: {

@@ -39,7 +39,7 @@ function BuyerPhoto({ image, className }: { image: string; className?: string })
   if (!image) return null;
   return (
     <div className={cn("relative w-full overflow-hidden rounded-16 bg-neutral-10", className)}>
-      <Image src={image} alt="" aria-hidden="true" fill sizes="(min-width: 1024px) 360px, 100vw" className="object-cover" />
+      <Image src={image} alt="" aria-hidden="true" fill sizes="(min-width: 1024px) 640px, 100vw" className="object-cover" />
     </div>
   );
 }

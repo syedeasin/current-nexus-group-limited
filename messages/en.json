@@ -14,7 +14,7 @@
           "body": "Using 750W+ high Bifaciality HJT solar modules reduces BOS and boosts\npower generation yield, enhancing project returns.",
           "cta": "Inquiry 750W+",
           "ctaHref": "/contact",
-          "image": "/images/hero/hero-750w-solar.webp",
+          "image": "/images/client/home/hero-1.webp",
           "imagePosition": "50% 65%"
         },
         "bess488": {
@@ -22,7 +22,7 @@
           "body": "More energy. Less space. Lower cost per kWh. The 488kWh BESS,\npowered by next-generation 587Ah LFP cells.",
           "cta": "Inquiry 488kwh BESS",
           "ctaHref": "/contact",
-          "image": "/images/hero/hero-488kwh-bess.webp",
+          "image": "/images/client/home/hero-2.webp",
           "imagePosition": "50% 25%"
         },
         "smartPv": {
@@ -30,7 +30,7 @@
           "body": "A hardware-software platform with real-time monitoring and AI analytics to maximize energy yield and minimize downtime.",
           "cta": "Explore Smart Solutions",
           "ctaHref": "/contact",
-          "image": "/images/hero/hero-smart-pv.webp",
+          "image": "/images/client/home/hero-3.webp",
           "imagePosition": "50% 50%"
         }
       }
@@ -133,23 +133,23 @@
           "label": "Solar Panels",
           "products": {
             "backContactSolarPanel": {
-              "title": "Back contact solar panel",
-              "image": "/images/energyEcosystem/solarpaelTabImage01.webp",
+              "title": "CurrentWave BC",
+              "image": "/images/client/products/currentwave-bc.webp",
               "href": "/manufacturing/solar-panels/bc"
             },
             "hjtsSolarPanel": {
-              "title": "HJTS solar panel",
-              "image": "/images/energyEcosystem/solarpaelTabImage01.webp",
+              "title": "CurrentWave HJT",
+              "image": "/images/client/products/currentwave-hjt.webp",
               "href": "/manufacturing/solar-panels/hjt"
             },
             "topconSolarPanel": {
-              "title": "Topcon solar panel",
-              "image": "/images/energyEcosystem/solarpaelTabImage01.webp",
+              "title": "CurrentWave TOPCon",
+              "image": "/images/client/products/currentwave-topcon.webp",
               "href": "/manufacturing/solar-panels/topcon"
             },
             "odmVerticalSolarModules": {
-              "title": "Revamping",
-              "image": "/images/energyEcosystem/solarpaelTabImage01.webp",
+              "title": "CurrentWave Revamping",
+              "image": "/images/client/products/currentwave-revamping.webp",
               "href": "/manufacturing/solar-panels/revamping"
             }
           }
@@ -159,22 +159,22 @@
           "products": {
             "residentialBess": {
               "title": "Residential BESS",
-              "image": "/images/energyEcosystem/bessTabImage01.webp",
+              "image": "/images/client/products/bess-residential.webp",
               "href": "/manufacturing/bess/residential"
             },
             "bess112kwh": {
-              "title": "112 KWH BESS",
-              "image": "/images/energyEcosystem/bessTabImage01.webp",
+              "title": "Commercial & Industrial – Grid Forming",
+              "image": "/images/client/products/bess-ci-grid-forming.webp",
               "href": "/manufacturing/bess/112kwh"
             },
             "bess261kwh": {
-              "title": "261 KWH BESS",
-              "image": "/images/energyEcosystem/bessTabImage01.webp",
+              "title": "Commercial & Industrial – Grid Tied",
+              "image": "/images/client/products/bess-ci-grid-tied.webp",
               "href": "/manufacturing/bess/261kwh"
             },
             "bess488kwh": {
-              "title": "488 KWH BESS",
-              "image": "/images/energyEcosystem/bessTabImage01.webp",
+              "title": "Utility – Container BESS",
+              "image": "/images/client/products/bess-utility-container.webp",
               "href": "/manufacturing/bess/488kwh"
             }
           }
@@ -346,31 +346,31 @@
         "residentialSolar": {
           "title": "Residential solar",
           "description": "Reduce energy costs while improving efficiency across modern commercial facilities.",
-          "image": "/images/home/residentialSolar.webp",
+          "image": "/images/client/home/scene-residential.webp",
           "href": "/solutions-projects/solutions/residential"
         },
         "commercialBuildings": {
           "title": "Commercial buildings",
           "description": "Lower operating costs and enhance business efficiency with reliable energy solutions.",
-          "image": "/images/home/commercialBuildings.webp",
+          "image": "/images/client/home/scene-commercial-industrial.webp",
           "href": "/solutions-projects/solutions/commercial-industrial"
         },
         "utilityScaleSolar": {
           "title": "Utility-Scale solar",
           "description": "Built for high-performance, large-scale modern renewable energy projects worldwide.",
-          "image": "/images/home/utilityScaleSolar.webp",
+          "image": "/images/client/home/scene-utility.webp",
           "href": "/solutions-projects/solutions/utilities"
         },
         "virtualPowerPlant": {
           "title": "Virtual power Plant Solutions",
           "description": "Manage distributed energy assets through one platform for greater efficiency and energy value.",
-          "image": "/images/home/virtualPowerPlantSolutions.webp",
+          "image": "/images/client/home/scene-vpp.webp",
           "href": "/solutions-projects/solutions/virtual-power-plant"
         },
         "supplyChainFinancing": {
           "title": "Supply chain financing for PV & BESS",
           "description": "Flexible financing for PV and BESS projects to reduce upfront costs & accelerate deployment.",
-          "image": "/images/home/supplyChainFinancing.webp",
+          "image": "/images/client/home/scene-supply-chain-financing.webp",
           "href": "/solutions-projects/solutions/supply-chain-financing"
         }
       }
@@ -382,7 +382,7 @@
       "ctaHref": "",
       "clientWordmark": "Lux&Enecore",
       "logo": "/icons/clients/luxEnecoreLogomark.svg",
-      "photo": "/images/home/clientTestimonialsBackground.webp",
+      "photo": "/images/client/home/case-study.webp",
       "clientName": "Lux & Enecore",
       "location": "Puglia, Italy",
       "quote": "The high-bifaciality HJT modules from CNX, paired with a locally made tracking system, delivered noticeably higher yield than the standard N-type products we had compared them with.",
@@ -399,44 +399,44 @@
       "paragraph": "Your trusted China partner for private-label PV & BESS manufacturing, Tier 1 products, and after-sales support.",
       "cta": "Learn more",
       "ctaHref": "/about/why-choose-cnx",
-      "image": "/images/home/whyChooseUs.webp",
+      "image": "/images/client/why-choose/vertical-manufacturing.webp",
       "imageAlt": "Technician monitoring the automated solar panel line inside CNX's manufacturing facility",
       "items": {
         "verticalManufacturing": {
           "title": "Vertical Manufacturing & Quality Control",
           "body": "We control every stage from cell to finished module in our own facilities, so quality, lead times and consistency stay in our hands, not a third party's.",
           "iconImage": "/icons/why-choose/building-06.svg",
-          "image": "/images/manufacturing/bc-solar/Manufacturing-excellence.webp"
+          "image": "/images/client/why-choose/vertical-manufacturing.webp"
         },
         "bankableTier1": {
           "title": "Bankable Tier-1 Brand Portfolio",
           "body": "Our lineup is built around bankable Tier 1 manufacturers, giving your projects the certifications, warranties and financing acceptance that lenders and EPCs expect.",
           "iconImage": "/icons/why-choose/shield-energy.svg",
-          "image": "/images/news/news-solar-modules.webp"
+          "image": "/images/client/why-choose/tier1-brands.webp"
         },
         "epcfCreditFinancing": {
           "title": "EPC+F Credit Financing Support",
           "body": "Exclusive 2-year long-term credit financing for qualified ODM partners. Ease your project cash flow pressure and scale your pipeline without tying up working capital.",
           "iconImage": "/icons/why-choose/card.svg",
-          "image": "/images/news/news-epc-financing.webp"
+          "image": "/images/client/why-choose/epc-financing.webp"
         },
         "hybridProcurement": {
           "title": "Hybrid Procurement Synergy",
           "body": "Source modules, storage and balance-of-system parts through one partner, so you cut coordination overhead, align delivery schedules and get stronger bundled pricing.",
           "iconImage": "/icons/why-choose/blend.svg",
-          "image": "/images/hero/hero-488kwh-bess.webp"
+          "image": "/images/client/why-choose/hybrid-procurement.webp"
         },
         "technicalAfterSales": {
           "title": "Technical & After sales Engineering",
           "body": "Our engineers support you from system design and product selection to installation guidance, warranty handling and long-term performance monitoring.",
           "iconImage": "/icons/why-choose/customer-support.svg",
-          "image": "/images/news/news-smart-monitoring.webp"
+          "image": "/images/client/why-choose/technical-after-sales.webp"
         },
         "globalLogistics": {
           "title": "Global Logistics & Tariff Compliance",
           "body": "We manage shipping, documentation and tariff compliance across markets, so your orders clear customs smoothly and arrive on schedule wherever your projects are.",
           "iconImage": "/icons/why-choose/shipping-truck-02.svg",
-          "image": "/images/home/supplyChainFinancing.webp"
+          "image": "/images/client/why-choose/global-logistics.webp"
         }
       }
     },
@@ -537,7 +537,7 @@
         "label": "Explore our solutions",
         "href": "/solutions"
       },
-      "backgroundImage": "/images/home/CTABackground.webp"
+      "backgroundImage": "/images/client/cta/cta-1.webp"
     }
   },
   "nav": {
@@ -557,16 +557,16 @@
     "solarPanels": "Solar Panels",
     "bess": "BESS",
     "bc": "BC",
-    "backContact": "Back Contact",
-    "hjt": "HJT",
-    "topcon": "TOPCon",
+    "backContact": "CurrentWave BC",
+    "hjt": "CurrentWave HJT",
+    "topcon": "CurrentWave TOPCon",
     "odmVerticalSolarModules": "ODM-Vertical Solar Modules",
     "odmVertical": "ODM-Vertical Solar",
-    "revamping": "Revamping",
+    "revamping": "CurrentWave Revamping",
     "residentialBess": "Residential BESS",
-    "bess112": "112kWh",
-    "bess261": "261kWh",
-    "bess488": "488kWh",
+    "bess112": "Commercial & Industrial – Grid Forming",
+    "bess261": "Commercial & Industrial – Grid Tied",
+    "bess488": "Utility – Container BESS",
     "tier1Brands": "Tier 1 Brands",
     "jaSolar": "JA Solar",
     "tongwei": "TONGWEI",
@@ -612,36 +612,36 @@
       "banner": {
         "eyebrow": "SOLAR PANELS",
         "heading": "High-Performance solar panels for your every project",
-        "image": "/images/manufacturing/solar-panels/solar-panels-banner.webp"
+        "image": "/images/client/manufacturing/solar-panels-banner.webp"
       },
       "products": {
         "learnMoreLabel": "Learn more",
         "items": {
           "bc": {
-            "title": "BC Solar Panels",
+            "title": "CurrentWave BC",
             "description": "Maximum efficiency with sleek, busbar-free BC technology for premium performance.",
-            "image": "/images/manufacturing/solar-panels/bc-solar-panels.webp",
+            "image": "/images/client/products/cutout/currentwave-bc.webp",
             "href": "/manufacturing/solar-panels/bc",
             "featured": "true"
           },
           "hjt": {
-            "title": "HJT Solar Panels",
+            "title": "CurrentWave HJT",
             "description": "Advanced HJT technology reduces degradation and maximizes lifetime energy output.",
-            "image": "/images/manufacturing/solar-panels/hjt-solar-panels.webp",
+            "image": "/images/client/products/cutout/currentwave-hjt.webp",
             "href": "/manufacturing/solar-panels/hjt",
             "featured": ""
           },
           "topcon": {
-            "title": "TOPCon Solar Panels",
+            "title": "CurrentWave TOPCon",
             "description": "TOPCon technology combines efficiency, reliability, and value for commercial and utility-scale applications.",
-            "image": "/images/manufacturing/solar-panels/topcon-solar-panels.webp",
+            "image": "/images/client/products/cutout/currentwave-topcon.webp",
             "href": "/manufacturing/solar-panels/topcon",
             "featured": ""
           },
           "odm": {
             "title": "ODM / Private Label Solar Modules",
             "description": "Launch premium solar products faster with customized OEM and ODM manufacturing.",
-            "image": "/images/manufacturing/solar-panels/private-label-solar-modules.webp",
+            "image": "/images/client/products/cutout/private-label-solar-modules.webp",
             "href": "/manufacturing/solar-panels/odm-vertical-solar-modules",
             "featured": ""
           }
@@ -652,7 +652,7 @@
         "eyebrow": "WHY CHOOSE CNX?",
         "heading": "More Than Solar Modules — A Partner for Your Sourcing Needs",
         "intro": "CNX combines a diverse solar module portfolio, customized manufacturing capabilities, and project-oriented supply support. Whether you need standard modules for solar installations, customized products for specific requirements, or replacement modules for aging PV plants, we help you identify suitable options for your business.",
-        "image": "/images/manufacturing/manufacturing-why-choose-us.webp",
+        "image": "/images/client/manufacturing/solar-panels-why-choose.webp",
         "features": {
           "portfolio": {
             "icon": "layers",
@@ -680,7 +680,7 @@
         "secondaryCta": "Discuss Your Requirements",
         "secondaryCtaHref": "/contact"
       },
-      "ctaImage": "/images/home/CTABackground.webp"
+      "ctaImage": "/images/client/cta/cta-3.webp"
     },
     "bess": {
       "meta": {
@@ -698,28 +698,28 @@
           "residential": {
             "title": "Residential BESS",
             "description": "Compact home battery systems maximizing solar self-consumption, backup power, and energy costs.",
-            "image": "/images/manufacturing/bess/residential-bess.webp",
+            "image": "/images/client/products/cutout/bess-residential.webp",
             "href": "/manufacturing/bess/residential",
             "featured": "true"
           },
           "kwh112": {
-            "title": "112kWh Commercial BESS",
+            "title": "Commercial & Industrial – Grid Forming",
             "description": "Efficient energy storage reducing peak demand, optimizing usage, and improving resilience.",
-            "image": "/images/manufacturing/bess/112kwh-commercial-bess.webp",
+            "image": "/images/client/products/cutout/bess-ci-grid-forming.webp",
             "href": "/manufacturing/bess/112kwh",
             "featured": ""
           },
           "kwh261": {
-            "title": "261kWh Commercial BESS",
+            "title": "Commercial & Industrial – Grid Tied",
             "description": "Deliver greater energy flexibility with a scalable battery solution for commercial applications.",
-            "image": "/images/manufacturing/bess/261kwh-commercial-bess.webp",
+            "image": "/images/client/products/cutout/bess-ci-grid-tied.webp",
             "href": "/manufacturing/bess/261kwh",
             "featured": ""
           },
           "kwh488": {
-            "title": "488kWh Utility BESS",
+            "title": "Utility – Container BESS",
             "description": "High-capacity battery systems for renewable integration, grid stability, and large-scale storage.",
-            "image": "/images/manufacturing/bess/488kwh-utility-bess.webp",
+            "image": "/images/client/products/cutout/bess-utility-container.webp",
             "href": "/manufacturing/bess/488kwh",
             "featured": ""
           }
@@ -758,7 +758,7 @@
         "secondaryCta": "Discuss Your Project",
         "secondaryCtaHref": "/contact"
       },
-      "ctaImage": "/images/home/CTABackground.webp"
+      "ctaImage": "/images/client/cta/cta-3.webp"
     }
   },
   "solutions": {
@@ -865,7 +865,7 @@
         "eyebrow": "DOWNLOADS",
         "heading": "Technical resource",
         "description": "Access datasheets, brochures, certifications, installation guides, and other technical documents to support product selection, system design, and project implementation.",
-        "image": "/images/service/Downloads/service-downloads-heroBanner.webp"
+        "image": "/images/client/service/banner.webp"
       },
       "searchPlaceholder": "Search what you want ...",
       "searchLabel": "Search technical resources",
@@ -925,7 +925,7 @@
         "eyebrow": "TECHNOLOGY",
         "heading": "The technology behind every CNX module and battery",
         "description": "Explore the technology behind CNX Energy's solar and BESS products.",
-        "image": "/images/manufacturing/manufacturing-why-choose-us.webp"
+        "image": "/images/client/manufacturing/technology-3.webp"
       }
     },
     "pvBessBrands": {
@@ -937,7 +937,7 @@
         "eyebrow": "PV & BESS BRANDS",
         "heading": "Tier 1 PV and BESS brands, one trusted partner",
         "description": "Discover the Tier 1 PV and BESS brands CNX Energy manufactures and distributes.",
-        "image": "/images/home/CTABackground.webp"
+        "image": "/images/client/tier1-brands/hero.webp"
       }
     },
     "whyChooseCnx": {
@@ -956,7 +956,7 @@
         "ctaHref": "/manufacturing/solar-panels",
         "secondaryCta": "Discuss Your Project",
         "secondaryCtaHref": "/contact",
-        "backgroundImage": "/images/about/whyChooseCNX/whyChooseCNXHeroBanner.webp"
+        "backgroundImage": "/images/client/about/hero.webp"
       },
       "whoWeAre": {
         "eyebrow": "WHO WE ARE",
@@ -999,7 +999,7 @@
             "body": "CNX connects solar module manufacturing with product selection and supply coordination. Our manufacturing capabilities support customized module requirements and private-label projects, with quality control and traceability processes designed to promote product consistency.",
             "cta": "Explore Our Manufacturing",
             "ctaHref": "/manufacturing/solar-panels",
-            "image": "/images/manufacturing/bc-solar/Manufacturing-excellence.webp",
+            "image": "/images/client/why-choose/vertical-manufacturing.webp",
             "imageAlt": "Solar module production line in a CNX factory"
           },
           "brandPortfolio": {
@@ -1008,7 +1008,7 @@
             "body": "Through our relationships with established PV and BESS brands, CNX helps customers source products across different technology categories and project requirements. Our brand portfolio supports a more flexible procurement process without limiting customers to a single product source.",
             "cta": "Explore Our Partner Brands",
             "ctaHref": "/tier-1-brands",
-            "image": "/images/news/news-solar-modules.webp",
+            "image": "/images/client/why-choose/tier1-brands.webp",
             "imageAlt": "Tier 1 solar modules ready for a project"
           },
           "financing": {
@@ -1017,7 +1017,7 @@
             "body": "For eligible customers and qualifying projects, CNX offers EPC+F credit financing support designed to help manage procurement cash flow and project funding requirements. Availability, credit terms, and eligibility are assessed on a case-by-case basis.",
             "cta": "Discuss Financing Options",
             "ctaHref": "/contact",
-            "image": "/images/news/news-epc-financing.webp",
+            "image": "/images/client/why-choose/epc-financing.webp",
             "imageAlt": "Project team reviewing EPC financing plans"
           },
           "procurement": {
@@ -1026,7 +1026,7 @@
             "body": "CNX can coordinate self-manufactured solar modules with selected partner-brand inverters and battery energy storage products. By consolidating sourcing requirements through one partner, customers can simplify supplier coordination and improve visibility across their procurement process.",
             "cta": "Explore PV & BESS Solutions",
             "ctaHref": "/manufacturing/bess",
-            "image": "/images/hero/hero-488kwh-bess.webp",
+            "image": "/images/client/why-choose/hybrid-procurement.webp",
             "imageAlt": "Solar array with a battery energy storage system"
           },
           "technicalSupport": {
@@ -1035,7 +1035,7 @@
             "body": "From technical product selection and system design coordination to documentation and after-sales communication, CNX helps customers address technical questions throughout the procurement process. Support scope is aligned with the products supplied and the requirements of each project.",
             "cta": "Contact Our Technical Team",
             "ctaHref": "/contact",
-            "image": "/images/news/news-smart-monitoring.webp",
+            "image": "/images/client/why-choose/technical-after-sales.webp",
             "imageAlt": "Engineer checking system monitoring data"
           },
           "logistics": {
@@ -1044,7 +1044,7 @@
             "body": "CNX supports international customers with export coordination, shipment planning, and relevant product documentation. We work with customers to identify applicable logistics and import requirements early, helping reduce avoidable delays and improve supply planning.",
             "cta": "Discuss Supply Requirements",
             "ctaHref": "/contact",
-            "image": "/images/home/supplyChainFinancing.webp",
+            "image": "/images/client/why-choose/global-logistics.webp",
             "imageAlt": "Large solar installation across a hillside"
           }
         }
@@ -1189,7 +1189,7 @@
       "caseStudy": {
         "eyebrow": "PROJECT CASE",
         "heading": "Proven Capabilities. Global Reach",
-        "backgroundImage": "/images/home/clientTestimonialsBackground.webp",
+        "backgroundImage": "/images/client/home/case-study.webp",
         "title": "5MW HJT tracker project designed for higher yield",
         "body": "A European ground-mounted solar project used high-bifaciality HJT modules with local tracker systems to improve power generation and efficiency compared with previous standard N-type module layouts. CNX supported module selection, export coordination, technical documents, and after-sales communication.",
         "specs": {
@@ -1210,7 +1210,7 @@
           "label": "Explore Our Products & Brands",
           "href": "/tier-1-brands"
         },
-        "image": "/images/home/CTABackground.webp"
+        "image": "/images/client/cta/cta-2.webp"
       }
     }
   },
@@ -1223,7 +1223,7 @@
         },
         "bannerEyebrow": "News room",
         "bannerHeading": "Discover the latest news & industry insights",
-        "bannerImage": "/images/news/news-hjt-tracker.webp",
+        "bannerImage": "/images/client/news/banner.webp",
         "bannerImagePosition": "87% center",
         "highlightsHeading": "Highlights news",
         "allNewsHeading": "All News",
@@ -1275,7 +1275,7 @@
         },
         "bannerEyebrow": "Case Studies",
         "bannerHeading": "Proven capabilities in real projects",
-        "bannerImage": "/images/home/clientTestimonialsBackground.webp",
+        "bannerImage": "/images/client/home/case-study.webp",
         "bannerImagePosition": "center",
         "highlightsHeading": "Featured cases",
         "allNewsHeading": "All case studies",
@@ -1319,7 +1319,7 @@
       "eyebrow": "CONTACT US",
       "heading": "Let's power your next project",
       "description": "Tell us what you're planning — our energy specialists reply within one business day.",
-      "image": "/images/home/CTABackground.webp"
+      "image": "/images/client/cta/cta-2.webp"
     },
     "intro": {
       "eyebrow": "GET IN TOUCH",
@@ -1546,7 +1546,7 @@
       "eyebrow": "Legal",
       "title": "Privacy Policy",
       "updated": "Last updated: 26 October 2026",
-      "bannerImage": "/images/home/CTABackground.webp",
+      "bannerImage": "/images/client/cta/cta-3.webp",
       "intro": "This Privacy Policy explains what personal data Current Nexus Group Limited (“CNX”) collects through this website, how we use and protect it, and the choices and rights you have.",
       "sections": {
         "s1": {
@@ -1621,7 +1621,7 @@
       "eyebrow": "Legal",
       "title": "Cookie Policy",
       "updated": "Last updated: 22 October 2026",
-      "bannerImage": "/images/home/CTABackground.webp",
+      "bannerImage": "/images/client/cta/cta-3.webp",
       "intro": "This Cookie Policy explains how CNX uses cookies and similar technologies on this website, why we use them, and how you can manage your preferences.",
       "sections": {
         "s1": {
@@ -1676,7 +1676,7 @@
       "eyebrow": "Legal",
       "title": "Terms of Use",
       "updated": "Last updated: 26 October 2026",
-      "bannerImage": "/images/home/CTABackground.webp",
+      "bannerImage": "/images/client/cta/cta-3.webp",
       "intro": "These Terms of Use set out the rules for using the CNX website, including how you may use our content and the limits of our responsibility. Please read them carefully.",
       "sections": {
         "s1": {
@@ -1773,7 +1773,7 @@
         "label": "Browse brands",
         "href": "#brands"
       },
-      "image": "/images/about/whyChooseCNX/whyChooseCNXHeroBanner.webp"
+      "image": "/images/client/tier1-brands/hero.webp"
     },
     "mix": {
       "eyebrow": "Why our brand mix",
@@ -1882,7 +1882,7 @@
         "label": "View downloads",
         "href": "/service/downloads"
       },
-      "image": "/images/home/CTABackground.webp"
+      "image": "/images/client/cta/cta-2.webp"
     },
     "brandPage": {
       "breadcrumbHome": "Home",
@@ -2015,7 +2015,7 @@
             "label": "For Solar Asset Owners & Plant Operators",
             "title": "Protect the Value of Your Existing PV Asset",
             "description": "When original modules fail, degrade or become difficult to source, you need a replacement route that accounts for the plant’s existing design and commercial conditions. CNX helps organise the information needed to compare feasible replacement options before procurement.",
-            "image": "/images/news/news-epc-financing.webp",
+            "image": "/images/client/home/case-study.webp",
             "linkLabel": "Assess My PV Plant",
             "linkHref": "#inquiry"
           },
@@ -2023,7 +2023,7 @@
             "label": "For O&M Providers",
             "title": "Make Repeated Module Replacement Easier to Manage",
             "description": "For maintenance teams handling discontinued modules or recurring replacements, consistent specifications and traceable documentation matter. CNX can help review the original module information and define a repeatable replacement checklist for the agreed project scope.",
-            "image": "/images/hero/hero-750w-solar.webp",
+            "image": "/images/client/why-choose/technical-after-sales.webp",
             "linkLabel": "Discuss O&M Replacement Needs",
             "linkHref": "#inquiry"
           },
@@ -2031,7 +2031,7 @@
             "label": "For EPC Contractors & Repowering Developers",
             "title": "Clarify Technical Requirements Before Ordering",
             "description": "Replacement and repowering projects can involve module selection, inverter limits, structural checks, documentation and delivery sequencing. CNX coordinates the agreed product and technical information so your engineering team can review the proposed specification before order release.",
-            "image": "/images/hero/hero-smart-pv.webp",
+            "image": "/images/client/why-choose/epc-financing.webp",
             "linkLabel": "Share Project Requirements",
             "linkHref": "#inquiry"
           }
@@ -2041,8 +2041,8 @@
         "eyebrow": "Application & project case",
         "heading": "What a Repowering Project Can Achieve on the Same Site",
         "intro": "An illustrative revamping scenario: an ageing plant re-equipped with high-efficiency modules while the land, mounting structure and grid connection stay in place.",
-        "image": "/images/hero/hero-smart-pv.webp",
-        "imageAlt": "Aerial view of a ground-mounted solar plant",
+        "image": "/images/client/about/revamping.webp",
+        "imageAlt": "Ageing solar module replaced by a new high-efficiency module",
         "badge": "Simulation case",
         "facts": {
           "region": {
@@ -2125,9 +2125,9 @@
         "cards": {
           "hjt": {
             "group": "Solar modules",
-            "image": "/images/energyEcosystem/solarpaelTabImage01.webp",
-            "imageAlt": "HJT solar module",
-            "title": "HJT Modules",
+            "image": "/images/client/products/currentwave-hjt.webp",
+            "imageAlt": "CNX CurrentWave HJT solar module",
+            "title": "CurrentWave HJT",
             "description": "High-efficiency heterojunction modules, suitable for high-irradiation areas.",
             "specs": "Heterojunction, High efficiency",
             "linkLabel": "View Products",
@@ -2136,9 +2136,9 @@
           },
           "topcon": {
             "group": "Solar modules",
-            "image": "/images/manufacturing/solar-panels/topcon-solar-panels.webp",
-            "imageAlt": "TOPCon solar module",
-            "title": "TOPCon Modules",
+            "image": "/images/client/products/currentwave-topcon.webp",
+            "imageAlt": "CNX CurrentWave TOPCon solar module",
+            "title": "CurrentWave TOPCon",
             "description": "N-type tunnel oxide passivated contact modules with low degradation and a high bifaciality rate.",
             "specs": "N-type, Low degradation, High bifaciality",
             "linkLabel": "View Products",
@@ -2147,9 +2147,9 @@
           },
           "bc": {
             "group": "Solar modules",
-            "image": "/images/manufacturing/bc-solar/g12-0bb-venus-pro.webp",
-            "imageAlt": "Back-contact solar module",
-            "title": "BC Modules",
+            "image": "/images/client/products/currentwave-bc.webp",
+            "imageAlt": "CNX CurrentWave BC solar module",
+            "title": "CurrentWave BC",
             "description": "Back-contact modules: a clean look and high efficiency, suitable for rooftops and limited space.",
             "specs": "Back contact, Rooftops, Limited space",
             "linkLabel": "View Products",
@@ -2158,14 +2158,13 @@
           },
           "odm": {
             "group": "Solar modules",
-            "image": "/images/manufacturing/bc-solar/ProductpageHeroProductimage.webp",
-            "imageAlt": "Custom-sized solar modules",
-            "title": "ODM Customization",
+            "image": "/images/client/products/currentwave-revamping.webp",
+            "imageAlt": "CNX CurrentWave Revamping replacement module",
+            "title": "CurrentWave Revamping",
             "description": "Customised size and power to fit the existing bracket holes and the system’s voltage level.",
             "specs": "Custom size, Custom power, Voltage matching",
-            "linkLabel": "View Products",
-            "href": "/manufacturing/solar-panels/odm-vertical-solar-modules",
-            "fallbackHref": "/manufacturing/solar-panels"
+            "linkLabel": "Request a Plant Assessment",
+            "href": "#inquiry"
           },
           "growatt": {
             "group": "Inverters",
@@ -2213,8 +2212,8 @@
           },
           "bessResidential": {
             "group": "Energy storage (BESS)",
-            "image": "/images/energyEcosystem/bessTabImage01.webp",
-            "imageAlt": "Battery storage cabinet",
+            "image": "/images/client/products/bess-residential.webp",
+            "imageAlt": "CNX residential battery storage",
             "title": "Residential BESS",
             "description": "Household-level battery storage for residential systems.",
             "specs": "5–20 kWh",
@@ -2224,20 +2223,20 @@
           },
           "bessCi": {
             "group": "Energy storage (BESS)",
-            "image": "/images/premiumSolutions/hithiumEssCabinet.webp",
-            "imageAlt": "Commercial battery storage cabinet",
-            "title": "C&I BESS",
+            "image": "/images/client/products/bess-ci-grid-tied.webp",
+            "imageAlt": "CNX commercial and industrial battery storage",
+            "title": "Commercial & Industrial BESS",
             "description": "Industrial and commercial battery storage cabinets.",
-            "specs": "112 kWh, 261 kWh",
+            "specs": "Grid forming, Grid tied",
             "linkLabel": "View Products",
             "href": "/manufacturing/bess/261kwh",
             "fallbackHref": "/manufacturing/bess"
           },
           "bessUtility": {
             "group": "Energy storage (BESS)",
-            "image": "/images/premiumSolutions/hithiumBlock.webp",
-            "imageAlt": "Utility-scale battery storage system",
-            "title": "Utility BESS",
+            "image": "/images/client/products/bess-utility-container.webp",
+            "imageAlt": "CNX utility container battery storage",
+            "title": "Utility – Container BESS",
             "description": "Power-station-level battery storage for utility-scale projects.",
             "specs": "488 kWh and above",
             "linkLabel": "View Products",
@@ -2433,7 +2432,7 @@
         "eyebrow": "Solutions",
         "heading": "Solar Energy Solutions for Different Applications",
         "description": "CNX supports solar and energy storage sourcing for a range of applications, from residential and commercial systems to utility-scale projects. We help customers identify suitable PV modules, inverters and battery energy storage products based on project requirements, system configuration and procurement needs.",
-        "image": "/images/hero/hero-smart-pv.webp",
+        "image": "/images/client/solutions/hub-hero.webp",
         "imageAlt": "Aerial view of a large solar plant",
         "primaryLabel": "Discuss Your Project",
         "primaryHref": "/contact",
@@ -2447,35 +2446,35 @@
         "intro": "",
         "cards": {
           "residential": {
-            "image": "/images/solutionsAndProjects/solutions/residential/solutions-residential-hero.webp",
+            "image": "/images/client/home/scene-residential.webp",
             "imageAlt": "",
             "title": "Residential Solar Solutions",
             "description": "Help residential solar businesses and project buyers source PV modules, inverters and battery storage products for home energy applications. Product selection can be aligned with system capacity, available installation space and backup power requirements.",
             "href": "/solutions-projects/solutions/residential"
           },
           "commercial": {
-            "image": "/images/home/commercialBuildings.webp",
+            "image": "/images/client/home/scene-commercial-industrial.webp",
             "imageAlt": "",
             "title": "Commercial & Industrial Solar Solutions",
             "description": "Source solar and energy storage products for commercial buildings, factories and industrial facilities. CNX can help coordinate product selection according to energy demand, installation conditions and project procurement requirements.",
             "href": "/solutions-projects/solutions/commercial-industrial"
           },
           "utilities": {
-            "image": "/images/home/utilityScaleSolar.webp",
+            "image": "/images/client/home/scene-utility.webp",
             "imageAlt": "",
             "title": "Utility-Scale Solar Solutions",
             "description": "Support utility-scale solar procurement with PV modules and related product sourcing aligned with project specifications, volume requirements and delivery schedules.",
             "href": "/solutions-projects/solutions/utilities"
           },
           "vpp": {
-            "image": "/images/home/virtualPowerPlantSolutions.webp",
+            "image": "/images/client/home/scene-vpp.webp",
             "imageAlt": "",
             "title": "Virtual Power Plant Solutions",
             "description": "Explore the product and energy storage considerations associated with distributed energy resources and virtual power plant applications. The required equipment and integration scope depend on the project architecture and control platform.",
             "href": "/solutions-projects/solutions/virtual-power-plant"
           },
           "supplyChain": {
-            "image": "/images/home/supplyChainFinancing.webp",
+            "image": "/images/client/home/scene-supply-chain-financing.webp",
             "imageAlt": "",
             "title": "Solar Supply Chain & Financing Support",
             "description": "Explore procurement coordination and supply-chain-related financing arrangements for PV and BESS purchases, subject to the specific commercial structure and available financing partners.",
@@ -2523,7 +2522,7 @@
         "eyebrow": "Supply coordination",
         "heading": "From Product Selection to Supply Coordination",
         "intro": "CNX connects customers with solar and battery energy storage products from its manufacturing capabilities and selected brand portfolio. Our role is to help buyers align product options with their technical specifications, commercial requirements and procurement plans.",
-        "image": "/images/manufacturing/manufacturing-why-choose-us.webp",
+        "image": "/images/client/why-choose/tier1-brands.webp",
         "items": {
           "reason1": {
             "title": "Flexible Product Sourcing",
@@ -2614,7 +2613,7 @@
         "primaryHref": "/contact",
         "secondaryLabel": "",
         "secondaryHref": "",
-        "image": "/images/home/CTABackground.webp"
+        "image": "/images/client/cta/cta-1.webp"
       }
     },
     "projectsHub": {
@@ -2626,7 +2625,7 @@
         "eyebrow": "Renewable Projects",
         "heading": "Renewable Energy Projects and Supply Solutions",
         "description": "Renewable energy projects require more than individual products. They involve technical specifications, application conditions, equipment selection, procurement planning and delivery coordination.\nCNX supports project buyers with solar and battery energy storage product sourcing based on the defined project scope, helping align available products with technical and commercial requirements.",
-        "image": "/images/manufacturing/solar-panels/solar-panels-banner.webp",
+        "image": "/images/client/projects/hub-hero.webp",
         "imageAlt": "Solar plant on a hillside",
         "primaryLabel": "Discuss Your Project",
         "primaryHref": "/contact",
@@ -2640,7 +2639,7 @@
         "intro": "",
         "cards": {
           "gridTie": {
-            "image": "/images/home/virtualPowerPlantSolutions.webp",
+            "image": "/images/client/home/scene-utility.webp",
             "imageAlt": "",
             "title": "Grid-Tied Solar Projects",
             "description": "For projects connected to the electricity grid, product sourcing must align with the specified system design, grid connection requirements and project procurement schedule. CNX can support PV module and related product sourcing based on the project’s technical specifications.",
@@ -2654,7 +2653,7 @@
             "href": "/solutions-projects/renewable-projects/offgrid"
           },
           "financing": {
-            "image": "/images/news/news-epc-financing.webp",
+            "image": "/images/client/why-choose/epc-financing.webp",
             "imageAlt": "",
             "title": "Renewable Energy Project Financing",
             "description": "Project financing involves evaluating capital requirements, project economics, financing structures and commercial risks. Where relevant financing arrangements or partners are available, the applicable scope, eligibility and approval process must be confirmed for each project.",
@@ -2689,7 +2688,7 @@
         "eyebrow": "How we support projects",
         "heading": "PV & BESS Sourcing for Project Requirements",
         "intro": "CNX works with project buyers to identify suitable solar and battery energy storage products based on project specifications and procurement needs. Our support focuses on product sourcing, specification review and coordination within the confirmed supply scope.",
-        "image": "/images/news/news-tariff-outlook.webp",
+        "image": "/images/client/manufacturing/technology-3.webp",
         "items": {
           "reason1": {
             "title": "Product Sourcing",
@@ -2868,7 +2867,7 @@
         "primaryHref": "#inquiry",
         "secondaryLabel": "",
         "secondaryHref": "",
-        "image": "/images/news/news-epc-financing.webp"
+        "image": "/images/client/cta/cta-2.webp"
       }
     },
     "residential": {
@@ -2880,7 +2879,7 @@
         "eyebrow": "Residential Solar Solutions",
         "heading": "Residential Solar Solutions for Modern Homes",
         "description": "Residential solar projects require products that match household energy needs, roof conditions and system configuration. CNX supports residential solar businesses and project buyers with sourcing options for solar modules, inverters and home battery storage products based on project specifications.\nFrom individual product procurement to coordinated PV and battery storage sourcing, we help customers evaluate suitable options for their residential energy projects.",
-        "image": "/images/solutionsAndProjects/solutions/residential/solutions-residential-hero.webp",
+        "image": "/images/client/solutions/residential-hero.webp",
         "imageAlt": "Home with rooftop solar panels",
         "primaryLabel": "Discuss Your Requirements",
         "primaryHref": "/contact",
@@ -2894,7 +2893,7 @@
         "intro": "Residential solar systems vary according to roof space, household electricity consumption, local conditions and the need for energy storage. Some projects focus on solar generation, while others combine PV modules, inverters and batteries to support greater energy flexibility or backup power.\nCNX helps residential solar businesses identify relevant product options based on the intended system configuration, technical requirements and purchasing plan.",
         "rows": {
           "row1": {
-            "image": "/images/solutionsAndProjects/solutions/residential/solutions-residential-whyChooseImage.webp",
+            "image": "/images/client/home/scene-residential.webp",
             "imageAlt": "",
             "title": "Residential Solar PV",
             "description": "Solar modules and related products for residential rooftop solar installations, selected according to available roof area, system design and project specifications.",
@@ -2908,7 +2907,7 @@
             "linkHref": ""
           },
           "row3": {
-            "image": "/images/about/whyChooseCNX/whyChooseCNXHeroBanner.webp",
+            "image": "/images/client/home/scene-vpp.webp",
             "imageAlt": "",
             "title": "Integrated Residential PV & BESS",
             "description": "Coordinated sourcing of solar and storage products for projects requiring both generation and battery storage, subject to the specified system architecture and product compatibility.",
@@ -2923,8 +2922,8 @@
         "cards": {
           "card1": {
             "group": "",
-            "image": "/images/manufacturing/bc-solar/g12-0bb-venus-pro.webp",
-            "imageAlt": "Back-contact solar module",
+            "image": "/images/client/products/currentwave-bc.webp",
+            "imageAlt": "CNX CurrentWave BC solar module",
             "title": "Rooftop Solar Modules",
             "description": "BC, HJT and TOPCon modules for residential rooftops, selected by roof area, system design and project specifications.",
             "specs": "BC, HJT, TOPCon, Rooftop",
@@ -2934,9 +2933,9 @@
           },
           "card2": {
             "group": "",
-            "image": "/images/energyEcosystem/bessTabImage01.webp",
-            "imageAlt": "Battery storage cabinet",
-            "title": "Home Battery Storage",
+            "image": "/images/client/products/bess-residential.webp",
+            "imageAlt": "CNX residential battery storage",
+            "title": "Residential BESS",
             "description": "Residential battery storage for self-consumption and backup, sized to capacity, power and inverter compatibility.",
             "specs": "5–20 kWh, LFP",
             "linkLabel": "View Products",
@@ -2980,7 +2979,7 @@
         "eyebrow": "Why choose CNX",
         "heading": "Why Choose CNX for Residential Solar Products?",
         "intro": "",
-        "image": "/images/solutionsAndProjects/solutions/residential/solutions-residential-whyChooseImage.webp",
+        "image": "/images/client/solutions/residential-why-choose.webp",
         "items": {
           "reason1": {
             "title": "Flexible Solar Product Sourcing",
@@ -3030,7 +3029,7 @@
         "primaryHref": "/contact",
         "secondaryLabel": "",
         "secondaryHref": "",
-        "image": "/images/solutionsAndProjects/solutions/residential/solutions-residential-whyChooseImage.webp"
+        "image": "/images/client/cta/cta-1.webp"
       }
     },
     "commercial": {
@@ -3042,7 +3041,7 @@
         "eyebrow": "Commercial & Industrial",
         "heading": "Commercial & Industrial Solar Solutions",
         "description": "Commercial and industrial solar projects require product selections that align with facility requirements, energy usage patterns, system design and project schedules. CNX supports C&I project buyers with sourcing options for solar modules, inverters and battery energy storage products.\nWhether the project involves rooftop PV, solar generation combined with storage, or procurement for a portfolio of commercial facilities, CNX can review the required products and coordinate sourcing within the agreed scope.",
-        "image": "/images/home/CTABackground.webp",
+        "image": "/images/client/solutions/commercial-industrial-hero.webp",
         "imageAlt": "Industrial facility",
         "primaryLabel": "Discuss Your C&I Project",
         "primaryHref": "/contact",
@@ -3056,14 +3055,14 @@
         "intro": "Commercial and industrial projects vary by facility size, electricity demand, operating schedules and installation conditions. Product sourcing should reflect the project’s technical specifications and the intended role of solar generation and energy storage.",
         "rows": {
           "row1": {
-            "image": "/images/home/commercialBuildings.webp",
+            "image": "/images/client/home/scene-commercial-industrial.webp",
             "imageAlt": "",
             "title": "Commercial & Industrial Rooftop Solar",
             "description": "PV modules and related products for factories, warehouses, commercial buildings and industrial facilities, based on roof conditions and project specifications.",
             "linkHref": ""
           },
           "row2": {
-            "image": "/images/manufacturing/bess/bess-banner.webp",
+            "image": "/images/client/home/scene-supply-chain-financing.webp",
             "imageAlt": "",
             "title": "C&I Battery Energy Storage",
             "description": "Battery storage products for projects with defined energy management, load support or backup requirements. Product selection depends on the required power, energy capacity and system design.",
@@ -3085,8 +3084,8 @@
         "cards": {
           "card1": {
             "group": "",
-            "image": "/images/energyEcosystem/solarpaelTabImage01.webp",
-            "imageAlt": "HJT solar module",
+            "image": "/images/client/products/currentwave-hjt.webp",
+            "imageAlt": "CNX CurrentWave HJT solar module",
             "title": "High-Efficiency PV Modules",
             "description": "HJT, TOPCon and BC modules for commercial and industrial rooftops and carports.",
             "specs": "HJT, TOPCon, BC, Bifacial",
@@ -3096,22 +3095,22 @@
           },
           "card2": {
             "group": "",
-            "image": "/images/energyEcosystem/bessTabImage01.webp",
-            "imageAlt": "Commercial battery storage cabinet",
-            "title": "112 kWh C&I BESS",
-            "description": "Cabinet battery storage for peak shaving, load support and backup at commercial sites.",
-            "specs": "112 kWh, LFP, Outdoor cabinet",
+            "image": "/images/client/products/bess-ci-grid-forming.webp",
+            "imageAlt": "CNX grid-forming C&I battery storage",
+            "title": "Commercial & Industrial – Grid Forming",
+            "description": "Grid-forming cabinet storage for commercial and industrial sites, selected to the project’s power and energy requirements.",
+            "specs": "Grid forming, LFP, Outdoor cabinet",
             "linkLabel": "View Products",
             "href": "/manufacturing/bess/112kwh",
             "fallbackHref": "/manufacturing/bess"
           },
           "card3": {
             "group": "",
-            "image": "/images/premiumSolutions/hithiumEssCabinet.webp",
-            "imageAlt": "Commercial battery storage cabinet",
-            "title": "261 kWh C&I BESS",
-            "description": "Higher-capacity cabinet storage for industrial facilities and solar-plus-storage projects.",
-            "specs": "261 kWh, LFP, Outdoor cabinet",
+            "image": "/images/client/products/bess-ci-grid-tied.webp",
+            "imageAlt": "CNX grid-tied C&I battery storage",
+            "title": "Commercial & Industrial – Grid Tied",
+            "description": "Grid-tied cabinet storage for commercial and industrial solar-plus-storage projects.",
+            "specs": "Grid tied, LFP, Outdoor cabinet",
             "linkLabel": "View Products",
             "href": "/manufacturing/bess/261kwh",
             "fallbackHref": "/manufacturing/bess"
@@ -3157,7 +3156,7 @@
         "eyebrow": "Why choose CNX",
         "heading": "Why Choose CNX for C&I Solar & Storage?",
         "intro": "",
-        "image": "/images/manufacturing/manufacturing-why-choose-us.webp",
+        "image": "/images/client/solutions/commercial-industrial-why-choose.webp",
         "items": {
           "reason1": {
             "title": "Wide PV & BESS Product Selection",
@@ -3240,7 +3239,7 @@
         "primaryHref": "/contact",
         "secondaryLabel": "",
         "secondaryHref": "",
-        "image": "/images/home/ctabg2.webp"
+        "image": "/images/client/cta/cta-3.webp"
       }
     },
     "utilities": {
@@ -3252,7 +3251,7 @@
         "eyebrow": "Utility-Scale Solar",
         "heading": "Utility-Scale Solar Solutions for Large-Scale Projects",
         "description": "Utility-scale solar projects require careful alignment between module specifications, project design, procurement volumes and delivery schedules. CNX supports large-scale solar project buyers with PV module sourcing and related product procurement based on confirmed project requirements.\nFrom reviewing module specifications to coordinating quotation details and supply arrangements, CNX helps buyers clarify sourcing requirements for utility-scale solar developments.",
-        "image": "/images/news/news-epc-financing.webp",
+        "image": "/images/client/solutions/utility-hero.webp",
         "imageAlt": "Aerial view of a utility-scale solar plant",
         "primaryLabel": "Discuss Your Project",
         "primaryHref": "/contact",
@@ -3273,7 +3272,7 @@
             "linkHref": ""
           },
           "row2": {
-            "image": "/images/home/utilityScaleSolar.webp",
+            "image": "/images/client/why-choose/global-logistics.webp",
             "imageAlt": "",
             "title": "Volume-Based Procurement",
             "description": "Align product availability, required quantities, purchasing arrangements and quotation details with the project’s procurement plan.",
@@ -3295,8 +3294,8 @@
         "cards": {
           "card1": {
             "group": "",
-            "image": "/images/manufacturing/bc-solar/ProductpageHeroProductimage.webp",
-            "imageAlt": "Utility-scale solar modules",
+            "image": "/images/client/products/currentwave-topcon.webp",
+            "imageAlt": "CNX CurrentWave TOPCon solar module",
             "title": "Utility-Scale Solar Modules",
             "description": "Screen products based on the specified power, size, electrical parameters and certification requirements for the project.",
             "specs": "High power, Bifacial, Utility format",
@@ -3317,9 +3316,9 @@
           },
           "card3": {
             "group": "",
-            "image": "/images/premiumSolutions/hithiumBlock.webp",
-            "imageAlt": "Utility-scale battery storage system",
-            "title": "Related BESS Products",
+            "image": "/images/client/products/bess-utility-container.webp",
+            "imageAlt": "CNX utility container battery storage",
+            "title": "Utility – Container BESS",
             "description": "Where a large-scale project includes energy storage, explore the BESS range; the supply scope is confirmed per project.",
             "specs": "488 kWh and above, LFP",
             "linkLabel": "View Products",
@@ -3356,7 +3355,7 @@
         "eyebrow": "Why choose CNX",
         "heading": "Why Choose CNX for Utility-Scale Solar Procurement?",
         "intro": "",
-        "image": "/images/manufacturing/solar-panels/solar-panels-banner.webp",
+        "image": "/images/client/solutions/utility-why-choose.webp",
         "items": {
           "reason1": {
             "title": "Flexible Manufacturing & Sourcing",
@@ -3421,7 +3420,7 @@
         "primaryHref": "/contact",
         "secondaryLabel": "",
         "secondaryHref": "",
-        "image": "/images/hero/hero-smart-pv.webp"
+        "image": "/images/client/cta/cta-2.webp"
       }
     },
     "vpp": {
@@ -3433,7 +3432,7 @@
         "eyebrow": "Virtual Power Plant",
         "heading": "Virtual Power Plant Solutions for Distributed Energy Resources",
         "description": "Virtual power plants coordinate distributed energy resources, such as solar generation, battery storage and other controllable assets, to support energy management and grid-related applications.\nCNX supports VPP-related projects through sourcing options for PV modules, battery energy storage systems and related products, based on project specifications and the confirmed procurement scope.",
-        "image": "/images/about/whyChooseCNX/whyChooseCNXHeroBanner.webp",
+        "image": "/images/client/solutions/vpp-hero.webp",
         "imageAlt": "Rooftop solar on homes connected to a distributed energy network",
         "primaryLabel": "Discuss Your VPP Project",
         "primaryHref": "/contact",
@@ -3471,8 +3470,8 @@
         "cards": {
           "card1": {
             "group": "",
-            "image": "/images/manufacturing/bc-solar/g12-0bb-uranus-pro.webp",
-            "imageAlt": "Solar module",
+            "image": "/images/client/products/currentwave-bc.webp",
+            "imageAlt": "CNX CurrentWave BC solar module",
             "title": "Solar PV Modules",
             "description": "Source PV modules for distributed solar installations according to required power ratings, dimensions, electrical parameters and applicable certifications.",
             "specs": "BC, HJT, TOPCon",
@@ -3482,8 +3481,8 @@
           },
           "card2": {
             "group": "",
-            "image": "/images/premiumSolutions/hithiumEssCabinet.webp",
-            "imageAlt": "Battery storage cabinet",
+            "image": "/images/client/products/bess-ci-grid-tied.webp",
+            "imageAlt": "CNX battery storage cabinet",
             "title": "Battery Energy Storage Systems",
             "description": "Explore battery storage product options based on rated power, energy capacity, operating environment and the project’s specified integration requirements.",
             "specs": "Residential, C&I, Utility",
@@ -3510,28 +3509,28 @@
         "intro": "Virtual power plant applications depend on the available energy resources, the operating objectives and the control capabilities of the project. Common application contexts may include:",
         "cards": {
           "residential": {
-            "image": "/images/solutionsAndProjects/solutions/residential/solutions-residential-hero.webp",
+            "image": "/images/client/home/scene-residential.webp",
             "imageAlt": "",
             "title": "Residential Energy Resources",
             "description": "Aggregated residential PV and battery storage assets, where supported by the applicable platform and operating arrangements.",
             "href": "/solutions-projects/solutions/residential"
           },
           "commercial": {
-            "image": "/images/home/commercialBuildings.webp",
+            "image": "/images/client/home/scene-commercial-industrial.webp",
             "imageAlt": "",
             "title": "Commercial & Industrial Energy Resources",
             "description": "Distributed generation and storage across commercial or industrial facilities.",
             "href": "/solutions-projects/solutions/commercial-industrial"
           },
           "storage": {
-            "image": "/images/manufacturing/bess/bess-banner.webp",
+            "image": "/images/client/home/scene-supply-chain-financing.webp",
             "imageAlt": "",
             "title": "Distributed Storage Portfolios",
             "description": "Multiple battery storage installations coordinated under a defined energy management strategy.",
             "href": "/solutions-projects/solutions/utilities"
           },
           "integration": {
-            "image": "/images/home/utilityScaleSolar.webp",
+            "image": "/images/client/home/scene-utility.webp",
             "imageAlt": "",
             "title": "Renewable Energy Integration",
             "description": "Projects seeking to coordinate distributed renewable generation and storage resources.",
@@ -3647,7 +3646,7 @@
         "primaryHref": "/contact",
         "secondaryLabel": "",
         "secondaryHref": "",
-        "image": "/images/energyEcosystem/energyEcosystemSectionBackground.webp"
+        "image": "/images/client/cta/cta-1.webp"
       }
     },
     "supplyChain": {
@@ -3659,7 +3658,7 @@
         "eyebrow": "Supply Chain Financing",
         "heading": "Solar & BESS Supply Chain Financing Support",
         "description": "Solar and battery energy storage procurement involves product selection, order commitments, payment terms and delivery planning. For distributors, EPC contractors and project buyers, aligning these commercial requirements is an important part of managing purchasing operations.\nCNX works with business buyers to clarify PV and BESS product requirements, procurement quantities and commercial arrangements. Where applicable financing options or financing partners are available, their scope and terms must be confirmed separately.",
-        "image": "/images/manufacturing/bess/bess-banner.webp",
+        "image": "/images/client/solutions/supply-chain-financing-hero.webp",
         "imageAlt": "Battery storage products ready for shipment",
         "primaryLabel": "Discuss Your Procurement Needs",
         "primaryHref": "/contact",
@@ -3696,21 +3695,21 @@
         "intro": "Supply chain planning begins with a clear understanding of the products being purchased, the order value, delivery requirements and commercial terms.\nCNX supports business buyers in clarifying product and procurement requirements across relevant PV and BESS categories.",
         "cards": {
           "modules": {
-            "image": "/images/manufacturing/solar-panels/solar-panels-banner.webp",
+            "image": "/images/client/home/hero-1.webp",
             "imageAlt": "",
             "title": "Solar Module Procurement",
             "description": "Clarify module specifications, order quantities, certification requirements and delivery destinations for residential, C&I or utility-scale solar projects.",
             "href": "/manufacturing/solar-panels"
           },
           "bess": {
-            "image": "/images/manufacturing/bess/bess-banner.webp",
+            "image": "/images/client/home/scene-supply-chain-financing.webp",
             "imageAlt": "",
             "title": "Battery Energy Storage Procurement",
             "description": "Define the required BESS configuration, power and energy capacity, quantities and technical documentation before commercial arrangements are reviewed.",
             "href": "/manufacturing/bess"
           },
           "multi": {
-            "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+            "image": "/images/client/why-choose/tier1-brands.webp",
             "imageAlt": "",
             "title": "Multi-Category Product Sourcing",
             "description": "Coordinate requirements across modules, inverters and storage products when a purchase involves multiple product categories or supplier arrangements.",
@@ -3746,7 +3745,7 @@
         "eyebrow": "Support model",
         "heading": "Coordinating Procurement Requirements with CNX",
         "intro": "CNX supports PV and BESS buyers by helping clarify product specifications, order quantities, sourcing options and delivery requirements. This provides a clearer basis for commercial discussions and any applicable financing assessment.",
-        "image": "/images/home/CTABackground.webp",
+        "image": "/images/client/why-choose/global-logistics.webp",
         "items": {
           "reason1": {
             "title": "Product and Order Review",
@@ -3804,7 +3803,7 @@
         "primaryHref": "/contact",
         "secondaryLabel": "",
         "secondaryHref": "",
-        "image": "/images/manufacturing/manufacturing-why-choose-us.webp"
+        "image": "/images/client/cta/cta-3.webp"
       }
     },
     "gridTie": {
@@ -3816,7 +3815,7 @@
         "eyebrow": "Grid-tie Projects",
         "heading": "Source the Right Solar Equipment for Your Grid-Connected Project",
         "description": "We help EPC contractors, project developers and procurement teams source solar modules, inverters and battery storage products for grid-connected solar projects. With access to our manufacturing capabilities and selected brand partners, CNX offers flexible sourcing options and project-focused procurement coordination.",
-        "image": "/images/energyEcosystem/energyEcosystemSectionBackground.webp",
+        "image": "/images/client/projects/grid-tie-hero.webp",
         "imageAlt": "Rows of solar modules at a grid-connected plant",
         "chips": {
           "chip1": {
@@ -3841,7 +3840,7 @@
         "intro": "A grid-connected project requires more than individual products. Product specifications, inverter requirements, storage needs and delivery schedules must fit the project scope. CNX helps you review these requirements and coordinate relevant equipment sourcing through one procurement contact.",
         "rows": {
           "row1": {
-            "image": "/images/manufacturing/solar-panels/solar-panels-banner.webp",
+            "image": "/images/client/home/scene-utility.webp",
             "imageAlt": "",
             "title": "Solar PV Modules",
             "description": "We offer access to our manufacturing capabilities and selected module brands, helping you compare available product options against project specifications, required quantities and commercial targets.",
@@ -3860,7 +3859,7 @@
         "eyebrow": "Why choose CNX",
         "heading": "Why Choose CNX for Grid-Connected Solar Projects?",
         "intro": "",
-        "image": "/images/hero/hero-smart-pv.webp",
+        "image": "/images/client/projects/grid-tie-why-choose.webp",
         "items": {
           "reason1": {
             "title": "More Flexible PV Sourcing",
@@ -3966,7 +3965,7 @@
         "primaryHref": "/contact",
         "secondaryLabel": "",
         "secondaryHref": "",
-        "image": "/images/news/news-epc-financing.webp"
+        "image": "/images/client/cta/cta-2.webp"
       }
     },
     "offGrid": {
@@ -4006,7 +4005,7 @@
             "linkHref": ""
           },
           "row3": {
-            "image": "/images/manufacturing/bess/bess-banner.webp",
+            "image": "/images/client/home/hero-2.webp",
             "imageAlt": "",
             "title": "Telecom & Essential Remote Loads",
             "description": "We help identify relevant solar and battery products for remote equipment sites, where storage capacity, backup duration and environmental conditions need careful consideration.",
@@ -4025,7 +4024,7 @@
         "eyebrow": "Why choose CNX",
         "heading": "Why Choose CNX for Off-Grid Solar & Storage Projects?",
         "intro": "",
-        "image": "/images/home/ctabg2.webp",
+        "image": "/images/client/why-choose/hybrid-procurement.webp",
         "items": {
           "reason1": {
             "title": "Solar and Storage Sourcing in One Place",
@@ -4105,7 +4104,7 @@
         "primaryHref": "/contact",
         "secondaryLabel": "",
         "secondaryHref": "",
-        "image": "/images/manufacturing/solar-panels/solar-panels-banner.webp"
+        "image": "/images/client/cta/cta-2.webp"
       }
     },
     "projectFinancing": {
@@ -4152,7 +4151,7 @@
         "eyebrow": "Why choose CNX",
         "heading": "Why Work With CNX on Solar Project Procurement?",
         "intro": "",
-        "image": "/images/about/whyChooseCNX/whyChooseCNXHeroBanner.webp",
+        "image": "/images/client/why-choose/epc-financing.webp",
         "items": {
           "reason1": {
             "title": "Connect Funding Discussions With Real Equipment Requirements",
@@ -4260,7 +4259,7 @@
         "primaryHref": "/contact",
         "secondaryLabel": "",
         "secondaryHref": "",
-        "image": "/images/hero/hero-smart-pv.webp"
+        "image": "/images/client/cta/cta-3.webp"
       }
     }
   }

@@ -110,7 +110,16 @@ function IconMark({ icon }: { icon: string }) {
   );
 }
 
-const SCENE_SIZES = "(min-width: 1280px) 420px, (min-width: 640px) 50vw, 100vw";
+/**
+ * Width a scene-card photo is drawn at. The box is 424:300, so a 16:9 photo is
+ * drawn ~1.3× the card width (object-cover); declare that, or the browser
+ * downloads a version narrower than it shows.
+ */
+function sceneSizes(count: number): string {
+  if (count === 2) return "(min-width: 640px) 860px, 130vw";
+  if (count === 4) return "(min-width: 1280px) 440px, (min-width: 640px) 65vw, 130vw";
+  return "(min-width: 1024px) 580px, (min-width: 640px) 65vw, 130vw";
+}
 
 function sceneGrid(count: number): string {
   if (count === 2) return "sm:grid-cols-2";
@@ -135,7 +144,7 @@ export function ImageRows({ data, tone }: BlockProps) {
               image={str(row, "image")}
               title={str(row, "title")}
               description={str(row, "description")}
-              imageSizes={SCENE_SIZES}
+              imageSizes={sceneSizes(rows.length)}
             />
           </Reveal>
         ))}
@@ -167,7 +176,7 @@ export async function ImageCards({ data, tone }: BlockProps) {
         <ul className={cn("grid gap-x-24 gap-y-40", sceneGrid(cards.length))}>
           {cards.map((card, index) => (
             <Reveal key={card.key} as="li" delay={stagger(index, cascade(2))} className="flex">
-              <SceneCard href={card.href} image={card.image} title={card.title} description={card.description} imageSizes={SCENE_SIZES} />
+              <SceneCard href={card.href} image={card.image} title={card.title} description={card.description} imageSizes={sceneSizes(cards.length)} />
             </Reveal>
           ))}
         </ul>
@@ -177,7 +186,7 @@ export async function ImageCards({ data, tone }: BlockProps) {
   );
 }
 
-function ProductCard({ card, grouped, tone }: { card: MessageTree; grouped: boolean; tone: BlockTone }) {
+function ProductCard({ card, grouped, tone, sizes }: { card: MessageTree; grouped: boolean; tone: BlockTone; sizes: string }) {
   const Title = grouped ? "h4" : "h3";
   const image = str(card, "image");
   // Brand logos (SVG) sit centred on a light tile; product photos fill the box.
@@ -207,7 +216,7 @@ function ProductCard({ card, grouped, tone }: { card: MessageTree; grouped: bool
             src={image}
             alt={str(card, "imageAlt")}
             fill
-            sizes="(min-width: 1280px) 300px, (min-width: 640px) 45vw, 120px"
+            sizes={sizes}
             className={cn(logo ? "object-contain p-20 sm:p-56" : "object-cover", CARD_IMAGE_ZOOM)}
           />
         ) : null}
@@ -231,6 +240,13 @@ function ProductCard({ card, grouped, tone }: { card: MessageTree; grouped: bool
       </div>
     </Link>
   );
+}
+
+/** Width a product photo is drawn at, per row length (square box = card width; phones: 120px tile). */
+function productSizes(count: number): string {
+  if (count >= 4) return "(min-width: 1280px) 330px, (min-width: 640px) 50vw, 120px";
+  if (count === 2) return "(min-width: 640px) 660px, 120px";
+  return "(min-width: 1024px) 440px, (min-width: 640px) 50vw, 120px";
 }
 
 /**
@@ -257,7 +273,7 @@ export function ProductCards({ data, tone }: BlockProps) {
             <ul className={cn("grid gap-24", group.cards.length >= 4 ? "sm:grid-cols-2 xl:grid-cols-4" : group.cards.length === 2 ? "sm:grid-cols-2" : "sm:grid-cols-2 lg:grid-cols-3")}>
               {group.cards.map(([id, card], index) => (
                 <Reveal key={id} as="li" delay={stagger(index, cascade(2))} className="flex">
-                  <ProductCard card={card} grouped={Boolean(group.name)} tone={tone} />
+                  <ProductCard card={card} grouped={Boolean(group.name)} tone={tone} sizes={productSizes(group.cards.length)} />
                 </Reveal>
               ))}
             </ul>

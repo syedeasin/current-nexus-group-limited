@@ -71,7 +71,7 @@ export default async function ProjectCases({ data, tone }: BlockProps) {
                         src={item.coverImage}
                         alt=""
                         fill
-                        sizes="(min-width: 1024px) 420px, (min-width: 640px) 50vw, 100vw"
+                        sizes="(min-width: 1024px) 640px, (min-width: 640px) 70vw, 100vw"
                         className={cn("object-cover", CARD_IMAGE_ZOOM)}
                       />
                     ) : null}

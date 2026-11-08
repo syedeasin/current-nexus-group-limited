@@ -163,6 +163,10 @@ export default function ProductTabs({ tabs, ariaLabel }: ProductTabsProps) {
                       href={product.href}
                       image={product.image}
                       title={product.title}
+                      // Long product names ("Commercial & Industrial – Grid Forming")
+                      // get two lines instead of an ellipsis; the whole row keeps level.
+                      reserveTwoLineTitle={tab.products.some((item) => item.title.length > 22)}
+                      insetImage
                     />
                   );
 

@@ -21,6 +21,11 @@ interface ProductCardProps {
   reserveTwoLineTitle?: boolean;
   /** Premium Solutions' tighter caption block: no side padding, 4px gap (Figma node 29:2703). */
   compactInfo?: boolean;
+  /**
+   * Product shots on white (homepage Solar Panels / BESS tabs): the photo sits
+   * inside the card with an even margin instead of running to the edges.
+   */
+  insetImage?: boolean;
   className?: string;
 }
 
@@ -34,6 +39,7 @@ export default function ProductCard({
   imageSizes = "(min-width: 1280px) 318px, (min-width: 1024px) 32vw, (min-width: 480px) 45vw, 100vw",
   reserveTwoLineTitle = false,
   compactInfo = false,
+  insetImage = false,
   className,
 }: ProductCardProps) {
   const reducedMotion = usePrefersReducedMotion();
@@ -76,23 +82,25 @@ export default function ProductCard({
           imageAspectClassName
         )}
       >
-        <Image
-          ref={imgRef}
-          src={image}
-          alt=""
-          aria-hidden="true"
-          fill
-          sizes={imageSizes}
-          onLoad={() => setImageLoaded(true)}
-          className={cn(
-            "rounded-12 object-cover",
-            CARD_IMAGE_ZOOM,
-            // The entrance fade is one-off; once the photo is in, only transform
-            // is animated so hover never re-runs an opacity transition.
-            !imageLoaded && "transition-[opacity,transform]",
-            imageShown ? "opacity-100" : "opacity-0"
-          )}
-        />
+        <div className={cn("absolute overflow-hidden", insetImage ? "inset-16 sm:inset-24" : "inset-0")}>
+          <Image
+            ref={imgRef}
+            src={image}
+            alt=""
+            aria-hidden="true"
+            fill
+            sizes={imageSizes}
+            onLoad={() => setImageLoaded(true)}
+            className={cn(
+              insetImage ? "object-cover" : "rounded-12 object-cover",
+              CARD_IMAGE_ZOOM,
+              // The entrance fade is one-off; once the photo is in, only transform
+              // is animated so hover never re-runs an opacity transition.
+              !imageLoaded && "transition-[opacity,transform]",
+              imageShown ? "opacity-100" : "opacity-0"
+            )}
+          />
+        </div>
         {/* Border overlay: drawn on top of the already-clipped image, so the
             border never participates in clipping and can't leak a corner. */}
         <div

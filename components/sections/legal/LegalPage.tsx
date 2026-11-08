@@ -134,7 +134,7 @@ export default async function LegalPage({ pageKey }: { pageKey: LegalKey }) {
         heading={t("title")}
         description={t("intro")}
         descriptionTopHeavy
-        image={{ src: t("bannerImage") || "/images/home/CTABackground.webp", objectPosition: "center" }}
+        image={{ src: t("bannerImage") || "/images/client/cta/cta-3.webp", objectPosition: "center" }}
         containerClassName="h-360 justify-end py-48 md:h-400 xl:h-440 xl:pb-80"
       />
 

@@ -115,7 +115,9 @@ export default function WhyChooseShowcaseExplorer({
                 src={reason.image || fallbackImage}
                 alt={index === active ? imageAlt : ""}
                 fill
-                sizes="(min-width: 1280px) 600px, 50vw"
+                // The box is taller than the 16:9 photos, so object-cover draws them
+                // ~940px wide in a ~600px column: ask for that width, not the column's.
+                sizes="(min-width: 1024px) 960px, 100vw"
                 className="object-cover"
               />
             </div>
