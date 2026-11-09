@@ -95,9 +95,9 @@ const BRANDS: SeedBrand[] = [
     summary: "LFP cells & energy storage systems",
     status: DownloadStatus.PUBLISHED,
     content: products([
-      { series: "PV and ESS Integrated Machine 125kW/261kWh", category: "C&I energy storage", image: "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp", specs: [["Rated power", "125 kW"], ["Rated energy", "261 kWh"], ["Cell chemistry", "LFP"], ["Best for", "C&I solar-plus-storage"]] },
-      { series: "ESS Cabinet 125kW/261kWh", category: "C&I energy storage", image: "/images/premiumSolutions/hithiumEssCabinet.webp", specs: [["Rated power", "125 kW"], ["Rated energy", "261 kWh"], ["Cell chemistry", "LFP"], ["Best for", "Peak shaving & backup"]] },
-      { series: "∞Block 418 kWh", category: "Utility-scale storage", image: "/images/premiumSolutions/hithiumBlock.webp", specs: [["Rated energy", "418 kWh"], ["Cell chemistry", "LFP"], ["Format", "Modular block"], ["Best for", "Utility & grid-scale"]] },
+      { series: "PV and ESS Integrated Machine 125kW/261kWh", category: "C&I energy storage", image: "/images/client/products/brand/hithium-integrated.webp", specs: [["Rated power", "125 kW"], ["Rated energy", "261 kWh"], ["Cell chemistry", "LFP"], ["Best for", "C&I solar-plus-storage"]] },
+      { series: "ESS Cabinet 125kW/261kWh", category: "C&I energy storage", image: "/images/client/products/brand/hithium-ess-cabinet.webp", specs: [["Rated power", "125 kW"], ["Rated energy", "261 kWh"], ["Cell chemistry", "LFP"], ["Best for", "Peak shaving & backup"]] },
+      { series: "∞Block 418 kWh", category: "Utility-scale storage", image: "/images/client/products/brand/hithium-block.webp", specs: [["Rated energy", "418 kWh"], ["Cell chemistry", "LFP"], ["Format", "Modular block"], ["Best for", "Utility & grid-scale"]] },
     ]),
   },
   {

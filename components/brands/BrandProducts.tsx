@@ -108,7 +108,9 @@ export default function BrandProducts({
                   alt={item.series}
                   fill
                   sizes="(min-width: 1024px) 424px, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover"
+                  // Contained on the card's grey: product shots are cutouts on a
+                  // 424:280 canvas at one product height (public/images/client/products/brand).
+                  className="object-contain"
                 />
               ) : logo ? (
                 <Image src={logo} alt="" aria-hidden="true" width={180} height={48} className="h-28 w-auto max-w-[70%] object-contain opacity-50 grayscale sm:h-36" />

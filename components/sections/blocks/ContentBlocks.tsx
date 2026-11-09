@@ -186,10 +186,12 @@ export async function ImageCards({ data, tone }: BlockProps) {
   );
 }
 
-function ProductCard({ card, grouped, tone, sizes }: { card: MessageTree; grouped: boolean; tone: BlockTone; sizes: string }) {
+function ProductCard({ card, grouped, sizes }: { card: MessageTree; grouped: boolean; sizes: string }) {
   const Title = grouped ? "h4" : "h3";
   const image = str(card, "image");
-  // Brand logos (SVG) sit centred on a light tile; product photos fill the box.
+  // Every card shares one light panel. Product photos are transparent cutouts on
+  // a shared square canvas at one product height (public/images/client/products/square),
+  // so they are contained, not cropped, and read the same size; brand logos (SVG) get padding.
   const logo = /\.svg$/i.test(image);
   const specs = str(card, "specs")
     .split(/[,\n]/)
@@ -205,19 +207,14 @@ function ProductCard({ card, grouped, tone, sizes }: { card: MessageTree; groupe
         CARD_LIFT
       )}
     >
-      <div
-        className={cn(
-          "relative isolate aspect-square w-full transform-gpu overflow-clip [backface-visibility:hidden] max-sm:aspect-auto max-sm:w-120 max-sm:shrink-0",
-          logo ? panelBg(tone) : "bg-neutral-11"
-        )}
-      >
+      <div className="relative isolate aspect-square w-full transform-gpu overflow-clip bg-surface-2 [backface-visibility:hidden] max-sm:aspect-auto max-sm:w-120 max-sm:shrink-0">
         {image ? (
           <Image
             src={image}
             alt={str(card, "imageAlt")}
             fill
             sizes={sizes}
-            className={cn(logo ? "object-contain p-20 sm:p-56" : "object-cover", CARD_IMAGE_ZOOM)}
+            className={cn("object-contain", logo && "p-20 sm:p-56", CARD_IMAGE_ZOOM)}
           />
         ) : null}
       </div>
@@ -273,7 +270,7 @@ export function ProductCards({ data, tone }: BlockProps) {
             <ul className={cn("grid gap-24", group.cards.length >= 4 ? "sm:grid-cols-2 xl:grid-cols-4" : group.cards.length === 2 ? "sm:grid-cols-2" : "sm:grid-cols-2 lg:grid-cols-3")}>
               {group.cards.map(([id, card], index) => (
                 <Reveal key={id} as="li" delay={stagger(index, cascade(2))} className="flex">
-                  <ProductCard card={card} grouped={Boolean(group.name)} tone={tone} sizes={productSizes(group.cards.length)} />
+                  <ProductCard card={card} grouped={Boolean(group.name)} sizes={productSizes(group.cards.length)} />
                 </Reveal>
               ))}
             </ul>

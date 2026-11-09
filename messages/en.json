@@ -134,22 +134,22 @@
           "products": {
             "backContactSolarPanel": {
               "title": "CurrentWave BC",
-              "image": "/images/client/products/currentwave-bc.webp",
+              "image": "/images/client/products/tab/currentwave-bc.webp",
               "href": "/manufacturing/solar-panels/bc"
             },
             "hjtsSolarPanel": {
               "title": "CurrentWave HJT",
-              "image": "/images/client/products/currentwave-hjt.webp",
+              "image": "/images/client/products/tab/currentwave-hjt.webp",
               "href": "/manufacturing/solar-panels/hjt"
             },
             "topconSolarPanel": {
               "title": "CurrentWave TOPCon",
-              "image": "/images/client/products/currentwave-topcon.webp",
+              "image": "/images/client/products/tab/currentwave-topcon.webp",
               "href": "/manufacturing/solar-panels/topcon"
             },
             "odmVerticalSolarModules": {
               "title": "CurrentWave Revamping",
-              "image": "/images/client/products/currentwave-revamping.webp",
+              "image": "/images/client/products/tab/currentwave-revamping.webp",
               "href": "/manufacturing/solar-panels/revamping"
             }
           }
@@ -159,22 +159,22 @@
           "products": {
             "residentialBess": {
               "title": "Residential BESS",
-              "image": "/images/client/products/bess-residential.webp",
+              "image": "/images/client/products/tab/bess-residential.webp",
               "href": "/manufacturing/bess/residential"
             },
             "bess112kwh": {
               "title": "Commercial & Industrial – Grid Forming",
-              "image": "/images/client/products/bess-ci-grid-forming.webp",
+              "image": "/images/client/products/tab/bess-ci-grid-forming.webp",
               "href": "/manufacturing/bess/112kwh"
             },
             "bess261kwh": {
               "title": "Commercial & Industrial – Grid Tied",
-              "image": "/images/client/products/bess-ci-grid-tied.webp",
+              "image": "/images/client/products/tab/bess-ci-grid-tied.webp",
               "href": "/manufacturing/bess/261kwh"
             },
             "bess488kwh": {
               "title": "Utility – Container BESS",
-              "image": "/images/client/products/bess-utility-container.webp",
+              "image": "/images/client/products/tab/bess-utility-container.webp",
               "href": "/manufacturing/bess/488kwh"
             }
           }
@@ -194,17 +194,17 @@
           "products": {
             "product1": {
               "title": "Product 1",
-              "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+              "image": "/images/client/products/rail/hithium-integrated.webp",
               "href": "/tier-1-brands/ja-solar"
             },
             "product2": {
               "title": "Product 2",
-              "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+              "image": "/images/client/products/rail/hithium-integrated.webp",
               "href": "/tier-1-brands/ja-solar"
             },
             "product3": {
               "title": "Product 3",
-              "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+              "image": "/images/client/products/rail/hithium-integrated.webp",
               "href": "/tier-1-brands/ja-solar"
             }
           }
@@ -215,17 +215,17 @@
           "products": {
             "product1": {
               "title": "Product 1",
-              "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+              "image": "/images/client/products/rail/hithium-integrated.webp",
               "href": "/tier-1-brands/tongwei"
             },
             "product2": {
               "title": "Product 2",
-              "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+              "image": "/images/client/products/rail/hithium-integrated.webp",
               "href": "/tier-1-brands/tongwei"
             },
             "product3": {
               "title": "Product 3",
-              "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+              "image": "/images/client/products/rail/hithium-integrated.webp",
               "href": "/tier-1-brands/tongwei"
             }
           }
@@ -236,17 +236,17 @@
           "products": {
             "pvEssIntegratedMachine": {
               "title": "PV and ESS Integrated Machine 125kW/261kWh",
-              "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+              "image": "/images/client/products/rail/hithium-integrated.webp",
               "href": "/tier-1-brands/hithium"
             },
             "essCabinet": {
               "title": "ESS Cabinet 125kW/261kWh",
-              "image": "/images/premiumSolutions/hithiumEssCabinet.webp",
+              "image": "/images/client/products/rail/hithium-ess-cabinet.webp",
               "href": "/tier-1-brands/hithium"
             },
             "infinityBlock": {
               "title": "∞Block 418 kWh",
-              "image": "/images/premiumSolutions/hithiumBlock.webp",
+              "image": "/images/client/products/rail/hithium-block.webp",
               "href": "/tier-1-brands/hithium"
             }
           }
@@ -257,17 +257,17 @@
           "products": {
             "product1": {
               "title": "Product 1",
-              "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+              "image": "/images/client/products/rail/hithium-integrated.webp",
               "href": "/tier-1-brands/growatt"
             },
             "product2": {
               "title": "Product 2",
-              "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+              "image": "/images/client/products/rail/hithium-integrated.webp",
               "href": "/tier-1-brands/growatt"
             },
             "product3": {
               "title": "Product 3",
-              "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+              "image": "/images/client/products/rail/hithium-integrated.webp",
               "href": "/tier-1-brands/growatt"
             }
           }
@@ -278,17 +278,17 @@
           "products": {
             "product1": {
               "title": "Product 1",
-              "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+              "image": "/images/client/products/rail/hithium-integrated.webp",
               "href": "/tier-1-brands/deye"
             },
             "product2": {
               "title": "Product 2",
-              "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+              "image": "/images/client/products/rail/hithium-integrated.webp",
               "href": "/tier-1-brands/deye"
             },
             "product3": {
               "title": "Product 3",
-              "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+              "image": "/images/client/products/rail/hithium-integrated.webp",
               "href": "/tier-1-brands/deye"
             }
           }
@@ -299,17 +299,17 @@
           "products": {
             "product1": {
               "title": "Product 1",
-              "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+              "image": "/images/client/products/rail/hithium-integrated.webp",
               "href": "/tier-1-brands/solis"
             },
             "product2": {
               "title": "Product 2",
-              "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+              "image": "/images/client/products/rail/hithium-integrated.webp",
               "href": "/tier-1-brands/solis"
             },
             "product3": {
               "title": "Product 3",
-              "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+              "image": "/images/client/products/rail/hithium-integrated.webp",
               "href": "/tier-1-brands/solis"
             }
           }
@@ -320,17 +320,17 @@
           "products": {
             "product1": {
               "title": "Product 1",
-              "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+              "image": "/images/client/products/rail/hithium-integrated.webp",
               "href": "/tier-1-brands/goodwe"
             },
             "product2": {
               "title": "Product 2",
-              "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+              "image": "/images/client/products/rail/hithium-integrated.webp",
               "href": "/tier-1-brands/goodwe"
             },
             "product3": {
               "title": "Product 3",
-              "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+              "image": "/images/client/products/rail/hithium-integrated.webp",
               "href": "/tier-1-brands/goodwe"
             }
           }
@@ -2125,7 +2125,7 @@
         "cards": {
           "hjt": {
             "group": "Solar modules",
-            "image": "/images/client/products/currentwave-hjt.webp",
+            "image": "/images/client/products/square/currentwave-hjt.webp",
             "imageAlt": "CNX CurrentWave HJT solar module",
             "title": "CurrentWave HJT",
             "description": "High-efficiency heterojunction modules, suitable for high-irradiation areas.",
@@ -2136,7 +2136,7 @@
           },
           "topcon": {
             "group": "Solar modules",
-            "image": "/images/client/products/currentwave-topcon.webp",
+            "image": "/images/client/products/square/currentwave-topcon.webp",
             "imageAlt": "CNX CurrentWave TOPCon solar module",
             "title": "CurrentWave TOPCon",
             "description": "N-type tunnel oxide passivated contact modules with low degradation and a high bifaciality rate.",
@@ -2147,7 +2147,7 @@
           },
           "bc": {
             "group": "Solar modules",
-            "image": "/images/client/products/currentwave-bc.webp",
+            "image": "/images/client/products/square/currentwave-bc.webp",
             "imageAlt": "CNX CurrentWave BC solar module",
             "title": "CurrentWave BC",
             "description": "Back-contact modules: a clean look and high efficiency, suitable for rooftops and limited space.",
@@ -2158,7 +2158,7 @@
           },
           "odm": {
             "group": "Solar modules",
-            "image": "/images/client/products/currentwave-revamping.webp",
+            "image": "/images/client/products/square/currentwave-revamping.webp",
             "imageAlt": "CNX CurrentWave Revamping replacement module",
             "title": "CurrentWave Revamping",
             "description": "Customised size and power to fit the existing bracket holes and the system’s voltage level.",
@@ -2212,7 +2212,7 @@
           },
           "bessResidential": {
             "group": "Energy storage (BESS)",
-            "image": "/images/client/products/bess-residential.webp",
+            "image": "/images/client/products/square/bess-residential.webp",
             "imageAlt": "CNX residential battery storage",
             "title": "Residential BESS",
             "description": "Household-level battery storage for residential systems.",
@@ -2223,7 +2223,7 @@
           },
           "bessCi": {
             "group": "Energy storage (BESS)",
-            "image": "/images/client/products/bess-ci-grid-tied.webp",
+            "image": "/images/client/products/square/bess-ci-grid-tied.webp",
             "imageAlt": "CNX commercial and industrial battery storage",
             "title": "Commercial & Industrial BESS",
             "description": "Industrial and commercial battery storage cabinets.",
@@ -2234,7 +2234,7 @@
           },
           "bessUtility": {
             "group": "Energy storage (BESS)",
-            "image": "/images/client/products/bess-utility-container.webp",
+            "image": "/images/client/products/square/bess-utility-container.webp",
             "imageAlt": "CNX utility container battery storage",
             "title": "Utility – Container BESS",
             "description": "Power-station-level battery storage for utility-scale projects.",
@@ -2922,7 +2922,7 @@
         "cards": {
           "card1": {
             "group": "",
-            "image": "/images/client/products/currentwave-bc.webp",
+            "image": "/images/client/products/square/currentwave-bc.webp",
             "imageAlt": "CNX CurrentWave BC solar module",
             "title": "Rooftop Solar Modules",
             "description": "BC, HJT and TOPCon modules for residential rooftops, selected by roof area, system design and project specifications.",
@@ -2933,7 +2933,7 @@
           },
           "card2": {
             "group": "",
-            "image": "/images/client/products/bess-residential.webp",
+            "image": "/images/client/products/square/bess-residential.webp",
             "imageAlt": "CNX residential battery storage",
             "title": "Residential BESS",
             "description": "Residential battery storage for self-consumption and backup, sized to capacity, power and inverter compatibility.",
@@ -2944,7 +2944,7 @@
           },
           "card3": {
             "group": "",
-            "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+            "image": "/images/client/products/square/hithium-integrated.webp",
             "imageAlt": "Integrated PV and storage unit",
             "title": "Tier 1 Brand Inverters & Storage",
             "description": "String and hybrid inverters and storage from selected Tier 1 brands, matched to the PV array and storage design.",
@@ -3084,7 +3084,7 @@
         "cards": {
           "card1": {
             "group": "",
-            "image": "/images/client/products/currentwave-hjt.webp",
+            "image": "/images/client/products/square/currentwave-hjt.webp",
             "imageAlt": "CNX CurrentWave HJT solar module",
             "title": "High-Efficiency PV Modules",
             "description": "HJT, TOPCon and BC modules for commercial and industrial rooftops and carports.",
@@ -3095,7 +3095,7 @@
           },
           "card2": {
             "group": "",
-            "image": "/images/client/products/bess-ci-grid-forming.webp",
+            "image": "/images/client/products/square/bess-ci-grid-forming.webp",
             "imageAlt": "CNX grid-forming C&I battery storage",
             "title": "Commercial & Industrial – Grid Forming",
             "description": "Grid-forming cabinet storage for commercial and industrial sites, selected to the project’s power and energy requirements.",
@@ -3106,7 +3106,7 @@
           },
           "card3": {
             "group": "",
-            "image": "/images/client/products/bess-ci-grid-tied.webp",
+            "image": "/images/client/products/square/bess-ci-grid-tied.webp",
             "imageAlt": "CNX grid-tied C&I battery storage",
             "title": "Commercial & Industrial – Grid Tied",
             "description": "Grid-tied cabinet storage for commercial and industrial solar-plus-storage projects.",
@@ -3117,7 +3117,7 @@
           },
           "card4": {
             "group": "",
-            "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+            "image": "/images/client/products/square/hithium-integrated.webp",
             "imageAlt": "Integrated PV and storage unit",
             "title": "Tier 1 Brand Inverters & Storage",
             "description": "Commercial string and hybrid inverters and storage from selected Tier 1 brands.",
@@ -3294,7 +3294,7 @@
         "cards": {
           "card1": {
             "group": "",
-            "image": "/images/client/products/currentwave-topcon.webp",
+            "image": "/images/client/products/square/currentwave-topcon.webp",
             "imageAlt": "CNX CurrentWave TOPCon solar module",
             "title": "Utility-Scale Solar Modules",
             "description": "Screen products based on the specified power, size, electrical parameters and certification requirements for the project.",
@@ -3305,7 +3305,7 @@
           },
           "card2": {
             "group": "",
-            "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+            "image": "/images/client/products/square/hithium-integrated.webp",
             "imageAlt": "Integrated PV and storage unit",
             "title": "Selected Inverter Brands",
             "description": "If the project’s procurement scope includes inverters, explore the relevant brand and product pages.",
@@ -3316,7 +3316,7 @@
           },
           "card3": {
             "group": "",
-            "image": "/images/client/products/bess-utility-container.webp",
+            "image": "/images/client/products/square/bess-utility-container.webp",
             "imageAlt": "CNX utility container battery storage",
             "title": "Utility – Container BESS",
             "description": "Where a large-scale project includes energy storage, explore the BESS range; the supply scope is confirmed per project.",
@@ -3470,7 +3470,7 @@
         "cards": {
           "card1": {
             "group": "",
-            "image": "/images/client/products/currentwave-bc.webp",
+            "image": "/images/client/products/square/currentwave-bc.webp",
             "imageAlt": "CNX CurrentWave BC solar module",
             "title": "Solar PV Modules",
             "description": "Source PV modules for distributed solar installations according to required power ratings, dimensions, electrical parameters and applicable certifications.",
@@ -3481,7 +3481,7 @@
           },
           "card2": {
             "group": "",
-            "image": "/images/client/products/bess-ci-grid-tied.webp",
+            "image": "/images/client/products/square/bess-ci-grid-tied.webp",
             "imageAlt": "CNX battery storage cabinet",
             "title": "Battery Energy Storage Systems",
             "description": "Explore battery storage product options based on rated power, energy capacity, operating environment and the project’s specified integration requirements.",
@@ -3492,7 +3492,7 @@
           },
           "card3": {
             "group": "",
-            "image": "/images/premiumSolutions/hithiumPVndEssIntegratedMachine.webp",
+            "image": "/images/client/products/square/hithium-integrated.webp",
             "imageAlt": "Integrated PV and storage unit",
             "title": "Inverters & Brand Products",
             "description": "Hybrid and storage inverters from selected Tier 1 brands, where included in the project scope.",

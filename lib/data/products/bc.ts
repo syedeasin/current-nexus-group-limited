@@ -482,26 +482,26 @@ export const bcProductDetail: ProductDetail = {
       {
         title: "CNX TOPCon Solar Modules",
         body: "High-efficiency N-Type TOPCon modules delivering reliable performance for utility-scale and commercial solar projects.",
-        image: "/images/client/products/currentwave-topcon.webp",
+        image: "/images/client/products/cutout/currentwave-topcon.webp",
         href: "/manufacturing/solar-panels/topcon",
         featured: true,
       },
       {
         title: "CNX BC Solar Modules",
         body: "Premium back-contact solar modules combining exceptional efficiency with a sleek all-black design for modern installations.",
-        image: "/images/client/products/currentwave-bc.webp",
+        image: "/images/client/products/cutout/currentwave-bc.webp",
         href: "/manufacturing/solar-panels/bc",
       },
       {
         title: "CNX 488kWh C&I BESS",
         body: "Commercial and industrial battery energy storage designed to optimize energy usage, reduce peak demand, and provide reliable backup power.",
-        image: "/images/client/products/bess-utility-container.webp",
+        image: "/images/client/products/cutout/bess-utility-container.webp",
         href: "/manufacturing/bess/488kwh",
       },
       {
         title: "Compatible String or Hybrid Inverters",
         body: "Smart hybrid and string inverters engineered for seamless integration with solar PV and battery storage systems.",
-        image: "/images/client/why-choose/tier1-brands.webp",
+        image: "/images/client/products/cutout/hithium-integrated.webp",
         // No inverter product page exists yet in the manufacturing data file — points at the closest built hub for now.
         href: "/tier-1-brands",
       },

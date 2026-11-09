@@ -91,8 +91,11 @@ export default function ProductCard({
             fill
             sizes={imageSizes}
             onLoad={() => setImageLoaded(true)}
+            // Contained, never cropped: product shots are transparent cutouts on a
+            // canvas shaped like this box, with one product height per row
+            // (public/images/client/products/tab and /rail), so every card matches.
             className={cn(
-              insetImage ? "object-cover" : "rounded-12 object-cover",
+              insetImage ? "object-contain" : "rounded-12 object-contain",
               CARD_IMAGE_ZOOM,
               // The entrance fade is one-off; once the photo is in, only transform
               // is animated so hover never re-runs an opacity transition.
