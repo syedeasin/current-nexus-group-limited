@@ -2433,7 +2433,7 @@
         "eyebrow": "Solutions",
         "heading": "Solar Energy Solutions for Different Applications",
         "description": "CNX supports solar and energy storage sourcing for a range of applications, from residential and commercial systems to utility-scale projects. We help customers identify suitable PV modules, inverters and battery energy storage products based on project requirements, system configuration and procurement needs.",
-        "image": "/images/client/solutions/hub-hero.webp",
+        "image": "/images/client/solutions/hub-hero-hd.webp",
         "imageAlt": "Aerial view of a large solar plant",
         "primaryLabel": "Discuss Your Project",
         "primaryHref": "/contact",
@@ -3816,7 +3816,7 @@
         "eyebrow": "Grid-tie Projects",
         "heading": "Source the Right Solar Equipment for Your Grid-Connected Project",
         "description": "We help EPC contractors, project developers and procurement teams source solar modules, inverters and battery storage products for grid-connected solar projects. With access to our manufacturing capabilities and selected brand partners, CNX offers flexible sourcing options and project-focused procurement coordination.",
-        "image": "/images/client/projects/grid-tie-hero.webp",
+        "image": "/images/client/projects/grid-tie-hero-hd.webp",
         "imageAlt": "Rows of solar modules at a grid-connected plant",
         "chips": {
           "chip1": {
